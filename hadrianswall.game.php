@@ -57,6 +57,8 @@ class HadriansWall extends Table
     */
     protected function setupNewGame( $players, $options = array() )
     {    
+        self::debug( "PHP - setupNewGame" ); 
+
         // Set the colors of the players with HTML color code
         // The default below is red/green/blue/orange/brown
         // The number of colors defined here must correspond to the maximum number of players allowed for the gams
@@ -74,7 +76,7 @@ class HadriansWall extends Table
         }
         $sql .= implode( $values, ',' );
         self::DbQuery( $sql );
-        self::reattributeColorsBasedOnPreferences( $players, $gameinfos['player_colors'] );
+        //self::reattributeColorsBasedOnPreferences( $players, $gameinfos['player_colors'] );
         self::reloadPlayersBasicInfos();
         
         /************ Start the game initialization *****/

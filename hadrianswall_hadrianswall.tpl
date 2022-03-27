@@ -66,11 +66,16 @@
 </div>
 
 
-<div id="board1"></div>
-<div id="board2"></div>
+<div id="sheet1">
+    <div id="checkmark" class="checkmark" style="left:90px;top:76px;"></div>
+
+    <div id="checkmark" class="checkmark" style="left:140px;top:76px;"></div>
+    <div id="checkmark" class="checkmark" style="left:154px;top:76px;"></div>
+</div>
+<div id="sheet2"></div>
 </div>
 
-<div class="hidden"> 
+<div class=""> 
     <div id="x" class="playercardsheet player_card_1"></div>
     <div id="x" class="playercardsheet player_card_2"></div>
     <div id="x" class="playercardsheet player_card_3"></div>
@@ -85,7 +90,7 @@
     <div id="x" class="playercardsheet player_card_12"></div>
 </div>
 
-<div class="hidden"> 
+<div class=""> 
     <div id="x" class="pictcardsheet pict_card_1"></div>
     <div id="x" class="pictcardsheet pict_card_2"></div>
     <div id="x" class="pictcardsheet pict_card_3"></div>
