@@ -70,10 +70,16 @@
 
 */
 
+#x {
+    display: inline-block;
+    position: relative;
+}
+
 #playerboard1 {
     display: inline-block;
     width: 740px;
     height: 257px;
+    margin-top: 140px;
     background-image: url('img/PlayerBoard.jpg');
     position: relative;
 }
@@ -82,6 +88,7 @@
     display: inline-block;
     width: 740px;
     height: 257px;    
+    margin-top: 140px;
     background-position-x: 740px;
     background-image: url('img/PlayerBoard.jpg');
     position: relative;
@@ -106,12 +113,13 @@
     position: relative;
 }
 
-#playercardsheet {
+.playercardsheet {
     width: 221px;
     height: 352px;
     border-radius: 10px;
+    border: 1px solid black;
     background-image: url('img/PlayerCardSheet.jpg');
-    position: relative;
+    
 }
 
 .player_back_1 { background-position:     0px 0px; }
@@ -133,3 +141,113 @@
 .player_card_10 { background-position:  -884px -704px; }
 .player_card_11 { background-position: -1105px -352px; }
 .player_card_12 { background-position: -1105px -704px; }
+
+.goal { top: -135px; z-index: -1; position: absolute; }
+.goal_round_1 { left: 20px; }
+.goal_round_2 { left: 263px; }
+.goal_round_3 { left: 507px; }
+.goal_round_4 { left: 11px; }
+.goal_round_5 { left: 255px; }
+.goal_round_6 { left: 499px; }
+
+.playercardbottomsheet {
+    width: 221px;
+    height: 215px;
+    border-radius: 10px;
+    border: 1px solid black;
+    background-image: url('img/PlayerCardSheet.jpg');    
+}
+
+.player_cardbottom_1 { background-position:      0px -489px; }
+.player_cardbottom_2 { background-position:      0px -841px; }
+.player_cardbottom_3 { background-position:   -221px -489px; }
+.player_cardbottom_4 { background-position:   -221px -841px; }
+.player_cardbottom_5 { background-position:   -442px -489px; }
+.player_cardbottom_6 { background-position:   -442px -841px; }
+.player_cardbottom_7 { background-position:   -663px -489px; }
+.player_cardbottom_8 { background-position:   -663px -841px; }
+.player_cardbottom_9 { background-position:   -884px -489px; }
+.player_cardbottom_10 { background-position:  -884px -841px; }
+.player_cardbottom_11 { background-position: -1105px -489px; }
+.player_cardbottom_12 { background-position: -1105px -841px; }
+
+.pick { top: 40px; scale: 0.6; position: absolute; }
+.pick_round_1 { left:  10px; }
+.pick_round_2 { left: 253px; }
+.pick_round_3 { left: 497px; }
+.pick_round_4 { left:  11px; }
+.pick_round_5 { left: 255px; }
+.pick_round_6 { left: 499px; }
+
+.op_pick { top: 100px; scale: 0.4; z-index: 1; position: absolute; }
+.op_l_pick_round_1 { left: -40px; }
+.op_l_pick_round_2 { left: 203px; }
+.op_l_pick_round_3 { left: 447px; }
+.op_l_pick_round_4 { left: -39px; }
+.op_l_pick_round_5 { left: 205px; }
+.op_l_pick_round_6 { left: 449px; }
+
+.op_r_pick_round_1 { left:  60px; }
+.op_r_pick_round_2 { left: 303px; }
+.op_r_pick_round_3 { left: 547px; }
+.op_r_pick_round_4 { left: 61px; }
+.op_r_pick_round_5 { left: 305px; }
+.op_r_pick_round_6 { left: 549px; }
+
+.hidden { display: none !important; }
+
+.pictcardsheet {
+    width: 221px;
+    height: 352px;
+    border-radius: 10px;
+    border: 1px solid black;
+    background-image: url('img/PictCardSheet.jpg');   
+}
+.pict_card_1 { background-position:      0px     0px;}
+.pict_card_2 { background-position:   -221px     0px;}
+.pict_card_3 { background-position:   -442px     0px;}
+.pict_card_4 { background-position:   -663px     0px;}
+.pict_card_5 { background-position:   -884px     0px;}
+.pict_card_6 { background-position:  -1105px     0px;}
+.pict_card_7 { background-position:  -1326px     0px;}
+.pict_card_8 { background-position:  -1547px     0px;}
+.pict_card_9 { background-position:  -1768px     0px;}
+.pict_card_10 { background-position: -1989px     0px;}
+.pict_card_11 { background-position: -2210px     0px;}
+.pict_card_12 { background-position: -2431px     0px;}
+.pict_card_13 { background-position:     0px  -352px;}
+.pict_card_14 { background-position:  -221px  -352px;}
+.pict_card_15 { background-position:  -442px  -352px;}
+.pict_card_16 { background-position:  -663px  -352px;}
+.pict_card_17 { background-position:  -884px  -352px;}
+.pict_card_18 { background-position: -1105px  -352px;}
+.pict_card_19 { background-position: -1326px  -352px;}
+.pict_card_20 { background-position: -1547px  -352px;}
+.pict_card_21 { background-position: -1768px  -352px;}
+.pict_card_22 { background-position: -1989px  -352px;}
+.pict_card_23 { background-position: -2210px  -352px;}
+.pict_card_24 { background-position: -2431px  -352px;}
+.pict_card_25 { background-position:     0px  -704px;}
+.pict_card_26 { background-position:  -221px  -704px;}
+.pict_card_27 { background-position:  -442px  -704px;}
+.pict_card_28 { background-position:  -663px  -704px;}
+.pict_card_29 { background-position:  -884px  -704px;}
+.pict_card_30 { background-position: -1105px  -704px;}
+.pict_card_31 { background-position: -1326px  -704px;}
+.pict_card_32 { background-position: -1547px  -704px;}
+.pict_card_33 { background-position: -1768px  -704px;}
+.pict_card_34 { background-position: -1989px  -704px;}
+.pict_card_35 { background-position: -2210px  -704px;}
+.pict_card_36 { background-position: -2431px  -704px;}
+.pict_card_37 { background-position:     0px -1056px;}
+.pict_card_38 { background-position:  -221px -1056px;}
+.pict_card_39 { background-position:  -442px -1056px;}
+.pict_card_40 { background-position:  -663px -1056px;}
+.pict_card_41 { background-position:  -884px -1056px;}
+.pict_card_42 { background-position: -1105px -1056px;}
+.pict_card_43 { background-position: -1326px -1056px;}
+.pict_card_44 { background-position: -1547px -1056px;}
+.pict_card_45 { background-position: -1768px -1056px;}
+.pict_card_46 { background-position: -1989px -1056px;}
+.pict_card_47 { background-position: -2210px -1056px;}
+.pict_card_48 { background-position: -2431px -1056px;}
