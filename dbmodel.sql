@@ -33,3 +33,11 @@
 -- Example 2: add a custom field to the standard "player" table
 -- ALTER TABLE `player` ADD `player_my_custom_field` INT UNSIGNED NOT NULL DEFAULT '0';
 
+-- ALTER TABLE `player` ADD `civilians` INT UNSIGNED NOT NULL DEFAULT '0';
+-- ALTER TABLE `player` ADD `servants` INT UNSIGNED NOT NULL DEFAULT '0';
+-- ALTER TABLE `player` ADD `soldiers` INT UNSIGNED NOT NULL DEFAULT '0';
+-- ALTER TABLE `player` ADD `builders` INT UNSIGNED NOT NULL DEFAULT '0';
+-- ALTER TABLE `player` ADD `resources` INT UNSIGNED NOT NULL DEFAULT '0';
+-- ALTER TABLE `player` ADD `cohorts` INT UNSIGNED NOT NULL DEFAULT '0';  -- because it's not placed immedatily
+
+

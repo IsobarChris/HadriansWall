@@ -80,7 +80,9 @@
     width: 740px;
     height: 257px;
     margin-top: 140px;
+    margin-bottom: 2px;
     background-image: url('img/PlayerBoard.jpg');
+    border: 2px solid black;
     position: relative;
 }
 
@@ -89,8 +91,10 @@
     width: 740px;
     height: 257px;    
     margin-top: 140px;
+    margin-bottom: 2px;
     background-position-x: 740px;
     background-image: url('img/PlayerBoard.jpg');
+    border: 2px solid black;
     position: relative;
 }
 
@@ -101,6 +105,7 @@
     height: 740px;
     background-color: aqua;
     background-image: url('img/Sheet1.jpg');
+    border: 2px solid black;
     position: relative;
 }
 
@@ -110,6 +115,7 @@
     height: 740px;
     background-color: aquamarine;
     background-image: url('img/Sheet2.jpg');
+    border: 2px solid black;
     position: relative;
 }
 

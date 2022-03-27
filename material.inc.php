@@ -109,7 +109,7 @@ $this->player_cards = [
     'name' => clienttranslate('Engineer'),
     'bonusGoal' => 'Large Buildings',
 
-    'scout' => 'L', // O I T Z
+    'scout' => 'L', // L O I T Z
     'tradeGood' => 2,
 
     'soldiers' => 0,
@@ -118,13 +118,12 @@ $this->player_cards = [
     'civilians' => 0,
     'resources' => 1,
   ],
-
   'player_card_2' => [
     'type' => 'player_card',
     'name' => clienttranslate('Defender'),
     'bonusGoal' => 'Completed Wall Sections',
 
-    'scout' => 'L', // O I T Z
+    'scout' => 'L', // L O I T Z
     'tradeGood' => 1,
 
     'soldiers' => 0,
@@ -133,7 +132,6 @@ $this->player_cards = [
     'civilians' => 0,
     'resources' => 1,
   ],
-
   'player_card_3' => [
     'type' => 'player_card',
     'name' => clienttranslate('Merchant'),
@@ -148,7 +146,6 @@ $this->player_cards = [
     'civilians' => 1,
     'resources' => 1,
   ],
-
   'player_card_4' => [
     'type' => 'player_card',
     'name' => clienttranslate('Fighter'),
@@ -291,7 +288,7 @@ $this->fate_cards =
     'civilians' => 2,
     'resources' => 1,
   ],
-'fate_card_2' => [
+  'fate_card_2' => [
     'type' => 'fate',
     'name' => clienttranslate('Fate Card'),
     'attackDirection' => 'Right',
@@ -303,7 +300,7 @@ $this->fate_cards =
     'civilians' => 1,
     'resources' => 2,
   ],
-'fate_card_3' => [
+  'fate_card_3' => [
     'type' => 'fate',
     'name' => clienttranslate('Fate Card'),
     'attackDirection' => 'Right',
@@ -315,7 +312,7 @@ $this->fate_cards =
     'civilians' => 1,
     'resources' => 1,
   ],
-'fate_card_4' => [
+  'fate_card_4' => [
     'type' => 'fate',
     'name' => clienttranslate('Fate Card'),
     'attackDirection' => 'Left',
@@ -327,7 +324,7 @@ $this->fate_cards =
     'civilians' => 1,
     'resources' => 2,
   ],
-'fate_card_5' => [
+  'fate_card_5' => [
     'type' => 'fate',
     'name' => clienttranslate('Fate Card'),
     'attackDirection' => 'Center',
@@ -339,7 +336,7 @@ $this->fate_cards =
     'civilians' => 2,
     'resources' => 1,
   ],
-'fate_card_6' => [
+  'fate_card_6' => [
     'type' => 'fate',
     'name' => clienttranslate('Fate Card'),
     'attackDirection' => 'Left',
@@ -351,7 +348,7 @@ $this->fate_cards =
     'civilians' => 1,
     'resources' => 2,
   ],
-'fate_card_7' => [
+  'fate_card_7' => [
     'type' => 'fate',
     'name' => clienttranslate('Fate Card'),
     'attackDirection' => 'Right',
@@ -363,7 +360,7 @@ $this->fate_cards =
     'civilians' => 2,
     'resources' => 1,
   ],
-'fate_card_8' => [
+  'fate_card_8' => [
     'type' => 'fate',
     'name' => clienttranslate('Fate Card'),
     'attackDirection' => 'Left',
@@ -375,7 +372,7 @@ $this->fate_cards =
     'civilians' => 2,
     'resources' => 2,
   ],
-'fate_card_9' => [
+  'fate_card_9' => [
     'type' => 'fate',
     'name' => clienttranslate('Fate Card'),
     'attackDirection' => 'Left',
@@ -387,7 +384,7 @@ $this->fate_cards =
     'civilians' => 1,
     'resources' => 2,
   ],
-'fate_card_10' => [
+  'fate_card_10' => [
     'type' => 'fate',
     'name' => clienttranslate('Fate Card'),
     'attackDirection' => 'Center',
@@ -399,7 +396,7 @@ $this->fate_cards =
     'civilians' => 1,
     'resources' => 1,
   ],
-'fate_card_11' => [
+  'fate_card_11' => [
     'type' => 'fate',
     'name' => clienttranslate('Fate Card'),
     'attackDirection' => 'Center',
@@ -411,7 +408,7 @@ $this->fate_cards =
     'civilians' => 1,
     'resources' => 0,
   ],
-'fate_card_12' => [
+  'fate_card_12' => [
     'type' => 'fate',
     'name' => clienttranslate('Fate Card'),
     'attackDirection' => 'Right',
@@ -423,7 +420,7 @@ $this->fate_cards =
     'civilians' => 1,
     'resources' => 1,
   ],
-'fate_card_13' => [
+  'fate_card_13' => [
     'type' => 'fate',
     'name' => clienttranslate('Fate Card'),
     'attackDirection' => 'Center',
@@ -435,7 +432,7 @@ $this->fate_cards =
     'civilians' => 2,
     'resources' => 1,
   ],
-'fate_card_14' => [
+  'fate_card_14' => [
     'type' => 'fate',
     'name' => clienttranslate('Fate Card'),
     'attackDirection' => 'Right',
@@ -447,7 +444,7 @@ $this->fate_cards =
     'civilians' => 1,
     'resources' => 2,
   ],
-'fate_card_15' => [
+  'fate_card_15' => [
     'type' => 'fate',
     'name' => clienttranslate('Fate Card'),
     'attackDirection' => 'Right',
@@ -459,7 +456,7 @@ $this->fate_cards =
     'civilians' => 1,
     'resources' => 1,
   ],
-'fate_card_16' => [
+  'fate_card_16' => [
     'type' => 'fate',
     'name' => clienttranslate('Fate Card'),
     'attackDirection' => 'Left',
@@ -471,7 +468,7 @@ $this->fate_cards =
     'civilians' => 1,
     'resources' => 2,
   ],
-'fate_card_17' => [
+  'fate_card_17' => [
     'type' => 'fate',
     'name' => clienttranslate('Fate Card'),
     'attackDirection' => 'Center',
@@ -483,7 +480,7 @@ $this->fate_cards =
     'civilians' => 2,
     'resources' => 1,
   ],
-'fate_card_18' => [
+  'fate_card_18' => [
     'type' => 'fate',
     'name' => clienttranslate('Fate Card'),
     'attackDirection' => 'Left',
@@ -495,7 +492,7 @@ $this->fate_cards =
     'civilians' => 1,
     'resources' => 2,
   ],
-'fate_card_19' => [
+  'fate_card_19' => [
     'type' => 'fate',
     'name' => clienttranslate('Fate Card'),
     'attackDirection' => 'Right',
@@ -507,7 +504,7 @@ $this->fate_cards =
     'civilians' => 2,
     'resources' => 1,
   ],
-'fate_card_20' => [
+  'fate_card_20' => [
     'type' => 'fate',
     'name' => clienttranslate('Fate Card'),
     'attackDirection' => 'Left',
@@ -519,7 +516,7 @@ $this->fate_cards =
     'civilians' => 2,
     'resources' => 2,
   ],
-'fate_card_21' => [
+  'fate_card_21' => [
     'type' => 'fate',
     'name' => clienttranslate('Fate Card'),
     'attackDirection' => 'Left',
@@ -531,7 +528,7 @@ $this->fate_cards =
     'civilians' => 1,
     'resources' => 2,
   ],
-'fate_card_22' => [
+  'fate_card_22' => [
     'type' => 'fate',
     'name' => clienttranslate('Fate Card'),
     'attackDirection' => 'Center',
@@ -543,7 +540,7 @@ $this->fate_cards =
     'civilians' => 1,
     'resources' => 1,
   ],
-'fate_card_23' => [
+  'fate_card_23' => [
     'type' => 'fate',
     'name' => clienttranslate('Fate Card'),
     'attackDirection' => 'Center',
@@ -555,7 +552,7 @@ $this->fate_cards =
     'civilians' => 1,
     'resources' => 0,
   ],
-'fate_card_24' => [
+  'fate_card_24' => [
     'type' => 'fate',
     'name' => clienttranslate('Fate Card'),
     'attackDirection' => 'Left',
@@ -567,7 +564,7 @@ $this->fate_cards =
     'civilians' => 1,
     'resources' => 1,
   ],
-'fate_card_25' => [
+  'fate_card_25' => [
     'type' => 'fate',
     'name' => clienttranslate('Fate Card'),
     'attackDirection' => 'Center',
@@ -579,7 +576,7 @@ $this->fate_cards =
     'civilians' => 2,
     'resources' => 1,
   ],
-'fate_card_26' => [
+  'fate_card_26' => [
     'type' => 'fate',
     'name' => clienttranslate('Fate Card'),
     'attackDirection' => 'Right',
@@ -591,7 +588,7 @@ $this->fate_cards =
     'civilians' => 1,
     'resources' => 2,
   ],
-'fate_card_27' => [
+  'fate_card_27' => [
     'type' => 'fate',
     'name' => clienttranslate('Fate Card'),
     'attackDirection' => 'Right',
@@ -603,7 +600,7 @@ $this->fate_cards =
     'civilians' => 1,
     'resources' => 1,
   ],
-'fate_card_28' => [
+  'fate_card_28' => [
     'type' => 'fate',
     'name' => clienttranslate('Fate Card'),
     'attackDirection' => 'Left',
@@ -615,7 +612,7 @@ $this->fate_cards =
     'civilians' => 1,
     'resources' => 2,
   ],
-'fate_card_29' => [
+  'fate_card_29' => [
     'type' => 'fate',
     'name' => clienttranslate('Fate Card'),
     'attackDirection' => 'Center',
@@ -627,7 +624,7 @@ $this->fate_cards =
     'civilians' => 2,
     'resources' => 1,
   ],
-'fate_card_30' => [
+  'fate_card_30' => [
     'type' => 'fate',
     'name' => clienttranslate('Fate Card'),
     'attackDirection' => 'Left',
@@ -639,7 +636,7 @@ $this->fate_cards =
     'civilians' => 1,
     'resources' => 2,
   ],
-'fate_card_31' => [
+  'fate_card_31' => [
     'type' => 'fate',
     'name' => clienttranslate('Fate Card'),
     'attackDirection' => 'Right',
@@ -651,7 +648,7 @@ $this->fate_cards =
     'civilians' => 2,
     'resources' => 1,
   ],
-'fate_card_32' => [
+  'fate_card_32' => [
     'type' => 'fate',
     'name' => clienttranslate('Fate Card'),
     'attackDirection' => 'Left',
@@ -663,7 +660,7 @@ $this->fate_cards =
     'civilians' => 2,
     'resources' => 2,
   ],
-'fate_card_33' => [
+  'fate_card_33' => [
     'type' => 'fate',
     'name' => clienttranslate('Fate Card'),
     'attackDirection' => 'Left',
@@ -675,7 +672,7 @@ $this->fate_cards =
     'civilians' => 1,
     'resources' => 2,
   ],
-'fate_card_34' => [
+  'fate_card_34' => [
     'type' => 'fate',
     'name' => clienttranslate('Fate Card'),
     'attackDirection' => 'Center',
@@ -687,7 +684,7 @@ $this->fate_cards =
     'civilians' => 1,
     'resources' => 1,
   ],
-'fate_card_35' => [
+  'fate_card_35' => [
     'type' => 'fate',
     'name' => clienttranslate('Fate Card'),
     'attackDirection' => 'Center',
@@ -699,7 +696,7 @@ $this->fate_cards =
     'civilians' => 1,
     'resources' => 0,
   ],
-'fate_card_36' => [
+  'fate_card_36' => [
     'type' => 'fate',
     'name' => clienttranslate('Fate Card'),
     'attackDirection' => 'Left',
@@ -711,7 +708,7 @@ $this->fate_cards =
     'civilians' => 1,
     'resources' => 1,
   ],
-'fate_card_37' => [
+  'fate_card_37' => [
     'type' => 'fate',
     'name' => clienttranslate('Fate Card'),
     'attackDirection' => 'Center',
@@ -723,7 +720,7 @@ $this->fate_cards =
     'civilians' => 2,
     'resources' => 1,
   ],
-'fate_card_38' => [
+  'fate_card_38' => [
     'type' => 'fate',
     'name' => clienttranslate('Fate Card'),
     'attackDirection' => 'Right',
@@ -735,7 +732,7 @@ $this->fate_cards =
     'civilians' => 1,
     'resources' => 2,
   ],
-'fate_card_39' => [
+  'fate_card_39' => [
     'type' => 'fate',
     'name' => clienttranslate('Fate Card'),
     'attackDirection' => 'Right',
@@ -747,7 +744,7 @@ $this->fate_cards =
     'civilians' => 1,
     'resources' => 1,
   ],
-'fate_card_40' => [
+  'fate_card_40' => [
     'type' => 'fate',
     'name' => clienttranslate('Fate Card'),
     'attackDirection' => 'Left',
@@ -759,7 +756,7 @@ $this->fate_cards =
     'civilians' => 1,
     'resources' => 2,
   ],
-'fate_card_41' => [
+  'fate_card_41' => [
     'type' => 'fate',
     'name' => clienttranslate('Fate Card'),
     'attackDirection' => 'Center',
@@ -771,7 +768,7 @@ $this->fate_cards =
     'civilians' => 2,
     'resources' => 1,
   ],
-'fate_card_42' => [
+  'fate_card_42' => [
     'type' => 'fate',
     'name' => clienttranslate('Fate Card'),
     'attackDirection' => 'Left',
@@ -783,7 +780,7 @@ $this->fate_cards =
     'civilians' => 1,
     'resources' => 2,
   ],
-'fate_card_43' => [
+  'fate_card_43' => [
     'type' => 'fate',
     'name' => clienttranslate('Fate Card'),
     'attackDirection' => 'Right',
@@ -795,7 +792,7 @@ $this->fate_cards =
     'civilians' => 2,
     'resources' => 1,
   ],
-'fate_card_44' => [
+  'fate_card_44' => [
     'type' => 'fate',
     'name' => clienttranslate('Fate Card'),
     'attackDirection' => 'Left',
@@ -807,7 +804,7 @@ $this->fate_cards =
     'civilians' => 2,
     'resources' => 2,
   ],
-'fate_card_45' => [
+  'fate_card_45' => [
     'type' => 'fate',
     'name' => clienttranslate('Fate Card'),
     'attackDirection' => 'Left',
@@ -819,7 +816,7 @@ $this->fate_cards =
     'civilians' => 1,
     'resources' => 2,
   ],
-'fate_card_46' => [
+  'fate_card_46' => [
     'type' => 'fate',
     'name' => clienttranslate('Fate Card'),
     'attackDirection' => 'Center',
@@ -831,7 +828,7 @@ $this->fate_cards =
     'civilians' => 1,
     'resources' => 1,
   ],
-'fate_card_47' => [
+  'fate_card_47' => [
     'type' => 'fate',
     'name' => clienttranslate('Fate Card'),
     'attackDirection' => 'Center',
@@ -843,7 +840,7 @@ $this->fate_cards =
     'civilians' => 1,
     'resources' => 0,
   ],
-'fate_card_48' => [
+  'fate_card_48' => [
     'type' => 'fate',
     'name' => clienttranslate('Fate Card'),
     'attackDirection' => 'Right',
@@ -857,65 +854,5 @@ $this->fate_cards =
   ],
 ];
 
-
-/*
-cardId	
-attackDirection	
-gladiatorStrength	
-tradeGood	
-soldiers	
-builders	
-servants	
-civilians	
-resources
-1	Left	1	1	2	1	1	2	2
-2	Left	2	1	2	2	1	1	2
-3	Left	3	1	2	1	2	1	2
-4	Left	3	1	1	3	1	1	2
-5	Centre	1	1	2	2	3	1	0
-6	Centre	2	1	2	2	2	1	1
-7	Centre	2	1	1	2	2	2	1
-8	Centre	3	1	1	1	3	2	1
-9	Right	1	1	2	3	1	1	1
-10	Right	1	1	1	2	3	1	1
-11	Right	2	1	2	1	2	2	1
-12	Right	2	1	1	2	2	1	2
-13	Left	1	2	2	1	1	2	2
-14	Left	2	2	2	2	1	1	2
-15	Left	3	2	2	1	2	1	2
-16	Left	3	2	1	3	1	1	2
-17	Centre	1	2	2	2	3	1	0
-18	Centre	2	2	2	2	2	1	1
-19	Centre	2	2	1	2	2	2	1
-20	Centre	3	2	1	1	3	2	1
-21	Right	1	2	2	3	1	1	1
-22	Right	1	2	1	2	3	1	1
-23	Right	2	2	1	2	2	1	2
-24	Right	2	2	2	1	2	2	1
-25	Left	2	3	2	2	1	1	2
-26	Left	3	3	2	1	2	1	2
-27	Left	3	3	1	3	1	1	2
-28	Centre	2	3	2	2	2	1	1
-29	Centre	2	3	1	2	2	2	1
-30	Centre	3	3	1	1	3	2	1
-31	Right	2	3	2	1	2	2	1
-32	Right	2	3	1	2	2	1	2
-33	Left	1	4	2	1	1	2	2
-34	Left	3	4	1	3	1	1	2
-35	Left	3	4	2	1	2	1	2
-36	Centre	1	4	2	2	3	1	0
-37	Centre	2	4	2	2	2	1	1
-38	Right	1	4	2	3	1	1	1
-39	Right	1	4	1	2	3	1	1
-40	Right	2	4	2	1	2	2	1
-41	Left	2	5	2	2	1	1	2
-42	Centre	2	5	1	2	2	2	1
-43	Centre	3	5	1	1	3	2	1
-44	Right	2	5	1	2	2	1	2
-45	Left	1	6	2	1	1	2	2
-46	Centre	1	6	2	2	3	1	0
-47	Right	1	6	1	2	3	1	1
-48	Right	1	6	2	3	1	1	1
-*/
 
 
