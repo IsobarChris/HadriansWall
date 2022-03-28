@@ -67,15 +67,11 @@
 
 
 <div id="sheet1">
-    <div id="checkmark" class="checkmark" style="left:90px;top:76px;"></div>
-
-    <div id="checkmark" class="checkmark" style="left:140px;top:76px;"></div>
-    <div id="checkmark" class="checkmark" style="left:154px;top:76px;"></div>
 </div>
 <div id="sheet2"></div>
 </div>
 
-<div class=""> 
+<div class="hidden"> 
     <div id="x" class="playercardsheet player_card_1"></div>
     <div id="x" class="playercardsheet player_card_2"></div>
     <div id="x" class="playercardsheet player_card_3"></div>
@@ -90,7 +86,7 @@
     <div id="x" class="playercardsheet player_card_12"></div>
 </div>
 
-<div class=""> 
+<div class="hidden"> 
     <div id="x" class="pictcardsheet pict_card_1"></div>
     <div id="x" class="pictcardsheet pict_card_2"></div>
     <div id="x" class="pictcardsheet pict_card_3"></div>
@@ -144,14 +140,16 @@
 
 <script type="text/javascript">
 
-
 // Javascript HTML templates
-
 /*
 // Example:
 var jstpl_some_game_item='<div class="my_game_item" id="my_game_item_${MY_ITEM_ID}"></div>';
-
 */
+
+var jstpl_scratch='<div id="${id}" class="outlined" style="position:absolute;border-radius:${radius}px;left:${x}px;top:${y}px;width:${w}px;height:${h}px;"></div>';
+
+// <div id="checkmark" class="checkmark" style="left:90px;top:76px;"></div>
+
 
 </script>  
 

@@ -117,7 +117,8 @@
     position: relative;
 }
 
-.checkmark {
+.scratch {
+    display: block;
     width: 16px;
     height: 16px;
     background-image: url('img/Scratch.png');
@@ -205,7 +206,8 @@
 .op_r_pick_round_5 { left: 305px; }
 .op_r_pick_round_6 { left: 549px; }
 
-.hidden { display: none !important; }
+.hidden { display: none; }
+.outlined { border: 1px solid red; opacity: 0.5; background-color: brown;}
 
 .pictcardsheet {
     width: 221px;
