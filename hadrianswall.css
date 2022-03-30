@@ -206,9 +206,6 @@
 .op_r_pick_round_5 { left: 305px; }
 .op_r_pick_round_6 { left: 549px; }
 
-.hidden { display: none; }
-.outlined { border: 1px solid red; opacity: 0.5; background-color: brown;}
-
 .pictcardsheet {
     width: 221px;
     height: 352px;
@@ -290,3 +287,16 @@
 .pict_card_46 { background-position: -1989px -1056px;}
 .pict_card_47 { background-position: -2210px -1056px;}
 .pict_card_48 { background-position: -2431px -1056px;}
+
+.hidden { display: none; }
+/*.outlined { border: 1px solid red; opacity: 0.5; background-color: red;}*/
+.outlined { border: 1px solid black; margin:0px; opacity: 1; background-color: #4444;}
+.circle { border-radius: 50%; -webkit-background-clip: padding-box; -moz-background-clip: padding; background-clip: padding-box; }
+.roundNumber { font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; text-align: center; border: 0px; };
+
+.hex { /* doesn't seem to work */
+    content: "\2B22";
+    color: orange;
+    font-size:135px;
+  }
+

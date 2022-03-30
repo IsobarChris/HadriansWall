@@ -179,7 +179,7 @@ function (dojo, declare) {
                         console.log(`Sheet: ${sheet}  Zone: ${zone}  Cord: ${cord}  for index ${i}`);
 
                         let id = `${zone}_s${i+1}`;
-                        let scratch = this.format_block('jstpl_scratch',{id: id, ...cord, radius:(cord.circle?cord.w/2:0)});
+                        let scratch = this.format_block('jstpl_scratch',{id: id, class: "", value: "", ...cord});
                         console.log(`Adding: ${scratch}`);
                         dojo.place(scratch, sheet);
                     })
@@ -305,149 +305,235 @@ function (dojo, declare) {
    });             
 });
 
+
+const PLUS = 'PLUS';
+const RESOURCE = 'RESOURCE';
+const RESOURCE_PRODUCTION = 'RESOURCE_PRODUCTION';
+const CIVILIAN = 'CIVILIAN';
+const CIVILIAN_PRODUCTION = 'CIVILIAN_PRODUCTION';
+const SERVANT = 'SERVANT';
+const SOLDIER = 'SOLDIER';
+const BUILDER = 'BUILDER';
+const BUILDER_PRODUCTION = 'BUILDER_PRODUCTION';
+const RENOWN = 'RENOWN';
+const PIETY = 'PIETY';
+const VALOUR = 'VALOUR';
+const DISCIPLINE = 'DISCIPLINE';
+const ATTRIBUTE_PRODUCTION = 'ATTRIBUTE_PRODUCTION';
+const TRADER = 'TRADER';
+const PERFORMER = 'PERFORMER';
+const PRIEST = 'PRIEST';
+const APPARITOR = 'APPARITOR';
+const PATRICIAN = 'PATRICIAN';
+const COHORT = 'COHORT';
+const DISDAIN = 'DISDAIN';
+const REMOVE_DISDAIN = 'REMOVE_DISDAIN';
+const RED_GLADIATOR = 'RED_GLADIATOR';
+const BLUE_GLADIATOR = 'BLUE_GLADIATOR';
+const TRADE_GOOD = 'TRADE_GOOD';
+const SCOUT = 'SCOUT';
+const SWORD = 'SWORD';
+
+
 let sheets_scratch_locations = {
     sheet1:{
-        left_cohort:[
-            {x: 128,y:24,w:16,h:17},
-            {x: 148,y:24,w:16,h:17},
-            {x: 168,y:24,w:16,h:17},
-            {x: 187,y:24,w:16,h:17},
-            {x: 206,y:24,w:16,h:17},
-            {x: 225,y:24,w:16,h:17},
-        ],
+        left_cohort:
+        // {
+        //     prereq:null,
+        //     cost:[COHORT],
+        //     altCost:null,
+        //     boxes:
+            [
+                {x: 128,y:24,w:16,h:17},
+                {x: 148,y:24,w:16,h:17},
+                {x: 168,y:24,w:16,h:17,r:[DISCIPLINE]},
+                {x: 187,y:24,w:16,h:17},
+                {x: 206,y:24,w:16,h:17,r:[VALOUR]},
+                {x: 225,y:24,w:16,h:17,r:[DISCIPLINE]},
+            ],
+        // },
         center_cohort:[
             {x: 355,y:23,w:16,h:17},
             {x: 375,y:23,w:16,h:17},
-            {x: 395,y:23,w:16,h:17},
+            {x: 395,y:23,w:16,h:17,r:[DISCIPLINE]},
             {x: 414,y:23,w:16,h:17},
-            {x: 433,y:23,w:16,h:17},
-            {x: 452,y:23,w:16,h:17},
+            {x: 433,y:23,w:16,h:17,r:[VALOUR]},
+            {x: 452,y:23,w:16,h:17,r:[DISCIPLINE]},
         ],
         right_cohort:[
             {x: 582,y:21,w:16,h:17},
             {x: 602,y:21,w:16,h:17},
-            {x: 621,y:21,w:16,h:17},
+            {x: 621,y:21,w:16,h:17,r:[DISCIPLINE]},
             {x: 641,y:21,w:16,h:17},
-            {x: 660,y:21,w:16,h:17},
-            {x: 679,y:21,w:16,h:17},
+            {x: 660,y:21,w:16,h:17,r:[VALOUR]},
+            {x: 679,y:21,w:16,h:17,r:[DISCIPLINE]},
         ],
         mining_and_foresting:[
             {x: 90,y:75,w:16,h:17},
-            {x:137,y:75,w:36,h:17},
+            {x:137,y:75,w:36,h:17,r:[RESOURCE_PRODUCTION,RESOURCE]},
             {x:206,y:75,w:16,h:17},
             {x:254,y:75,w:16,h:17},
-            {x:300,y:75,w:36,h:17},
+            {x:300,y:75,w:36,h:17,r:[RESOURCE_PRODUCTION,RESOURCE]},
             {x:356,y:75,w:16,h:17},
             {x:392,y:75,w:16,h:17},
-            {x:428,y:75,w:36,h:17},
+            {x:428,y:75,w:36,h:17,r:[RESOURCE_PRODUCTION,RESOURCE]},
             {x:484,y:75,w:16,h:17},
             {x:520,y:75,w:16,h:17},
-            {x:557,y:75,w:36,h:17},
+            {x:557,y:75,w:36,h:17,r:[RESOURCE_PRODUCTION,RESOURCE]},
             {x:613,y:75,w:16,h:17},
             {x:649,y:75,w:16,h:17},
-            {x:685,y:75,w:36,h:17},
+            {x:685,y:75,w:36,h:17,r:[RESOURCE_PRODUCTION,RESOURCE]},
         ],
         wall_guard:[
-            {x: 81,y:122,w:16,h:17},            
-            {x:117,y:122,w:16,h:17},            
-            {x:153,y:122,w:16,h:17},            
+            {x: 81,y:122,w:16,h:17,r:[COHORT]},
+            {x:117,y:122,w:16,h:17,r:[DISCIPLINE]},
+            {x:153,y:122,w:16,h:17,r:[COHORT]},
             {x:190,y:122,w:16,h:17},            
             {x:225,y:122,w:16,h:17},            
-            {x:262,y:122,w:16,h:17},            
+            {x:262,y:122,w:16,h:17,r:[COHORT]},
             {x:302,y:122,w:16,h:17},            
             {x:338,y:122,w:16,h:17},            
-            {x:373,y:122,w:16,h:17},            
+            {x:373,y:122,w:16,h:17,r:[COHORT]},
             {x:410,y:122,w:16,h:17},            
             {x:446,y:122,w:16,h:17},            
-            {x:482,y:122,w:16,h:17},            
+            {x:482,y:122,w:16,h:17,r:[COHORT]},
             {x:521,y:122,w:16,h:17},            
             {x:558,y:122,w:16,h:17},            
-            {x:594,y:122,w:16,h:17},            
+            {x:594,y:122,w:16,h:17,r:[COHORT]},
             {x:631,y:122,w:16,h:17},            
             {x:666,y:122,w:16,h:17},            
-            {x:702,y:122,w:16,h:17},            
+            {x:702,y:122,w:16,h:17,r:[COHORT]},
         ],
         cippi:[
             {x: 94,y:171,w:16,h:17},
             {x:191,y:171,w:16,h:17},
-            {x:268,y:171,w:16,h:17},
-            {x:353,y:171,w:16,h:17},
-            {x:450,y:171,w:16,h:17},
-            {x:554,y:171,w:16,h:17},
-            {x:671,y:171,w:16,h:17},
+            {x:268,y:171,w:16,h:17,r:[COHORT]},
+            {x:353,y:171,w:16,h:17,r:[CIVILIAN]},
+            {x:450,y:171,w:16,h:17,r:[COHORT]},
+            {x:554,y:171,w:16,h:17,r:[RENOWN]},
+            {x:671,y:171,w:16,h:17,r:[COHORT]},
         ],
         wall:[
-            {x: 74,y:219,w:16,h:17},
+            {x: 74,y:219,w:16,h:17,r:[CIVILIAN]},
             {x:113,y:219,w:16,h:17},
-            {x:133,y:219,w:16,h:17},
-            {x:153,y:219,w:36,h:17},
-            {x:210,y:219,w:16,h:17},
+            {x:133,y:219,w:16,h:17,r:[CIVILIAN]},
+            {x:153,y:219,w:36,h:17,r:[RENOWN,COHORT]},
+            {x:210,y:219,w:16,h:17,r:[CIVILIAN]},
             {x:230,y:219,w:16,h:17},
-            {x:250,y:219,w:16,h:17},
-            {x:295,y:219,w:16,h:17},
-            {x:315,y:219,w:16,h:17},
+            {x:250,y:219,w:16,h:17,r:[COHORT]},
+            {x:295,y:219,w:16,h:17,r:[RENOWN]},
+            {x:315,y:219,w:16,h:17,r:[CIVILIAN]},
             {x:335,y:219,w:16,h:17},
-            {x:372,y:219,w:36,h:17},
+            {x:372,y:219,w:36,h:17,r:[RENOWN,COHORT]},
             {x:411,y:219,w:16,h:17},
-            {x:431,y:219,w:16,h:17},
-            {x:479,y:219,w:16,h:17},
-            {x:515,y:219,w:16,h:17},
-            {x:535,y:219,w:16,h:17},
+            {x:431,y:219,w:16,h:17,r:[CIVILIAN]},
+            {x:479,y:219,w:16,h:17,r:[COHORT]},
+            {x:515,y:219,w:16,h:17,r:[RENOWN]},
+            {x:535,y:219,w:16,h:17,r:[CIVILIAN]},
             {x:573,y:219,w:16,h:17},
-            {x:593,y:219,w:36,h:17},
-            {x:632,y:219,w:16,h:17},
+            {x:593,y:219,w:36,h:17,r:[RENOWN,COHORT]},
+            {x:632,y:219,w:16,h:17,r:[CIVILIAN]},
             {x:652,y:219,w:16,h:17},
-            {x:700,y:219,w:16,h:17},
+            {x:700,y:219,w:16,h:17,r:[COHORT]},
         ],
         fort:[
             {x: 75,y:266,w:36,h:18},
             {x:114,y:266,w:16,h:18},
             {x:133,y:266,w:16,h:18},
-            {x:152,y:266,w:56,h:18},
+            {x:152,y:266,w:56,h:18,r:[CIVILIAN]},
             {x:210,y:266,w:16,h:18},
-            {x:230,y:266,w:16,h:18},
-            {x:250,y:266,w:36,h:18},
+            {x:230,y:266,w:16,h:18,r:[CIVILIAN]},
+            {x:250,y:266,w:36,h:18,r:[VALOUR]},
 
-            {x:295,y:266,w:16,h:18},
+            {x:295,y:266,w:16,h:18,r:[CIVILIAN]},
             {x:314,y:266,w:16,h:18},
-            {x:334,y:266,w:36,h:18},
+            {x:334,y:266,w:36,h:18,r:[CIVILIAN]},
             {x:372,y:266,w:36,h:18},
-            {x:411,y:266,w:16,h:18},
+            {x:411,y:266,w:16,h:18,r:[CIVILIAN]},
             {x:430,y:266,w:36,h:18},
-            {x:469,y:266,w:36,h:18},
+            {x:469,y:266,w:36,h:18,r:[VALOUR,COHORT]},
 
             {x:515,y:266,w:16,h:18},
-            {x:535,y:266,w:36,h:18},
+            {x:535,y:266,w:36,h:18,r:[CIVILIAN]},
             {x:573,y:266,w:16,h:18},
-            {x:593,y:266,w:36,h:18},
+            {x:593,y:266,w:36,h:18,r:[CIVILIAN]},
             {x:631,y:266,w:16,h:18},
-            {x:651,y:266,w:36,h:18},
-            {x:689,y:266,w:36,h:18},
+            {x:651,y:266,w:36,h:18,r:[CIVILIAN]},
+            {x:689,y:266,w:36,h:18,r:[VALOUR,COHORT]},
+        ],
+        granery:[
+            {x:409,y:319,w:10,h:10,class:'circle'},
+            {x:635,y:319,w:10,h:10,class:'circle'},
+            {x:658,y:317,w:17,h:16},
         ],
         resource_production:[
-            {x:104,y:357,w:13,h:13,circle:true},
-            {x:123,y:357,w:13,h:13,circle:true},
-            {x:142,y:357,w:13,h:13,circle:true},
-            {x:161,y:357,w:13,h:13,circle:true},
-            {x:179,y:357,w:13,h:13,circle:true},
-            {x:198,y:357,w:13,h:13,circle:true},
-            {x:217,y:357,w:13,h:13,circle:true},
-            {x:236,y:357,w:13,h:13,circle:true},
+            {x:105,y:358,w:10,h:10,class:'circle'},
+            {x:124,y:358,w:10,h:10,class:'circle'},
+            {x:143,y:358,w:10,h:10,class:'circle'},
+            {x:162,y:358,w:10,h:10,class:'circle'},
+            {x:180,y:358,w:10,h:10,class:'circle'},
+            {x:199,y:358,w:10,h:10,class:'circle'},
+            {x:218,y:358,w:10,h:10,class:'circle'},
+            {x:238,y:358,w:10,h:10,class:'circle'},
         ],
-        training_grounds:[],
-        training_grounds_1:[],
-        training_grounds_2:[],
-        training_grounds_3:[],
-        training_grounds_4:[],
-        training_grounds_5:[],
-        hotel:[],
-        workshop:[],
-        road:[],
-        forum:[],
-        forum_1:[],
-        forum_2:[],
-        forum_3:[],
-        forum_4:[],
+        training_grounds:[
+            {x:442,y:355,w:16,h:16},
+            {x:478,y:355,w:15,h:16},
+            {x:512,y:355,w:16,h:16},
+            {x:548,y:355,w:16,h:16},
+            {x:582,y:355,w:16,h:16},
+        ],
+        training_grounds_1:[
+            {x:463,y:355,w:13,h:16,class:'roundNumber',value:1},
+        ],
+        training_grounds_2:[
+            {x:498,y:355,w:13,h:16,class:'roundNumber',value:2},
+        ],
+        training_grounds_3:[
+            {x:533,y:355,w:13,h:16,class:'roundNumber',value:3},
+        ],
+        training_grounds_4:[
+            {x:569,y:355,w:13,h:16,class:'roundNumber',value:4},
+        ],
+        training_grounds_5:[
+            {x:603,y:355,w:13,h:16,class:'roundNumber',value:5},
+        ],
+        hotel:[
+            {x:126,y:410,w:10,h:10,class:'circle'},
+            {x:149,y:407,w:15,h:15},
+            {x:126,y:431,w:10,h:10,class:'circle'},
+            {x:149,y:428,w:32,h:15},
+        ],
+        workshop:[
+            {x:322,y:410,w:10,h:10,class:'circle'},
+            {x:345,y:407,w:15,h:15},
+            {x:322,y:431,w:10,h:10,class:'circle'},
+            {x:345,y:428,w:32,h:15},
+        ],
+        road:[
+            {x:514,y:410,w:10,h:10,class:'circle'},
+            {x:537,y:407,w:34,h:15},
+            {x:514,y:431,w:10,h:10,class:'circle'},
+            {x:537,y:428,w:34,h:15},
+        ],
+        forum:[
+            {x:615,y:408,w:16,h:16},
+            {x:615,y:429,w:16,h:16},
+            {x:688,y:408,w:16,h:16},
+            {x:688,y:429,w:16,h:16},
+        ],
+        forum_1:[
+            {x:636,y:408,w:13,h:17,class:'roundNumber',value:5},
+        ],
+        forum_2:[
+            {x:636,y:429,w:13,h:17,class:'roundNumber',value:5},
+        ],
+        forum_3:[
+            {x:709,y:408,w:13,h:17,class:'roundNumber',value:5},
+        ],
+        forum_4:[
+            {x:709,y:429,w:13,h:17,class:'roundNumber',value:5},
+        ],
         archway:[
             {x:209,y:470,w:33,h:16},
         ],
@@ -569,26 +655,400 @@ let sheets_scratch_locations = {
             {x:552,y:615,w:16,h:17},
         ],
         disdain:[
-            {x:201,y:676,w:11,h:11,circle:true},
-            {x:216,y:676,w:11,h:11,circle:true},
-            {x:232,y:676,w:11,h:11,circle:true},
-            {x:248,y:676,w:11,h:11,circle:true},
-            {x:264,y:676,w:11,h:11,circle:true},
+            {x:202,y:677,w:10,h:10,class:'circle'},
+            {x:217,y:677,w:10,h:10,class:'circle'},
+            {x:233,y:677,w:10,h:10,class:'circle'},
+            {x:249,y:677,w:10,h:10,class:'circle'},
+            {x:265,y:677,w:10,h:10,class:'circle'},
 
-            {x:201,y:691,w:11,h:11,circle:true},
-            {x:216,y:691,w:11,h:11,circle:true},
-            {x:232,y:691,w:11,h:11,circle:true},
-            {x:248,y:691,w:11,h:11,circle:true},
-            {x:264,y:691,w:11,h:11,circle:true},
+            {x:202,y:691.5,w:10,h:10,class:'circle'},
+            {x:217,y:691.5,w:10,h:10,class:'circle'},
+            {x:233,y:691.5,w:10,h:10,class:'circle'},
+            {x:249,y:691.5,w:10,h:10,class:'circle'},
+            {x:265,y:691.5,w:10,h:10,class:'circle'},
 
-            {x:201,y:705,w:11,h:11,circle:true},
-            {x:216,y:705,w:11,h:11,circle:true},
-            {x:232,y:705,w:11,h:11,circle:true},
-            {x:248,y:705,w:11,h:11,circle:true},
-            {x:264,y:705,w:11,h:11,circle:true},
+            {x:202,y:706,w:10,h:10,class:'circle'},
+            {x:217,y:706,w:10,h:10,class:'circle'},
+            {x:233,y:706,w:10,h:10,class:'circle'},
+            {x:249,y:706,w:10,h:10,class:'circle'},
+            {x:265,y:706,w:10,h:10,class:'circle'},
         ],
-        removed_disdain:[],
+        removed_disdain:[
+            // {x:201,y:676,w:11,h:11,circle:true},
+            // {x:216,y:676,w:11,h:11,circle:true},
+            // {x:232,y:676,w:11,h:11,circle:true},
+            // {x:248,y:676,w:11,h:11,circle:true},
+            // {x:264,y:676,w:11,h:11,circle:true},
+
+            // {x:201,y:691,w:11,h:11,circle:true},
+            // {x:216,y:691,w:11,h:11,circle:true},
+            // {x:232,y:691,w:11,h:11,circle:true},
+            // {x:248,y:691,w:11,h:11,circle:true},
+            // {x:264,y:691,w:11,h:11,circle:true},
+
+            // {x:201,y:705,w:11,h:11,circle:true},
+            // {x:216,y:705,w:11,h:11,circle:true},
+            // {x:232,y:705,w:11,h:11,circle:true},
+            // {x:248,y:705,w:11,h:11,circle:true},
+            // {x:264,y:705,w:11,h:11,circle:true},
+        ],
     },
     sheet2:{
+        traders:[
+            {x: 12,y:95,w:16,h:16},
+            {x: 31,y:95,w:16,h:16},
+            {x: 51,y:95,w:16,h:16},
+            {x: 70,y:95,w:16,h:16},
+            {x: 89,y:95,w:16,h:16},
+            {x:109,y:95,w:16,h:16},
+            {x:128,y:95,w:16,h:16},
+            {x:147.5,y:95,w:16,h:16},
+            {x:167,y:95,w:16,h:16},
+        ],
+        precinct:[
+            {x:306,y:17,w:44,h:16,r:[PIETY,RESOURCE_PRODUCTION,RESOURCE],c:[SERVANT,CIVILIAN]},
+            {x:306,y:41,w:44,h:16,r:[VALOUR,RESOURCE_PRODUCTION,RESOURCE],c:[SERVANT,CIVILIAN,CIVILIAN]},
+            {x:306,y:63,w:44,h:16,r:[RENOWN,RESOURCE_PRODUCTION,RESOURCE],c:[SERVANT,CIVILIAN,CIVILIAN,CIVILIAN]},
+        ],
+        market:[
+            {x:479,y:17,w:16,h:16,r:[RENOWN]},
+        ],
+        market_1:[
+            {x:422,y:40,w:20,h:18,class:'roundNumber',value:1},
+        ],
+        market_2:[
+            {x:422,y:63,w:20,h:18,class:'roundNumber',value:2},
+        ],
+        market_3:[
+            {x:507,y:40,w:20,h:18,class:'roundNumber',value:3},
+        ],
+        market_4:[
+            {x:507,y:63,w:20,h:18,class:'roundNumber',value:4},
+        ],
+        market_5:[
+            {x:592,y:40,w:20,h:18,class:'roundNumber',value:5},
+        ],
+        market_6:[
+            {x:592,y:63,w:20,h:18,class:'roundNumber',value:6},
+        ],
+        market_7:[
+            {x:677,y:40,w:20,h:18,class:'roundNumber',value:7},
+            {x:709,y:40,w:16,h:16},
+        ],
+        market_8:[
+            {x:677,y:63,w:20,h:18,class:'roundNumber hex',value:8},
+            {x:709,y:63,w:16,h:16},
+        ],
+        performers:[
+            {x: 12,y:261,w:16,h:16},
+            {x: 31,y:261,w:16,h:16},
+            {x: 51,y:261,w:16,h:16},
+            {x: 70,y:261,w:16,h:16},
+            {x: 89,y:261,w:16,h:16},
+            {x:109,y:261,w:16,h:16},
+            {x:128,y:261,w:16,h:16},
+            {x:147.5,y:261,w:16,h:16},
+            {x:167,y:261,w:16,h:16},
+        ],
+        theatre:[
+            {x:316,y:148,w:16,h:16,r:[RENOWN]},
+        ],
+        theatre_1:[
+            {x:256,y:173,w:32,h:16,r:[RENOWN]},
+            {x:290,y:173,w:18,h:18,class:'roundNumber',value:1,r:[RENOWN]},
+        ],
+        theatre_2:[
+            {x:256,y:195,w:32,h:16,r:[RENOWN]},
+            {x:290,y:195,w:18,h:18,class:'roundNumber',value:1,r:[RENOWN]},
+        ],
+        theatre_3:[
+            {x:256,y:219,w:32,h:16,r:[RENOWN]},
+            {x:290,y:219,w:18,h:18,class:'roundNumber',value:1,r:[RENOWN]},
+        ],
+        theatre_4:[
+            {x:375,y:173,w:33,h:16,r:[RENOWN]},
+            {x:410,y:173,w:18,h:18,class:'roundNumber',value:1,r:[RENOWN]},
+        ],
+        theatre_5:[
+            {x:375,y:195,w:33,h:16,r:[RENOWN]},
+            {x:410,y:195,w:18,h:18,class:'roundNumber',value:1,r:[RENOWN]},
+        ],
+        theatre_6:[
+            {x:375,y:219,w:33,h:16,r:[RENOWN]},
+            {x:410,y:219,w:18,h:18,class:'roundNumber',value:1,r:[RENOWN]},
+        ],
+        gladiatorious:[
+            {x:618,y:148,w:16,h:16,r:[RENOWN]},
+        ],
+        red_training:[
+            {x:479,y:195,w:19,h:19,class:'circle'},
+            {x:512,y:195,w:19,h:19,class:'circle'},
+            {x:546,y:195,w:19,h:19,class:'circle'},
+            {x:580,y:195,w:19,h:19,class:'circle'},
+            {x:613,y:195,w:19,h:19,class:'circle'},
+            {x:646,y:195,w:19,h:19,class:'circle'},
+        ],
+        red_damage:[
+            // {x:479,y:195,w:19,h:19,class:'circle'},
+            // {x:512,y:195,w:19,h:19,class:'circle'},
+            // {x:546,y:195,w:19,h:19,class:'circle'},
+            // {x:580,y:195,w:19,h:19,class:'circle'},
+            // {x:613,y:195,w:19,h:19,class:'circle'},
+            // {x:646,y:195,w:19,h:19,class:'circle'},
+        ],
+        blue_training:[
+            {x:479,y:219,w:19,h:19,class:'circle'},
+            {x:512,y:219,w:19,h:19,class:'circle'},
+            {x:546,y:219,w:19,h:19,class:'circle'},
+            {x:580,y:219,w:19,h:19,class:'circle'},
+            {x:613,y:219,w:19,h:19,class:'circle'},
+            {x:646,y:219,w:19,h:19,class:'circle'},
+        ],
+        blue_damage:[
+            // {x:479,y:219,w:19,h:19,class:'circle'},
+            // {x:512,y:219,w:19,h:19,class:'circle'},
+            // {x:546,y:219,w:19,h:19,class:'circle'},
+            // {x:580,y:219,w:19,h:19,class:'circle'},
+            // {x:613,y:219,w:19,h:19,class:'circle'},
+            // {x:646,y:219,w:19,h:19,class:'circle'},
+        ],
+        red_combat:[],
+        red_combat_1:[
+            {x:687,y:173,w:18,h:18,class:'roundNumber'},
+        ],
+        red_combat_2:[
+            {x:687,y:193,w:18,h:18,class:'roundNumber'},
+        ],
+        red_combat_3:[
+            {x:687,y:213,w:18,h:18,class:'roundNumber'},
+        ],
+        red_combat_4:[
+            {x:687,y:233,w:18,h:18,class:'roundNumber'},
+        ],
+        red_combat_5:[
+            {x:687,y:253,w:18,h:18,class:'roundNumber'},
+        ],
+        red_combat_6:[
+            {x:687,y:273,w:18,h:18,class:'roundNumber'},
+        ],
+        blue_combat:[],
+        blue_combat_1:[
+            {x:707,y:173,w:18,h:18,class:'roundNumber'},
+        ],
+        blue_combat_2:[
+            {x:707,y:193,w:18,h:18,class:'roundNumber'},
+        ],
+        blue_combat_3:[
+            {x:707,y:213,w:18,h:18,class:'roundNumber'},
+        ],
+        blue_combat_4:[
+            {x:707,y:233,w:18,h:18,class:'roundNumber'},
+        ],
+        blue_combat_5:[
+            {x:707,y:253,w:18,h:18,class:'roundNumber'},
+        ],
+        blue_combat_6:[
+            {x:707,y:273,w:18,h:18,class:'roundNumber'},
+        ],
+        priests:[
+            {x: 12,y:406,w:16,h:16},
+            {x: 31,y:406,w:16,h:16},
+            {x: 51,y:406,w:16,h:16},
+            {x: 70,y:406,w:16,h:16},
+            {x: 89,y:406,w:16,h:16},
+            {x:109,y:406,w:16,h:16},
+            {x:128,y:406,w:16,h:16},
+            {x:147.5,y:406,w:16,h:16},
+            {x:167,y:406,w:16,h:16},
+        ],
+        gardens:[
+            {x:424,y:317,w:66,h:16},
+            {x:624,y:317,w:100,h:16},
+        ],
+        temple:[
+            {x:416,y:352,w:16,h:16},
+            {x:558,y:352,w:16,h:16},
+            {x:708,y:352,w:16,h:16},
+        ],
+        small_temple:[
+            {x:362,y:375.5,w:16,h:16},
+            {x:382,y:375.5,w:26,h:16},
+            {x:410,y:376,w:16,h:16,class:'circle'},
+            {x:410,y:376,w:16,h:16,class:'circle'},
+        ],
+        medium_temple:[
+            {x:501,y:376,w:16,h:16},
+            {x:521,y:376,w:16,h:16},
+            {x:501,y:399.5,w:16,h:16},
+            {x:521,y:399.5,w:16,h:16},
+
+            {x:501,y:422.5,w:16,h:16},
+            {x:521,y:422.5,w:26,h:16},
+            {x:549,y:422,w:16,h:16,class:'circle'},
+            {x:549,y:422,w:16,h:16,class:'circle'},
+        ],
+        large_temple:[
+            {x:643,y:376,w:16,h:16},
+            {x:663,y:376,w:16,h:16},
+            {x:643,y:399.5,w:16,h:16},
+            {x:663,y:399.5,w:16,h:16},
+
+            {x:643,y:422.5,w:16,h:16},
+            {x:663,y:422.5,w:26,h:16},
+            {x:691,y:422,w:16,h:16,class:'circle'},
+            {x:691,y:422,w:16,h:16,class:'circle'},
+        ],
+        apparitores:[
+            {x: 12,y:536,w:16,h:16},
+            {x: 31,y:536,w:16,h:16},
+            {x: 51,y:536,w:16,h:16},
+            {x: 70,y:536,w:16,h:16},
+            {x: 89,y:536,w:16,h:16},
+            {x:109,y:536,w:16,h:16},
+            {x:128,y:536,w:16,h:16},
+            {x:147.5,y:536,w:16,h:16},
+            {x:167,y:536,w:16,h:16},
+        ],
+        baths:[
+            {x:315,y:459,w:16,h:17},
+        ],
+        baths_1:[
+            {x:272,y:484,w:16,h:17},
+            {x:291,y:485,w:17,h:18,class:'roundNumber',value:6},
+        ],
+        baths_2:[
+            {x:272,y:507,w:16,h:17},
+            {x:291,y:508,w:17,h:18,class:'roundNumber',value:6},
+        ],
+        baths_3:[
+            {x:272,y:530,w:16,h:17},
+            {x:291,y:531,w:17,h:18,class:'roundNumber',value:6},
+        ],
+        baths_4:[
+            {x:392,y:483,w:16,h:17},
+            {x:411,y:484,w:17,h:18,class:'roundNumber',value:6},
+        ],
+        baths_5:[
+            {x:392,y:506,w:16,h:17},
+            {x:411,y:507,w:17,h:18,class:'roundNumber',value:6},
+        ],
+        baths_6:[
+            {x:392,y:529,w:16,h:17},
+            {x:411,y:530,w:17,h:18,class:'roundNumber',value:6},
+        ],
+        courthouse:[
+            {x:588,y:459,w:16,h:17},
+        ],
+        courthouse_c1_1:[
+            {x:486,y:484,w:16,h:17},
+            {x:505,y:485,w:17,h:18,class:'roundNumber',value:6},
+        ],
+        courthouse_c1_2:[
+            {x:486,y:507,w:16,h:17},
+            {x:505,y:508,w:17,h:18,class:'roundNumber',value:6},
+        ],
+        courthouse_c1_3:[
+            {x:486,y:530,w:16,h:17},
+            {x:505,y:531,w:17,h:18,class:'roundNumber',value:6},
+        ],
+        courthouse_c2_1:[
+            {x:587,y:484,w:18,h:17},
+            {x:608,y:485,w:17,h:18,class:'roundNumber',value:6},
+        ],
+        courthouse_c2_2:[
+            {x:587,y:507,w:18,h:17},
+            {x:608,y:508,w:17,h:18,class:'roundNumber',value:6},
+        ],
+        courthouse_c2_3:[
+            {x:587,y:530,w:18,h:17},
+            {x:608,y:531,w:17,h:18,class:'roundNumber',value:6},
+        ],
+        courthouse_c3_1:[
+            {x:690,y:484,w:16,h:17},
+            {x:709,y:485,w:17,h:18,class:'roundNumber',value:6},
+        ],
+        courthouse_c3_2:[
+            {x:690,y:507,w:16,h:17},
+            {x:709,y:508,w:17,h:18,class:'roundNumber',value:6},
+        ],
+        courthouse_c3_3:[
+            {x:690,y:530,w:16,h:17},
+            {x:709,y:531,w:17,h:18,class:'roundNumber',value:6},
+        ],
+        patricians:[
+            {x: 12,y:689,w:16,h:16},
+            {x: 31,y:689,w:16,h:16},
+            {x: 51,y:689,w:16,h:16},
+            {x: 70,y:689,w:16,h:16},
+            {x: 89,y:689,w:16,h:16},
+            {x:109,y:689,w:16,h:16},
+            {x:128,y:689,w:16,h:16},
+            {x:147.5,y:689,w:16,h:16},
+            {x:167,y:689,w:16,h:16},
+        ],
+        diplomat:[
+            {x:318,y:594,w:18,h:16},
+            {x:318+28,y:593.5,w:16,h:16,class:'circle'},
+            {x:318+47,y:593.5,w:16,h:16,class:'circle'},
+
+            {x:318,y:594+22,w:18,h:16},
+            {x:318+28,y:594+22,w:16,h:16,class:'circle'},
+            {x:318+47,y:594+22,w:16,h:16,class:'circle'},
+
+            {x:318,y:594+45,w:18,h:16},
+            {x:318+28,y:594+45,w:16,h:16,class:'circle'},
+            {x:318+47,y:594+45,w:16,h:16,class:'circle'},
+        ],
+        diplomat_1_direction:[
+
+        ],
+        diplomat_1_favor:[
+
+        ],
+        diplomat_2_direction:[
+        ],
+        diplomat_2_favor:[
+
+        ],
+        diplomat_3_direction:[
+
+        ],
+        diplomat_3_favor:[
+
+        ],
+        scout:[
+            {x:551,y:594,w:16,h:16},
+            {x:551,y:594+22,w:16,h:16},
+            {x:551,y:594+45,w:16,h:16},
+            {x:551,y:594+68,w:16,h:16},
+            {x:551,y:594+92,w:16,h:16},
+        ],
+        map:[
+            {x:608,y:600,w:16,h:16},
+            {x:608,y:620,w:16,h:16},
+            {x:608,y:640,w:16,h:16},
+            {x:608,y:660,w:16,h:16},
+
+            {x:628,y:600,w:16,h:16},
+            {x:628,y:620,w:16,h:16},
+            {x:628,y:640,w:16,h:16},
+            {x:628,y:660,w:16,h:16},
+
+            {x:648,y:600,w:16,h:16},
+            {x:648,y:620,w:16,h:16},
+            {x:648,y:640,w:16,h:16},
+            {x:648,y:660,w:16,h:16},
+
+            {x:668,y:600,w:16,h:16},
+            {x:668,y:620,w:16,h:16},
+            {x:668,y:640,w:16,h:16},
+            {x:668,y:660,w:16,h:16},
+
+            {x:688,y:600,w:16,h:16},
+            {x:688,y:620,w:16,h:16},
+            {x:688,y:640,w:16,h:16},
+            {x:688,y:660,w:16,h:16},
+
+        ]
     }
 }

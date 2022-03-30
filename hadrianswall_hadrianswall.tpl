@@ -146,7 +146,7 @@
 var jstpl_some_game_item='<div class="my_game_item" id="my_game_item_${MY_ITEM_ID}"></div>';
 */
 
-var jstpl_scratch='<div id="${id}" class="outlined" style="position:absolute;border-radius:${radius}px;left:${x}px;top:${y}px;width:${w}px;height:${h}px;"></div>';
+var jstpl_scratch='<div id="${id}" class="outlined ${class}" style="position:absolute;left:${x}px;top:${y}px;width:${w}px;height:${h}px;">${value}</div>';
 
 // <div id="checkmark" class="checkmark" style="left:90px;top:76px;"></div>
 
