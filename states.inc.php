@@ -58,20 +58,53 @@ $machinestates = array(
         "description" => "",
         "type" => "manager",
         "action" => "stGameSetup",
-        "transitions" => array( "" => 2 )
+        "transitions" => array( "" => 20 )
     ),
     
     // Note: ID=2 => your first state
 
-    2 => array(
-    		"name" => "playerTurn",
-    		"description" => clienttranslate('${actplayer} must play a card or pass'),
-    		"descriptionmyturn" => clienttranslate('${you} must play a card or pass'),
-    		"type" => "activeplayer",
-    		"possibleactions" => array( "playCard", "pass" ),
-    		"transitions" => array( "playCard" => 2, "pass" => 2 )
-    ),
-    
+    10 => [
+        "name"=> "prepareRound",
+        "type" => "game",
+        "action" => "stPrepareRound",
+        "transitions" => [
+            "playerTurn" => 20,
+        ]
+    ],
+
+
+    20 => [
+        "name" => "playerTurn",
+        "description" => clienttranslate('Other players need to finish their turn.'),
+        "descriptionmyturn" => clienttranslate('${you} must complete your turn.'),
+        "type" => "multipleactiveplayer",
+        "initialprivate" => 6,
+        "possibleactions" => [],
+        "transitions" => array( "nextRound" => 30 ),
+        "action" => "stPlayerTurn",
+    ],
+
+    30 => [
+        "name"=> "checkEndGame",
+        "type" => "game",
+        "action" => "stCheckGameEnd",
+        "transitions" => [
+            "end" => 99,
+            "nextRound" => 10
+        ]
+    ],
+
+    40 => [
+        "name" => "useResources",
+        "descriptionmyturn" => clienttranslate('${you} may use workers and resources.'),
+        "type" => "private",
+        "possibleactions" => ["checkBox", "uncheckBox", "restartRound"],
+        "transitions" => [],
+        // 'args' => 'argUseResources',
+    ],
+
+
+
 /*
     Examples:
     

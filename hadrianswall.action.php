@@ -40,6 +40,15 @@ class action_hadrianswall extends APP_GameAction
   	
   	// TODO: defines your action entry points there
 
+    public function checkBox() {
+
+    }
+    public function uncheckBox() {
+
+    }
+    public function restartRound() {
+        
+    }
 
     /*
     

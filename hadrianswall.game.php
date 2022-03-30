@@ -250,6 +250,22 @@ class HadriansWall extends Table
     }    
     */
 
+    function stGameSetup() {
+
+    }
+
+    function stPrepareRound() {
+        $this->gamestate->nexState('playerTurn');
+    }
+
+    function stPlayerTurn() {
+
+    }
+
+    function stCheckGameEnd() {
+        $this->gamestate->nextState('playerTurn');
+    }
+
 //////////////////////////////////////////////////////////////////////////////
 //////////// Zombie
 ////////////

@@ -289,6 +289,7 @@
 .pict_card_48 { background-position: -2431px -1056px;}
 
 .hidden { display: none; }
+.veryhidden { display: none !important; }
 /*.outlined { border: 1px solid red; opacity: 0.5; background-color: red;}*/
 .outlined { border: 1px solid black; margin:0px; opacity: 1; background-color: #4444;}
 .circle { border-radius: 50%; -webkit-background-clip: padding-box; -moz-background-clip: padding; background-clip: padding-box; }
@@ -300,3 +301,27 @@
     font-size:135px;
   }
 
+
+ .miniboard {
+	margin-top: 5px;
+	margin-left: 3px;
+	vertical-align: top;
+	display: inline-block;
+}
+
+.pboard_space {
+	position: relative;
+    width: 100%;
+    min-width: 1076px;
+	display: flex;
+    flex-wrap: wrap;
+    background-color: aqua;
+    justify-content: space-around;
+}
+
+#scoresheet {
+    width: 220px;
+    height: 143px;
+    background-size: 220px 143px;
+    background-image: url('img/ScoreSheet.png');
+}

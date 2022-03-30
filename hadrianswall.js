@@ -55,6 +55,7 @@ function (dojo, declare) {
             for( var player_id in gamedatas.players )
             {
                 var player = gamedatas.players[player_id];
+                this.setupPlayer(player_id,player);
                          
                 // TODO: Setting up players boards if needed
                 if(gamedatas.board[player_id]){
@@ -77,7 +78,31 @@ function (dojo, declare) {
 
             console.log( "Ending game setup" );
         },
-       
+
+        setupPlayer: function (playerId, playerInfo) {
+            console.log("player info " + playerId, playerInfo);
+
+            // move miniboards to the right
+
+            var color = this.gamedatas.players[playerId].color;
+            var player = this.gamedatas.players[playerId];
+            var content = dojo.byId('player_panel_content_' + color);
+            var status = 'player_table_status_' + playerId;
+             var score = document.querySelector("#player_board_" + playerId + " .player_score");
+            if (score) dojo.place(status, content, 'after');
+            var x = content.querySelector('#miniboard_' + color);
+            if (x) {
+                dojo.destroy(x);
+            }
+            dojo.place('miniboard_' + color, content);
+            
+            // this.drawHandIcon(1, 'deck_icon_' + color, color, 0);
+            // this.drawHandIcon(2, 'discard_icon_' + color, color);
+            // this.drawHandIcon(5, 'hand_icon_' + color, color, -2);
+            // dojo.addClass('tableau_' + color, 'other_player');
+            // if (player.score == '0') player.score = undefined;
+        },
+   
 
         ///////////////////////////////////////////////////
         //// Game & client states

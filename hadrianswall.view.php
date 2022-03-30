@@ -32,6 +32,20 @@ class view_hadrianswall_hadrianswall extends game_view
         return "hadrianswall";
     }
     
+    function processPlayerBlock($player_id, $player, $me) {
+        $color = $player ['player_color'];
+        $name = $player ['player_name'];
+        $no = $player ['player_no'];
+        $this->page->insert_block("player_board", 
+        array ("COLOR" => $color,"PLAYER_NAME" => $name,
+               "PLAYER_NO" => $no, "PLAYER_ID" => $player_id,
+               "VALUE" => $me?"it's me!":'hi me' ));
+    }
+
+    function getTemplateName() {
+        return self::getGameName() . "_" . self::getGameName();
+    }
+
   	function build_page( $viewArgs )
   	{		
   	    // Get players & players number
@@ -40,6 +54,14 @@ class view_hadrianswall_hadrianswall extends game_view
 
         /*********** Place your code below:  ************/
 
+        $template = self::getTemplateName();
+        $this->page->begin_block($template, "player_board");
+
+        $first = true;
+        foreach($players as $player_id => $player) {
+            $this->processPlayerBlock($player_id,$player,$first);
+            $first = false;
+        }
 
         /*
         

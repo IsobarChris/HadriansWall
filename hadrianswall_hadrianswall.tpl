@@ -26,50 +26,19 @@
 -->
 
 <div>
-
-<div id="playerboard1" class="hidden">
-    <div id="round_1_goal" class="playercardsheet player_card_1 goal goal_round_1 hidden"></div>
-    <div id="round_2_goal" class="playercardsheet player_card_7 goal goal_round_2 hidden"></div>
-    <div id="round_3_goal" class="playercardsheet player_card_3 goal goal_round_3 hidden"></div>
-
-    <div id="round_1_l_pick" class="playercardbottomsheet player_cardbottom_9  op_pick op_l_pick_round_1 hidden"></div>
-    <div id="round_1_pick" class="playercardbottomsheet player_cardbottom_10 pick pick_round_1 hidden"></div>
-    <div id="round_1_r_pick" class="playercardbottomsheet player_cardbottom_11 op_pick op_r_pick_round_1 hidden"></div>
-
-    <div id="round_2_l_pick" class="playercardbottomsheet player_cardbottom_9  op_pick op_l_pick_round_2 hidden"></div>
-    <div id="round_2_pick" class="playercardbottomsheet player_cardbottom_10 pick pick_round_2 hidden"></div>
-    <div id="round_2_r_pick" class="playercardbottomsheet player_cardbottom_11 op_pick op_r_pick_round_2 hidden"></div>
-
-    <div id="round_3_l_pick" class="playercardbottomsheet player_cardbottom_9  op_pick op_l_pick_round_3 hidden"></div>
-    <div id="round_3_pick" class="playercardbottomsheet player_cardbottom_10 pick pick_round_3 hidden"></div>
-    <div id="round_3_r_pick" class="playercardbottomsheet player_cardbottom_11 op_pick op_r_pick_round_3 hidden"></div>
+    <div id="sheet1"></div>
+    <div id="sheet2"></div>
 </div>
 
-
-
-<div id="playerboard2" class="hidden">
-    <div id="round_4_goal" class="playercardsheet player_card_4 goal goal_round_4 hidden"></div>
-    <div id="round_5_goal" class="playercardsheet player_card_5 goal goal_round_5 hidden"></div>
-    <div id="round_6_goal" class="playercardsheet player_card_6 goal goal_round_6 hidden"></div>
-
-    <div id="round_4_l_pick" class="playercardbottomsheet player_cardbottom_9  op_pick op_l_pick_round_4 hidden"></div>
-    <div id="round_4_pick" class="playercardbottomsheet player_cardbottom_10 pick pick_round_4 hidden"></div>
-    <div id="round_4_r_pick" class="playercardbottomsheet player_cardbottom_11 op_pick op_r_pick_round_4 hidden"></div>
-
-    <div id="round_5_l_pick" class="playercardbottomsheet player_cardbottom_9  op_pick op_l_pick_round_5 hidden"></div>
-    <div id="round_5_pick" class="playercardbottomsheet player_cardbottom_10 pick pick_round_5 hidden"></div>
-    <div id="round_5_r_pick" class="playercardbottomsheet player_cardbottom_11 op_pick op_r_pick_round_5 hidden"></div>
-
-    <div id="round_6_l_pick" class="playercardbottomsheet player_cardbottom_9  op_pick op_l_pick_round_6 hidden"></div>
-    <div id="round_6_pick" class="playercardbottomsheet player_cardbottom_10 pick pick_round_6 hidden"></div>
-    <div id="round_6_r_pick" class="playercardbottomsheet player_cardbottom_11 op_pick op_r_pick_round_6 hidden"></div>
+<div id="pboard_space" class="pboard_space">
+    <!-- BEGIN player_board -->
+    <!--  boardblock  -->
+    <div id="miniboard_{COLOR}" class="miniboard">
+        <div id="scoresheet">{VALUE}</div>
+    </div>
+    <!-- END player_board -->
 </div>
 
-
-<div id="sheet1">
-</div>
-<div id="sheet2"></div>
-</div>
 
 <div class="hidden"> 
     <div id="x" class="playercardsheet player_card_1"></div>
@@ -135,6 +104,42 @@
     <div id="x" class="pictcardsheet pict_card_46"></div>
     <div id="x" class="pictcardsheet pict_card_47"></div>
     <div id="x" class="pictcardsheet pict_card_48"></div>
+</div>
+
+<div id="playerboard1" class="veryhidden">
+    <div id="round_1_goal" class="playercardsheet player_card_1 goal goal_round_1 hidden"></div>
+    <div id="round_2_goal" class="playercardsheet player_card_7 goal goal_round_2 hidden"></div>
+    <div id="round_3_goal" class="playercardsheet player_card_3 goal goal_round_3 hidden"></div>
+
+    <div id="round_1_l_pick" class="playercardbottomsheet player_cardbottom_9  op_pick op_l_pick_round_1 hidden"></div>
+    <div id="round_1_pick" class="playercardbottomsheet player_cardbottom_10 pick pick_round_1 hidden"></div>
+    <div id="round_1_r_pick" class="playercardbottomsheet player_cardbottom_11 op_pick op_r_pick_round_1 hidden"></div>
+
+    <div id="round_2_l_pick" class="playercardbottomsheet player_cardbottom_9  op_pick op_l_pick_round_2 hidden"></div>
+    <div id="round_2_pick" class="playercardbottomsheet player_cardbottom_10 pick pick_round_2 hidden"></div>
+    <div id="round_2_r_pick" class="playercardbottomsheet player_cardbottom_11 op_pick op_r_pick_round_2 hidden"></div>
+
+    <div id="round_3_l_pick" class="playercardbottomsheet player_cardbottom_9  op_pick op_l_pick_round_3 hidden"></div>
+    <div id="round_3_pick" class="playercardbottomsheet player_cardbottom_10 pick pick_round_3 hidden"></div>
+    <div id="round_3_r_pick" class="playercardbottomsheet player_cardbottom_11 op_pick op_r_pick_round_3 hidden"></div>
+</div>
+
+<div id="playerboard2" class="veryhidden">
+    <div id="round_4_goal" class="playercardsheet player_card_4 goal goal_round_4 hidden"></div>
+    <div id="round_5_goal" class="playercardsheet player_card_5 goal goal_round_5 hidden"></div>
+    <div id="round_6_goal" class="playercardsheet player_card_6 goal goal_round_6 hidden"></div>
+
+    <div id="round_4_l_pick" class="playercardbottomsheet player_cardbottom_9  op_pick op_l_pick_round_4 hidden"></div>
+    <div id="round_4_pick" class="playercardbottomsheet player_cardbottom_10 pick pick_round_4 hidden"></div>
+    <div id="round_4_r_pick" class="playercardbottomsheet player_cardbottom_11 op_pick op_r_pick_round_4 hidden"></div>
+
+    <div id="round_5_l_pick" class="playercardbottomsheet player_cardbottom_9  op_pick op_l_pick_round_5 hidden"></div>
+    <div id="round_5_pick" class="playercardbottomsheet player_cardbottom_10 pick pick_round_5 hidden"></div>
+    <div id="round_5_r_pick" class="playercardbottomsheet player_cardbottom_11 op_pick op_r_pick_round_5 hidden"></div>
+
+    <div id="round_6_l_pick" class="playercardbottomsheet player_cardbottom_9  op_pick op_l_pick_round_6 hidden"></div>
+    <div id="round_6_pick" class="playercardbottomsheet player_cardbottom_10 pick pick_round_6 hidden"></div>
+    <div id="round_6_r_pick" class="playercardbottomsheet player_cardbottom_11 op_pick op_r_pick_round_6 hidden"></div>
 </div>
 
 
