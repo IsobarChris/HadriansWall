@@ -251,18 +251,30 @@ class HadriansWall extends Table
     */
 
     function stGameSetup() {
-
+        self::debug( "----> stGameSetup" ); 
     }
 
     function stPrepareRound() {
-        $this->gamestate->nexState('playerTurn');
+        self::debug( "----> stPrepareRound" ); 
+
+        //$sql = "UPDATE board SET `center_cohort`=2";
+        //self::DbQuery($sql);
+        $this->gamestate->nextState('playerTurn');
     }
 
     function stPlayerTurn() {
+        self::debug( "----> stPlayerTurn" ); 
 
+        //$sql = "UPDATE board SET `right_cohort`=3";
+        //self::DbQuery($sql);
+
+        //$this->gamestate->setAllPlayersMultiactive();
+        //$this->gamestate->initializePrivateStateForAllActivePlayers();
     }
 
     function stCheckGameEnd() {
+        self::debug( "----> stCheckGameEnd" ); 
+
         $this->gamestate->nextState('playerTurn');
     }
 

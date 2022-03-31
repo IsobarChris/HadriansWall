@@ -1,7 +1,7 @@
 /**
  *------
  * BGA framework: © Gregory Isabelli <gisabelli@boardgamearena.com> & Emmanuel Colin <ecolin@boardgamearena.com>
- * HadriansWall implementation : © <Your name here> <Your email address here>
+ * HadriansWall implementation : © Chris Steele <steele22374@gmail.com>
  *
  * This code has been produced on the BGA studio platform for use on http://boardgamearena.com.
  * See http://en.boardgamearena.com/#!doc/Studio for more information.
@@ -25,10 +25,6 @@ function (dojo, declare) {
         constructor: function(){
             console.log('hadrianswall constructor');
               
-            // Here, you can init the global variables of your user interface
-            // Example:
-            // this.myGlobalValue = 0;
-
         },
         
         /*
@@ -49,6 +45,7 @@ function (dojo, declare) {
             console.log( "Starting game setup" );
             console.log(gamedatas);
 
+            // adds a div with unique id for each location on the player sheet
             this.addScratchLocations();
             
             // Setting up player boards
@@ -57,7 +54,6 @@ function (dojo, declare) {
                 var player = gamedatas.players[player_id];
                 this.setupPlayer(player_id,player);
                          
-                // TODO: Setting up players boards if needed
                 if(gamedatas.board[player_id]){
                     let board = gamedatas.board[player_id];
                     console.log(JSON.stringify(board));
@@ -197,15 +193,15 @@ function (dojo, declare) {
         */
 
         addScratchLocations: function() {
-            console.log("Adding scratch loctions");
+            //console.log("Adding scratch loctions");
             Object.keys(sheets_scratch_locations).forEach((sheet)=>{
                 Object.keys(sheets_scratch_locations[sheet]).forEach((zone)=>{
                     sheets_scratch_locations[sheet][zone].forEach((cord,i)=>{
-                        console.log(`Sheet: ${sheet}  Zone: ${zone}  Cord: ${cord}  for index ${i}`);
+                        //console.log(`Sheet: ${sheet}  Zone: ${zone}  Cord: ${cord}  for index ${i}`);
 
                         let id = `${zone}_s${i+1}`;
                         let scratch = this.format_block('jstpl_scratch',{id: id, class: "", value: "", ...cord});
-                        console.log(`Adding: ${scratch}`);
+                        //console.log(`Adding: ${scratch}`);
                         dojo.place(scratch, sheet);
                     })
                 })

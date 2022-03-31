@@ -40,6 +40,9 @@ class view_hadrianswall_hadrianswall extends game_view
         array ("COLOR" => $color,"PLAYER_NAME" => $name,
                "PLAYER_NO" => $no, "PLAYER_ID" => $player_id,
                "VALUE" => $me?"it's me!":'hi me' ));
+
+        $sql = "UPDATE board SET wall_guard=".$no." WHERE player_id='".$player_id."'";
+        $this->DbQuery($sql);
     }
 
     function getTemplateName() {
@@ -48,6 +51,8 @@ class view_hadrianswall_hadrianswall extends game_view
 
   	function build_page( $viewArgs )
   	{		
+        self::debug( "----> build_page" ); 
+
   	    // Get players & players number
         $players = $this->game->loadPlayersBasicInfos();
         $players_nbr = count( $players );
