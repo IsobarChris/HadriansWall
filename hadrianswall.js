@@ -66,6 +66,12 @@ function (dojo, declare) {
                     })
                 }
             }
+
+            console.log(`Round ${gamedatas.round}`)
+            console.log(`Difficulty ${gamedatas.difficulty}`)
+            console.log(`Attack Potential ${gamedatas.attack_potential}`)
+            console.log(`Attacks ${gamedatas.attacks}`)
+
             
             // TODO: Set up your game interface here, according to "gamedatas"
  

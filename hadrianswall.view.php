@@ -36,6 +36,12 @@ class view_hadrianswall_hadrianswall extends game_view
         $color = $player ['player_color'];
         $name = $player ['player_name'];
         $no = $player ['player_no'];
+
+        // if($player_id == $this->getCurrentPlayerId()) {
+        //     $me = "IT'S REALL ME!";
+        // }
+
+
         $this->page->insert_block("player_board", 
         array ("COLOR" => $color,"PLAYER_NAME" => $name,
                "PLAYER_NO" => $no, "PLAYER_ID" => $player_id,

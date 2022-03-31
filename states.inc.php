@@ -98,7 +98,7 @@ $machinestates = array(
         "name" => "useResources",
         "descriptionmyturn" => clienttranslate('${you} may use workers and resources.'),
         "type" => "private",
-        "possibleactions" => ["checkBox", "uncheckBox", "restartRound"],
+        "possibleactions" => ["checkBox", "undo", "restartRound"],
         "transitions" => [],
         // 'args' => 'argUseResources',
     ],

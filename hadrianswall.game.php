@@ -22,6 +22,8 @@ require_once( APP_GAMEMODULE_PATH.'module/table/table.game.php' );
 
 class HadriansWall extends Table
 {
+    const GAME_ROUND = 'game_round';
+
 	function __construct( )
 	{
         // Your global variables labels:
@@ -33,12 +35,7 @@ class HadriansWall extends Table
         parent::__construct();
         
         self::initGameStateLabels( array( 
-            //    "my_first_global_variable" => 10,
-            //    "my_second_global_variable" => 11,
-            //      ...
-            //    "my_first_game_variant" => 100,
-            //    "my_second_game_variant" => 101,
-            //      ...
+            self::GAME_ROUND => 10,
         ) );        
 	}
 	
@@ -91,20 +88,10 @@ class HadriansWall extends Table
         
         /************ Start the game initialization *****/
 
-
-        // Init global values with their initial values
-        //self::setGameStateInitialValue( 'my_first_global_variable', 0 );
-        
-        // Init game statistics
-        // (note: statistics used in this file must be defined in your stats.inc.php file)
-        //self::initStat( 'table', 'table_teststat1', 0 );    // Init a table statistics
-        //self::initStat( 'player', 'player_teststat1', 0 );  // Init a player statistics (for all players)
-
-        // TODO: setup the initial game situation here
-       
+        $this->setGameStateInitialValue(self::GAME_ROUND,0);
 
         // Activate first player (which is in general a good idea :) )
-        $this->activeNextPlayer();
+        //$this->activeNextPlayer();
 
         /************ End of the game initialization *****/
     }
@@ -134,6 +121,16 @@ class HadriansWall extends Table
         $sql = "SELECT * FROM board WHERE player_id = $current_player_id";
         $result['board'] = self::getCollectionFromDb( $sql );
 
+        $current_round = $this->getGameStateValue(self::GAME_ROUND);
+        $result['round'] = $current_round;
+        $result['attack_potential'] = [1,2,2,3,3,4];
+        $result['difficulty'] = 'easy';
+        $result['attacks'] = [1,2,3,4,6,8];
+
+        $display_round = max([0,$current_round-1]);
+        $opsql = "SELECT player_id, renown, piety, valour, discipline, disdain FROM board WHERE `round`=$display_round";
+        $result['score_boards'] = self::getCollectionFromDb( $opsql );
+
         return $result;
     }
 
@@ -149,9 +146,9 @@ class HadriansWall extends Table
     */
     function getGameProgression()
     {
-        // TODO: compute and return the game progression
+        $current_round = $this->getGameStateValue(self::GAME_ROUND);
 
-        return 0;
+        return max([1,($current_round-1)/6*100]);
     }
 
 
@@ -199,6 +196,10 @@ class HadriansWall extends Table
     }
     
     */
+
+    private function isPlayerActive($playerId){
+        return array_search($playerId, $this->gamestate->getActivePlayerList()) !== false;
+    }
 
     
 //////////////////////////////////////////////////////////////////////////////

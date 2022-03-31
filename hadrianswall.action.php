@@ -43,7 +43,7 @@ class action_hadrianswall extends APP_GameAction
     public function checkBox() {
 
     }
-    public function uncheckBox() {
+    public function undo() {
 
     }
     public function restartRound() {
