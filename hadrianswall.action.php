@@ -40,15 +40,31 @@ class action_hadrianswall extends APP_GameAction
   	
   	// TODO: defines your action entry points there
 
-    public function checkBox() {
+    public function checkNextBox() {
+        self::setAjaxMode();
 
+        $section = self::getArg("section",AT_alphanum,true);
+
+        $this->game->checkNextBox($section);
+
+        self::ajaxResponse();
     }
-    public function undo() {
+    public function undoCheck() {
+        self::setAjaxMode();
 
+        self::ajaxResponse();
     }
     public function restartRound() {
-        
+        self::setAjaxMode();
+
+        self::ajaxResponse();
     }
+    public function done() {
+        self::setAjaxMode();
+
+        self::ajaxResponse();
+    }
+
 
     /*
     

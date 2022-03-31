@@ -91,7 +91,7 @@ class HadriansWall extends Table
         $this->setGameStateInitialValue(self::GAME_ROUND,0);
 
         // Activate first player (which is in general a good idea :) )
-        //$this->activeNextPlayer();
+        $this->activeNextPlayer();
 
         /************ End of the game initialization *****/
     }
@@ -170,6 +170,24 @@ class HadriansWall extends Table
         Each time a player is doing some game action, one of the methods below is called.
         (note: each method below must match an input method in hadrianswall.action.php)
     */
+
+    function checkNextBox( $section ) {
+        $this->checkAction('checkNextBox');
+        $current_player_id = self::getCurrentPlayerId();
+
+        // todo - make sure resources and prereqs are met
+        // todo - reduce resources as needed
+
+
+        $sql = "UPDATE board SET $section = $section + 1 WHERE player_id=$current_player_id";
+        self::DbQuery( $sql );
+
+        $sql = "SELECT * FROM board WHERE player_id = $current_player_id";
+        $board = self::getCollectionFromDb( $sql );
+
+
+        $this->notifyPlayer( $current_player_id, "sheetsUpdated", "", ["board"=>$board[$current_player_id]]);
+    }
 
     /*
     
@@ -258,19 +276,18 @@ class HadriansWall extends Table
     function stPrepareRound() {
         self::debug( "----> stPrepareRound" ); 
 
-        //$sql = "UPDATE board SET `center_cohort`=2";
-        //self::DbQuery($sql);
+        $this->notifyAllPlayers( "newRound", clienttranslate("New round starts."), [
+            "round" => $this->getGameStateValue(self::GAME_ROUND)
+        ]);
+
         $this->gamestate->nextState('playerTurn');
     }
 
     function stPlayerTurn() {
         self::debug( "----> stPlayerTurn" ); 
 
-        //$sql = "UPDATE board SET `right_cohort`=3";
-        //self::DbQuery($sql);
-
-        //$this->gamestate->setAllPlayersMultiactive();
-        //$this->gamestate->initializePrivateStateForAllActivePlayers();
+        $this->gamestate->setAllPlayersMultiactive();
+        $this->gamestate->initializePrivateStateForAllActivePlayers();
     }
 
     function stCheckGameEnd() {

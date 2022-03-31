@@ -58,14 +58,12 @@ function (dojo, declare) {
                     let board = gamedatas.board[player_id];
                     console.log(JSON.stringify(board));
 
-                    Object.keys(board).forEach(key=>{
-                        if(key==="player_id" || key==="round") {
-                            return;
-                        }
-                        this.drawScratches(key,board[key]);
-                    })
+                    this.drawAllScratches(board);
                 }
             }
+
+
+            dojo.query('.clickable').connect('onclick',this,'onBoxClicked');
 
             console.log(`Round ${gamedatas.round}`)
             console.log(`Difficulty ${gamedatas.difficulty}`)
@@ -199,13 +197,13 @@ function (dojo, declare) {
         */
 
         addScratchLocations: function() {
-            //console.log("Adding scratch loctions");
+            console.log("Adding scratch loctions");
             Object.keys(sheets_scratch_locations).forEach((sheet)=>{
                 Object.keys(sheets_scratch_locations[sheet]).forEach((zone)=>{
                     sheets_scratch_locations[sheet][zone].forEach((cord,i)=>{
                         //console.log(`Sheet: ${sheet}  Zone: ${zone}  Cord: ${cord}  for index ${i}`);
 
-                        let id = `${zone}_s${i+1}`;
+                        let id = `${zone}__s${i+1}`;
                         let scratch = this.format_block('jstpl_scratch',{id: id, class: "", value: "", ...cord});
                         //console.log(`Adding: ${scratch}`);
                         dojo.place(scratch, sheet);
@@ -215,13 +213,13 @@ function (dojo, declare) {
         },
 
         drawScratch: function (zone, value) {
-            let id = `${zone}_s${value}`;
+            let id = `${zone}__s${value}`;
             if(dojo.query(`#${id}`).length==0){
                 console.log(`Didn't find node for ${id}`);
                 return;
             }
 
-            console.log(`Scratching ${zone} box ${value}`);
+            //console.log(`Scratching ${zone} box ${value}`);
             dojo.removeClass(id,'outlined');
             dojo.addClass(id,'scratch');
         },
@@ -233,6 +231,15 @@ function (dojo, declare) {
                     this.drawScratch(zone,i);
                 }
             }
+        },
+
+        drawAllScratches: function (board) {
+            Object.keys(board).forEach(key=>{
+                if(key==="player_id" || key==="round") {
+                    return;
+                }
+                this.drawScratches(key,board[key]);
+            })
         },
 
         ///////////////////////////////////////////////////
@@ -249,6 +256,20 @@ function (dojo, declare) {
         
         */
         
+        onBoxClicked: function( evt )
+        {
+            dojo.stopEvent(evt);
+
+            let section = evt.target.id.split("__")[0];
+            console.log("Box clicked ",section);
+
+            if(this.checkAction('checkNextBox')){
+                console.log("ajax call with ",section);
+                this.ajaxcall("/hadrianswall/hadrianswall/checkNextBox.html",{section},this,function(result){});
+            }
+        },
+
+
         /* Example:
         
         onMyMethodToCall1: function( evt )
@@ -300,6 +321,9 @@ function (dojo, declare) {
         {
             console.log( 'notifications subscriptions setup' );
             
+
+            dojo.subscribe( 'sheetsUpdated', this, "notif_sheetsUpdated");
+
             // TODO: here, associate your game notifications with local methods
             
             // Example 1: standard notification handling
@@ -312,6 +336,16 @@ function (dojo, declare) {
             // this.notifqueue.setSynchronous( 'cardPlayed', 3000 );
             // 
         },  
+
+        notif_sheetsUpdated: function(notif) {
+            console.log( 'notif_newAvailableFields' );
+            console.log( notif );
+
+            let board = notif.args.board;
+
+            console.log(board);
+            this.drawAllScratches(board);
+        }
         
         // TODO: from this point and below, you can write your game notifications handling methods
         

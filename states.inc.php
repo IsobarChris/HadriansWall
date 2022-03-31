@@ -49,20 +49,17 @@
 
 //    !! It is not a good idea to modify this file when a game is running !!
 
- 
-$machinestates = array(
+ $machinestates = array(
 
     // The initial state. Please do not modify.
-    1 => array(
+    1 => [
         "name" => "gameSetup",
         "description" => "",
         "type" => "manager",
         "action" => "stGameSetup",
-        "transitions" => array( "" => 10 )
-    ),
+        "transitions" => [ "" => 20 ]
+    ],
     
-    // Note: ID=2 => your first state
-
     10 => [
         "name"=> "prepareRound",
         "type" => "game",
@@ -78,13 +75,23 @@ $machinestates = array(
         "description" => clienttranslate('Other players need to finish their turn.'),
         "descriptionmyturn" => clienttranslate('${you} must complete your turn.'),
         "type" => "multipleactiveplayer",
-        "initialprivate" => 6,
+        "initialprivate" => 30,
         "possibleactions" => [],
-        "transitions" => array( "nextRound" => 30 ),
+        "transitions" => [ "nextRound" => 40 ],
         "action" => "stPlayerTurn",
     ],
 
     30 => [
+        "name" => "useResources",
+        "descriptionmyturn" => clienttranslate('${you} may use resources and workers.'),
+        "type" => "private",
+        "possibleactions" => ["checkNextBox", "undoCheck", "restartRound", "done" ],
+        "transitions" => [],
+        //'args' => 'argUseDice',
+    ],
+
+
+    40 => [
         "name"=> "checkEndGame",
         "type" => "game",
         "action" => "stCheckGameEnd",
@@ -94,49 +101,15 @@ $machinestates = array(
         ]
     ],
 
-    40 => [
-        "name" => "useResources",
-        "descriptionmyturn" => clienttranslate('${you} may use workers and resources.'),
-        "type" => "private",
-        "possibleactions" => ["checkBox", "undo", "restartRound"],
-        "transitions" => [],
-        // 'args' => 'argUseResources',
-    ],
-
-
-
-/*
-    Examples:
-    
-    2 => array(
-        "name" => "nextPlayer",
-        "description" => '',
-        "type" => "game",
-        "action" => "stNextPlayer",
-        "updateGameProgression" => true,   
-        "transitions" => array( "endGame" => 99, "nextPlayer" => 10 )
-    ),
-    
-    10 => array(
-        "name" => "playerTurn",
-        "description" => clienttranslate('${actplayer} must play a card or pass'),
-        "descriptionmyturn" => clienttranslate('${you} must play a card or pass'),
-        "type" => "activeplayer",
-        "possibleactions" => array( "playCard", "pass" ),
-        "transitions" => array( "playCard" => 2, "pass" => 2 )
-    ), 
-
-*/    
-   
     // Final state.
     // Please do not modify (and do not overload action/args methods).
-    99 => array(
+    99 => [
         "name" => "gameEnd",
         "description" => clienttranslate("End of game"),
         "type" => "manager",
         "action" => "stGameEnd",
         "args" => "argGameEnd"
-    )
+    ]
 
 );
 
