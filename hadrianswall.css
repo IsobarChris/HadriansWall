@@ -70,6 +70,38 @@
 
 */
 
+/* */   
+@media (-webkit-min-device-pixel-ratio: 2), (min-device-pixel-ratio: 2), (min-resolution: 192dpi)
+{
+    #sheet1 {
+        background-size: 740px 740px;
+        background-image: url('img/Sheet1@2x.jpg');
+    }
+    #sheet2 {
+        background-size: 740px 740px;
+        background-image: url('img/Sheet2@2x.jpg');
+    }
+    .pictcardsheet {
+        background-size: 2652px 1408px;
+        background-image: url('img/PictCardSheet@2x.jpg');
+    }
+    .playercardsheet {
+        background-size: 1326px 1056px;
+        background-image: url('img/PlayerCardSheet@2x.jpg');
+    }
+    .playercardbottomsheet {
+        background-size: 1326px 1056px;
+        background-image: url('img/PlayerCardSheet@2x.jpg');
+    }
+    .iconsheet {
+        background-size: 280px 175px;
+        background-image: url('img/IconSheet@2x.png');
+    }
+}
+/* */
+
+
+
 #x {
     display: inline-block;
     position: relative;
@@ -191,6 +223,8 @@
 .pick_round_5 { left: 255px; }
 .pick_round_6 { left: 499px; }
 
+.card_banner_only { display: inline-block; background-color: red; height: 70px; margin: -20px; margin-left:-60px; scale: 0.4; z-index: 1; position: relative; }
+
 .op_pick { top: 100px; scale: 0.4; z-index: 1; position: absolute; }
 .op_l_pick_round_1 { left: -40px; }
 .op_l_pick_round_2 { left: 203px; }
@@ -222,34 +256,6 @@
     background-image: url('img/IconSheet.png');
 }
 
-@media (-webkit-min-device-pixel-ratio: 2), (min-device-pixel-ratio: 2), (min-resolution: 192dpi)
-{
-    #sheet1 {
-        background-size: 740px 740px;
-        background-image: url('img/Sheet1@2x.jpg');
-    }
-    #sheet2 {
-        background-size: 740px 740px;
-        background-image: url('img/Sheet2@2x.jpg');
-    }
-    .pictcardsheet {
-        background-size: 2652px 1408px;
-        background-image: url('img/PictCardSheet@2x.jpg');
-    }
-    .playercardsheet {
-        background-size: 1326px 1056px;
-        background-image: url('img/PlayerCardSheet@2x.jpg');
-    }
-    .playercardbottomsheet {
-        background-size: 1326px 1056px;
-        background-image: url('img/PlayerCardSheet@2x.jpg');
-    }
-    .iconsheet {
-        background-size: 280px 175px;
-        background-image: url('img/IconSheet@2x.png');
-    }
-
-}
 
 
 .pict_card_1 { background-position:      0px     0px;}
@@ -344,7 +350,7 @@
 .icon_glad_red    { background-position: -140px -140px; }
 .icon_diff_left   { background-position: -175px -140px; }
 .icon_diff_right  { background-position: -210px -140px; }
-.icon_blank       { background-position: -245px -140px; }
+.icon_path_cards  { background-position: -245px -140px; }
 
 
 
@@ -384,16 +390,18 @@
     height: 143px;
     border-radius: 5px;
     background-size: 220px 143px;
-    background-image: url('img/BrickWall.jpg');
+}
+
+.miniicon {
+    scale: 0.7;
+    margin: -5px;
 }
 
 .attribute_backing {
     position: relative;
-    width: 65px;
-    height: 30px;
-    border-radius: 3px;
-    margin: 2px;
-    background-color: rgba(201, 162, 78, 0.653);
+    display: inline-block;
+    width: 40px;
+    height: 20px;
 }
 
 .attribute_score {
@@ -401,9 +409,10 @@
     top: 10px;
     left: 35px;
     display: inline;
-    font-size: 16pt;
-    font-weight: bold;
+    font-size: 12pt;
+    font-weight: 200;
     color: #444;
+    margin-left: -8px;
     margin-top: -5px;
 }
 

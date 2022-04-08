@@ -71,7 +71,7 @@ function (dojo, declare) {
                     this.drawAllScratches(board);
                 }
 
-                ['renown','piety','valour','discipline'].forEach( attr=>{
+                ['renown','piety','valour','discipline','disdain'].forEach( attr=>{
                     try {
                         let counter = new ebg.counter();
                         let dom_id = `${attr}_score_${player.color}`

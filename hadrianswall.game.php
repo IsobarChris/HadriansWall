@@ -121,7 +121,7 @@ class HadriansWall extends Table
         $sql = "SELECT * FROM board WHERE player_id = $current_player_id";
         $result['board'] = self::getCollectionFromDb( $sql );
 
-        $sql = "SELECT renown, piety, valour, discipline, player_id id FROM board";
+        $sql = "SELECT renown, piety, valour, discipline, disdain, player_id id FROM board";
         $result['scores'] = self::getCollectionFromDb( $sql );
 
         $current_round = $this->getGameStateValue(self::GAME_ROUND);

@@ -37,21 +37,40 @@
         <div id="scoresheet">
             <div style="width:1px; height:10px;"> </div>
             <div id="renown_attribute" class="attribute_backing">
-                <div class="iconsheet icon_renown"></div>
+                <div class="iconsheet icon_renown miniicon"></div>
                 <div id="renown_score_{COLOR}" class="attribute_score"></div>
             </div>
             <div id="piety_attribute" class="attribute_backing">
-                <div class="iconsheet icon_piety"></div>
+                <div class="iconsheet icon_piety miniicon"></div>
                 <div id="piety_score_{COLOR}"  class="attribute_score"></div>
             </div>
             <div id="valour_attribute" class="attribute_backing">
-                <div class="iconsheet icon_valour"></div>
+                <div class="iconsheet icon_valour miniicon"></div>
                 <div id="valour_score_{COLOR}"  class="attribute_score"></div>
             </div>
             <div id="discipline_attribute" class="attribute_backing">
-                <div class="iconsheet icon_discipline"></div>
+                <div class="iconsheet icon_discipline miniicon"></div>
                 <div id="discipline_score_{COLOR}"  class="attribute_score"></div>
             </div>
+            <div id="disdain_attribute" class="attribute_backing">
+                <div class="iconsheet icon_thumb_down miniicon"></div>
+                <div id="disdain_score_{COLOR}"  class="attribute_score"></div>
+            </div>
+
+            <div></div>
+            <div id="path_cards_attribute" class="attribute_backing" style="display: flex; flex-direction: row;">
+                <div style="width: 100px;">
+                <div id="x" class="playercardsheet player_card_1 card_banner_only"></div>
+                <div id="x" class="playercardsheet player_card_2 card_banner_only"></div>
+                <div id="x" class="playercardsheet player_card_3 card_banner_only"></div>
+                </div>
+                <div style="width: 100px;">
+                <div id="x" class="playercardsheet player_card_4 card_banner_only"></div>
+                <div id="x" class="playercardsheet player_card_5 card_banner_only"></div>
+                <div id="x" class="playercardsheet player_card_6 card_banner_only"></div>
+                </div>
+            </div>
+
         </div>
     </div>
     <!-- END player_board -->

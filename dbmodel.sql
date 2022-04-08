@@ -53,7 +53,7 @@ CREATE TABLE IF NOT EXISTS `goalboard` (
     `player_id` int(10) NOT NULL,
     `round` int(1) NOT NULL DEFAULT 0,
     `goal_card` varchar(24) NOT NULL,
-    `pick_card` varchar(24) NOT NULL,
+    `pict_card` varchar(24) NOT NULL,
     PRIMARY KEY (`player_id`,`round`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 
