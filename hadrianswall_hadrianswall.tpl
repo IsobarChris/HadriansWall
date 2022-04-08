@@ -34,7 +34,25 @@
     <!-- BEGIN player_board -->
     <!--  boardblock  -->
     <div id="miniboard_{COLOR}" class="miniboard">
-        <div id="scoresheet">{VALUE}</div>
+        <div id="scoresheet">
+            <div style="width:1px; height:10px;"> </div>
+            <div id="renown_attribute" class="attribute_backing">
+                <div class="iconsheet icon_renown"></div>
+                <div id="renown_score_{COLOR}" class="attribute_score"></div>
+            </div>
+            <div id="piety_attribute" class="attribute_backing">
+                <div class="iconsheet icon_piety"></div>
+                <div id="piety_score_{COLOR}"  class="attribute_score"></div>
+            </div>
+            <div id="valour_attribute" class="attribute_backing">
+                <div class="iconsheet icon_valour"></div>
+                <div id="valour_score_{COLOR}"  class="attribute_score"></div>
+            </div>
+            <div id="discipline_attribute" class="attribute_backing">
+                <div class="iconsheet icon_discipline"></div>
+                <div id="discipline_score_{COLOR}"  class="attribute_score"></div>
+            </div>
+        </div>
     </div>
     <!-- END player_board -->
 
@@ -47,6 +65,52 @@
 
 </div>
 
+<div class="icons" style="width: 500px; height: 500px; background-color: #ffffff55;">
+    <div class="iconsheet icon_round"></div>
+    <div class="iconsheet icon_flag"></div>
+    <div class="iconsheet icon_soldier"></div>
+    <div class="iconsheet icon_servant"></div>
+    <div class="iconsheet icon_builder"></div>
+    <div class="iconsheet icon_civilian"></div>
+    <div class="iconsheet icon_brick"></div>
+    <div class="iconsheet icon_renown"></div>
+
+    <div class="iconsheet icon_banner_gray"></div>
+    <div class="iconsheet icon_banner_green"></div>
+    <div class="iconsheet icon_banner_yellow"></div>
+    <div class="iconsheet icon_banner_red"></div>
+    <div class="iconsheet icon_drape_gray"></div>
+    <div class="iconsheet icon_drape_green"></div>
+    <div class="iconsheet icon_drape_yellow"></div>
+    <div class="iconsheet icon_drape_red"></div>
+
+    <div class="iconsheet icon_valour"></div>
+    <div class="iconsheet icon_piety"></div>
+    <div class="iconsheet icon_discipline"></div>
+    <div class="iconsheet icon_trader"></div>
+    <div class="iconsheet icon_performer"></div>
+    <div class="iconsheet icon_priest"></div>
+    <div class="iconsheet icon_apparitor"></div>
+    <div class="iconsheet icon_patrician"></div>
+
+    <div class="iconsheet icon_favor"></div>
+    <div class="iconsheet icon_thumb_down"></div>
+    <div class="iconsheet icon_thumb_up"></div>
+    <div class="iconsheet icon_cohort"></div>
+    <div class="iconsheet icon_sword"></div>
+    <div class="iconsheet icon_production"></div>
+    <div class="iconsheet icon_scout"></div>
+    <div class="iconsheet icon_trade_good"></div>
+
+    <div class="iconsheet icon_check_x"></div>
+    <div class="iconsheet icon_check_mark"></div>
+    <div class="iconsheet icon_glad_purple"></div>
+    <div class="iconsheet icon_glad_blue"></div>
+    <div class="iconsheet icon_glad_red"></div>
+    <div class="iconsheet icon_diff_left"></div>
+    <div class="iconsheet icon_diff_right"></div>
+    <div class="iconsheet icon_blank"></div>
+</div>    
 
 <div class="hidden"> 
     <div id="x" class="playercardsheet player_card_1"></div>

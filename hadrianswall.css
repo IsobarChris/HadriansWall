@@ -214,6 +214,14 @@
     background-image: url('img/PictCardSheet.jpg');   
 }
 
+.iconsheet {
+    display: inline-block;
+    width: 35px;
+    height: 35px;
+    border-radius: 3px;
+    background-image: url('img/IconSheet.png');
+}
+
 @media (-webkit-min-device-pixel-ratio: 2), (min-device-pixel-ratio: 2), (min-resolution: 192dpi)
 {
     #sheet1 {
@@ -236,6 +244,11 @@
         background-size: 1326px 1056px;
         background-image: url('img/PlayerCardSheet@2x.jpg');
     }
+    .iconsheet {
+        background-size: 280px 175px;
+        background-image: url('img/IconSheet@2x.png');
+    }
+
 }
 
 
@@ -288,6 +301,53 @@
 .pict_card_47 { background-position: -2210px -1056px;}
 .pict_card_48 { background-position: -2431px -1056px;}
 
+.icon_round    { background-position: -0px   -0px; }
+.icon_flag     { background-position: -35px  -0px; }
+.icon_soldier  { background-position: -70px  -0px; }
+.icon_servant  { background-position: -105px -0px; }
+.icon_builder  { background-position: -140px -0px; }
+.icon_civilian { background-position: -175px -0px; }
+.icon_brick    { background-position: -210px -0px; }
+.icon_renown   { background-position: -245px -0px; }
+
+.icon_banner_gray   { background-position: -0px   -35px; }
+.icon_banner_green  { background-position: -35px  -35px; }
+.icon_banner_yellow { background-position: -70px  -35px; }
+.icon_banner_red    { background-position: -105px -35px; }
+.icon_drape_gray    { background-position: -140px -35px; }
+.icon_drape_green   { background-position: -175px -35px; }
+.icon_drape_yellow  { background-position: -210px -35px; }
+.icon_drape_red     { background-position: -245px -35px; }
+
+.icon_valour     { background-position: -0px   -70px; }
+.icon_piety      { background-position: -35px  -70px; }
+.icon_discipline { background-position: -70px  -70px; }
+.icon_trader     { background-position: -105px -70px; }
+.icon_performer  { background-position: -140px -70px; }
+.icon_priest     { background-position: -175px -70px; }
+.icon_apparitor  { background-position: -210px -70px; }
+.icon_patrician  { background-position: -245px -70px; }
+
+.icon_favor      { background-position: -0px   -105px; }
+.icon_thumb_down { background-position: -35px  -105px; }
+.icon_thumb_up   { background-position: -70px  -105px; }
+.icon_cohort     { background-position: -105px -105px; }
+.icon_sword      { background-position: -140px -105px; }
+.icon_production { background-position: -175px -105px; }
+.icon_scout      { background-position: -210px -105px; }
+.icon_trade_good { background-position: -245px -105px; }
+
+.icon_check_x     { background-position: -0px   -140px; }
+.icon_check_mark  { background-position: -35px  -140px; }
+.icon_glad_purple { background-position: -70px  -140px; }
+.icon_glad_blue   { background-position: -105px -140px; }
+.icon_glad_red    { background-position: -140px -140px; }
+.icon_diff_left   { background-position: -175px -140px; }
+.icon_diff_right  { background-position: -210px -140px; }
+.icon_blank       { background-position: -245px -140px; }
+
+
+
 .hidden { display: none; }
 .veryhidden { display: none !important; }
 /*.outlined { border: 1px solid red; opacity: 0.5; background-color: red;}*/
@@ -322,6 +382,28 @@
 #scoresheet {
     width: 220px;
     height: 143px;
+    border-radius: 5px;
     background-size: 220px 143px;
-    background-image: url('img/ScoreSheet.png');
+    background-image: url('img/BrickWall.jpg');
 }
+
+.attribute_backing {
+    position: relative;
+    width: 65px;
+    height: 30px;
+    border-radius: 3px;
+    margin: 2px;
+    background-color: rgba(201, 162, 78, 0.653);
+}
+
+.attribute_score {
+    position: absolute;
+    top: 10px;
+    left: 35px;
+    display: inline;
+    font-size: 16pt;
+    font-weight: bold;
+    color: #444;
+    margin-top: -5px;
+}
+

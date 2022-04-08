@@ -48,6 +48,16 @@ function (dojo, declare) {
             // adds a div with unique id for each location on the player sheet
             this.addScratchLocations();
             
+            let scores_map = gamedatas.scores;
+            let scores = {};
+            for(s in scores_map) {
+                console.log(s);
+                let id = scores_map[s].id;
+                scores[id] = scores_map[s];
+            }
+            console.log("Scores!");
+            console.log(scores);
+
             // Setting up player boards
             for( var player_id in gamedatas.players )
             {
@@ -60,6 +70,22 @@ function (dojo, declare) {
 
                     this.drawAllScratches(board);
                 }
+
+                ['renown','piety','valour','discipline'].forEach( attr=>{
+                    try {
+                        let counter = new ebg.counter();
+                        let dom_id = `${attr}_score_${player.color}`
+                        console.log(dom_id);
+                        counter.create(dom_id);
+                        counter.setValue(parseInt(scores[player_id][attr]));
+
+                        this[`${attr}_score_${player_id}`] = counter;
+                    }catch(e){
+                        console.log("counter error: ",e)
+                    }
+
+                });
+
             }
 
 

@@ -113,13 +113,16 @@ class HadriansWall extends Table
     
         // Get information about players
         // Note: you can retrieve some extra field you added for "player" table in "dbmodel.sql" if you need it.
-        $sql = "SELECT player_id id, player_score score FROM player ";
+        $sql = "SELECT player_id id, player_color color, player_score score FROM player ";
         $result['players'] = self::getCollectionFromDb( $sql );
   
         // TODO: Gather all information about current game situation (visible by player $current_player_id).
   
         $sql = "SELECT * FROM board WHERE player_id = $current_player_id";
         $result['board'] = self::getCollectionFromDb( $sql );
+
+        $sql = "SELECT renown, piety, valour, discipline, player_id id FROM board";
+        $result['scores'] = self::getCollectionFromDb( $sql );
 
         $current_round = $this->getGameStateValue(self::GAME_ROUND);
         $result['round'] = $current_round;

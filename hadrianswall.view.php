@@ -51,7 +51,7 @@ class view_hadrianswall_hadrianswall extends game_view
         }
 
         // DEBUG: make each board different
-        $sql = "UPDATE board SET wall_guard=".$no." WHERE player_id='".$player_id."'";
+        $sql = "UPDATE board SET wall_guard=".$no.", renown=".$no." WHERE player_id='".$player_id."'";
         $this->DbQuery($sql);
         // END DEBUG
     }
