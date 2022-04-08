@@ -32,23 +32,28 @@ class view_hadrianswall_hadrianswall extends game_view
         return "hadrianswall";
     }
     
-    function processPlayerBlock($player_id, $player, $me) {
+    function processPlayerBlock($player_id, $player) {
         $color = $player ['player_color'];
         $name = $player ['player_name'];
         $no = $player ['player_no'];
 
-        // if($player_id == $this->getCurrentPlayerId()) {
-        //     $me = "IT'S REALL ME!";
-        // }
+        global $g_user;
+        if($player_id == $g_user->get_id()) {
+            $this->page->insert_block("my_player_board", 
+            array ("COLOR" => $color,"PLAYER_NAME" => $name,
+                   "PLAYER_NO" => $no, "PLAYER_ID" => $player_id,
+                   "VALUE" => "It's me." ));    
+        } else {
+            $this->page->insert_block("player_board", 
+            array ("COLOR" => $color,"PLAYER_NAME" => $name,
+                    "PLAYER_NO" => $no, "PLAYER_ID" => $player_id,
+                    "VALUE" => $name ));    
+        }
 
-
-        $this->page->insert_block("player_board", 
-        array ("COLOR" => $color,"PLAYER_NAME" => $name,
-               "PLAYER_NO" => $no, "PLAYER_ID" => $player_id,
-               "VALUE" => $me?"it's me!":'hi me' ));
-
+        // DEBUG: make each board different
         $sql = "UPDATE board SET wall_guard=".$no." WHERE player_id='".$player_id."'";
         $this->DbQuery($sql);
+        // END DEBUG
     }
 
     function getTemplateName() {
@@ -65,13 +70,23 @@ class view_hadrianswall_hadrianswall extends game_view
 
         /*********** Place your code below:  ************/
 
+        global $g_user;
         $template = self::getTemplateName();
-        $this->page->begin_block($template, "player_board");
 
-        $first = true;
+        $this->page->begin_block($template, "player_board");
         foreach($players as $player_id => $player) {
-            $this->processPlayerBlock($player_id,$player,$first);
-            $first = false;
+            if($player_id==$g_user->get_id()) {
+                continue;
+            }
+            $this->processPlayerBlock($player_id,$player);
+        }
+
+        $this->page->begin_block($template, "my_player_board");
+        foreach($players as $player_id => $player) {
+            if($player_id!=$g_user->get_id()) {
+                continue;
+            }
+            $this->processPlayerBlock($player_id,$player);
         }
 
         /*

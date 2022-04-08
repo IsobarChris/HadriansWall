@@ -49,6 +49,26 @@
 
 //    !! It is not a good idea to modify this file when a game is running !!
 
+// gameSetup
+// Game Round Start: 
+//   - inc round number
+//   - draw fate card for resources
+//   - give fate resources
+//   - give sheet resources
+//   - draw two personal cards
+// Player Round Start:
+//   - wait for player selection
+// Player turns
+// Game End of Round:
+//   - Draw attack cards
+// Player End of Round:
+//   - Wait for user choice for Favor
+// 
+
+
+
+
+
  $machinestates = array(
 
     // The initial state. Please do not modify.

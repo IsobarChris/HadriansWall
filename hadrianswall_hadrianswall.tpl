@@ -37,6 +37,14 @@
         <div id="scoresheet">{VALUE}</div>
     </div>
     <!-- END player_board -->
+
+    <!-- BEGIN my_player_board -->
+    <!--  boardblock  -->
+    <div id="miniboard_{COLOR}" class="resourceboard">
+        
+    </div>
+    <!-- END my_player_board -->
+
 </div>
 
 
