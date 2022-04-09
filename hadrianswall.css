@@ -70,6 +70,84 @@
 
 */
 
+
+
+
+#sheet1 {
+    display: inline-block;
+    width: 740px;
+    height: 740px;
+    background-color: aqua;
+    background-image: url('img/Sheet1.jpg');
+    border: 2px solid black;
+    position: relative;
+}
+#sheet2 {
+    display: inline-block;
+    width: 740px;
+    height: 740px;
+    background-color: aquamarine;
+    background-image: url('img/Sheet2.jpg');
+    border: 2px solid black;
+    position: relative;
+}
+
+#playerboard1 {
+    display: inline-block;
+    width: 740px;
+    height: 257px;
+    margin-top: 140px;
+    margin-bottom: 2px;
+    background-image: url('img/PlayerBoard.jpg');
+    border: 2px solid black;
+    position: relative;
+}
+
+#playerboard2 {
+    display: inline-block;
+    width: 740px;
+    height: 257px;    
+    margin-top: 140px;
+    margin-bottom: 2px;
+    background-position-x: 740px;
+    background-image: url('img/PlayerBoard.jpg');
+    border: 2px solid black;
+    position: relative;
+}
+
+.playercardsheet {
+    width: 221px;
+    height: 352px;
+    border-radius: 10px;
+    border: 1px solid black;
+    background-image: url('img/PlayerCardSheet.jpg');   
+}
+
+.playercardbottomsheet {
+    width: 221px;
+    height: 215px;
+    border-radius: 10px;
+    border: 1px solid black;
+    background-image: url('img/PlayerCardSheet.jpg');    
+}
+
+.pictcardsheet {
+    width: 221px;
+    height: 352px;
+    border-radius: 10px;
+    border: 1px solid black;
+    background-image: url('img/PictCardSheet.jpg');   
+}
+
+.iconsheet {
+    display: inline-block;
+    width: 35px;
+    height: 35px;
+    border-radius: 3px;
+    background-image: url('img/IconSheet.png');
+}
+
+
 /* */   
 @media (-webkit-min-device-pixel-ratio: 2), (min-device-pixel-ratio: 2), (min-resolution: 192dpi)
 {
@@ -102,52 +180,13 @@
 
 
 
+
 #x {
     display: inline-block;
     position: relative;
 }
 
-#playerboard1 {
-    display: inline-block;
-    width: 740px;
-    height: 257px;
-    margin-top: 140px;
-    margin-bottom: 2px;
-    background-image: url('img/PlayerBoard.jpg');
-    border: 2px solid black;
-    position: relative;
-}
 
-#playerboard2 {
-    display: inline-block;
-    width: 740px;
-    height: 257px;    
-    margin-top: 140px;
-    margin-bottom: 2px;
-    background-position-x: 740px;
-    background-image: url('img/PlayerBoard.jpg');
-    border: 2px solid black;
-    position: relative;
-}
-
-#sheet1 {
-    display: inline-block;
-    width: 740px;
-    height: 740px;
-    background-color: aqua;
-    background-image: url('img/Sheet1.jpg');
-    border: 2px solid black;
-    position: relative;
-}
-#sheet2 {
-    display: inline-block;
-    width: 740px;
-    height: 740px;
-    background-color: aquamarine;
-    background-image: url('img/Sheet2.jpg');
-    border: 2px solid black;
-    position: relative;
-}
 
 .scratch {
     display: block;
@@ -157,21 +196,13 @@
     position: absolute;
 }
 
-.playercardsheet {
-    width: 221px;
-    height: 352px;
-    border-radius: 10px;
-    border: 1px solid black;
-    background-image: url('img/PlayerCardSheet.jpg');
-    
-}
 
-.player_back_1 { background-position:     0px 0px; }
-.player_back_2 { background-position:  -221px 0px; }
-.player_back_3 { background-position:  -442px 0px; }
-.player_back_4 { background-position:  -663px 0px; }
-.player_back_5 { background-position:  -884px 0px; }
-.player_back_6 { background-position: -1105px 0px; }
+.player_back_30668d { background-position:     0px -40px; }
+.player_back_6fa254 { background-position:  -221px -40px; }
+.player_back_b02325 { background-position:  -442px -80px; }
+.player_back_df7f3a { background-position:  -663px -40px; }
+.player_back_e8b73e { background-position:  -884px -80px; }
+.player_back_3c3939 { background-position: -1105px -40px; }
 
 .player_card_1 { background-position:      0px -352px; }
 .player_card_2 { background-position:      0px -704px; }
@@ -194,13 +225,7 @@
 .goal_round_5 { left: 255px; }
 .goal_round_6 { left: 499px; }
 
-.playercardbottomsheet {
-    width: 221px;
-    height: 215px;
-    border-radius: 10px;
-    border: 1px solid black;
-    background-image: url('img/PlayerCardSheet.jpg');    
-}
+
 
 .player_cardbottom_1 { background-position:      0px -489px; }
 .player_cardbottom_2 { background-position:      0px -841px; }
@@ -223,7 +248,7 @@
 .pick_round_5 { left: 255px; }
 .pick_round_6 { left: 499px; }
 
-.card_banner_only { display: inline-block; background-color: red; height: 70px; margin: -20px; margin-left:-60px; scale: 0.4; z-index: 1; position: relative; }
+.card_banner_only { display: inline-block; height: 70px; margin: -20px; margin-left:-60px; scale: 0.4; z-index: 1; position: relative; }
 
 .op_pick { top: 100px; scale: 0.4; z-index: 1; position: absolute; }
 .op_l_pick_round_1 { left: -40px; }
@@ -239,23 +264,6 @@
 .op_r_pick_round_4 { left: 61px; }
 .op_r_pick_round_5 { left: 305px; }
 .op_r_pick_round_6 { left: 549px; }
-
-.pictcardsheet {
-    width: 221px;
-    height: 352px;
-    border-radius: 10px;
-    border: 1px solid black;
-    background-image: url('img/PictCardSheet.jpg');   
-}
-
-.iconsheet {
-    display: inline-block;
-    width: 35px;
-    height: 35px;
-    border-radius: 3px;
-    background-image: url('img/IconSheet.png');
-}
-
 
 
 .pict_card_1 { background-position:      0px     0px;}
@@ -415,4 +423,7 @@
     margin-left: -8px;
     margin-top: -5px;
 }
+
+
+
 

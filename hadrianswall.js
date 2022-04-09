@@ -58,12 +58,23 @@ function (dojo, declare) {
             console.log("Scores!");
             console.log(scores);
 
+            let goals_map = gamedatas.goals;
+            console.log(JSON.stringify(goals_map));
+            let goals={};
+
+            let goal_objs = Object.values(goals_map[0]);
+            console.log(goal_objs);
+            goal_objs.forEach((g)=>{
+                goals[g.id] = g;
+            })
+            console.log(goals);
+
             // Setting up player boards
             for( var player_id in gamedatas.players )
             {
                 var player = gamedatas.players[player_id];
                 this.setupPlayer(player_id,player);
-                         
+                
                 if(gamedatas.board[player_id]){
                     let board = gamedatas.board[player_id];
                     console.log(JSON.stringify(board));
@@ -83,8 +94,19 @@ function (dojo, declare) {
                     }catch(e){
                         console.log("counter error: ",e)
                     }
-
                 });
+                
+                [1,2,3,4,5,6].forEach((i)=>{
+                    if(goals[player_id][`round_${i}`]>0) {
+                        let card_num = goals[player_id][`round_${i}`];
+                        console.log(`Adding ${card_num} to goal${i}_${player.color}`);
+                        let node = dojo.query(`#goal${i}_${player.color}`);
+                        console.log(node);
+                        node.addClass(`player_card_${card_num}`);  
+                    }
+                })
+
+
 
             }
 

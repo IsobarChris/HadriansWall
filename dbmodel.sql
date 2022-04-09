@@ -49,12 +49,15 @@ ALTER TABLE `player` ADD `cohorts`   INT UNSIGNED NOT NULL DEFAULT 0;
 --   PRIMARY KEY (`card_id`)
 -- ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
-CREATE TABLE IF NOT EXISTS `goalboard` (
+CREATE TABLE IF NOT EXISTS `goals` (
     `player_id` int(10) NOT NULL,
-    `round` int(1) NOT NULL DEFAULT 0,
-    `goal_card` varchar(24) NOT NULL,
-    `pict_card` varchar(24) NOT NULL,
-    PRIMARY KEY (`player_id`,`round`)
+    `round_1` int(2) NOT NULL DEFAULT 0,
+    `round_2` int(2) NOT NULL DEFAULT 0,
+    `round_3` int(2) NOT NULL DEFAULT 0,
+    `round_4` int(2) NOT NULL DEFAULT 0,
+    `round_5` int(2) NOT NULL DEFAULT 0,
+    `round_6` int(2) NOT NULL DEFAULT 0,
+    PRIMARY KEY (`player_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 
 CREATE TABLE IF NOT EXISTS `board` (

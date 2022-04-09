@@ -65,10 +65,13 @@ class HadriansWall extends Table
         // Create players
         // Note: if you added some extra field on "player" table in the database (dbmodel.sql), you can initialize it there.
         $sql = "INSERT INTO player (player_id, player_color, player_canal, player_name, player_avatar) VALUES ";
-        $values = array();
+        $values = [];
 
         $board_sql = "INSERT INTO board (`round`,player_id) VALUES ";
-        $board_values = array();
+        $board_values = [];
+
+        $goal_sql = "INSERT INTO goals (player_id,round_1) VALUES ";
+        $goal_values = [];
 
         foreach( $players as $player_id => $player )
         {
@@ -76,13 +79,18 @@ class HadriansWall extends Table
             $values[] = "('".$player_id."','$color','".$player['player_canal']."','".addslashes( $player['player_name'] )."','".addslashes( $player['player_avatar'] )."')";
 
             $board_values[] = "(0,'".$player_id."')";
+
+            $goal_values[] = "(".$player_id.",2)";
         }
         $sql .= implode( $values, ',' );
         self::DbQuery( $sql );
 
-        $board_sql .= implode( $board_values, ',' );
-        
+        $board_sql .= implode( $board_values, ',' );        
         self::DbQuery( $board_sql );
+
+        $goal_sql .= implode( $goal_values, ',' );
+        self::DbQuery( $goal_sql );
+
         //self::reattributeColorsBasedOnPreferences( $players, $gameinfos['player_colors'] );
         self::reloadPlayersBasicInfos();
         
@@ -123,6 +131,12 @@ class HadriansWall extends Table
 
         $sql = "SELECT renown, piety, valour, discipline, disdain, player_id id FROM board";
         $result['scores'] = self::getCollectionFromDb( $sql );
+
+        $goals = [];
+        $sql = "SELECT player_id id, round_1, round_2, round_3, round_4, round_5, round_6 FROM goals";
+        $goals[] = self::getCollectionFromDb( $sql );
+
+        $result['goals'] = $goals;
 
         $current_round = $this->getGameStateValue(self::GAME_ROUND);
         $result['round'] = $current_round;

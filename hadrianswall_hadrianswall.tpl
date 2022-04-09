@@ -60,14 +60,14 @@
             <div></div>
             <div id="path_cards_attribute" class="attribute_backing" style="display: flex; flex-direction: row;">
                 <div style="width: 100px;">
-                <div id="x" class="playercardsheet player_card_1 card_banner_only"></div>
-                <div id="x" class="playercardsheet player_card_2 card_banner_only"></div>
-                <div id="x" class="playercardsheet player_card_3 card_banner_only"></div>
+                <div id="goal1_{COLOR}" class="playercardsheet player_back_{COLOR} card_banner_only "></div>
+                <div id="goal3_{COLOR}" class="playercardsheet player_back_{COLOR} card_banner_only "></div>
+                <div id="goal5_{COLOR}" class="playercardsheet player_back_{COLOR} card_banner_only "></div>
                 </div>
                 <div style="width: 100px;">
-                <div id="x" class="playercardsheet player_card_4 card_banner_only"></div>
-                <div id="x" class="playercardsheet player_card_5 card_banner_only"></div>
-                <div id="x" class="playercardsheet player_card_6 card_banner_only"></div>
+                <div id="goal2_{COLOR}" class="playercardsheet player_back_{COLOR} card_banner_only "></div>
+                <div id="goal4_{COLOR}" class="playercardsheet player_back_{COLOR} card_banner_only "></div>
+                <div id="goal6_{COLOR}" class="playercardsheet player_back_{COLOR} card_banner_only "></div>
                 </div>
             </div>
 
