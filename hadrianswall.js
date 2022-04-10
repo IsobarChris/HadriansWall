@@ -15,6 +15,18 @@
  *
  */
 
+function log(prefix,msg) {
+    console.log(`--] ${prefix}:`,msg);
+}
+
+function debug(prefix,msg) {
+    console.log(`--] DEBUG (${prefix}): `,msg);
+}
+
+function error(msg) {
+    console.log(`--] ERROR: `,msg);
+}
+
 define([
     "dojo","dojo/_base/declare",
     "ebg/core/gamegui",
@@ -23,129 +35,79 @@ define([
 function (dojo, declare) {
     return declare("bgagame.hadrianswall", ebg.core.gamegui, {
         constructor: function(){
-            console.log('hadrianswall constructor');
-              
+            log('constructor','hadrianswall');              
         },
         
         /*
             setup:
-            
-            This method must set up the game user interface according to current game situation specified
-            in parameters.
-            
-            The method is called each time the game interface is displayed to a player, ie:
-            _ when the game starts
-            _ when a player refreshes the game page (F5)
-            
-            "gamedatas" argument contains all datas retrieved by your "getAllDatas" PHP method.
         */
         
         setup: function( gamedatas )
         {
-            console.log( "Starting game setup" );
-            console.log(gamedatas);
+            log('setup',"Starting game setup" );
+            debug('gamedatas',gamedatas);
 
-            // adds a div with unique id for each location on the player sheet
+            // add div for each location on the player sheets
             this.addScratchLocations();
+            dojo.query('.clickable').connect('onclick',this,'onBoxClicked');
+
+            log('info',`Round ${gamedatas.round}`)
+            log('info',`Difficulty ${gamedatas.difficulty}`)
+            log('info',`Attack Potential ${gamedatas.attack_potential}`)
+            log('info',`Attacks ${gamedatas.attacks}`)
+
             
+            // pull data from gamedatas and clean it up
+            let scores={};
             let scores_map = gamedatas.scores;
-            let scores = {};
             for(s in scores_map) {
-                console.log(s);
                 let id = scores_map[s].id;
                 scores[id] = scores_map[s];
             }
-            console.log("Scores!");
-            console.log(scores);
+            gamedatas.scores = scores;
 
-            let goals_map = gamedatas.goals;
-            console.log(JSON.stringify(goals_map));
             let goals={};
-
+            let goals_map = gamedatas.goals;
             let goal_objs = Object.values(goals_map[0]);
-            console.log(goal_objs);
             goal_objs.forEach((g)=>{
                 goals[g.id] = g;
             })
-            console.log(goals);
+            gamedatas.goals = goals;
 
-            // Setting up player boards
+            // Setting up player panels
             for( var player_id in gamedatas.players )
             {
                 var player = gamedatas.players[player_id];
-                this.setupPlayer(player_id,player);
-                
-                if(gamedatas.board[player_id]){
-                    let board = gamedatas.board[player_id];
-                    console.log(JSON.stringify(board));
-
-                    this.drawAllScratches(board);
-                }
-
-                ['renown','piety','valour','discipline','disdain'].forEach( attr=>{
-                    try { // because the current player will not have these set
-                        // TODO: place these on sheet 1 in the scoring section for current player
-                        let counter = new ebg.counter();
-                        let dom_id = `${attr}_score_${player.color}`
-                        console.log(dom_id);
-                        counter.create(dom_id);
-                        counter.setValue(parseInt(scores[player_id][attr]));
-
-                        this[`${attr}_score_${player_id}`] = counter;
-                    }catch(e){
-                        console.log("counter error: ",e)
-                    }
-                });                
-                
-                [1,2,3,4,5,6].forEach((i)=>{
-                    if(goals[player_id][`round_${i}`]>0) {
-                        let card_num = goals[player_id][`round_${i}`];
-                        console.log(`Adding ${card_num} to goal${i}_${player.color}`);
-                        let node = dojo.query(`#goal${i}_${player.color}`);
-                        console.log(node);
-                        node.addClass(`player_card_${card_num}`);  
-                    }
-                })
+                this.setupPlayer(player_id,player,gamedatas);                
             }
 
-            console.log(gamedatas.resources);
+            this.setupCurrentPlayer(gamedatas);
+ 
+            // Setup game notifications to handle (see "setupNotifications" method below)
+            this.setupNotifications();
+
+            log("setup","Ending game setup" );
+        },
+
+        setupCurrentPlayer: function(gamedatas) {
             let resources = gamedatas.resources[0];
             // add resource counters
             [`civilians`,`servants`,`soldiers`,`builders`,`resources`].forEach(resource=>{
                 let counter = new ebg.counter();
                 let dom_id = `${resource}_resource`
-                console.log(dom_id, " is ", resources[resource]);
                 counter.create(dom_id);
                 counter.setValue(parseInt(resources[resource]));
                 this[`${resource}_resource`] = counter;
             });
-
-            dojo.query('.clickable').connect('onclick',this,'onBoxClicked');
-
-            console.log(`Round ${gamedatas.round}`)
-            console.log(`Difficulty ${gamedatas.difficulty}`)
-            console.log(`Attack Potential ${gamedatas.attack_potential}`)
-            console.log(`Attacks ${gamedatas.attacks}`)
-
-            
-            // TODO: Set up your game interface here, according to "gamedatas"
- 
-            // Setup game notifications to handle (see "setupNotifications" method below)
-            this.setupNotifications();
-
-            console.log( "Ending game setup" );
         },
 
-        setupPlayer: function (playerId, playerInfo) {
-            console.log("player info " + playerId, playerInfo);
-
+        setupPlayer: function (player_id, player_info, gamedatas) {
             // move miniboards to the right
-
-            var color = this.gamedatas.players[playerId].color;
-            var player = this.gamedatas.players[playerId];
+            var color = this.gamedatas.players[player_id].color;
+            var player = this.gamedatas.players[player_id];
             var content = dojo.byId('player_panel_content_' + color);
-            var status = 'player_table_status_' + playerId;
-             var score = document.querySelector("#player_board_" + playerId + " .player_score");
+            var status = 'player_table_status_' + player_id;
+             var score = document.querySelector("#player_board_" + player_id + " .player_score");
             if (score) dojo.place(status, content, 'after');
             var x = content.querySelector('#miniboard_' + color);
             if (x) {
@@ -153,63 +115,65 @@ function (dojo, declare) {
             }
             dojo.place('miniboard_' + color, content);
             
-            // this.drawHandIcon(1, 'deck_icon_' + color, color, 0);
-            // this.drawHandIcon(2, 'discard_icon_' + color, color);
-            // this.drawHandIcon(5, 'hand_icon_' + color, color, -2);
-            // dojo.addClass('tableau_' + color, 'other_player');
-            // if (player.score == '0') player.score = undefined;
+            if(gamedatas.board[player_id]){
+                let board = gamedatas.board[player_id];
+                this.drawAllScratches(board);
+            }
+
+            ['renown','piety','valour','discipline','disdain'].forEach( attr=>{
+                try { // because the current player will not have these set
+                    // TODO: place these on sheet 1 in the scoring section for current player
+                    let counter = new ebg.counter();
+                    let dom_id = `${attr}_score_${player.color}`
+                    counter.create(dom_id);
+                    counter.setValue(parseInt(gamedatas.scores[player_id][attr]));
+
+                    this[`${attr}_score_${player_id}`] = counter;
+                }catch(e){
+                    error("counter error: (expected) ",e)
+                }
+            });                
+            
+            [1,2,3,4,5,6].forEach((i)=>{
+                if(gamedatas.goals[player_id][`round_${i}`]>0) {
+                    let card_num = gamedatas.goals[player_id][`round_${i}`];
+                    let node = dojo.query(`#goal${i}_${player.color}`);
+                    node.addClass(`player_card_${card_num}`);  
+                }
+            })
         },
    
 
         ///////////////////////////////////////////////////
         //// Game & client states
-        
-        // onEnteringState: this method is called each time we are entering into a new game state.
-        //                  You can use this method to perform some user interface changes at this moment.
-        //
         onEnteringState: function( stateName, args )
         {
-            console.log( 'Entering state: '+stateName );
+            debug('Entering state',stateName);
             
             switch( stateName )
             {
-            
-            /* Example:
-            
-            case 'myGameState':
-            
-                // Show some HTML block at this game state
-                dojo.style( 'my_html_block_id', 'display', 'block' );
-                
+                case 'chooseGoalCard':
+                    dojo.removeClass('hand','forcehidden');
                 break;
-           */
-           
+
+                case 'useResources':
+                    //dojo.addClass('hand','forcehidden');
+                break;
            
             case 'dummmy':
                 break;
             }
         },
 
-        // onLeavingState: this method is called each time we are leaving a game state.
-        //                 You can use this method to perform some user interface changes at this moment.
-        //
         onLeavingState: function( stateName )
         {
-            console.log( 'Leaving state: '+stateName );
+            debug('Leaving state',stateName);
             
             switch( stateName )
-            {
-            
-            /* Example:
-            
-            case 'myGameState':
-            
-                // Hide the HTML block we are displaying only during this game state
-                dojo.style( 'my_html_block_id', 'display', 'none' );
-                
-                break;
-           */
-           
+            {            
+                case 'chooseGoalCard':
+                    dojo.addClass('hand','forcehidden');
+                break;           
            
             case 'dummmy':
                 break;
@@ -221,48 +185,36 @@ function (dojo, declare) {
         //        
         onUpdateActionButtons: function( stateName, args )
         {
-            console.log( 'onUpdateActionButtons: '+stateName );
-                      
+            debug( 'onUpdateActionButtons', stateName );                      
             if( this.isCurrentPlayerActive() )
             {            
                 switch( stateName )
                 {
-/*               
-                 Example:
- 
-                 case 'myGameState':
-                    
-                    // Add 3 action buttons in the action status bar:
-                    
-                    this.addActionButton( 'button_1_id', _('Button 1 label'), 'onMyMethodToCall1' ); 
-                    this.addActionButton( 'button_2_id', _('Button 2 label'), 'onMyMethodToCall2' ); 
-                    this.addActionButton( 'button_3_id', _('Button 3 label'), 'onMyMethodToCall3' ); 
+                    case 'chooseGoalCard':
+                        this.addActionButton( 'button_1_id', _('Left Card'), 'actHandCard1Chosen' );
+                        this.addActionButton( 'button_2_id', _('Left Card'), 'actGandCard2Chosen' );
                     break;
-*/
+
+                    case 'useResources':
+                        this.addActionButton( 'undo', _('Undo'), 'actTurnUndo' );
+                        this.addActionButton( 'reset', _('Reset'), 'actTurnReset' );
+                        this.addActionButton( 'done', _('Done'), 'actTurnDone' );
+                        this.addActionButton( 'test1', "<div class='iconsheet icon_soldier miniicon'></div>", 'actTurnDone' );
+                    break;
                 }
             }
         },        
 
+
         ///////////////////////////////////////////////////
         //// Utility methods
-        
-        /*
-        
-            Here, you can defines some utility methods that you can use everywhere in your javascript
-            script.
-        
-        */
-
         addScratchLocations: function() {
             console.log("Adding scratch loctions");
-            Object.keys(sheets_scratch_locations).forEach((sheet)=>{
-                Object.keys(sheets_scratch_locations[sheet]).forEach((zone)=>{
-                    sheets_scratch_locations[sheet][zone].forEach((cord,i)=>{
-                        //console.log(`Sheet: ${sheet}  Zone: ${zone}  Cord: ${cord}  for index ${i}`);
-
+            Object.keys(scratch_data).forEach((sheet)=>{
+                Object.keys(scratch_data[sheet]).forEach((zone)=>{
+                    scratch_data[sheet][zone].forEach((cord,i)=>{
                         let id = `${zone}__s${i+1}`;
                         let scratch = this.format_block('jstpl_scratch',{id: id, class: "", value: "", ...cord});
-                        //console.log(`Adding: ${scratch}`);
                         dojo.place(scratch, sheet);
                     })
                 })
@@ -275,8 +227,6 @@ function (dojo, declare) {
                 console.log(`Didn't find node for ${id}`);
                 return;
             }
-
-            //console.log(`Scratching ${zone} box ${value}`);
             dojo.removeClass(id,'outlined');
             dojo.addClass(id,'scratch');
         },
@@ -301,29 +251,39 @@ function (dojo, declare) {
 
         ///////////////////////////////////////////////////
         //// Player's action
-        
-        /*
-        
-            Here, you are defining methods to handle player's action (ex: results of mouse click on 
-            game objects).
-            
-            Most of the time, these methods:
-            _ check the action is possible at this game state.
-            _ make a call to the game server
-        
-        */
-        
         onBoxClicked: function( evt )
         {
             dojo.stopEvent(evt);
 
             let section = evt.target.id.split("__")[0];
-            console.log("Box clicked ",section);
+            debug("Box clicked",section);
 
             if(this.checkAction('checkNextBox')){
                 console.log("ajax call with ",section);
                 this.ajaxcall("/hadrianswall/hadrianswall/checkNextBox.html",{section},this,function(result){});
             }
+        },
+
+        // action responses
+        actHandCard1Chosen: function( evt ) {
+            dojo.stopEvent( evt );
+            debug("Choose Card 1",evt)
+        },
+        actHandCard2Chosen: function( evt ) {
+            dojo.stopEvent( evt );
+            debug("Choose Card 2",evt)
+        },
+        actTurnUndo: function( evt ) {
+            dojo.stopEvent( evt );
+            debug("Undo",evt)
+        },
+        actTurnReset: function( evt ) {
+            dojo.stopEvent( evt );
+            debug("Reset",evt)
+        },
+        actTurnDone: function( evt ) {
+            dojo.stopEvent( evt );
+            debug("Done",evt)
         },
 
 
@@ -372,17 +332,7 @@ function (dojo, declare) {
             
             Note: game notification names correspond to "notifyAllPlayers" and "notifyPlayer" calls in
                   your hadrianswall.game.php file.
-        
-        */
-        setupNotifications: function()
-        {
-            console.log( 'notifications subscriptions setup' );
-            
 
-            dojo.subscribe( 'sheetsUpdated', this, "notif_sheetsUpdated");
-
-            // TODO: here, associate your game notifications with local methods
-            
             // Example 1: standard notification handling
             // dojo.subscribe( 'cardPlayed', this, "notif_cardPlayed" );
             
@@ -392,36 +342,26 @@ function (dojo, declare) {
             // dojo.subscribe( 'cardPlayed', this, "notif_cardPlayed" );
             // this.notifqueue.setSynchronous( 'cardPlayed', 3000 );
             // 
+                  
+        */
+        setupNotifications: function()
+        {
+            log('setupNotifications', 'notifications subscriptions setup' );
+            
+            dojo.subscribe( 'sheetsUpdated', this, "notif_sheetsUpdated");
+            
         },  
 
         notif_sheetsUpdated: function(notif) {
-            console.log( 'notif_newAvailableFields' );
-            console.log( notif );
-
+            debug('notif_newAvailableFields',notif);
             let board = notif.args.board;
-
-            console.log(board);
             this.drawAllScratches(board);
         }
-        
-        // TODO: from this point and below, you can write your game notifications handling methods
-        
-        /*
-        Example:
-        
-        notif_cardPlayed: function( notif )
-        {
-            console.log( 'notif_cardPlayed' );
-            console.log( notif );
-            
-            // Note: notif.args contains the arguments specified during you "notifyAllPlayers" / "notifyPlayer" PHP call
-            
-            // TODO: play the card in the user interface.
-        },    
-        
-        */
    });             
 });
+
+
+
 
 
 const PLUS = 'PLUS';
@@ -453,7 +393,7 @@ const SCOUT = 'SCOUT';
 const SWORD = 'SWORD';
 
 
-let sheets_scratch_locations = {
+let scratch_data = {
     sheet1:{
         left_cohort:
         // {
@@ -854,7 +794,7 @@ let sheets_scratch_locations = {
             {x:709,y:40,w:16,h:16},
         ],
         market_8:[
-            {x:677,y:63,w:20,h:18,class:'roundNumber hex',value:8},
+            {x:677,y:63,w:20,h:18,class:'roundNumber',value:8},
             {x:709,y:63,w:16,h:16},
         ],
         performers:[

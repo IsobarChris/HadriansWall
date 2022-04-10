@@ -14,62 +14,10 @@
  */
 
 /*
-    This is the CSS stylesheet of your game User Interface.
-    
-    Styles defined on this file will be applied to the HTML elements you define in your
-    HTML template (hadrianswall_hadrianswall.tpl), and to HTML elements you create dynamically
-    (in hadrianswall.js).
-    
-    Usually, you are using CSS to:
-    
-    1°) define the overall layout of your game
-        (ex: place the board on the top left, place player's hand beside, place the deck on the right, ...).
-
-    2°) create your CSS-sprites:
-        All images of your games should be gathered into a small number of image files. Then, using
-        background-image and background-position CSS properties, you create HTML blocks that can 
-        display these images correctly (see example below).
-    
-    3°) ... anything else:
-        It is really easy to add and remove CSS classes dynamically from your Javascript with
-        dojo.addClass and dojo.removeClass. It is also easy to check if an element has a class
-        (dojo.hasClass) or to get all elements with a specific class (dojo.query). This is why,
-        very often, using CSS classes for the logic of your user interface allow you to do complex
-        thing easily.
-        
-        
-     Note: on the production platform, this file will be compressed and comments will be removed.
-           Consequently, don't hesitate to put as many comments as necessary.
+dojo.addClass
+dojo.removeClass
+dojo.hasClass
 */
-
-
-/* Note: you must not use any @import directive */
-
-
-/********* You can start writing your CSS below this line: **********/
-
-
-/*
-    Example of CSS sprites (a black token and a white token, 20x20px each, embedded in the same "tokens.png" 40x20px image):
-
-    .white_token {
-        background-image: url('img/tokens.png');
-        background-position: 0px 0px;
-    }
-    .black_token {
-        background-image: url('img/tokens.png');
-        background-position: -20px 0px;
-    }
-    .token {
-        width: 20px;
-        height: 20px;
-        background-repeat: none;
-    }
-
-
-
-*/
-
 
 
 
@@ -179,15 +127,6 @@
 /* */
 
 
-
-
-#x {
-    display: inline-block;
-    position: relative;
-}
-
-
-
 .scratch {
     display: block;
     width: 16px;
@@ -195,6 +134,8 @@
     background-image: url('img/Scratch.png');
     position: absolute;
 }
+
+/* Hand and player cards */
 
 #hand {
     display: flex;
@@ -214,12 +155,7 @@
     
 }
 
-.player_back_30668d { background-position:     0px -40px; }
-.player_back_6fa254 { background-position:  -221px -40px; }
-.player_back_b02325 { background-position:  -442px -80px; }
-.player_back_df7f3a { background-position:  -663px -40px; }
-.player_back_e8b73e { background-position:  -884px -80px; }
-.player_back_3c3939 { background-position: -1105px -40px; }
+/* Player card sprites */
 
 .player_card_1 { background-position:      0px -352px; }
 .player_card_2 { background-position:      0px -704px; }
@@ -234,16 +170,6 @@
 .player_card_11 { background-position: -1105px -352px; }
 .player_card_12 { background-position: -1105px -704px; }
 
-.goal { top: -135px; z-index: -1; position: absolute; }
-.goal_round_1 { left: 20px; }
-.goal_round_2 { left: 263px; }
-.goal_round_3 { left: 507px; }
-.goal_round_4 { left: 11px; }
-.goal_round_5 { left: 255px; }
-.goal_round_6 { left: 499px; }
-
-
-
 .player_cardbottom_1 { background-position:      0px -489px; }
 .player_cardbottom_2 { background-position:      0px -841px; }
 .player_cardbottom_3 { background-position:   -221px -489px; }
@@ -257,13 +183,16 @@
 .player_cardbottom_11 { background-position: -1105px -489px; }
 .player_cardbottom_12 { background-position: -1105px -841px; }
 
-.pick { top: 40px; scale: 0.6; position: absolute; }
-.pick_round_1 { left:  10px; }
-.pick_round_2 { left: 253px; }
-.pick_round_3 { left: 497px; }
-.pick_round_4 { left:  11px; }
-.pick_round_5 { left: 255px; }
-.pick_round_6 { left: 499px; }
+
+/* Player side pannels */
+
+.player_back_30668d { background-position:     0px -40px; }
+.player_back_6fa254 { background-position:  -221px -40px; }
+.player_back_b02325 { background-position:  -442px -80px; }
+.player_back_df7f3a { background-position:  -663px -40px; }
+.player_back_e8b73e { background-position:  -884px -80px; }
+.player_back_3c3939 { background-position: -1105px -40px; }
+
 
 .card_banner_only { 
     display: inline-block; 
@@ -286,6 +215,77 @@
     background-position-y: 0px;
 }
 
+.pboard_space {
+	position: relative;
+    width: 100%;
+    min-width: 1076px;
+	display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.miniboard {
+	margin-top: 5px;
+	margin-left: 3px;
+	vertical-align: top;
+	display: inline-block;
+}
+
+.resourceboard {
+	margin-top: 5px;
+	margin-left: 3px;
+    width: 230px;
+    height: 233px;
+    border-radius: 5px;
+	vertical-align: top;
+	display: inline-block;
+}
+
+#scoresheet {
+    width: 230px;
+    height: 102px;
+    border-radius: 5px;
+    background-size: 220px 143px;
+}
+
+.attribute_backing {
+    position: relative;
+    display: inline-block;
+    width: 40px;
+    height: 20px;
+}
+
+.attribute_score {
+    position: absolute;
+    top: 10px;
+    left: 35px;
+    display: inline;
+    font-size: 12pt;
+    font-weight: 200;
+    color: #444;
+    margin-left: -8px;
+    margin-top: -5px;
+}
+
+
+/* Player board - if I use them */
+
+.goal { top: -135px; z-index: -1; position: absolute; }
+.goal_round_1 { left: 20px; }
+.goal_round_2 { left: 263px; }
+.goal_round_3 { left: 507px; }
+.goal_round_4 { left: 11px; }
+.goal_round_5 { left: 255px; }
+.goal_round_6 { left: 499px; }
+
+.pick { top: 40px; scale: 0.6; position: absolute; }
+.pick_round_1 { left:  10px; }
+.pick_round_2 { left: 253px; }
+.pick_round_3 { left: 497px; }
+.pick_round_4 { left:  11px; }
+.pick_round_5 { left: 255px; }
+.pick_round_6 { left: 499px; }
+
 .op_pick { top: 100px; scale: 0.4; z-index: 1; position: absolute; }
 .op_l_pick_round_1 { left: -40px; }
 .op_l_pick_round_2 { left: 203px; }
@@ -301,6 +301,7 @@
 .op_r_pick_round_5 { left: 305px; }
 .op_r_pick_round_6 { left: 549px; }
 
+/* Pict Card sprites */
 
 .pict_card_1 { background-position:      0px     0px;}
 .pict_card_2 { background-position:   -221px     0px;}
@@ -351,6 +352,8 @@
 .pict_card_47 { background-position: -2210px -1056px;}
 .pict_card_48 { background-position: -2431px -1056px;}
 
+/* Icon sprites */
+
 .icon_round    { background-position: -0px   -0px; }
 .icon_flag     { background-position: -35px  -0px; }
 .icon_soldier  { background-position: -70px  -0px; }
@@ -396,79 +399,37 @@
 .icon_diff_right  { background-position: -210px -140px; }
 .icon_path_cards  { background-position: -245px -140px; }
 
-
-
-.hidden { display: none; }
-.veryhidden { display: none !important; }
-/*.outlined { border: 1px solid red; opacity: 0.5; background-color: red;}*/
-.outlined { border: 1px solid black; margin:0px; opacity: 1; background-color: #4444;}
-.circle { border-radius: 50%; -webkit-background-clip: padding-box; -moz-background-clip: padding; background-clip: padding-box; }
-.roundNumber { font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; text-align: center; border: 0px; };
-
-.hex { /* doesn't seem to work */
-    content: "\2B22";
-    color: orange;
-    font-size:135px;
-  }
-
-
- .miniboard {
-	margin-top: 5px;
-	margin-left: 3px;
-	vertical-align: top;
-	display: inline-block;
-}
-
-.resourceboard {
-	margin-top: 5px;
-	margin-left: 3px;
-    width: 230px;
-    height: 233px;
-    border-radius: 5px;
-	vertical-align: top;
-	display: inline-block;
-}
-
-.pboard_space {
-	position: relative;
-    width: 100%;
-    min-width: 1076px;
-	display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-}
-
-#scoresheet {
-    width: 230px;
-    height: 102px;
-    border-radius: 5px;
-    background-size: 220px 143px;
-}
-
 .miniicon {
     scale: 0.7;
     margin: -5px;
 }
 
-.attribute_backing {
-    position: relative;
-    display: inline-block;
-    width: 40px;
-    height: 20px;
+/* Utility styles */
+
+.hidden { display: none; }
+.forcehidden { display: none !important; }
+
+/* Scratch area styles */
+
+.outlined { 
+    border: 1px solid black; 
+    margin:0px; 
+    opacity: 1; 
+    background-color: #4444;
+}
+.circle { 
+    border-radius: 50%; 
+    -webkit-background-clip: padding-box; 
+    -moz-background-clip: padding; 
+    background-clip: padding-box; 
+}
+.roundNumber { 
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; 
+    text-align: center; 
+    border: 0px; 
 }
 
-.attribute_score {
-    position: absolute;
-    top: 10px;
-    left: 35px;
-    display: inline;
-    font-size: 12pt;
-    font-weight: 200;
-    color: #444;
-    margin-left: -8px;
-    margin-top: -5px;
-}
-
+/* Sheet 2 Trade */
 #trade_options {
     position: absolute;
     background-color: #ffffff44;
@@ -499,6 +460,7 @@
     left: 120px;
 }
 
+/* Sheet 2 Scout */
 #scout_options {
     position: absolute;
     background-color: #ffffff44;

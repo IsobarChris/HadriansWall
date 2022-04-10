@@ -89,7 +89,6 @@
         ]
     ],
 
-
     20 => [
         "name" => "playerTurn",
         "description" => clienttranslate('Other players need to finish their turn.'),
@@ -99,6 +98,14 @@
         "possibleactions" => [],
         "transitions" => [ "nextRound" => 40 ],
         "action" => "stPlayerTurn",
+    ],
+
+    23 => [
+        "name" => "chooseGoalCard",
+        "descriptionmyturn" => clienttranslate('${you} must choose a goal card and gain resources for the other.'),
+        "type" => "private",
+        "possibleactions" => ["chooseCard"], // TODO
+        "transitions" => [],
     ],
 
     30 => [
