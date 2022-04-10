@@ -148,7 +148,7 @@
 }
 
 
-/* */   
+/* */
 @media (-webkit-min-device-pixel-ratio: 2), (min-device-pixel-ratio: 2), (min-resolution: 192dpi)
 {
     #sheet1 {
@@ -196,6 +196,23 @@
     position: absolute;
 }
 
+#hand {
+    display: flex;
+    flex-direction: row;
+    position: absolute;
+    top: 100px;
+    left: 100px;
+    width: 560px;
+    height: 400px;
+    background-color: #ffffff77;
+    border: 2px black solid;
+    border-radius: 20px;
+}
+
+.card_in_hand {
+    margin: auto;
+    
+}
 
 .player_back_30668d { background-position:     0px -40px; }
 .player_back_6fa254 { background-position:  -221px -40px; }
@@ -248,7 +265,26 @@
 .pick_round_5 { left: 255px; }
 .pick_round_6 { left: 499px; }
 
-.card_banner_only { display: inline-block; height: 70px; margin: -20px; margin-left:-60px; scale: 0.4; z-index: 1; position: relative; }
+.card_banner_only { 
+    display: inline-block; 
+    height: 70px; 
+    margin: -20px; 
+    margin-left:-73px; 
+    scale: 0.33; 
+    z-index: 1; 
+    position: relative; 
+}
+
+.card_top_only { 
+    display: inline-block; 
+    height: 128px; 
+    margin: -31px; 
+    margin-left:-53px; 
+    scale: 0.5; 
+    z-index: 1; 
+    position: relative; 
+    background-position-y: 0px;
+}
 
 .op_pick { top: 100px; scale: 0.4; z-index: 1; position: absolute; }
 .op_l_pick_round_1 { left: -40px; }
@@ -383,19 +419,28 @@
 	display: inline-block;
 }
 
+.resourceboard {
+	margin-top: 5px;
+	margin-left: 3px;
+    width: 230px;
+    height: 233px;
+    border-radius: 5px;
+	vertical-align: top;
+	display: inline-block;
+}
+
 .pboard_space {
 	position: relative;
     width: 100%;
     min-width: 1076px;
 	display: flex;
     flex-wrap: wrap;
-    background-color: aqua;
     justify-content: space-around;
 }
 
 #scoresheet {
-    width: 220px;
-    height: 143px;
+    width: 230px;
+    height: 102px;
     border-radius: 5px;
     background-size: 220px 143px;
 }
@@ -424,6 +469,63 @@
     margin-top: -5px;
 }
 
+#trade_options {
+    position: absolute;
+    background-color: #ffffff44;
+    border: 2px solid black;
+    border-radius: 5px;
+    left: 195px;
+    top: 95px;
+    width: 160px;
+    height: 40px;
+    font-weight: bold;
+    font-size: 22px;
+    -webkit-text-stroke: 1px white;
+    color: black;
+}
 
+#trade_left {
+    position: absolute;
+    left: 5px;
+}
 
+#trade_fate {
+    position: absolute;
+    left: 63px;
+}
+
+#trade_right{
+    position: absolute;
+    left: 120px;
+}
+
+#scout_options {
+    position: absolute;
+    background-color: #ffffff44;
+    border: 2px solid black;
+    border-radius: 5px;
+    left: 290px;
+    top: 690px;
+    width: 160px;
+    height: 40px;
+    font-weight: bold;
+    font-size: 22px;
+    -webkit-text-stroke: 1px white;
+    color: black;
+}
+
+#scout_left {
+    position: absolute;
+    left: 5px;
+}
+
+#scout_fate {
+    position: absolute;
+    left: 63px;
+}
+
+#scout_right{
+    position: absolute;
+    left: 120px;
+}
 

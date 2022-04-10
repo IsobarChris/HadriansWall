@@ -83,7 +83,8 @@ function (dojo, declare) {
                 }
 
                 ['renown','piety','valour','discipline','disdain'].forEach( attr=>{
-                    try {
+                    try { // because the current player will not have these set
+                        // TODO: place these on sheet 1 in the scoring section for current player
                         let counter = new ebg.counter();
                         let dom_id = `${attr}_score_${player.color}`
                         console.log(dom_id);
@@ -94,7 +95,7 @@ function (dojo, declare) {
                     }catch(e){
                         console.log("counter error: ",e)
                     }
-                });
+                });                
                 
                 [1,2,3,4,5,6].forEach((i)=>{
                     if(goals[player_id][`round_${i}`]>0) {
@@ -105,11 +106,19 @@ function (dojo, declare) {
                         node.addClass(`player_card_${card_num}`);  
                     }
                 })
-
-
-
             }
 
+            console.log(gamedatas.resources);
+            let resources = gamedatas.resources[0];
+            // add resource counters
+            [`civilians`,`servants`,`soldiers`,`builders`,`resources`].forEach(resource=>{
+                let counter = new ebg.counter();
+                let dom_id = `${resource}_resource`
+                console.log(dom_id, " is ", resources[resource]);
+                counter.create(dom_id);
+                counter.setValue(parseInt(resources[resource]));
+                this[`${resource}_resource`] = counter;
+            });
 
             dojo.query('.clickable').connect('onclick',this,'onBoxClicked');
 

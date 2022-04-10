@@ -91,6 +91,10 @@ class HadriansWall extends Table
         $goal_sql .= implode( $goal_values, ',' );
         self::DbQuery( $goal_sql );
 
+
+        
+
+
         //self::reattributeColorsBasedOnPreferences( $players, $gameinfos['player_colors'] );
         self::reloadPlayersBasicInfos();
         
@@ -147,6 +151,9 @@ class HadriansWall extends Table
         $display_round = max([0,$current_round-1]);
         $opsql = "SELECT player_id, renown, piety, valour, discipline, disdain FROM board WHERE `round`=$display_round";
         $result['score_boards'] = self::getCollectionFromDb( $opsql );
+
+        $resource_sql = "SELECT `civilians`, `servants`, `soldiers`, `builders`, `resources`, `cohorts` FROM player WHERE player_id=$current_player_id";
+        $result['resources'] = self::getCollectionFromDb($resource_sql);
 
         return $result;
     }

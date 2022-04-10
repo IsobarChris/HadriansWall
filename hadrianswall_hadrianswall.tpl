@@ -27,7 +27,23 @@
 
 <div>
     <div id="sheet1"></div>
-    <div id="sheet2"></div>
+    <div id="sheet2">
+        <div id="trade_options">
+            <div id="trade_left" class="iconsheet icon_trade_good">2</div>
+            <div id="trade_fate" class="iconsheet icon_trade_good">?</div>
+            <div id="trade_right" class="iconsheet icon_trade_good">3</div>
+        </div>
+        <div id="scout_options">
+            <div id="scout_left" class="iconsheet icon_scout"></div>
+            <div id="scout_fate" class="iconsheet icon_scout"></div>
+            <div id="scout_right" class="iconsheet icon_scout"></div>
+        </div>
+    </div>
+
+    <div id="hand">
+        <div id="x" class="playercardsheet player_card_9 card_in_hand"></div>
+        <div id="x" class="playercardsheet player_card_10 card_in_hand"></div>
+    </div>
 </div>
 
 <div id="pboard_space" class="pboard_space">
@@ -59,14 +75,16 @@
 
             <div></div>
             <div id="path_cards_attribute" class="attribute_backing" style="display: flex; flex-direction: row;">
-                <div style="width: 100px;">
+                <div style="width: 76px;">
                 <div id="goal1_{COLOR}" class="playercardsheet player_back_{COLOR} card_banner_only "></div>
-                <div id="goal3_{COLOR}" class="playercardsheet player_back_{COLOR} card_banner_only "></div>
+                <div id="goal4_{COLOR}" class="playercardsheet player_back_{COLOR} card_banner_only "></div>
+                </div>
+                <div style="width: 76px;">
+                <div id="goal2_{COLOR}" class="playercardsheet player_back_{COLOR} card_banner_only "></div>
                 <div id="goal5_{COLOR}" class="playercardsheet player_back_{COLOR} card_banner_only "></div>
                 </div>
-                <div style="width: 100px;">
-                <div id="goal2_{COLOR}" class="playercardsheet player_back_{COLOR} card_banner_only "></div>
-                <div id="goal4_{COLOR}" class="playercardsheet player_back_{COLOR} card_banner_only "></div>
+                <div style="width: 76px;">
+                <div id="goal3_{COLOR}" class="playercardsheet player_back_{COLOR} card_banner_only "></div>
                 <div id="goal6_{COLOR}" class="playercardsheet player_back_{COLOR} card_banner_only "></div>
                 </div>
             </div>
@@ -78,7 +96,39 @@
     <!-- BEGIN my_player_board -->
     <!--  boardblock  -->
     <div id="miniboard_{COLOR}" class="resourceboard">
-        
+        <div id="soldier_resource" class="attribute_backing">
+            <div class="iconsheet icon_soldier miniicon"></div>
+            <div id="soldiers_resource" class="attribute_score"></div>
+        </div>
+        <div id="builder_resource" class="attribute_backing">
+            <div class="iconsheet icon_builder miniicon"></div>
+            <div id="builders_resource" class="attribute_score"></div>
+        </div>
+        <div id="servant_resource" class="attribute_backing">
+            <div class="iconsheet icon_servant miniicon"></div>
+            <div id="servants_resource" class="attribute_score"></div>
+        </div>
+        <div id="civilian_resource" class="attribute_backing">
+            <div class="iconsheet icon_civilian miniicon"></div>
+            <div id="civilians_resource" class="attribute_score"></div>
+        </div>
+        <div id="brick_resource" class="attribute_backing">
+            <div class="iconsheet icon_brick miniicon"></div>
+            <div id="resources_resource" class="attribute_score"></div>
+        </div>
+        <div></div>
+        <div id="path_cards_attribute" class="attribute_backing" style="display: flex; flex-direction: row;">
+            <div style="width: 114px;">
+            <div id="goal1_{COLOR}" class="playercardsheet player_back_{COLOR} card_top_only "></div>
+            <div id="goal3_{COLOR}" class="playercardsheet player_back_{COLOR} card_top_only "></div>
+            <div id="goal5_{COLOR}" class="playercardsheet player_back_{COLOR} card_top_only "></div>
+            </div>
+            <div style="width: 114px;">
+            <div id="goal2_{COLOR}" class="playercardsheet player_back_{COLOR} card_top_only "></div>
+            <div id="goal4_{COLOR}" class="playercardsheet player_back_{COLOR} card_top_only "></div>
+            <div id="goal6_{COLOR}" class="playercardsheet player_back_{COLOR} card_top_only "></div>
+            </div>
+        </div>
     </div>
     <!-- END my_player_board -->
 
