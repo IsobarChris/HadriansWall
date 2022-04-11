@@ -152,7 +152,7 @@ class HadriansWall extends Table
         $opsql = "SELECT player_id, renown, piety, valour, discipline, disdain FROM board WHERE `round`=$display_round";
         $result['score_boards'] = self::getCollectionFromDb( $opsql );
 
-        $resource_sql = "SELECT `civilians`, `servants`, `soldiers`, `builders`, `resources`, `cohorts` FROM player WHERE player_id=$current_player_id";
+        $resource_sql = "SELECT `civilians`, `servants`, `soldiers`, `builders`, `bricks`, `cohorts` FROM player WHERE player_id=$current_player_id";
         $result['resources'] = self::getCollectionFromDb($resource_sql);
 
         return $result;
@@ -195,13 +195,11 @@ class HadriansWall extends Table
         (note: each method below must match an input method in hadrianswall.action.php)
     */
 
-    function checkNextBox( $section ) {
-        $this->checkAction('checkNextBox');
-        $current_player_id = self::getCurrentPlayerId();
-
+    function doCheckNextBox( $section ) {
         // todo - make sure resources and prereqs are met
         // todo - reduce resources as needed
 
+        $current_player_id = self::getCurrentPlayerId();
 
         $sql = "UPDATE board SET $section = $section + 1 WHERE player_id=$current_player_id";
         self::DbQuery( $sql );
@@ -209,8 +207,97 @@ class HadriansWall extends Table
         $sql = "SELECT * FROM board WHERE player_id = $current_player_id";
         $board = self::getCollectionFromDb( $sql );
 
+        $this->notifyPlayer( $current_player_id, "sheetsUpdated", "", [
+            "board"=>$board[$current_player_id]
+        ]);
+    }
 
-        $this->notifyPlayer( $current_player_id, "sheetsUpdated", "", ["board"=>$board[$current_player_id]]);
+    function checkNextBox( $section ) {
+        $this->checkAction('checkNextBox');
+        $current_player_id = self::getCurrentPlayerId();
+
+        doCheckNextBox($section);
+    }
+
+    function acceptFateResources() {
+        $this->checkAction('acceptFateResources');
+        $current_player_id = self::getCurrentPlayerId();
+
+        $this->notifyPlayer( $current_player_id, "resourcesUpdated", "", [
+            // TODO: Replace with real values
+            'resources'=>[
+                'soldier'=>2,
+                'builder'=>2,
+                'servant'=>2,
+                'civilian'=>1,
+                'bricks'=>1
+            ]         
+        ]);
+
+        $this->gamestate->nextPrivateState($current_player_id, 'acceptProducedResources');
+    }
+
+    function acceptProducedResources() {
+        $this->checkAction('acceptProducedResources');
+        $current_player_id = self::getCurrentPlayerId();
+
+        $this->notifyPlayer( $current_player_id, "resourcesUpdated", "", [
+            // TODO: Replace with real values
+            'resources'=>[
+                'soldier'=>2,
+                'builder'=>3,
+                'servant'=>2,
+                'civilian'=>3,
+                'bricks'=>4
+            ]         
+        ]);
+
+        $this->gamestate->nextPrivateState($current_player_id, 'chooseGeneratedAttributes');
+    }
+
+    function chooseAttribute($attribute) {
+        $this->checkAction('chooseAttribute');
+        $current_player_id = self::getCurrentPlayerId();
+
+        $this->doCheckNextBox($attribute);
+
+        $this->gamestate->nextPrivateState($current_player_id, 'chooseGoalCard');
+    }
+
+    function chooseCard($card_id) {
+        $this->checkAction('chooseCard');
+        $current_player_id = self::getCurrentPlayerId();
+
+        self::debug("picked card ".$card_id);
+
+        $this->gamestate->nextPrivateState($current_player_id, 'useResources');
+    }
+
+    function undoCheck() {
+        $this->checkAction('undoCheck');
+        $current_player_id = self::getCurrentPlayerId();
+
+        self::debug("undo last check");
+
+        //$this->gamestate->nextPrivateState($current_player_id, ' ');
+    }
+
+    function restartRound() {
+        $this->checkAction('restartRound');
+        $current_player_id = self::getCurrentPlayerId();
+
+        self::debug("restart round");
+
+        //$this->gamestate->nextPrivateState($current_player_id, ' ');
+    }
+
+    function endTurn() {
+        $this->checkAction('endTurn');
+        $current_player_id = self::getCurrentPlayerId();
+
+        self::debug("end turn");
+
+        $this->gamestate->setPlayerNonMultiactive($current_player_id, 'endOfRound');
     }
 
     /*
@@ -318,6 +405,14 @@ class HadriansWall extends Table
         self::debug( "----> stCheckGameEnd" ); 
 
         $this->gamestate->nextState('playerTurn');
+    }
+
+    function stEndOfRound() {
+        self::debug( "----> stEndOfRound" ); 
+
+        // TODO: draw pict attack
+
+        $this->gamestate->nextState('acceptPictAttack');
     }
 
 //////////////////////////////////////////////////////////////////////////////

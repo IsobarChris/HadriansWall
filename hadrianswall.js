@@ -92,7 +92,7 @@ function (dojo, declare) {
         setupCurrentPlayer: function(gamedatas) {
             let resources = gamedatas.resources[0];
             // add resource counters
-            [`civilians`,`servants`,`soldiers`,`builders`,`resources`].forEach(resource=>{
+            [`civilians`,`servants`,`soldiers`,`builders`,`bricks`].forEach(resource=>{
                 let counter = new ebg.counter();
                 let dom_id = `${resource}_resource`
                 counter.create(dom_id);
@@ -152,6 +152,14 @@ function (dojo, declare) {
             
             switch( stateName )
             {
+                case 'acceptFateResources':
+                    dojo.removeClass('fate','forcehidden');
+                break;
+
+                case 'acceptProducedResources':
+                    dojo.removeClass('production','forcehidden');
+                break;
+
                 case 'chooseGoalCard':
                     dojo.removeClass('hand','forcehidden');
                 break;
@@ -171,6 +179,14 @@ function (dojo, declare) {
             
             switch( stateName )
             {            
+                case 'acceptFateResources':
+                    dojo.addClass('fate','forcehidden');
+                break;
+
+                case 'acceptProducedResources':
+                    dojo.addClass('production','forcehidden');
+                break;
+
                 case 'chooseGoalCard':
                     dojo.addClass('hand','forcehidden');
                 break;           
@@ -190,21 +206,34 @@ function (dojo, declare) {
             {            
                 switch( stateName )
                 {
+                    case 'acceptFateResources':
+                        this.addActionButton( 'acceptFate', _('Accept Workers and Resources'), 'actFateResources' );
+                    break;
+
+                    case 'acceptProducedResources':
+                        this.addActionButton( 'acceptProducedResources', _('Accept produced Workers and Resources'), 'actProducedResources' );
+                    break;
+
+                    case 'chooseGeneratedAttributes':
+                        this.addActionButton( 'renown',"<div id='renown' class='iconsheet icon_renown miniicon'></div>",'actChooseAttribute');
+                        this.addActionButton( 'piety',"<div id='piety' class='iconsheet icon_piety miniicon'></div>",'actChooseAttribute');
+                        this.addActionButton( 'valour',"<div id='valour' class='iconsheet icon_valour miniicon'></div>",'actChooseAttribute');
+                        this.addActionButton( 'discipline',"<div id='discipline' class='iconsheet icon_discipline miniicon'></div>",'actChooseAttribute');
+                    break;
+                    
                     case 'chooseGoalCard':
-                        this.addActionButton( 'button_1_id', _('Left Card'), 'actHandCard1Chosen' );
-                        this.addActionButton( 'button_2_id', _('Left Card'), 'actGandCard2Chosen' );
+                        this.addActionButton( 'hand_card_1', _('Left Card'), 'actHandCardChosen' );
+                        this.addActionButton( 'hand_card_2', _('Right Card'), 'actHandCardChosen' );
                     break;
 
                     case 'useResources':
                         this.addActionButton( 'undo', _('Undo'), 'actTurnUndo' );
-                        this.addActionButton( 'reset', _('Reset'), 'actTurnReset' );
-                        this.addActionButton( 'done', _('Done'), 'actTurnDone' );
-                        this.addActionButton( 'test1', "<div class='iconsheet icon_soldier miniicon'></div>", 'actTurnDone' );
+                        this.addActionButton( 'reset', _('Reset Turn'), 'actTurnReset' );
+                        this.addActionButton( 'done', _('End Turn'), 'actTurnDone' );
                     break;
                 }
             }
         },        
-
 
         ///////////////////////////////////////////////////
         //// Utility methods
@@ -265,25 +294,82 @@ function (dojo, declare) {
         },
 
         // action responses
-        actHandCard1Chosen: function( evt ) {
+        actFateResources: function( evt ) {
             dojo.stopEvent( evt );
-            debug("Choose Card 1",evt)
+            debug("Accept Fate Resources",evt)
+
+            if(this.checkAction('acceptFateResources')){
+                this.ajaxcall("/hadrianswall/hadrianswall/acceptFateResources.html",
+                    {},this,function(result){});
+            }
         },
-        actHandCard2Chosen: function( evt ) {
+
+        actProducedResources: function( evt ) {
             dojo.stopEvent( evt );
-            debug("Choose Card 2",evt)
+            debug("Accept Produced Resources",evt)
+
+            if(this.checkAction('acceptProducedResources')){
+                this.ajaxcall("/hadrianswall/hadrianswall/acceptProducedResources.html",
+                    {},this,function(result){});
+            }
         },
+
+        actChooseAttribute:  function( evt ) {
+            dojo.stopEvent( evt );
+            let attribute = evt.target.id;
+            debug("Chosen Attribute ",attribute);
+            debug("Choose Attribute evt",evt);
+
+            if(this.checkAction('chooseAttribute')){
+                this.ajaxcall("/hadrianswall/hadrianswall/chooseAttribute.html",
+                    {
+                        attribute
+                    },this,function(result){});
+            }
+        },
+
+        actHandCardChosen: function( evt ) {
+            dojo.stopEvent( evt );
+            let card_id = evt.target.id;
+            debug("Choose card id",card_id);
+            debug("Choose Card evt",evt);
+
+            if(this.checkAction('chooseCard')){
+                this.ajaxcall("/hadrianswall/hadrianswall/chooseCard.html",
+                    {
+                        card_id
+                    },this,function(result){});
+            }
+        },
+
         actTurnUndo: function( evt ) {
             dojo.stopEvent( evt );
             debug("Undo",evt)
+
+            if(this.checkAction('undoCheck')){
+                this.ajaxcall("/hadrianswall/hadrianswall/undoCheck.html",
+                    {},this,function(result){});
+            }
         },
+
         actTurnReset: function( evt ) {
             dojo.stopEvent( evt );
             debug("Reset",evt)
+
+            if(this.checkAction('restartRound')){
+                this.ajaxcall("/hadrianswall/hadrianswall/restartRound.html",
+                    {},this,function(result){});
+            }
         },
+
         actTurnDone: function( evt ) {
             dojo.stopEvent( evt );
             debug("Done",evt)
+
+            if(this.checkAction('endTurn')){
+                this.ajaxcall("/hadrianswall/hadrianswall/endTurn.html",
+                    {},this,function(result){});
+            }
         },
 
 
@@ -349,6 +435,7 @@ function (dojo, declare) {
             log('setupNotifications', 'notifications subscriptions setup' );
             
             dojo.subscribe( 'sheetsUpdated', this, "notif_sheetsUpdated");
+            dojo.subscribe( 'resourcesUpdated', this, "notif_resourcesUpdated");
             
         },  
 
@@ -356,7 +443,14 @@ function (dojo, declare) {
             debug('notif_newAvailableFields',notif);
             let board = notif.args.board;
             this.drawAllScratches(board);
+        },
+
+        notif_resourcesUpdated: function(notif) {
+            debug('notif_resourcesUpdated',notif);
+            let resources = notif.args.resources;
+            debug('resources',resources);
         }
+
    });             
 });
 

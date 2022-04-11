@@ -94,29 +94,81 @@
         "description" => clienttranslate('Other players need to finish their turn.'),
         "descriptionmyturn" => clienttranslate('${you} must complete your turn.'),
         "type" => "multipleactiveplayer",
-        "initialprivate" => 30,
+        "initialprivate" => 21,
         "possibleactions" => [],
-        "transitions" => [ "nextRound" => 40 ],
+        "transitions" => [ "endOfRound" => 30 ],
         "action" => "stPlayerTurn",
     ],
 
+    21 => [
+        "name" => "acceptFateResources",
+        "descriptionmyturn" => clienttranslate('${you} must accept workers and resources from the fate card.'),
+        "type" => "private",
+        "possibleactions" => ["acceptFateResources"], // TODO
+        "transitions" => [ "acceptProducedResources" => 22 ],
+    ],
+
+    22 => [
+        "name" => "acceptProducedResources",
+        "descriptionmyturn" => clienttranslate('${you} must accept workers and resources you produced.'),
+        "type" => "private",
+        "possibleactions" => ["acceptProducedResources"], // TODO
+        "transitions" => [ "chooseGeneratedAttributes" => 23, "chooseGoalCard" => 24 ],
+    ],
+
     23 => [
+        "name" => "chooseGeneratedAttributes",
+        "descriptionmyturn" => clienttranslate('${you} must choose your generated attribute.'),
+        "type" => "private",
+        "possibleactions" => ["chooseAttribute"], // TODO
+        "transitions" => [ "chooseGoalCard" => 24 ],
+    ],
+
+    24 => [
         "name" => "chooseGoalCard",
         "descriptionmyturn" => clienttranslate('${you} must choose a goal card and gain resources for the other.'),
         "type" => "private",
         "possibleactions" => ["chooseCard"], // TODO
-        "transitions" => [],
+        "transitions" => [ "useResources" => 25 ],
     ],
 
-    30 => [
+    25 => [
         "name" => "useResources",
         "descriptionmyturn" => clienttranslate('${you} may use resources and workers.'),
         "type" => "private",
-        "possibleactions" => ["checkNextBox", "undoCheck", "restartRound", "done" ],
-        "transitions" => [],
+        "possibleactions" => ["checkNextBox", "undoCheck", "restartRound", "endTurn" ],
+        "transitions" => [ ], // possible states for choosing what to spend
         //'args' => 'argUseDice',
     ],
 
+    30 => [
+        "name"=> "endOfRound",
+        "type" => "game",
+        "action" => "stEndOfRound",
+        "transitions" => [
+            "acceptPictAttack" => 31
+        ]
+    ],
+
+    31 => [
+        "name" => "acceptPictAttack",
+        "description" => clienttranslate('Other players need to resolve attack.'),
+        "descriptionmyturn" => clienttranslate('${you} must resolve attack.'),
+        "type" => "multipleactiveplayer",
+        "initialprivate" => 32,
+        "possibleactions" => [],
+        "transitions" => [ "checkEndGame" => 40 ],
+        "action" => "stPlayerTurn",
+    ],
+
+    // TODO - here in the state machine process
+    32 => [
+        "name" => "useFavor",
+        "descriptionmyturn" => clienttranslate('Use favor to prevent disdain.'),
+        "type" => "private",
+        "possibleactions" => ["useFavor"], // TODO
+        "transitions" => [ "checkEndGame" => 40 ],
+    ],
 
     40 => [
         "name"=> "checkEndGame",

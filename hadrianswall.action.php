@@ -38,8 +38,37 @@ class action_hadrianswall extends APP_GameAction
         }
   	} 
   	
-  	// TODO: defines your action entry points there
+    public function acceptFateResources() {
+        self::setAjaxMode();
 
+        $this->game->acceptFateResources();
+
+        self::ajaxResponse();
+    }
+    public function acceptProducedResources() {
+        self::setAjaxMode();
+
+        $this->game->acceptProducedResources();
+        
+        self::ajaxResponse();        
+    }
+    public function chooseAttribute() {
+        self::setAjaxMode();
+
+        $attribute = self::getArg("attribute",AT_alphanum,true);
+        $this->game->chooseAttribute($attribute);
+        
+        self::ajaxResponse();        
+    }
+    public function chooseCard() {
+        self::setAjaxMode();
+
+        $card_id = self::getArg("card_id",AT_alphanum,true);
+        $this->game->chooseCard($card_id);
+
+        self::ajaxResponse();        
+    }
+      
     public function checkNextBox() {
         self::setAjaxMode();
 
@@ -49,6 +78,7 @@ class action_hadrianswall extends APP_GameAction
 
         self::ajaxResponse();
     }
+
     public function undoCheck() {
         self::setAjaxMode();
 
@@ -59,8 +89,10 @@ class action_hadrianswall extends APP_GameAction
 
         self::ajaxResponse();
     }
-    public function done() {
+    public function endTurn() {
         self::setAjaxMode();
+
+        $this->game->endTurn();
 
         self::ajaxResponse();
     }

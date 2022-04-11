@@ -119,7 +119,7 @@ $this->player_cards = [
     'builders' => 1,
     'servants' => 0,
     'civilians' => 0,
-    'resources' => 1,
+    'bricks' => 1,
   ],
   'player_card_2' => [
     'type' => 'player_card',
@@ -133,7 +133,7 @@ $this->player_cards = [
     'builders' => 1,
     'servants' => 0,
     'civilians' => 0,
-    'resources' => 1,
+    'bricks' => 1,
   ],
   'player_card_3' => [
     'type' => 'player_card',
@@ -147,7 +147,7 @@ $this->player_cards = [
     'builders' => 0,
     'servants' => 0,
     'civilians' => 1,
-    'resources' => 1,
+    'bricks' => 1,
   ],
   'player_card_4' => [
     'type' => 'player_card',
@@ -161,7 +161,7 @@ $this->player_cards = [
     'builders' => 0,
     'servants' => 0,
     'civilians' => 0,
-    'resources' => 0,
+    'bricks' => 0,
   ],
   'player_card_5' => [
     'type' => 'player_card',
@@ -175,7 +175,7 @@ $this->player_cards = [
     'builders' => 0,
     'servants' => 0,
     'civilians' => 0,
-    'resources' => 0,
+    'bricks' => 0,
   ],
   'player_card_6' => [
     'type' => 'player_card',
@@ -189,7 +189,7 @@ $this->player_cards = [
     'builders' => 0,
     'servants' => 0,
     'civilians' => 0,
-    'resources' => 2,
+    'bricks' => 2,
   ],
   'player_card_7' => [
     'type' => 'player_card',
@@ -203,7 +203,7 @@ $this->player_cards = [
     'builders' => 0,
     'servants' => 1,
     'civilians' => 0,
-    'resources' => 1,
+    'bricks' => 1,
   ],
   'player_card_8' => [
     'type' => 'player_card',
@@ -217,7 +217,7 @@ $this->player_cards = [
     'builders' => 1,
     'servants' => 0,
     'civilians' => 1,
-    'resources' => 0,
+    'bricks' => 0,
   ],
   'player_card_9' => [
     'type' => 'player_card',
@@ -231,7 +231,7 @@ $this->player_cards = [
     'builders' => 2,
     'servants' => 0,
     'civilians' => 0,
-    'resources' => 0,
+    'bricks' => 0,
   ],
   'player_card_10' => [
     'type' => 'player_card',
@@ -245,7 +245,7 @@ $this->player_cards = [
     'builders' => 0,
     'servants' => 1,
     'civilians' => 1,
-    'resources' => 0,
+    'bricks' => 0,
   ],
   'player_card_11' => [
     'type' => 'player_card',
@@ -259,7 +259,7 @@ $this->player_cards = [
     'builders' => 0,
     'servants' => 1,
     'civilians' => 0,
-    'resources' => 1,
+    'bricks' => 1,
   ],
   'player_card_12' => [
     'type' => 'player_card',
@@ -273,7 +273,7 @@ $this->player_cards = [
     'builders' => 1,
     'servants' => 0,
     'civilians' => 1,
-    'resources' => 0,
+    'bricks' => 0,
   ],
 ];
 
@@ -289,7 +289,7 @@ $this->fate_cards =
     'builders' => 2,
     'servants' => 2,
     'civilians' => 2,
-    'resources' => 1,
+    'bricks' => 1,
   ],
   'fate_card_2' => [
     'type' => 'fate',
@@ -301,7 +301,7 @@ $this->fate_cards =
     'builders' => 2,
     'servants' => 2,
     'civilians' => 1,
-    'resources' => 2,
+    'bricks' => 2,
   ],
   'fate_card_3' => [
     'type' => 'fate',
@@ -313,7 +313,7 @@ $this->fate_cards =
     'builders' => 2,
     'servants' => 3,
     'civilians' => 1,
-    'resources' => 1,
+    'bricks' => 1,
   ],
   'fate_card_4' => [
     'type' => 'fate',
@@ -325,7 +325,7 @@ $this->fate_cards =
     'builders' => 3,
     'servants' => 1,
     'civilians' => 1,
-    'resources' => 2,
+    'bricks' => 2,
   ],
   'fate_card_5' => [
     'type' => 'fate',
@@ -337,7 +337,7 @@ $this->fate_cards =
     'builders' => 1,
     'servants' => 3,
     'civilians' => 2,
-    'resources' => 1,
+    'bricks' => 1,
   ],
   'fate_card_6' => [
     'type' => 'fate',
@@ -349,7 +349,7 @@ $this->fate_cards =
     'builders' => 1,
     'servants' => 2,
     'civilians' => 1,
-    'resources' => 2,
+    'bricks' => 2,
   ],
   'fate_card_7' => [
     'type' => 'fate',
@@ -361,7 +361,7 @@ $this->fate_cards =
     'builders' => 1,
     'servants' => 2,
     'civilians' => 2,
-    'resources' => 1,
+    'bricks' => 1,
   ],
   'fate_card_8' => [
     'type' => 'fate',
@@ -373,7 +373,7 @@ $this->fate_cards =
     'builders' => 1,
     'servants' => 1,
     'civilians' => 2,
-    'resources' => 2,
+    'bricks' => 2,
   ],
   'fate_card_9' => [
     'type' => 'fate',
@@ -385,7 +385,7 @@ $this->fate_cards =
     'builders' => 2,
     'servants' => 1,
     'civilians' => 1,
-    'resources' => 2,
+    'bricks' => 2,
   ],
   'fate_card_10' => [
     'type' => 'fate',
@@ -397,7 +397,7 @@ $this->fate_cards =
     'builders' => 2,
     'servants' => 2,
     'civilians' => 1,
-    'resources' => 1,
+    'bricks' => 1,
   ],
   'fate_card_11' => [
     'type' => 'fate',
@@ -409,7 +409,7 @@ $this->fate_cards =
     'builders' => 2,
     'servants' => 3,
     'civilians' => 1,
-    'resources' => 0,
+    'bricks' => 0,
   ],
   'fate_card_12' => [
     'type' => 'fate',
@@ -421,7 +421,7 @@ $this->fate_cards =
     'builders' => 3,
     'servants' => 1,
     'civilians' => 1,
-    'resources' => 1,
+    'bricks' => 1,
   ],
   'fate_card_13' => [
     'type' => 'fate',
@@ -433,7 +433,7 @@ $this->fate_cards =
     'builders' => 2,
     'servants' => 2,
     'civilians' => 2,
-    'resources' => 1,
+    'bricks' => 1,
   ],
   'fate_card_14' => [
     'type' => 'fate',
@@ -445,7 +445,7 @@ $this->fate_cards =
     'builders' => 2,
     'servants' => 2,
     'civilians' => 1,
-    'resources' => 2,
+    'bricks' => 2,
   ],
   'fate_card_15' => [
     'type' => 'fate',
@@ -457,7 +457,7 @@ $this->fate_cards =
     'builders' => 2,
     'servants' => 3,
     'civilians' => 1,
-    'resources' => 1,
+    'bricks' => 1,
   ],
   'fate_card_16' => [
     'type' => 'fate',
@@ -469,7 +469,7 @@ $this->fate_cards =
     'builders' => 3,
     'servants' => 1,
     'civilians' => 1,
-    'resources' => 2,
+    'bricks' => 2,
   ],
   'fate_card_17' => [
     'type' => 'fate',
@@ -481,7 +481,7 @@ $this->fate_cards =
     'builders' => 1,
     'servants' => 3,
     'civilians' => 2,
-    'resources' => 1,
+    'bricks' => 1,
   ],
   'fate_card_18' => [
     'type' => 'fate',
@@ -493,7 +493,7 @@ $this->fate_cards =
     'builders' => 1,
     'servants' => 2,
     'civilians' => 1,
-    'resources' => 2,
+    'bricks' => 2,
   ],
   'fate_card_19' => [
     'type' => 'fate',
@@ -505,7 +505,7 @@ $this->fate_cards =
     'builders' => 1,
     'servants' => 2,
     'civilians' => 2,
-    'resources' => 1,
+    'bricks' => 1,
   ],
   'fate_card_20' => [
     'type' => 'fate',
@@ -517,7 +517,7 @@ $this->fate_cards =
     'builders' => 1,
     'servants' => 1,
     'civilians' => 2,
-    'resources' => 2,
+    'bricks' => 2,
   ],
   'fate_card_21' => [
     'type' => 'fate',
@@ -529,7 +529,7 @@ $this->fate_cards =
     'builders' => 2,
     'servants' => 1,
     'civilians' => 1,
-    'resources' => 2,
+    'bricks' => 2,
   ],
   'fate_card_22' => [
     'type' => 'fate',
@@ -541,7 +541,7 @@ $this->fate_cards =
     'builders' => 2,
     'servants' => 2,
     'civilians' => 1,
-    'resources' => 1,
+    'bricks' => 1,
   ],
   'fate_card_23' => [
     'type' => 'fate',
@@ -553,7 +553,7 @@ $this->fate_cards =
     'builders' => 2,
     'servants' => 3,
     'civilians' => 1,
-    'resources' => 0,
+    'bricks' => 0,
   ],
   'fate_card_24' => [
     'type' => 'fate',
@@ -565,7 +565,7 @@ $this->fate_cards =
     'builders' => 3,
     'servants' => 1,
     'civilians' => 1,
-    'resources' => 1,
+    'bricks' => 1,
   ],
   'fate_card_25' => [
     'type' => 'fate',
@@ -577,7 +577,7 @@ $this->fate_cards =
     'builders' => 2,
     'servants' => 2,
     'civilians' => 2,
-    'resources' => 1,
+    'bricks' => 1,
   ],
   'fate_card_26' => [
     'type' => 'fate',
@@ -589,7 +589,7 @@ $this->fate_cards =
     'builders' => 2,
     'servants' => 2,
     'civilians' => 1,
-    'resources' => 2,
+    'bricks' => 2,
   ],
   'fate_card_27' => [
     'type' => 'fate',
@@ -601,7 +601,7 @@ $this->fate_cards =
     'builders' => 2,
     'servants' => 3,
     'civilians' => 1,
-    'resources' => 1,
+    'bricks' => 1,
   ],
   'fate_card_28' => [
     'type' => 'fate',
@@ -613,7 +613,7 @@ $this->fate_cards =
     'builders' => 3,
     'servants' => 1,
     'civilians' => 1,
-    'resources' => 2,
+    'bricks' => 2,
   ],
   'fate_card_29' => [
     'type' => 'fate',
@@ -625,7 +625,7 @@ $this->fate_cards =
     'builders' => 1,
     'servants' => 3,
     'civilians' => 2,
-    'resources' => 1,
+    'bricks' => 1,
   ],
   'fate_card_30' => [
     'type' => 'fate',
@@ -637,7 +637,7 @@ $this->fate_cards =
     'builders' => 1,
     'servants' => 2,
     'civilians' => 1,
-    'resources' => 2,
+    'bricks' => 2,
   ],
   'fate_card_31' => [
     'type' => 'fate',
@@ -649,7 +649,7 @@ $this->fate_cards =
     'builders' => 1,
     'servants' => 2,
     'civilians' => 2,
-    'resources' => 1,
+    'bricks' => 1,
   ],
   'fate_card_32' => [
     'type' => 'fate',
@@ -661,7 +661,7 @@ $this->fate_cards =
     'builders' => 1,
     'servants' => 1,
     'civilians' => 2,
-    'resources' => 2,
+    'bricks' => 2,
   ],
   'fate_card_33' => [
     'type' => 'fate',
@@ -673,7 +673,7 @@ $this->fate_cards =
     'builders' => 2,
     'servants' => 1,
     'civilians' => 1,
-    'resources' => 2,
+    'bricks' => 2,
   ],
   'fate_card_34' => [
     'type' => 'fate',
@@ -685,7 +685,7 @@ $this->fate_cards =
     'builders' => 2,
     'servants' => 2,
     'civilians' => 1,
-    'resources' => 1,
+    'bricks' => 1,
   ],
   'fate_card_35' => [
     'type' => 'fate',
@@ -697,7 +697,7 @@ $this->fate_cards =
     'builders' => 2,
     'servants' => 3,
     'civilians' => 1,
-    'resources' => 0,
+    'bricks' => 0,
   ],
   'fate_card_36' => [
     'type' => 'fate',
@@ -709,7 +709,7 @@ $this->fate_cards =
     'builders' => 3,
     'servants' => 1,
     'civilians' => 1,
-    'resources' => 1,
+    'bricks' => 1,
   ],
   'fate_card_37' => [
     'type' => 'fate',
@@ -721,7 +721,7 @@ $this->fate_cards =
     'builders' => 2,
     'servants' => 2,
     'civilians' => 2,
-    'resources' => 1,
+    'bricks' => 1,
   ],
   'fate_card_38' => [
     'type' => 'fate',
@@ -733,7 +733,7 @@ $this->fate_cards =
     'builders' => 2,
     'servants' => 2,
     'civilians' => 1,
-    'resources' => 2,
+    'bricks' => 2,
   ],
   'fate_card_39' => [
     'type' => 'fate',
@@ -745,7 +745,7 @@ $this->fate_cards =
     'builders' => 2,
     'servants' => 3,
     'civilians' => 1,
-    'resources' => 1,
+    'bricks' => 1,
   ],
   'fate_card_40' => [
     'type' => 'fate',
@@ -757,7 +757,7 @@ $this->fate_cards =
     'builders' => 3,
     'servants' => 1,
     'civilians' => 1,
-    'resources' => 2,
+    'bricks' => 2,
   ],
   'fate_card_41' => [
     'type' => 'fate',
@@ -769,7 +769,7 @@ $this->fate_cards =
     'builders' => 1,
     'servants' => 3,
     'civilians' => 2,
-    'resources' => 1,
+    'bricks' => 1,
   ],
   'fate_card_42' => [
     'type' => 'fate',
@@ -781,7 +781,7 @@ $this->fate_cards =
     'builders' => 1,
     'servants' => 2,
     'civilians' => 1,
-    'resources' => 2,
+    'bricks' => 2,
   ],
   'fate_card_43' => [
     'type' => 'fate',
@@ -793,7 +793,7 @@ $this->fate_cards =
     'builders' => 1,
     'servants' => 2,
     'civilians' => 2,
-    'resources' => 1,
+    'bricks' => 1,
   ],
   'fate_card_44' => [
     'type' => 'fate',
@@ -805,7 +805,7 @@ $this->fate_cards =
     'builders' => 1,
     'servants' => 1,
     'civilians' => 2,
-    'resources' => 2,
+    'bricks' => 2,
   ],
   'fate_card_45' => [
     'type' => 'fate',
@@ -817,7 +817,7 @@ $this->fate_cards =
     'builders' => 2,
     'servants' => 1,
     'civilians' => 1,
-    'resources' => 2,
+    'bricks' => 2,
   ],
   'fate_card_46' => [
     'type' => 'fate',
@@ -829,7 +829,7 @@ $this->fate_cards =
     'builders' => 2,
     'servants' => 2,
     'civilians' => 1,
-    'resources' => 1,
+    'bricks' => 1,
   ],
   'fate_card_47' => [
     'type' => 'fate',
@@ -841,7 +841,7 @@ $this->fate_cards =
     'builders' => 2,
     'servants' => 3,
     'civilians' => 1,
-    'resources' => 0,
+    'bricks' => 0,
   ],
   'fate_card_48' => [
     'type' => 'fate',
@@ -853,7 +853,7 @@ $this->fate_cards =
     'builders' => 3,
     'servants' => 1,
     'civilians' => 1,
-    'resources' => 1,
+    'bricks' => 1,
   ],
 ];
 

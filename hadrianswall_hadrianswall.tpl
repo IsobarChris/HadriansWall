@@ -44,6 +44,27 @@
         <div id="card_choice_1" class="playercardsheet player_card_9 card_in_hand"></div>
         <div id="card_choice_2" class="playercardsheet player_card_10 card_in_hand"></div>
     </div>
+
+    <div id="fate" class="forcehidden">
+        <div id="fate_card" class="pictcardsheet pict_card_9 card_in_hand"></div>
+    </div>
+
+    <div id="production" class="forcehidden">
+        <div class="iconsheet icon_brick"></div>
+        <div class="iconsheet icon_brick"></div>
+        <div class="iconsheet icon_brick"></div>
+        <div class="iconsheet icon_brick"></div>
+        <div class="iconsheet icon_brick"></div>
+        <div class="iconsheet icon_brick"></div>
+        <div class="iconsheet icon_brick"></div>
+        <div class="iconsheet icon_brick"></div>
+        <div class="iconsheet icon_brick"></div>
+        <div class="iconsheet icon_civilian"></div>
+        <div class="iconsheet icon_civilian"></div>
+        <div class="iconsheet icon_builder"></div>
+        <div class="iconsheet icon_builder"></div>
+    </div>
+
 </div>
 
 <div id="pboard_space" class="pboard_space">
@@ -112,7 +133,7 @@
         </div>
         <div id="brick_resource" class="attribute_backing">
             <div class="iconsheet icon_brick miniicon"></div>
-            <div id="resources_resource" class="attribute_score"></div>
+            <div id="bricks_resource" class="attribute_score"></div>
         </div>
         <div></div>
         <div id="path_cards_attribute" class="attribute_backing" style="display: flex; flex-direction: row;">
