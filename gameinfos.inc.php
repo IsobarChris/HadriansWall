@@ -38,7 +38,7 @@ $gameinfos = array(
 
 
 // Players configuration that can be played (ex: 2 to 4 players)
-'players' => array( 1,2,3,4,5,6 ),    
+'players' => array( 1,2, 3, 4, 5, 6 ),    
 
 // Suggest players to play with this number of players. Must be null if there is no such advice, or if there is only one possible player configuration.
 'suggest_player_number' => null,
@@ -99,7 +99,7 @@ $gameinfos = array(
 'diplomacy' => 1,    
 
 // Colors attributed to players (Blue, Green, Red, Orange, Yellow, Black)
-'player_colors' => array( "30668d", "6fa254", "b02325", "df7f3a", "e8b73e", "3c3939" ),
+'player_colors' => array( "30668d", "6fa254"), //, "b02325", "df7f3a", "e8b73e", "3c3939" ),
 
 // Favorite colors support : if set to "true", support attribution of favorite colors based on player's preferences (see reattributeColorsBasedOnPreferences PHP method)
 // NB: this parameter is used only to flag games supporting this feature; you must use (or not use) reattributeColorsBasedOnPreferences PHP method to actually enable or disable the feature.

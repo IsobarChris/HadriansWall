@@ -216,7 +216,7 @@ class HadriansWall extends Table
         $this->checkAction('checkNextBox');
         $current_player_id = self::getCurrentPlayerId();
 
-        doCheckNextBox($section);
+        $this->doCheckNextBox($section);
     }
 
     function acceptFateResources() {
@@ -401,12 +401,6 @@ class HadriansWall extends Table
         $this->gamestate->initializePrivateStateForAllActivePlayers();
     }
 
-    function stCheckGameEnd() {
-        self::debug( "----> stCheckGameEnd" ); 
-
-        $this->gamestate->nextState('playerTurn');
-    }
-
     function stEndOfRound() {
         self::debug( "----> stEndOfRound" ); 
 
@@ -414,6 +408,13 @@ class HadriansWall extends Table
 
         $this->gamestate->nextState('acceptPictAttack');
     }
+
+    function stCheckGameEnd() {
+        self::debug( "----> stCheckGameEnd" ); 
+
+        $this->gamestate->nextState('nextRound');
+    }
+
 
 //////////////////////////////////////////////////////////////////////////////
 //////////// Zombie

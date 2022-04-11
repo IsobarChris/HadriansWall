@@ -166,7 +166,7 @@
         "name" => "useFavor",
         "descriptionmyturn" => clienttranslate('Use favor to prevent disdain.'),
         "type" => "private",
-        "possibleactions" => ["useFavor"], // TODO
+        "possibleactions" => ["useFavor","dontUseFavor"], // TODO
         "transitions" => [ "checkEndGame" => 40 ],
     ],
 

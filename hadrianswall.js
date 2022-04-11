@@ -167,6 +167,10 @@ function (dojo, declare) {
                 case 'useResources':
                     //dojo.addClass('hand','forcehidden');
                 break;
+
+                case 'acceptPictAttack':
+                    dojo.removeClass('attack','forcehidden');
+                break;
            
             case 'dummmy':
                 break;
@@ -191,6 +195,10 @@ function (dojo, declare) {
                     dojo.addClass('hand','forcehidden');
                 break;           
            
+                case 'acceptPictAttack':
+                    dojo.addClass('attack','forcehidden');
+                break;
+
             case 'dummmy':
                 break;
             }               
@@ -231,6 +239,8 @@ function (dojo, declare) {
                         this.addActionButton( 'reset', _('Reset Turn'), 'actTurnReset' );
                         this.addActionButton( 'done', _('End Turn'), 'actTurnDone' );
                     break;
+
+
                 }
             }
         },        

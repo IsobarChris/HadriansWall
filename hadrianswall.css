@@ -184,6 +184,41 @@ dojo.hasClass
     margin: auto;   
 }
 
+/* Pict Attack cards */
+
+#attack {
+    display: flex;
+    flex-direction: row;
+    position: absolute;
+    top: 60px;
+    left: 90px;
+    width: 650px;
+    height: 400px;
+    background-color: #ff000077;
+    border: 2px black solid;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+#attack_column {
+    display: flex;
+    flex-direction: column;
+    margin: 5px;
+    padding: 5px;
+    background-color: #00ff0077;
+    border: 2px red solid;    
+}
+
+.attack_first_card {
+    scale: 0.7;
+    margin-top: -30px;
+}
+
+.attack_card {
+    scale: 0.7;
+    margin-top: -320px;
+}
+
 /* Player card sprites */
 
 .player_card_1 { background-position:      0px -352px; }
