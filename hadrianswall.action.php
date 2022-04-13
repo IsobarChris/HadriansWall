@@ -97,6 +97,13 @@ class action_hadrianswall extends APP_GameAction
         self::ajaxResponse();
     }
 
+    public function acceptAttackResults() {
+        self::setAjaxMode();
+
+        $this->game->acceptAttackResults();
+
+        self::ajaxResponse();
+    }
 
     /*
     

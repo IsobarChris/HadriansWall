@@ -122,6 +122,8 @@
         "type" => "private",
         "possibleactions" => ["chooseAttribute"], // TODO
         "transitions" => [ "chooseGoalCard" => 24 ],
+        //"action" => "stChooseGeneratedAttributes"
+        "args" => "argChooseGeneratedAttributes"
     ],
 
     24 => [
@@ -155,18 +157,34 @@
         "description" => clienttranslate('Other players need to resolve attack.'),
         "descriptionmyturn" => clienttranslate('${you} must resolve attack.'),
         "type" => "multipleactiveplayer",
-        "initialprivate" => 32,
+        "initialprivate" => 34,
         "possibleactions" => [],
         "transitions" => [ "checkEndGame" => 40 ],
-        "action" => "stPlayerTurn",
+        "action" => "stAcceptPictAttack",
     ],
 
-    // TODO - here in the state machine process
     32 => [
+        "name" => "checkFavor",
+        "descriptionmyturn" => clienttranslate('Checking for available favor.'),
+        "type" => "private",
+        "possibleactions" => [],
+        "transitions" => [ "useFavor" => 33, "gainValourAndDisdain" => 34 ],
+        "action" => "stCheckFavor"
+    ],
+
+    33 => [
         "name" => "useFavor",
         "descriptionmyturn" => clienttranslate('Use favor to prevent disdain.'),
         "type" => "private",
-        "possibleactions" => ["useFavor","dontUseFavor"], // TODO
+        "possibleactions" => ["useFavor","doneUsingFavor"],
+        "transitions" => [ "gainValourAndDisdain" => 34 ],
+    ],
+
+    34 => [
+        "name" => "gainValourAndDisdain",
+        "descriptionmyturn" => clienttranslate('Accept attack results.'),
+        "type" => "private",
+        "possibleactions" => ["acceptAttackResults"],
         "transitions" => [ "checkEndGame" => 40 ],
     ],
 

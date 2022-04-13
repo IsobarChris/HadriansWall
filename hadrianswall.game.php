@@ -252,14 +252,25 @@ class HadriansWall extends Table
             ]         
         ]);
 
-        $this->gamestate->nextPrivateState($current_player_id, 'chooseGeneratedAttributes');
+        $hasGeneratedResources = false;
+        if($hasGeneratedResources) {
+            $this->gamestate->nextPrivateState($current_player_id, 'chooseGeneratedAttributes');
+        } else {
+            $this->gamestate->nextPrivateState($current_player_id, 'chooseGoalCard');
+        }
+        
     }
 
     function chooseAttribute($attribute) {
         $this->checkAction('chooseAttribute');
         $current_player_id = self::getCurrentPlayerId();
 
-        $this->doCheckNextBox($attribute);
+        self::debug("attribute = $attribute");
+        if($attribute=="none") {
+            self::debug("No attribute chosen");
+        } else {
+            $this->doCheckNextBox($attribute);
+        }
 
         $this->gamestate->nextPrivateState($current_player_id, 'chooseGoalCard');
     }
@@ -299,6 +310,30 @@ class HadriansWall extends Table
 
         $this->gamestate->setPlayerNonMultiactive($current_player_id, 'endOfRound');
     }
+
+    function acceptAttackResults() {
+        $this->checkAction('acceptAttackResults');
+        $current_player_id = self::getCurrentPlayerId();
+
+        self::debug("acceptAttackResults");
+
+        $this->gamestate->setPlayerNonMultiactive($current_player_id, 'checkEndGame');
+    }
+    
+    function useFavor() {
+        $this->checkAction('useFavor');
+
+        self::debug("useFavor");
+
+    }
+
+    function doneUsingFavor() {
+        $this->checkAction('doneUsingFavor');
+
+        self::debug("doneUsingFavor");
+
+    }
+
 
     /*
     
@@ -394,6 +429,27 @@ class HadriansWall extends Table
         $this->gamestate->nextState('playerTurn');
     }
 
+    function stChooseGeneratedAttributes() {
+        self::debug( "----> stChooseGeneratedAttributes" ); 
+
+        $current_player_id = self::getCurrentPlayerId();
+        self::debug("current_player_id = ".$current_player_id);        
+    }
+
+    function argChooseGeneratedAttributes()
+    {
+        return [
+            //'renown','piety','valour','discipline'
+        ];
+    }
+
+    function stAcceptPictAttack() {
+        self::debug( "----> stAcceptPictAttack" ); 
+
+        $this->gamestate->setAllPlayersMultiactive();
+        $this->gamestate->initializePrivateStateForAllActivePlayers();
+    }
+
     function stPlayerTurn() {
         self::debug( "----> stPlayerTurn" ); 
 
@@ -408,6 +464,14 @@ class HadriansWall extends Table
 
         $this->gamestate->nextState('acceptPictAttack');
     }
+
+    function stCheckFavor() {
+        self::debug( "----> stCheckFavor" ); 
+        $current_player_id = self::getCurrentPlayerId();
+
+        $this->gamestate->nextPrivateState($current_player_id,'useFavor');
+    }
+
 
     function stCheckGameEnd() {
         self::debug( "----> stCheckGameEnd" ); 

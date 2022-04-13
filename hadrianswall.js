@@ -160,6 +160,15 @@ function (dojo, declare) {
                     dojo.removeClass('production','forcehidden');
                 break;
 
+                case 'chooseGeneratedAttributes':
+                    let options = args
+                    if(options.length===0) {
+                        debug("options.length",options.length)
+                        this.ajaxcall("/hadrianswall/hadrianswall/chooseAttribute.html",
+                        {attribute:'none'},this,function(result){});        
+                    }
+                break;
+
                 case 'chooseGoalCard':
                     dojo.removeClass('hand','forcehidden');
                 break;
@@ -222,11 +231,20 @@ function (dojo, declare) {
                         this.addActionButton( 'acceptProducedResources', _('Accept produced Workers and Resources'), 'actProducedResources' );
                     break;
 
-                    case 'chooseGeneratedAttributes':
-                        this.addActionButton( 'renown',"<div id='renown' class='iconsheet icon_renown miniicon'></div>",'actChooseAttribute');
-                        this.addActionButton( 'piety',"<div id='piety' class='iconsheet icon_piety miniicon'></div>",'actChooseAttribute');
-                        this.addActionButton( 'valour',"<div id='valour' class='iconsheet icon_valour miniicon'></div>",'actChooseAttribute');
-                        this.addActionButton( 'discipline',"<div id='discipline' class='iconsheet icon_discipline miniicon'></div>",'actChooseAttribute');
+                    case 'chooseGeneratedAttributes': {
+
+                        let options = args
+                        options.forEach((option)=>{
+                            console.log(`Option ${option}`)
+                            this.addActionButton( `$[option}`,`<div id='${option}' class='iconsheet icon_${option} miniicon'></div>`,'actChooseAttribute');
+                        })
+
+                        // this.addActionButton( 'renown',"<div id='renown' class='iconsheet icon_renown miniicon'></div>",'actChooseAttribute');
+                        // this.addActionButton( 'piety',"<div id='piety' class='iconsheet icon_piety miniicon'></div>",'actChooseAttribute');
+                        // this.addActionButton( 'valour',"<div id='valour' class='iconsheet icon_valour miniicon'></div>",'actChooseAttribute');
+                        // this.addActionButton( 'discipline',"<div id='discipline' class='iconsheet icon_discipline miniicon'></div>",'actChooseAttribute');
+
+                    }
                     break;
                     
                     case 'chooseGoalCard':
@@ -238,6 +256,10 @@ function (dojo, declare) {
                         this.addActionButton( 'undo', _('Undo'), 'actTurnUndo' );
                         this.addActionButton( 'reset', _('Reset Turn'), 'actTurnReset' );
                         this.addActionButton( 'done', _('End Turn'), 'actTurnDone' );
+                    break;
+
+                    case 'gainValourAndDisdain':
+                        this.addActionButton( 'accept', _('Accept'), 'actAttackResults');
                     break;
 
 
@@ -378,6 +400,16 @@ function (dojo, declare) {
 
             if(this.checkAction('endTurn')){
                 this.ajaxcall("/hadrianswall/hadrianswall/endTurn.html",
+                    {},this,function(result){});
+            }
+        },
+
+        actAttackResults: function( evt ) {
+            dojo.stopEvent( evt );
+            debug("Accept attack results",evt)
+
+            if(this.checkAction('acceptAttackResults')){
+                this.ajaxcall("/hadrianswall/hadrianswall/acceptAttackResults.html",
                     {},this,function(result){});
             }
         },
