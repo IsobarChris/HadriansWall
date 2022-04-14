@@ -47,6 +47,10 @@
 
     <div id="fate" class="forcehidden">
         <div id="fate_card" class="pictcardsheet pict_card_9 card_in_hand"></div>
+        <div id="fate_cover_attack" class="forcehidden_"></div>
+        <div id="fate_cover_gladiator" class="forcehidden_"></div>
+        <div id="fate_cover_trade_good" class="forcehidden_"></div>
+        <div id="fate_cover_resources" class="forcehidden"></div>
     </div>
 
     <div id="production" class="forcehidden">
