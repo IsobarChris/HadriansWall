@@ -530,7 +530,6 @@ class HadriansWall extends Table
     }
 
     function argFateResources() {
-
         $round = $this->getGameStateValue(self::GAME_ROUND);
         $sql = "SELECT `round`, `fate_resource_card` FROM rounds WHERE `round`=".$round;
         $round_info = self::getCollectionFromDB($sql);
@@ -545,6 +544,19 @@ class HadriansWall extends Table
             'civilians'=>$this->fate_card_data[$card]['civilians'],
             'bricks'=>$this->fate_card_data[$card]['bricks'],
         ];
+    }
+
+    function argProducedResources() {
+        $current_player_id = self::getCurrentPlayerId();
+        $round = 0;//$this->getGameStateValue(self::GAME_ROUND);
+        $sql = "SELECT player_id, resource_production, hotel, workshop FROM board WHERE `round`=$round AND player_id=$current_player_id";
+        $board = self::getCollectionFromDB($sql)[$current_player_id];
+
+        $bricks = 1+$board['resource_production'];
+        $civilians = $board['hotel'];
+        $builders = $board['workshop'];
+
+        return ['bricks'=>$bricks,'civilians'=>$civilians,'builders'=>$builders];
     }
 
     function stChooseGeneratedAttributes() {

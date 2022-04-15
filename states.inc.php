@@ -115,6 +115,7 @@
         "type" => "private",
         "possibleactions" => ["acceptProducedResources"], // TODO
         "transitions" => [ "chooseGeneratedAttributes" => 23, "chooseGoalCard" => 24 ],
+        "args" => "argProducedResources"
     ],
 
     23 => [

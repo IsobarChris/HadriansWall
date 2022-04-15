@@ -164,8 +164,26 @@ function (dojo, declare) {
                 }
                 break;
 
-                case 'acceptProducedResources':
+                case 'acceptProducedResources': {
+                    let brick_node = '<div class="iconsheet icon_brick"></div>';
+                    let civilian_node = '<div class="iconsheet icon_civilian"></div>';
+                    let builder_node = '<div class="iconsheet icon_builder"></div>';
+                    let resources = args.args;
+                    debug('produced',resources);
+
                     dojo.removeClass('production','forcehidden');
+                    dojo.empty('production');
+
+                    for(let i=0;i<resources.bricks;i++) {
+                        dojo.place(brick_node,'production');
+                    }
+                    for(let i=0;i<resources.civilians;i++) {
+                        dojo.place(civilian_node,'production');
+                    }
+                    for(let i=0;i<resources.builders;i++) {
+                        dojo.place(builder_node,'production');
+                    }
+                }
                 break;
 
                 case 'chooseGeneratedAttributes':

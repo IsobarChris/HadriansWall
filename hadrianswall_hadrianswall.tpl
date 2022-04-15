@@ -56,17 +56,6 @@
     <div id="production" class="forcehidden">
         <div class="iconsheet icon_brick"></div>
         <div class="iconsheet icon_brick"></div>
-        <div class="iconsheet icon_brick"></div>
-        <div class="iconsheet icon_brick"></div>
-        <div class="iconsheet icon_brick"></div>
-        <div class="iconsheet icon_brick"></div>
-        <div class="iconsheet icon_brick"></div>
-        <div class="iconsheet icon_brick"></div>
-        <div class="iconsheet icon_brick"></div>
-        <div class="iconsheet icon_civilian"></div>
-        <div class="iconsheet icon_civilian"></div>
-        <div class="iconsheet icon_builder"></div>
-        <div class="iconsheet icon_builder"></div>
     </div>
 
     <div id="attack" class="forcehidden">
