@@ -168,9 +168,65 @@ class HadriansWall extends Table
         $opsql = "SELECT player_id, renown, piety, valour, discipline, disdain FROM board WHERE `round`=$display_round";
         $result['score_boards'] = self::getCollectionFromDb( $opsql );
 
-        $resource_sql = "SELECT `civilians`, `servants`, `soldiers`, `builders`, `bricks`, `special` FROM player WHERE player_id=$current_player_id";
-        $result['resources'] = self::getCollectionFromDb($resource_sql);
+        // $resource_sql = "SELECT `civilians`, `servants`, `soldiers`, `builders`, `bricks`, `special` FROM player WHERE player_id=$current_player_id";
+        // $result['resources'] = self::getCollectionFromDb($resource_sql);
+        $result['resources'] = $this->getResources();
 
+        return $result;
+    }
+
+    function getResources() {
+        self::debug("--->getResources");
+        $current_player_id = self::getCurrentPlayerId();
+        $resource_sql = "SELECT player_id, `civilians`, `servants`, `soldiers`, `builders`, `bricks`, `special` FROM player WHERE player_id=$current_player_id";
+        self::debug($resource_sql);
+        $result = self::getCollectionFromDb($resource_sql)[$current_player_id];
+        return $result;
+    }
+
+    function setResources($resources) {
+        self::debug("--->setResources");
+        $current_player_id = self::getCurrentPlayerId();
+        $resource_sql = "UPDATE player SET ";
+
+        $rarray = ['civilians', 'servants', 'soldiers', 'builders', 'bricks', 'special'];
+        $updates=[];
+        foreach($rarray as $resource) {
+            if(array_key_exists($resource, $resources)) {
+                $updates[]=("$resource=".$resources[$resource]."");
+            }
+        }
+
+        $resource_sql.=implode( $updates, ',' );
+        $resource_sql.=" WHERE player_id=$current_player_id";
+
+        self::debug($resource_sql);
+
+        self::DbQuery($resource_sql);        
+        $result = self::getResources();
+        return $result;
+    }
+
+    function adjResources($resources) {
+        self::debug("--->adjResources");
+        $current_player_id = self::getCurrentPlayerId();
+        $resource_sql = "UPDATE player SET ";
+
+        $rarray = ['civilians', 'servants', 'soldiers', 'builders', 'bricks', 'special'];
+        $updates=[];
+        foreach($rarray as $resource) {
+            if(array_key_exists($resource, $resources)) {
+                $updates[]=("$resource=$resource+".$resources[$resource]."");
+            }
+        }
+
+        $resource_sql.=implode( $updates, ',' );
+        $resource_sql.=" WHERE player_id=$current_player_id";
+
+        self::debug($resource_sql);
+
+        self::DbQuery($resource_sql);        
+        $result = self::getResources();
         return $result;
     }
 
@@ -244,18 +300,30 @@ class HadriansWall extends Table
         $round_info = self::getCollectionFromDB($sql);
         $card = $round_info[$round]['fate_resource_card'];
 
-        // TODO: Update values in DB
+        $soldiers  = $this->fate_card_data[$card]['soldiers'];
+        $builders  = $this->fate_card_data[$card]['builders'];
+        $servants  = $this->fate_card_data[$card]['servants'];
+        $civilians = $this->fate_card_data[$card]['civilians'];
+        $bricks    = $this->fate_card_data[$card]['bricks'];
+
+        $this->setResources([
+            'soldiers'=>$soldiers,
+            'builders'=>$builders,
+            'servants'=>$servants,
+            'civilians'=>$civilians,
+            'bricks'=>$bricks,
+        ]);
 
         $this->notifyPlayer( $current_player_id, "resourcesUpdated", "", [
-            // TODO: Replace with values from the DB
-            'resources'=>[
+            'resources'=>$this->getResources(),
+            'change'=>[
                 'card'=>$card,
                 'soldiers'=>$this->fate_card_data[$card]['soldiers'],
                 'builders'=>$this->fate_card_data[$card]['builders'],
                 'servants'=>$this->fate_card_data[$card]['servants'],
                 'civilians'=>$this->fate_card_data[$card]['civilians'],
                 'bricks'=>$this->fate_card_data[$card]['bricks'],
-            ]         
+            ]
         ]);
 
         $this->gamestate->nextPrivateState($current_player_id, 'acceptProducedResources');
@@ -265,10 +333,11 @@ class HadriansWall extends Table
         $this->checkAction('acceptProducedResources');
         $current_player_id = self::getCurrentPlayerId();
 
+        $resources = $this->adjResources(['bricks'=>1]);
         
         $this->notifyPlayer( $current_player_id, "resourcesUpdated", "", [
-            // TODO: Replace with real values
-            'resources'=>[
+            'resources'=>$this->getResources(),
+            'change'=>[
                     'bricks'=>1
                 ]         
         ]);

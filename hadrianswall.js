@@ -89,8 +89,9 @@ function (dojo, declare) {
             log("setup","Ending game setup" );
         },
 
-        setupCurrentPlayer: function(gamedatas) {
-            let resources = gamedatas.resources[0];
+        setupCurrentPlayer: function(gamedatas) {            
+            let resources = gamedatas.resources;
+            debug("resources",resources);
             // add resource counters
             [`civilians`,`servants`,`soldiers`,`builders`,`bricks`].forEach(resource=>{
                 let counter = new ebg.counter();
