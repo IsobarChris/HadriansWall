@@ -37,6 +37,11 @@ class HadriansWall extends Table
         self::initGameStateLabels( array( 
             self::GAME_ROUND => 10,
         ) );        
+
+        $this->player_cards=self::getNew('module.common.deck');
+        $this->player_cards->init('player_cards');
+        $this->fate_cards=self::getNew('module.common.deck');
+        $this->fate_cards->init('fate_cards');
 	}
 	
     protected function getGameName( )
@@ -73,6 +78,7 @@ class HadriansWall extends Table
         $goal_sql = "INSERT INTO goals (player_id,round_1) VALUES ";
         $goal_values = [];
 
+
         foreach( $players as $player_id => $player )
         {
             $color = array_shift( $default_colors );
@@ -81,6 +87,13 @@ class HadriansWall extends Table
             $board_values[] = "(0,'".$player_id."')";
 
             $goal_values[] = "(".$player_id.",2)";
+
+            $player_cards=[];
+            for($index=0; $index<12; $index++) {
+                $player_cards[] = ['type'=>'player_card_'.($index+1),'type_arg'=>$player_id,'nbr'=>1];
+            }
+            $this->player_cards->createCards($player_cards,$color."_deck");   
+            $this->player_cards->shuffle($color."_deck"); 
         }
         $sql .= implode( $values, ',' );
         self::DbQuery( $sql );
@@ -91,9 +104,12 @@ class HadriansWall extends Table
         $goal_sql .= implode( $goal_values, ',' );
         self::DbQuery( $goal_sql );
 
-
-        
-
+        $fate_cards=[];
+        for($index=0; $index<48; $index++) {
+            $fate_cards[] = ['type'=>'fate_card_'.($index+1),'type_arg'=>$index,'nbr'=>1];
+        }
+        $this->fate_cards->createCards($fate_cards,'fate_deck');
+        $this->fate_cards->shuffle('fate_deck');
 
         //self::reattributeColorsBasedOnPreferences( $players, $gameinfos['player_colors'] );
         self::reloadPlayersBasicInfos();
@@ -152,7 +168,7 @@ class HadriansWall extends Table
         $opsql = "SELECT player_id, renown, piety, valour, discipline, disdain FROM board WHERE `round`=$display_round";
         $result['score_boards'] = self::getCollectionFromDb( $opsql );
 
-        $resource_sql = "SELECT `civilians`, `servants`, `soldiers`, `builders`, `bricks`, `cohorts` FROM player WHERE player_id=$current_player_id";
+        $resource_sql = "SELECT `civilians`, `servants`, `soldiers`, `builders`, `bricks`, `special` FROM player WHERE player_id=$current_player_id";
         $result['resources'] = self::getCollectionFromDb($resource_sql);
 
         return $result;
@@ -223,14 +239,22 @@ class HadriansWall extends Table
         $this->checkAction('acceptFateResources');
         $current_player_id = self::getCurrentPlayerId();
 
+        $round = $this->getGameStateValue(self::GAME_ROUND);
+        $sql = "SELECT `round`, `fate_resource_card` FROM rounds WHERE `round`=".$round;
+        $round_info = self::getCollectionFromDB($sql);
+        $card = $round_info[$round]['fate_resource_card'];
+
+        // TODO: Update values in DB
+
         $this->notifyPlayer( $current_player_id, "resourcesUpdated", "", [
-            // TODO: Replace with real values
+            // TODO: Replace with values from the DB
             'resources'=>[
-                'soldier'=>2,
-                'builder'=>2,
-                'servant'=>2,
-                'civilian'=>1,
-                'bricks'=>1
+                'card'=>$card,
+                'soldiers'=>$this->fate_card_data[$card]['soldiers'],
+                'builders'=>$this->fate_card_data[$card]['builders'],
+                'servants'=>$this->fate_card_data[$card]['servants'],
+                'civilians'=>$this->fate_card_data[$card]['civilians'],
+                'bricks'=>$this->fate_card_data[$card]['bricks'],
             ]         
         ]);
 
@@ -241,15 +265,12 @@ class HadriansWall extends Table
         $this->checkAction('acceptProducedResources');
         $current_player_id = self::getCurrentPlayerId();
 
+        
         $this->notifyPlayer( $current_player_id, "resourcesUpdated", "", [
             // TODO: Replace with real values
             'resources'=>[
-                'soldier'=>2,
-                'builder'=>3,
-                'servant'=>2,
-                'civilian'=>3,
-                'bricks'=>4
-            ]         
+                    'bricks'=>1
+                ]         
         ]);
 
         $hasGeneratedResources = false;
@@ -422,11 +443,39 @@ class HadriansWall extends Table
     function stPrepareRound() {
         self::debug( "----> stPrepareRound" ); 
 
-        $this->notifyAllPlayers( "newRound", clienttranslate("New round starts."), [
-            "round" => $this->getGameStateValue(self::GAME_ROUND)
+        $this->incGameStateValue(self::GAME_ROUND,1);
+        $round = $this->getGameStateValue(self::GAME_ROUND);
+
+        $card = $this->fate_cards->pickCardForLocation('fate_deck','fate_discard');
+
+        self::debug("picked ".$card['type']);
+        $sql = "INSERT INTO `rounds` (`round`,`fate_resource_card`) VALUES (".$round.",'".$card['type']."')";
+        self::DbQuery( $sql );
+
+        $this->notifyAllPlayers( "newRound", clienttranslate("Round ".$round." starts with ".$card['type']), [
+            "round" => $round,
+            "fate_resource_card" => $card['type']
         ]);
 
         $this->gamestate->nextState('playerTurn');
+    }
+
+    function argFateResources() {
+
+        $round = $this->getGameStateValue(self::GAME_ROUND);
+        $sql = "SELECT `round`, `fate_resource_card` FROM rounds WHERE `round`=".$round;
+        $round_info = self::getCollectionFromDB($sql);
+        $card = $round_info[$round]['fate_resource_card'];
+
+        return [
+            'round'=>$this->getGameStateValue(self::GAME_ROUND),
+            'card'=>$card,
+            'soldiers'=>$this->fate_card_data[$card]['soldiers'],
+            'builders'=>$this->fate_card_data[$card]['builders'],
+            'servants'=>$this->fate_card_data[$card]['servants'],
+            'civilians'=>$this->fate_card_data[$card]['civilians'],
+            'bricks'=>$this->fate_card_data[$card]['bricks'],
+        ];
     }
 
     function stChooseGeneratedAttributes() {

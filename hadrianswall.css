@@ -79,7 +79,7 @@ dojo.hasClass
     background-image: url('img/PlayerCardSheet.jpg');    
 }
 
-.pictcardsheet {
+.fatecardsheet {
     width: 221px;
     height: 352px;
     border-radius: 10px;
@@ -107,7 +107,7 @@ dojo.hasClass
         background-size: 740px 740px;
         background-image: url('img/Sheet2@2x.jpg');
     }
-    .pictcardsheet {
+    .fatecardsheet {
         background-size: 2652px 1408px;
         background-image: url('img/PictCardSheet@2x.jpg');
     }
@@ -288,12 +288,20 @@ dojo.hasClass
 
 /* Player side pannels */
 
-.player_back_30668d { background-position:     0px -40px; }
-.player_back_6fa254 { background-position:  -221px -40px; }
-.player_back_b02325 { background-position:  -442px -80px; }
-.player_back_df7f3a { background-position:  -663px -40px; }
-.player_back_e8b73e { background-position:  -884px -80px; }
-.player_back_3c3939 { background-position: -1105px -40px; }
+.player_back_306x68d { background-position:     0px -40px; }
+.player_back_6fax254 { background-position:  -221px -40px; }
+.player_back_b02x325 { background-position:  -442px -80px; }
+.player_back_df7xf3a { background-position:  -663px -40px; }
+.player_back_e8bx73e { background-position:  -884px -80px; }
+.player_back_3c3x939 { background-position: -1105px -40px; }
+
+.player_back_0000cc { background-position:     0px -40px; }
+.player_back_00cc00 { background-position:  -221px -40px; }
+/* .player_back_b02x325 { background-position:  -442px -80px; }
+.player_back_df7xf3a { background-position:  -663px -40px; }
+.player_back_e8bx73e { background-position:  -884px -80px; }
+.player_back_3c3x939 { background-position: -1105px -40px; } */
+
 
 
 .card_banner_only { 
@@ -405,54 +413,54 @@ dojo.hasClass
 
 /* Pict Card sprites */
 
-.pict_card_1 { background-position:      0px     0px;}
-.pict_card_2 { background-position:   -221px     0px;}
-.pict_card_3 { background-position:   -442px     0px;}
-.pict_card_4 { background-position:   -663px     0px;}
-.pict_card_5 { background-position:   -884px     0px;}
-.pict_card_6 { background-position:  -1105px     0px;}
-.pict_card_7 { background-position:  -1326px     0px;}
-.pict_card_8 { background-position:  -1547px     0px;}
-.pict_card_9 { background-position:  -1768px     0px;}
-.pict_card_10 { background-position: -1989px     0px;}
-.pict_card_11 { background-position: -2210px     0px;}
-.pict_card_12 { background-position: -2431px     0px;}
-.pict_card_13 { background-position:     0px  -352px;}
-.pict_card_14 { background-position:  -221px  -352px;}
-.pict_card_15 { background-position:  -442px  -352px;}
-.pict_card_16 { background-position:  -663px  -352px;}
-.pict_card_17 { background-position:  -884px  -352px;}
-.pict_card_18 { background-position: -1105px  -352px;}
-.pict_card_19 { background-position: -1326px  -352px;}
-.pict_card_20 { background-position: -1547px  -352px;}
-.pict_card_21 { background-position: -1768px  -352px;}
-.pict_card_22 { background-position: -1989px  -352px;}
-.pict_card_23 { background-position: -2210px  -352px;}
-.pict_card_24 { background-position: -2431px  -352px;}
-.pict_card_25 { background-position:     0px  -704px;}
-.pict_card_26 { background-position:  -221px  -704px;}
-.pict_card_27 { background-position:  -442px  -704px;}
-.pict_card_28 { background-position:  -663px  -704px;}
-.pict_card_29 { background-position:  -884px  -704px;}
-.pict_card_30 { background-position: -1105px  -704px;}
-.pict_card_31 { background-position: -1326px  -704px;}
-.pict_card_32 { background-position: -1547px  -704px;}
-.pict_card_33 { background-position: -1768px  -704px;}
-.pict_card_34 { background-position: -1989px  -704px;}
-.pict_card_35 { background-position: -2210px  -704px;}
-.pict_card_36 { background-position: -2431px  -704px;}
-.pict_card_37 { background-position:     0px -1056px;}
-.pict_card_38 { background-position:  -221px -1056px;}
-.pict_card_39 { background-position:  -442px -1056px;}
-.pict_card_40 { background-position:  -663px -1056px;}
-.pict_card_41 { background-position:  -884px -1056px;}
-.pict_card_42 { background-position: -1105px -1056px;}
-.pict_card_43 { background-position: -1326px -1056px;}
-.pict_card_44 { background-position: -1547px -1056px;}
-.pict_card_45 { background-position: -1768px -1056px;}
-.pict_card_46 { background-position: -1989px -1056px;}
-.pict_card_47 { background-position: -2210px -1056px;}
-.pict_card_48 { background-position: -2431px -1056px;}
+.fate_card_1 { background-position:      0px     0px;}
+.fate_card_2 { background-position:   -221px     0px;}
+.fate_card_3 { background-position:   -442px     0px;}
+.fate_card_4 { background-position:   -663px     0px;}
+.fate_card_5 { background-position:   -884px     0px;}
+.fate_card_6 { background-position:  -1105px     0px;}
+.fate_card_7 { background-position:  -1326px     0px;}
+.fate_card_8 { background-position:  -1547px     0px;}
+.fate_card_9 { background-position:  -1768px     0px;}
+.fate_card_10 { background-position: -1989px     0px;}
+.fate_card_11 { background-position: -2210px     0px;}
+.fate_card_12 { background-position: -2431px     0px;}
+.fate_card_13 { background-position:     0px  -352px;}
+.fate_card_14 { background-position:  -221px  -352px;}
+.fate_card_15 { background-position:  -442px  -352px;}
+.fate_card_16 { background-position:  -663px  -352px;}
+.fate_card_17 { background-position:  -884px  -352px;}
+.fate_card_18 { background-position: -1105px  -352px;}
+.fate_card_19 { background-position: -1326px  -352px;}
+.fate_card_20 { background-position: -1547px  -352px;}
+.fate_card_21 { background-position: -1768px  -352px;}
+.fate_card_22 { background-position: -1989px  -352px;}
+.fate_card_23 { background-position: -2210px  -352px;}
+.fate_card_24 { background-position: -2431px  -352px;}
+.fate_card_25 { background-position:     0px  -704px;}
+.fate_card_26 { background-position:  -221px  -704px;}
+.fate_card_27 { background-position:  -442px  -704px;}
+.fate_card_28 { background-position:  -663px  -704px;}
+.fate_card_29 { background-position:  -884px  -704px;}
+.fate_card_30 { background-position: -1105px  -704px;}
+.fate_card_31 { background-position: -1326px  -704px;}
+.fate_card_32 { background-position: -1547px  -704px;}
+.fate_card_33 { background-position: -1768px  -704px;}
+.fate_card_34 { background-position: -1989px  -704px;}
+.fate_card_35 { background-position: -2210px  -704px;}
+.fate_card_36 { background-position: -2431px  -704px;}
+.fate_card_37 { background-position:     0px -1056px;}
+.fate_card_38 { background-position:  -221px -1056px;}
+.fate_card_39 { background-position:  -442px -1056px;}
+.fate_card_40 { background-position:  -663px -1056px;}
+.fate_card_41 { background-position:  -884px -1056px;}
+.fate_card_42 { background-position: -1105px -1056px;}
+.fate_card_43 { background-position: -1326px -1056px;}
+.fate_card_44 { background-position: -1547px -1056px;}
+.fate_card_45 { background-position: -1768px -1056px;}
+.fate_card_46 { background-position: -1989px -1056px;}
+.fate_card_47 { background-position: -2210px -1056px;}
+.fate_card_48 { background-position: -2431px -1056px;}
 
 /* Icon sprites */
 

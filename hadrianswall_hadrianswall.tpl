@@ -46,7 +46,7 @@
     </div>
 
     <div id="fate" class="forcehidden">
-        <div id="fate_card" class="pictcardsheet pict_card_9 card_in_hand"></div>
+        <div id="fate_card" class="fatecardsheet fate_card_9 card_in_hand"></div>
         <div id="fate_cover_attack" class="forcehidden_"></div>
         <div id="fate_cover_gladiator" class="forcehidden_"></div>
         <div id="fate_cover_trade_good" class="forcehidden_"></div>
@@ -71,28 +71,28 @@
 
     <div id="attack" class="forcehidden">
         <div id="attack_left" class="attack_column">
-            <div id="fate_card" class="pictcardsheet pict_card_9 attack_first_card"></div>
-            <div id="fate_card" class="pictcardsheet pict_card_9 attack_card"></div>
-            <div id="fate_card" class="pictcardsheet pict_card_9 attack_card"></div>
+            <div id="fate_card" class="fatecardsheet fate_card_9 attack_first_card"></div>
+            <div id="fate_card" class="fatecardsheet fate_card_9 attack_card"></div>
+            <div id="fate_card" class="fatecardsheet fate_card_9 attack_card"></div>
         </div>
         <div id="attack_center" class="attack_column">
-            <div id="fate_card" class="pictcardsheet pict_card_10 attack_first_card"></div>
-            <div id="fate_card" class="pictcardsheet pict_card_10 attack_card"></div>
-            <div id="fate_card" class="pictcardsheet pict_card_10 attack_card"></div>
-            <div id="fate_card" class="pictcardsheet pict_card_10 attack_card"></div>
-            <div id="fate_card" class="pictcardsheet pict_card_10 attack_card"></div>
-            <div id="fate_card" class="pictcardsheet pict_card_10 attack_card"></div>
-            <div id="fate_card" class="pictcardsheet pict_card_10 attack_card"></div>
-            <div id="fate_card" class="pictcardsheet pict_card_10 attack_card"></div>
-            <div id="fate_card" class="pictcardsheet pict_card_10 attack_card"></div>
-            <div id="fate_card" class="pictcardsheet pict_card_10 attack_card"></div>
-            <div id="fate_card" class="pictcardsheet pict_card_10 attack_card"></div>
-            <div id="fate_card" class="pictcardsheet pict_card_10 attack_card"></div>
+            <div id="fate_card" class="fatecardsheet fate_card_10 attack_first_card"></div>
+            <div id="fate_card" class="fatecardsheet fate_card_10 attack_card"></div>
+            <div id="fate_card" class="fatecardsheet fate_card_10 attack_card"></div>
+            <div id="fate_card" class="fatecardsheet fate_card_10 attack_card"></div>
+            <div id="fate_card" class="fatecardsheet fate_card_10 attack_card"></div>
+            <div id="fate_card" class="fatecardsheet fate_card_10 attack_card"></div>
+            <div id="fate_card" class="fatecardsheet fate_card_10 attack_card"></div>
+            <div id="fate_card" class="fatecardsheet fate_card_10 attack_card"></div>
+            <div id="fate_card" class="fatecardsheet fate_card_10 attack_card"></div>
+            <div id="fate_card" class="fatecardsheet fate_card_10 attack_card"></div>
+            <div id="fate_card" class="fatecardsheet fate_card_10 attack_card"></div>
+            <div id="fate_card" class="fatecardsheet fate_card_10 attack_card"></div>
         </div>
         <div id="attack_right" class="attack_column">
-            <div id="fate_card" class="pictcardsheet pict_card_14 attack_first_card"></div>
-            <div id="fate_card" class="pictcardsheet pict_card_14 attack_card"></div>
-            <div id="fate_card" class="pictcardsheet pict_card_14 attack_card"></div>
+            <div id="fate_card" class="fatecardsheet fate_card_14 attack_first_card"></div>
+            <div id="fate_card" class="fatecardsheet fate_card_14 attack_card"></div>
+            <div id="fate_card" class="fatecardsheet fate_card_14 attack_card"></div>
         </div>
     </div>
 

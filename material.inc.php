@@ -66,7 +66,7 @@ $this->token_types = [
 
 
 
-$this->rounds = [
+$this->round_data = [
   'round1' => [
     'attackPotential' => 1,
     'easy' => 1,  
@@ -106,7 +106,7 @@ $this->rounds = [
 ];
 
 
-$this->player_cards = [
+$this->player_card_data = [
   'player_card_1' => [
     'type' => 'player_card',
     'name' => clienttranslate('Engineer'),
@@ -277,7 +277,7 @@ $this->player_cards = [
   ],
 ];
 
-$this->fate_cards =
+$this->fate_card_data =
 [
   'fate_card_1' => [
     'type' => 'fate',

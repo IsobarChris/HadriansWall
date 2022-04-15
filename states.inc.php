@@ -77,7 +77,7 @@
         "description" => "",
         "type" => "manager",
         "action" => "stGameSetup",
-        "transitions" => [ "" => 20 ]
+        "transitions" => [ "" => 10 ]
     ],
     
     10 => [
@@ -106,6 +106,7 @@
         "type" => "private",
         "possibleactions" => ["acceptFateResources"], // TODO
         "transitions" => [ "acceptProducedResources" => 22 ],
+        "args" => "argFateResources"
     ],
 
     22 => [

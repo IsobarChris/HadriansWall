@@ -152,8 +152,15 @@ function (dojo, declare) {
             
             switch( stateName )
             {
-                case 'acceptFateResources':
+                case 'acceptFateResources': {
+                    let fate = args.args;
+                    debug("card",fate);
+
                     dojo.removeClass('fate','forcehidden');
+                    dojo.removeClass('fate_card');
+
+                    dojo.addClass('fate_card',['fatecardsheet',fate.card,'card_in_hand']);
+                }
                 break;
 
                 case 'acceptProducedResources':
@@ -476,10 +483,16 @@ function (dojo, declare) {
         {
             log('setupNotifications', 'notifications subscriptions setup' );
             
+            dojo.subscribe( 'newRound', this, "notif_newRound");
             dojo.subscribe( 'sheetsUpdated', this, "notif_sheetsUpdated");
             dojo.subscribe( 'resourcesUpdated', this, "notif_resourcesUpdated");
             
         },  
+
+        notif_newRound: function(notif) {
+            debug('notif_newRound',notif);
+            debug('args',notif.args);
+        },
 
         notif_sheetsUpdated: function(notif) {
             debug('notif_newAvailableFields',notif);
@@ -491,8 +504,15 @@ function (dojo, declare) {
             debug('notif_resourcesUpdated',notif);
             let resources = notif.args.resources;
             debug('resources',resources);
-        }
 
+            [`civilians`,`servants`,`soldiers`,`builders`,`bricks`].forEach(resource=>{
+                if(resources[resource]) {
+                    this[`${resource}_resource`].setValue( resources[resource] );
+                }
+            });
+
+
+        }
    });             
 });
 
