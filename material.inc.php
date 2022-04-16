@@ -228,8 +228,8 @@ $this->player_card_data = [
     'tradeGood' => 2,
 
     'soldiers' => 0,
-    'builders' => 2,
-    'servants' => 0,
+    'builders' => 0,
+    'servants' => 2,
     'civilians' => 0,
     'bricks' => 0,
   ],

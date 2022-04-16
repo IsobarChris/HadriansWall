@@ -132,7 +132,7 @@
         "name" => "chooseGoalCard",
         "descriptionmyturn" => clienttranslate('${you} must choose a goal card and gain resources for the other.'),
         "type" => "private",
-        "possibleactions" => ["chooseCard"], // TODO
+        "possibleactions" => ["chooseGoalCard"], // TODO
         "transitions" => [ "useResources" => 25 ],
         "args" => "argChooseGoalCard"
     ],

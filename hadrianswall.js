@@ -292,8 +292,22 @@ function (dojo, declare) {
                     
                     case 'chooseGoalCard': {
                         debug("args",args);
-                        this.addActionButton( 'hand_card_1', args[0]['name'], 'actHandCardChosen' );
-                        this.addActionButton( 'hand_card_2', args[1]['name'], 'actHandCardChosen' );
+
+                        let label = [`${args[0]['name']}   `,`${args[1]['name']}   `];
+
+                        dojo.removeClass('production','forcehidden');
+                        dojo.empty('production');
+    
+                        for(let j=0;j<2;j++){
+                            ['soldiers','builders','servants','civilians','bricks'].forEach((r)=>{
+                                for(let i=0;i<args[1-j][r];i++) {
+                                    label[j]+=`<div class="iconsheet icon_${r.slice(0,-1)} microicon"></div>`;
+                                }
+                            })
+                        }
+
+                        this.addActionButton( 'hand_card_1', label[0], 'actHandCardChosen' );
+                        this.addActionButton( 'hand_card_2', label[1], 'actHandCardChosen' );
                     }
                     break;
 
@@ -417,8 +431,8 @@ function (dojo, declare) {
             }
             debug("picked",card);
 
-            if(this.checkAction('chooseCard')){
-                this.ajaxcall("/hadrianswall/hadrianswall/chooseCard.html",
+            if(this.checkAction('chooseGoalCard')){
+                this.ajaxcall("/hadrianswall/hadrianswall/chooseGoalCard.html",
                     {
                         card
                     },this,function(result){});
@@ -530,6 +544,7 @@ function (dojo, declare) {
             dojo.subscribe( 'newRound', this, "notif_newRound");
             dojo.subscribe( 'sheetsUpdated', this, "notif_sheetsUpdated");
             dojo.subscribe( 'resourcesUpdated', this, "notif_resourcesUpdated");
+            dojo.subscribe( 'goalsUpdated', this, "notif_goalsUpdated");
             
         },  
 
@@ -554,8 +569,25 @@ function (dojo, declare) {
                     this[`${resource}_resource`].setValue( resources[resource] );
                 }
             });
+        },
 
+        notif_goalsUpdated: function(notif) {
+            debug('notif_goalsUpdated',notif);
+            let goals = notif.args.goals;
+            debug('goals',goals);
 
+            let player_id = this.player_id;
+            let player_color = this.gamedatas.players[player_id].color;
+
+            for(let i=1;i<=6 && i<=goals.length;i++) {
+                let goal_card = goals[i-1];
+                debug('goal_card',goal_card);
+                debug('node',`#goal${i}_${player_color}`);
+    
+                let node = dojo.query(`#goal${i}_${player_color}`);
+                node.removeClass(`player_back_${player_color} card_top_only`);
+                node.addClass(`${goal_card} card_top_only`); 
+            }
         }
    });             
 });

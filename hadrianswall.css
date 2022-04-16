@@ -322,7 +322,7 @@ dojo.hasClass
     scale: 0.5; 
     z-index: 1; 
     position: relative; 
-    background-position-y: 0px;
+    
 }
 
 .pboard_space {
@@ -512,6 +512,11 @@ dojo.hasClass
 .miniicon {
     scale: 0.7;
     margin: -5px;
+}
+
+.microicon {
+    scale: 0.5;
+    margin: -10px;
 }
 
 /* Utility styles */
