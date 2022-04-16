@@ -1,24 +1,9 @@
 Side Panel
-- "MY" side panel should be different
-  - Show resources
-  - Include goals with tool tip descriptions
-  - Show Scout Pattern
-- "Their" side panel should
-  - Show attribute and disdain values
-  - Show goals with tool tip descriptions
-  - Show Scout and Trade good on "adjacent" players
 - "AI" side panel should
   - Show their selected card in a 2 player game
   - Show both cards in a 1 player game
 
 Turn Order
-- Beginning of round
-  - Draw Fate Card, give resources
-  - Give resources from player's production
-  - Draw two cards from player deck
-    - Choose a goal card
-    - Card not chosen, give resources and display
-- All players should take async turns
 - If a player is given a resource and their turn was marked complete, unmark it
 
 End of round
@@ -36,6 +21,7 @@ Check Box
   - Cohort is presented with a choice
 - Speical case rewards
   - Trade Goods
+    - Show trade good options on board
     - Choice to take off the fate deck or adjacent player
     - Give resource to bank for fate deck
     - Give resource to adjacent player if player
@@ -52,8 +38,12 @@ Check Box
     - Mark round number
  - Temples
     - Ask for worker to use for Temples
- -  Diplomat
+ - Diplomat
     - Ask left, center, right
     - Do not offer a choice already taken
+ - Scout
+    - Show pattern options
+    - Allow click on cell and then highlight remaining options
+    - Allow unclicking of cells that are still valid
 
 

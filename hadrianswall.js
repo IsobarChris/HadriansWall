@@ -240,6 +240,7 @@ function (dojo, declare) {
                 break;
 
                 case 'acceptProducedResources':
+                    debug("adding forcehidden");
                     dojo.addClass('production','forcehidden');
                 break;
 
