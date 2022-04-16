@@ -41,8 +41,6 @@
     </div>
 
     <div id="hand" class="forcehidden">
-        <div id="card_choice_1" class="playercardsheet player_card_9 card_in_hand"></div>
-        <div id="card_choice_2" class="playercardsheet player_card_10 card_in_hand"></div>
     </div>
 
     <div id="fate" class="forcehidden">

@@ -75,10 +75,6 @@ class HadriansWall extends Table
         $board_sql = "INSERT INTO board (`round`,player_id) VALUES ";
         $board_values = [];
 
-        $goal_sql = "INSERT INTO goals (player_id,round_1) VALUES ";
-        $goal_values = [];
-
-
         foreach( $players as $player_id => $player )
         {
             $color = array_shift( $default_colors );
@@ -86,23 +82,18 @@ class HadriansWall extends Table
 
             $board_values[] = "(0,'".$player_id."')";
 
-            $goal_values[] = "(".$player_id.",2)";
-
             $player_cards=[];
             for($index=0; $index<12; $index++) {
                 $player_cards[] = ['type'=>'player_card_'.($index+1),'type_arg'=>$player_id,'nbr'=>1];
             }
-            $this->player_cards->createCards($player_cards,$color."_deck");   
-            $this->player_cards->shuffle($color."_deck"); 
+            $this->player_cards->createCards($player_cards,$player_id."_deck");   
+            $this->player_cards->shuffle($player_id."_deck"); 
         }
         $sql .= implode( $values, ',' );
         self::DbQuery( $sql );
 
         $board_sql .= implode( $board_values, ',' );        
         self::DbQuery( $board_sql );
-
-        $goal_sql .= implode( $goal_values, ',' );
-        self::DbQuery( $goal_sql );
 
         $fate_cards=[];
         for($index=0; $index<48; $index++) {
@@ -151,12 +142,6 @@ class HadriansWall extends Table
 
         $sql = "SELECT renown, piety, valour, discipline, disdain, player_id id FROM board";
         $result['scores'] = self::getCollectionFromDb( $sql );
-
-        $goals = [];
-        $sql = "SELECT player_id id, round_1, round_2, round_3, round_4, round_5, round_6 FROM goals";
-        $goals[] = self::getCollectionFromDb( $sql );
-
-        $result['goals'] = $goals;
 
         $current_round = $this->getGameStateValue(self::GAME_ROUND);
         $result['round'] = $current_round;
@@ -365,13 +350,40 @@ class HadriansWall extends Table
         $this->gamestate->nextPrivateState($current_player_id, 'chooseGoalCard');
     }
 
-    function chooseCard($card_id) {
+    function chooseCard($card) {
         $this->checkAction('chooseCard');
         $current_player_id = self::getCurrentPlayerId();
 
-        self::debug("picked card ".$card_id);
+        $hand = $this->player_cards->getCardsInLocation($current_player_id."_hand");
+        self::debug(print_r($hand,true));
 
-        $this->gamestate->nextPrivateState($current_player_id, 'useResources');
+        $resource_card = 'unknown';
+        
+        foreach($hand as $card_id => $hand_card) {
+            self::debug("hand_card ".$hand_card['type']);
+            if($hand_card['type']!=$card) {
+                $resource_card = $hand_card['type'];
+            }
+        }
+
+        self::debug("picked card ".$card);
+        self::debug("resource card ".$resource_card);
+
+        $resource_card_data = $this->player_card_data[$resource_card];
+        $this->adjResources($resource_card_data);
+
+        $this->notifyPlayer( $current_player_id, "resourcesUpdated", "", [
+            'resources'=>$this->getResources(),
+            'change'=>$resource_card_data
+        ]);
+
+
+
+        // update goal board
+        // update player discard
+        // notify goal board changed
+
+        //$this->gamestate->nextPrivateState($current_player_id, 'useResources');
     }
 
     function undoCheck() {
@@ -520,11 +532,21 @@ class HadriansWall extends Table
         self::debug("picked ".$card['type']);
         $sql = "INSERT INTO `rounds` (`round`,`fate_resource_card`) VALUES (".$round.",'".$card['type']."')";
         self::DbQuery( $sql );
+      
+        // draw player cards for each player
+        $player_cards=[];
+        $players = self::loadPlayersBasicInfos();
+        foreach($players as $player_id => $player) {
+            $player_cards[]=$this->player_cards->pickCardsForLocation(2,$player_id."_deck",$player_id."_hand");
+        }
 
         $this->notifyAllPlayers( "newRound", clienttranslate("Round ".$round." starts with ".$card['type']), [
             "round" => $round,
-            "fate_resource_card" => $card['type']
+            "fate_resource_card" => $card['type'],
+            "player_cards" => $player_cards
         ]);
+
+
 
         $this->gamestate->nextState('playerTurn');
     }
@@ -557,6 +579,26 @@ class HadriansWall extends Table
         $builders = $board['workshop'];
 
         return ['bricks'=>$bricks,'civilians'=>$civilians,'builders'=>$builders];
+    }
+
+    function argChooseGoalCard() {
+        $current_player_id = self::getCurrentPlayerId();
+        $hand = $this->player_cards->getCardsInLocation($current_player_id."_hand");
+        $cards=[];
+        foreach($hand as $card) {
+            $card_data = $this->player_card_data[$card['type']];
+            $cards[]=[
+                'card'=>$card['type'],
+                'name'=>$card_data['name'],
+                'soldiers'=>$card_data['soldiers'],
+                'builders'=>$card_data['builders'],
+                'servants'=>$card_data['servants'],
+                'civilians'=>$card_data['civilians'],
+                'bricks'=>$card_data['bricks'],
+                ];
+        }
+
+        return $cards;
     }
 
     function stChooseGeneratedAttributes() {

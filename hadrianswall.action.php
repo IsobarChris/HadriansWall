@@ -63,8 +63,8 @@ class action_hadrianswall extends APP_GameAction
     public function chooseCard() {
         self::setAjaxMode();
 
-        $card_id = self::getArg("card_id",AT_alphanum,true);
-        $this->game->chooseCard($card_id);
+        $card = self::getArg("card",AT_alphanum,true);
+        $this->game->chooseCard($card);
 
         self::ajaxResponse();        
     }

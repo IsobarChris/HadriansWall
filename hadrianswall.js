@@ -66,13 +66,13 @@ function (dojo, declare) {
             }
             gamedatas.scores = scores;
 
-            let goals={};
-            let goals_map = gamedatas.goals;
-            let goal_objs = Object.values(goals_map[0]);
-            goal_objs.forEach((g)=>{
-                goals[g.id] = g;
-            })
-            gamedatas.goals = goals;
+            // let goals={};
+            // let goals_map = gamedatas.goals;
+            // let goal_objs = Object.values(goals_map[0]);
+            // goal_objs.forEach((g)=>{
+            //     goals[g.id] = g;
+            // })
+            // gamedatas.goals = goals;
 
             // Setting up player panels
             for( var player_id in gamedatas.players )
@@ -134,14 +134,15 @@ function (dojo, declare) {
                     error("counter error: (expected) ",e)
                 }
             });                
-            
-            [1,2,3,4,5,6].forEach((i)=>{
-                if(gamedatas.goals[player_id][`round_${i}`]>0) {
-                    let card_num = gamedatas.goals[player_id][`round_${i}`];
-                    let node = dojo.query(`#goal${i}_${player.color}`);
-                    node.addClass(`player_card_${card_num}`);  
-                }
-            })
+
+            // TODO: get this from player_goals 
+            // [1,2,3,4,5,6].forEach((i)=>{
+            //     if(gamedatas.goals[player_id][`round_${i}`]>0) {
+            //         let card_num = gamedatas.goals[player_id][`round_${i}`];
+            //         let node = dojo.query(`#goal${i}_${player.color}`);
+            //         node.addClass(`player_card_${card_num}`);  
+            //     }
+            // })
         },
    
 
@@ -196,7 +197,23 @@ function (dojo, declare) {
                 break;
 
                 case 'chooseGoalCard':
-                    dojo.removeClass('hand','forcehidden');
+                    {
+                        let cards = args.args;
+                        debug("cards",cards);
+                        let card1_node = '<div id="card_choice_1" class="playercardsheet card_in_hand"></div>';
+                        let card2_node = '<div id="card_choice_2" class="playercardsheet card_in_hand"></div>';
+                        this.player_card=[cards[0].card,cards[1].card];
+                
+                        dojo.removeClass('hand','forcehidden');
+                        dojo.empty('hand');
+                        dojo.place(card1_node,'hand');
+                        dojo.addClass("card_choice_1",cards[0].card);                        
+                        dojo.query('#card_choice_1').connect('onclick',this,'actHandCardChosen');
+
+                        dojo.place(card2_node,'hand');
+                        dojo.addClass("card_choice_2",cards[1].card);
+                        dojo.query('#card_choice_2').connect('onclick',this,'actHandCardChosen');
+                    }
                 break;
 
                 case 'useResources':
@@ -273,9 +290,11 @@ function (dojo, declare) {
                     }
                     break;
                     
-                    case 'chooseGoalCard':
-                        this.addActionButton( 'hand_card_1', _('Left Card'), 'actHandCardChosen' );
-                        this.addActionButton( 'hand_card_2', _('Right Card'), 'actHandCardChosen' );
+                    case 'chooseGoalCard': {
+                        debug("args",args);
+                        this.addActionButton( 'hand_card_1', args[0]['name'], 'actHandCardChosen' );
+                        this.addActionButton( 'hand_card_2', args[1]['name'], 'actHandCardChosen' );
+                    }
                     break;
 
                     case 'useResources':
@@ -392,10 +411,16 @@ function (dojo, declare) {
             debug("Choose card id",card_id);
             debug("Choose Card evt",evt);
 
+            let card=this.player_card[1];
+            if(card_id.slice(-1)==="1") {                
+                card=this.player_card[0];
+            }
+            debug("picked",card);
+
             if(this.checkAction('chooseCard')){
                 this.ajaxcall("/hadrianswall/hadrianswall/chooseCard.html",
                     {
-                        card_id
+                        card
                     },this,function(result){});
             }
         },

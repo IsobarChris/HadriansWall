@@ -134,6 +134,7 @@
         "type" => "private",
         "possibleactions" => ["chooseCard"], // TODO
         "transitions" => [ "useResources" => 25 ],
+        "args" => "argChooseGoalCard"
     ],
 
     25 => [
