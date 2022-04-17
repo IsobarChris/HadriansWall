@@ -331,19 +331,17 @@ function (dojo, declare) {
         //// Utility methods
         addScratchLocations: function() {
             console.log("Adding scratch loctions");
-            Object.keys(scratch_data).forEach((sheet)=>{
-                Object.keys(scratch_data[sheet]).forEach((zone)=>{
-                    scratch_data[sheet][zone].forEach((cord,i)=>{
-                        let id = `${zone}__s${i+1}`;
-                        let scratch = this.format_block('jstpl_scratch',{id: id, class: "", value: "", ...cord});
-                        dojo.place(scratch, sheet);
-                    })
+            Object.keys(scratch_data).forEach((zone)=>{
+                scratch_data[zone].forEach((cord,i)=>{
+                    let id = `${zone}_${i+1}`;
+                    let scratch = this.format_block('jstpl_scratch',{id: id, value: "", ...cord});
+                    dojo.place(scratch, `sheet${cord.s}`);
                 })
-            });
+            })
         },
 
         drawScratch: function (zone, value) {
-            let id = `${zone}__s${value}`;
+            let id = `${zone}_${value}`;
             if(dojo.query(`#${id}`).length==0){
                 console.log(`Didn't find node for ${id}`);
                 return;
@@ -627,6 +625,293 @@ const SWORD = 'SWORD';
 
 
 let scratch_data = {
+    left_cohort:[
+        {s:1,x:128,y:24,w:16,h:17,c:'rect'},
+        {s:1,x:148,y:24,w:16,h:17,c:'rect'},
+        {s:1,x:168,y:24,w:16,h:17,c:'rect'},
+        {s:1,x:187,y:24,w:16,h:17,c:'rect'},
+        {s:1,x:206,y:24,w:16,h:17,c:'rect'},
+        {s:1,x:225,y:24,w:16,h:17,c:'rect'}
+      ],
+      center_cohort:[
+        {s:1,x:355,y:23,w:16,h:17,c:'rect'},
+        {s:1,x:375,y:23,w:16,h:17,c:'rect'},
+        {s:1,x:395,y:23,w:16,h:17,c:'rect'},
+        {s:1,x:414,y:23,w:16,h:17,c:'rect'},
+        {s:1,x:433,y:23,w:16,h:17,c:'rect'},
+        {s:1,x:452,y:23,w:16,h:17,c:'rect'}
+      ],
+      right_cohort:[
+        {s:1,x:582,y:21,w:16,h:17,c:'rect'},
+        {s:1,x:602,y:21,w:16,h:17,c:'rect'},
+        {s:1,x:621,y:21,w:16,h:17,c:'rect'},
+        {s:1,x:641,y:21,w:16,h:17,c:'rect'},
+        {s:1,x:660,y:21,w:16,h:17,c:'rect'},
+        {s:1,x:679,y:21,w:16,h:17,c:'rect'}
+      ],
+      mining_and_foresting:[
+        {s:1,x:90,y:75,w:16,h:17,c:'rect'},
+        {s:1,x:137,y:75,w:36,h:17,c:'rect'},
+        {s:1,x:206,y:75,w:16,h:17,c:'rect'},
+        {s:1,x:254,y:75,w:16,h:17,c:'rect'},
+        {s:1,x:300,y:75,w:36,h:17,c:'rect'},
+        {s:1,x:356,y:75,w:16,h:17,c:'rect'},
+        {s:1,x:392,y:75,w:16,h:17,c:'rect'},
+        {s:1,x:428,y:75,w:36,h:17,c:'rect'},
+        {s:1,x:484,y:75,w:16,h:17,c:'rect'},
+        {s:1,x:520,y:75,w:16,h:17,c:'rect'},
+        {s:1,x:557,y:75,w:36,h:17,c:'rect'},
+        {s:1,x:613,y:75,w:16,h:17,c:'rect'},
+        {s:1,x:649,y:75,w:16,h:17,c:'rect'},
+        {s:1,x:685,y:75,w:36,h:17,c:'rect'}
+      ],
+      wall_guard:[
+        {s:1,x:81,y:122,w:16,h:17,c:'rect'},
+        {s:1,x:117,y:122,w:16,h:17,c:'rect'},
+        {s:1,x:153,y:122,w:16,h:17,c:'rect'},
+        {s:1,x:190,y:122,w:16,h:17,c:'rect'},
+        {s:1,x:225,y:122,w:16,h:17,c:'rect'},
+        {s:1,x:262,y:122,w:16,h:17,c:'rect'},
+        {s:1,x:302,y:122,w:16,h:17,c:'rect'},
+        {s:1,x:338,y:122,w:16,h:17,c:'rect'},
+        {s:1,x:373,y:122,w:16,h:17,c:'rect'},
+        {s:1,x:410,y:122,w:16,h:17,c:'rect'},
+        {s:1,x:446,y:122,w:16,h:17,c:'rect'},
+        {s:1,x:482,y:122,w:16,h:17,c:'rect'},
+        {s:1,x:521,y:122,w:16,h:17,c:'rect'},
+        {s:1,x:558,y:122,w:16,h:17,c:'rect'},
+        {s:1,x:594,y:122,w:16,h:17,c:'rect'},
+        {s:1,x:631,y:122,w:16,h:17,c:'rect'},
+        {s:1,x:666,y:122,w:16,h:17,c:'rect'},
+        {s:1,x:702,y:122,w:16,h:17,c:'rect'}
+      ],
+      cippi:[
+        {s:1,x:94,y:171,w:16,h:17,c:'rect'},
+        {s:1,x:191,y:171,w:16,h:17,c:'rect'},
+        {s:1,x:268,y:171,w:16,h:17,c:'rect'},
+        {s:1,x:353,y:171,w:16,h:17,c:'rect'},
+        {s:1,x:450,y:171,w:16,h:17,c:'rect'},
+        {s:1,x:554,y:171,w:16,h:17,c:'rect'},
+        {s:1,x:671,y:171,w:16,h:17,c:'rect'}
+      ],
+      wall:[
+        {s:1,x:74,y:219,w:16,h:17,c:'rect'},
+        {s:1,x:113,y:219,w:16,h:17,c:'rect'},
+        {s:1,x:133,y:219,w:16,h:17,c:'rect'},
+        {s:1,x:153,y:219,w:36,h:17,c:'rect'},
+        {s:1,x:210,y:219,w:16,h:17,c:'rect'},
+        {s:1,x:230,y:219,w:16,h:17,c:'rect'},
+        {s:1,x:250,y:219,w:16,h:17,c:'rect'},
+        {s:1,x:295,y:219,w:16,h:17,c:'rect'},
+        {s:1,x:315,y:219,w:16,h:17,c:'rect'},
+        {s:1,x:335,y:219,w:16,h:17,c:'rect'},
+        {s:1,x:372,y:219,w:36,h:17,c:'rect'},
+        {s:1,x:411,y:219,w:16,h:17,c:'rect'},
+        {s:1,x:431,y:219,w:16,h:17,c:'rect'},
+        {s:1,x:479,y:219,w:16,h:17,c:'rect'},
+        {s:1,x:515,y:219,w:16,h:17,c:'rect'},
+        {s:1,x:535,y:219,w:16,h:17,c:'rect'},
+        {s:1,x:573,y:219,w:16,h:17,c:'rect'},
+        {s:1,x:593,y:219,w:36,h:17,c:'rect'},
+        {s:1,x:632,y:219,w:16,h:17,c:'rect'},
+        {s:1,x:652,y:219,w:16,h:17,c:'rect'},
+        {s:1,x:700,y:219,w:16,h:17,c:'rect'}
+      ],
+      fort:[
+        {s:1,x:75,y:266,w:36,h:18,c:'rect'},
+        {s:1,x:114,y:266,w:16,h:18,c:'rect'},
+        {s:1,x:133,y:266,w:16,h:18,c:'rect'},
+        {s:1,x:152,y:266,w:56,h:18,c:'rect'},
+        {s:1,x:210,y:266,w:16,h:18,c:'rect'},
+        {s:1,x:230,y:266,w:16,h:18,c:'rect'},
+        {s:1,x:250,y:266,w:36,h:18,c:'rect'},
+        {s:1,x:295,y:266,w:16,h:18,c:'rect'},
+        {s:1,x:314,y:266,w:16,h:18,c:'rect'},
+        {s:1,x:334,y:266,w:36,h:18,c:'rect'},
+        {s:1,x:372,y:266,w:36,h:18,c:'rect'},
+        {s:1,x:411,y:266,w:16,h:18,c:'rect'},
+        {s:1,x:430,y:266,w:36,h:18,c:'rect'},
+        {s:1,x:469,y:266,w:36,h:18,c:'rect'},
+        {s:1,x:515,y:266,w:16,h:18,c:'rect'},
+        {s:1,x:535,y:266,w:36,h:18,c:'rect'},
+        {s:1,x:573,y:266,w:16,h:18,c:'rect'},
+        {s:1,x:593,y:266,w:36,h:18,c:'rect'},
+        {s:1,x:631,y:266,w:16,h:18,c:'rect'},
+        {s:1,x:651,y:266,w:36,h:18,c:'rect'},
+        {s:1,x:689,y:266,w:36,h:18,c:'rect'}
+      ],
+      granary:[
+        {s:1,x:409,y:319,w:10,h:10,c:'circle'},
+        {s:1,x:635,y:319,w:10,h:10,c:'circle'},
+        {s:1,x:658,y:317,w:17,h:16,c:'rect'}
+      ],
+      renown:[
+        {s:1,x:87,y:530,w:16,h:17,c:'rect'},
+        {s:1,x:107,y:530,w:16,h:17,c:'rect'},
+        {s:1,x:126,y:530,w:16,h:17,c:'rect'},
+        {s:1,x:145,y:530,w:16,h:17,c:'rect'},
+        {s:1,x:164,y:530,w:16,h:17,c:'rect'},
+        {s:1,x:184,y:530,w:16,h:17,c:'rect'},
+        {s:1,x:203,y:530,w:16,h:17,c:'rect'},
+        {s:1,x:222,y:530,w:16,h:17,c:'rect'},
+        {s:1,x:242,y:530,w:16,h:17,c:'rect'},
+        {s:1,x:261,y:530,w:16,h:17,c:'rect'},
+        {s:1,x:281,y:530,w:16,h:17,c:'rect'},
+        {s:1,x:300,y:530,w:16,h:17,c:'rect'},
+        {s:1,x:320,y:530,w:16,h:17,c:'rect'},
+        {s:1,x:339,y:530,w:16,h:17,c:'rect'},
+        {s:1,x:358,y:530,w:16,h:17,c:'rect'},
+        {s:1,x:378,y:530,w:16,h:17,c:'rect'},
+        {s:1,x:397,y:530,w:16,h:17,c:'rect'},
+        {s:1,x:416,y:530,w:16,h:17,c:'rect'},
+        {s:1,x:436,y:530,w:16,h:17,c:'rect'},
+        {s:1,x:455,y:530,w:16,h:17,c:'rect'},
+        {s:1,x:474,y:530,w:16,h:17,c:'rect'},
+        {s:1,x:494,y:530,w:16,h:17,c:'rect'},
+        {s:1,x:513,y:530,w:16,h:17,c:'rect'},
+        {s:1,x:532,y:530,w:16,h:17,c:'rect'},
+        {s:1,x:552,y:530,w:16,h:17,c:'rect'}
+      ],
+      piety:[
+        {s:1,x:87,y:559,w:16,h:17,c:'rect'},
+        {s:1,x:107,y:559,w:16,h:17,c:'rect'},
+        {s:1,x:126,y:559,w:16,h:17,c:'rect'},
+        {s:1,x:145,y:559,w:16,h:17,c:'rect'},
+        {s:1,x:164,y:559,w:16,h:17,c:'rect'},
+        {s:1,x:184,y:559,w:16,h:17,c:'rect'},
+        {s:1,x:203,y:559,w:16,h:17,c:'rect'},
+        {s:1,x:222,y:559,w:16,h:17,c:'rect'},
+        {s:1,x:242,y:559,w:16,h:17,c:'rect'},
+        {s:1,x:261,y:559,w:16,h:17,c:'rect'},
+        {s:1,x:281,y:559,w:16,h:17,c:'rect'},
+        {s:1,x:300,y:559,w:16,h:17,c:'rect'},
+        {s:1,x:320,y:559,w:16,h:17,c:'rect'},
+        {s:1,x:339,y:559,w:16,h:17,c:'rect'},
+        {s:1,x:358,y:559,w:16,h:17,c:'rect'},
+        {s:1,x:378,y:559,w:16,h:17,c:'rect'},
+        {s:1,x:397,y:559,w:16,h:17,c:'rect'},
+        {s:1,x:416,y:559,w:16,h:17,c:'rect'},
+        {s:1,x:436,y:559,w:16,h:17,c:'rect'},
+        {s:1,x:455,y:559,w:16,h:17,c:'rect'},
+        {s:1,x:474,y:559,w:16,h:17,c:'rect'},
+        {s:1,x:494,y:559,w:16,h:17,c:'rect'},
+        {s:1,x:513,y:559,w:16,h:17,c:'rect'},
+        {s:1,x:532,y:559,w:16,h:17,c:'rect'},
+        {s:1,x:552,y:559,w:16,h:17,c:'rect'}
+      ],
+      valour:[
+        {s:1,x:87,y:586,w:16,h:17,c:'rect'},
+        {s:1,x:107,y:586,w:16,h:17,c:'rect'},
+        {s:1,x:126,y:586,w:16,h:17,c:'rect'},
+        {s:1,x:145,y:586,w:16,h:17,c:'rect'},
+        {s:1,x:164,y:586,w:16,h:17,c:'rect'},
+        {s:1,x:184,y:586,w:16,h:17,c:'rect'},
+        {s:1,x:203,y:586,w:16,h:17,c:'rect'},
+        {s:1,x:222,y:586,w:16,h:17,c:'rect'},
+        {s:1,x:242,y:586,w:16,h:17,c:'rect'},
+        {s:1,x:261,y:586,w:16,h:17,c:'rect'},
+        {s:1,x:281,y:586,w:16,h:17,c:'rect'},
+        {s:1,x:300,y:586,w:16,h:17,c:'rect'},
+        {s:1,x:320,y:586,w:16,h:17,c:'rect'},
+        {s:1,x:339,y:586,w:16,h:17,c:'rect'},
+        {s:1,x:358,y:586,w:16,h:17,c:'rect'},
+        {s:1,x:378,y:586,w:16,h:17,c:'rect'},
+        {s:1,x:397,y:586,w:16,h:17,c:'rect'},
+        {s:1,x:416,y:586,w:16,h:17,c:'rect'},
+        {s:1,x:436,y:586,w:16,h:17,c:'rect'},
+        {s:1,x:455,y:586,w:16,h:17,c:'rect'},
+        {s:1,x:474,y:586,w:16,h:17,c:'rect'},
+        {s:1,x:494,y:586,w:16,h:17,c:'rect'},
+        {s:1,x:513,y:586,w:16,h:17,c:'rect'},
+        {s:1,x:532,y:586,w:16,h:17,c:'rect'},
+        {s:1,x:552,y:586,w:16,h:17,c:'rect'}
+      ],
+      discipline:[
+        {s:1,x:87,y:615,w:16,h:17,c:'rect'},
+        {s:1,x:107,y:615,w:16,h:17,c:'rect'},
+        {s:1,x:126,y:615,w:16,h:17,c:'rect'},
+        {s:1,x:145,y:615,w:16,h:17,c:'rect'},
+        {s:1,x:164,y:615,w:16,h:17,c:'rect'},
+        {s:1,x:184,y:615,w:16,h:17,c:'rect'},
+        {s:1,x:203,y:615,w:16,h:17,c:'rect'},
+        {s:1,x:222,y:615,w:16,h:17,c:'rect'},
+        {s:1,x:242,y:615,w:16,h:17,c:'rect'},
+        {s:1,x:261,y:615,w:16,h:17,c:'rect'},
+        {s:1,x:281,y:615,w:16,h:17,c:'rect'},
+        {s:1,x:300,y:615,w:16,h:17,c:'rect'},
+        {s:1,x:320,y:615,w:16,h:17,c:'rect'},
+        {s:1,x:339,y:615,w:16,h:17,c:'rect'},
+        {s:1,x:358,y:615,w:16,h:17,c:'rect'},
+        {s:1,x:378,y:615,w:16,h:17,c:'rect'},
+        {s:1,x:397,y:615,w:16,h:17,c:'rect'},
+        {s:1,x:416,y:615,w:16,h:17,c:'rect'},
+        {s:1,x:436,y:615,w:16,h:17,c:'rect'},
+        {s:1,x:455,y:615,w:16,h:17,c:'rect'},
+        {s:1,x:474,y:615,w:16,h:17,c:'rect'},
+        {s:1,x:494,y:615,w:16,h:17,c:'rect'},
+        {s:1,x:513,y:615,w:16,h:17,c:'rect'},
+        {s:1,x:532,y:615,w:16,h:17,c:'rect'},
+        {s:1,x:552,y:615,w:16,h:17,c:'rect'}
+      ],
+      traders:[
+        {s:2,x:12,y:95,w:16,h:16,c:'rect'},
+        {s:2,x:31,y:95,w:16,h:16,c:'rect'},
+        {s:2,x:51,y:95,w:16,h:16,c:'rect'},
+        {s:2,x:70,y:95,w:16,h:16,c:'rect'},
+        {s:2,x:89,y:95,w:16,h:16,c:'rect'},
+        {s:2,x:109,y:95,w:16,h:16,c:'rect'},
+        {s:2,x:128,y:95,w:16,h:16,c:'rect'},
+        {s:2,x:147,y:95,w:16,h:16,c:'rect'},
+        {s:2,x:167,y:95,w:16,h:16,c:'rect'}
+      ],
+      performers:[
+        {s:2,x:12,y:261,w:16,h:16,c:'rect'},
+        {s:2,x:31,y:261,w:16,h:16,c:'rect'},
+        {s:2,x:51,y:261,w:16,h:16,c:'rect'},
+        {s:2,x:70,y:261,w:16,h:16,c:'rect'},
+        {s:2,x:89,y:261,w:16,h:16,c:'rect'},
+        {s:2,x:109,y:261,w:16,h:16,c:'rect'},
+        {s:2,x:128,y:261,w:16,h:16,c:'rect'},
+        {s:2,x:147,y:261,w:16,h:16,c:'rect'},
+        {s:2,x:167,y:261,w:16,h:16,c:'rect'}
+      ],
+      priests:[
+        {s:2,x:12,y:406,w:16,h:16,c:'rect'},
+        {s:2,x:31,y:406,w:16,h:16,c:'rect'},
+        {s:2,x:51,y:406,w:16,h:16,c:'rect'},
+        {s:2,x:70,y:406,w:16,h:16,c:'rect'},
+        {s:2,x:89,y:406,w:16,h:16,c:'rect'},
+        {s:2,x:109,y:406,w:16,h:16,c:'rect'},
+        {s:2,x:128,y:406,w:16,h:16,c:'rect'},
+        {s:2,x:147,y:406,w:16,h:16,c:'rect'},
+        {s:2,x:167,y:406,w:16,h:16,c:'rect'}
+      ],
+      apparitores:[
+        {s:2,x:12,y:536,w:16,h:16,c:'rect'},
+        {s:2,x:31,y:536,w:16,h:16,c:'rect'},
+        {s:2,x:51,y:536,w:16,h:16,c:'rect'},
+        {s:2,x:70,y:536,w:16,h:16,c:'rect'},
+        {s:2,x:89,y:536,w:16,h:16,c:'rect'},
+        {s:2,x:109,y:536,w:16,h:16,c:'rect'},
+        {s:2,x:128,y:536,w:16,h:16,c:'rect'},
+        {s:2,x:147,y:536,w:16,h:16,c:'rect'},
+        {s:2,x:167,y:536,w:16,h:16,c:'rect'}
+      ],
+      patricians:[
+        {s:2,x:12,y:689,w:16,h:16,c:'rect'},
+        {s:2,x:31,y:689,w:16,h:16,c:'rect'},
+        {s:2,x:51,y:689,w:16,h:16,c:'rect'},
+        {s:2,x:70,y:689,w:16,h:16,c:'rect'},
+        {s:2,x:89,y:689,w:16,h:16,c:'rect'},
+        {s:2,x:109,y:689,w:16,h:16,c:'rect'},
+        {s:2,x:128,y:689,w:16,h:16,c:'rect'},
+        {s:2,x:147,y:689,w:16,h:16,c:'rect'},
+        {s:2,x:167,y:689,w:16,h:16,c:'rect'}
+      ],
+}
+
+
+let scratch_data_old = {
     sheet1:{
         left_cohort:
         // {
@@ -774,19 +1059,19 @@ let scratch_data = {
             {x:548,y:355,w:16,h:16},
             {x:582,y:355,w:16,h:16},
         ],
-        training_grounds_1:[
+        training_grounds_l1:[
             {x:463,y:355,w:13,h:16,class:'roundNumber',value:1},
         ],
-        training_grounds_2:[
+        training_grounds_l2:[
             {x:498,y:355,w:13,h:16,class:'roundNumber',value:2},
         ],
-        training_grounds_3:[
+        training_grounds_l3:[
             {x:533,y:355,w:13,h:16,class:'roundNumber',value:3},
         ],
-        training_grounds_4:[
+        training_grounds_l4:[
             {x:569,y:355,w:13,h:16,class:'roundNumber',value:4},
         ],
-        training_grounds_5:[
+        training_grounds_l5:[
             {x:603,y:355,w:13,h:16,class:'roundNumber',value:5},
         ],
         hotel:[
@@ -1004,10 +1289,10 @@ let scratch_data = {
         market:[
             {x:479,y:17,w:16,h:16,r:[RENOWN]},
         ],
-        market_1:[
+        market_c1r1:[
             {x:422,y:40,w:20,h:18,class:'roundNumber',value:1},
         ],
-        market_2:[
+        market_c1r2:[
             {x:422,y:63,w:20,h:18,class:'roundNumber',value:2},
         ],
         market_3:[

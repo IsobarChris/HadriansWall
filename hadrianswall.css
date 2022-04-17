@@ -526,11 +526,14 @@ dojo.hasClass
 
 /* Scratch area styles */
 
+.rect {
+    background-color: #ff07;
+    margin:0px; 
+}
 .outlined { 
     border: 1px solid black; 
-    margin:0px; 
     opacity: 1; 
-    background-color: #4444;
+    border-color: #ff0;
 }
 .circle { 
     border-radius: 50%; 
