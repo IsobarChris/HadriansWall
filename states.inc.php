@@ -143,7 +143,7 @@
         "type" => "private",
         "possibleactions" => ["checkNextBox", "undoCheck", "restartRound", "endTurn" ],
         "transitions" => [ ], // possible states for choosing what to spend
-        //'args' => 'argUseDice',
+        'args' => 'argUseResources',
     ],
 
     30 => [

@@ -217,7 +217,7 @@ function (dojo, declare) {
                 break;
 
                 case 'useResources':
-                    //dojo.addClass('hand','forcehidden');
+                    debug("useResourceArgs",args.args);
                 break;
 
                 case 'acceptPictAttack':

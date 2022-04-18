@@ -857,282 +857,301 @@ $this->fate_card_data =
   ],
 ];
 
-/* google sheets formula to generate the data below
-=CONCATENATE(if(A2<>A1,CONCATENATE("'",A2,"'=>[",char(13)),""),"[",
-if(isblank(c2),"",CONCATENATE("'lockedBy'=>'",C2,"',")),
-if(isblank(d2),"",CONCATENATE("'cost'=>'",D2,"',")),
-if(isblank(e2),"",CONCATENATE("'altCost'=>'",E2,"',")),
-if(isblank(g2),"",CONCATENATE("'continue'=>",G2,",")),
-if(isblank(f2),"",CONCATENATE("'reward'=>'",F2,"',")),
-"], // ",H2,"")
-*/
+//google sheets formula to generate the data below
+// =CONCATENATE(if(A2<>A1,CONCATENATE("'",A2,"'=>[",char(13)),""),"[",
+// if(isblank(c2),"",CONCATENATE("'lockedBy'=>'",C2,"',")),
+// if(isblank(d2),"",CONCATENATE("'cost'=>'",D2,"',")),
+// if(isblank(e2),"",CONCATENATE("'altCost'=>'",E2,"',")),
+// if(isblank(g2),"",CONCATENATE("'continue'=>",G2,",")),
+// if(isblank(f2),"",CONCATENATE("'reward'=>'",F2,"',")),
+// "'id'=>'",H2,"'],",
+// if(a2<>a3,CONCATENATE(char(13),"],"),""))
 
-$this->section_data => [
+
+$this->section_data = [
   'left_cohort'=>[
-    ['cost'=>'cohort',], // left_cohort_1
-    ['cost'=>'cohort',], // left_cohort_2
-    ['cost'=>'cohort','reward'=>'discipline',], // left_cohort_3
-    ['cost'=>'cohort',], // left_cohort_4
-    ['cost'=>'cohort','reward'=>'valour',], // left_cohort_5
-    ['cost'=>'cohort','reward'=>'discipline',], // left_cohort_6
+    ['cost'=>'cohort','id'=>'left_cohort_1'],
+    ['cost'=>'cohort','id'=>'left_cohort_2'],
+    ['cost'=>'cohort','reward'=>'discipline','id'=>'left_cohort_3'],
+    ['cost'=>'cohort','id'=>'left_cohort_4'],
+    ['cost'=>'cohort','reward'=>'valour','id'=>'left_cohort_5'],
+    ['cost'=>'cohort','reward'=>'discipline','id'=>'left_cohort_6'],
+    ],
     'center_cohort'=>[
-    ['cost'=>'cohort',], // center_cohort_1
-    ['cost'=>'cohort',], // center_cohort_2
-    ['cost'=>'cohort','reward'=>'discipline',], // center_cohort_3
-    ['cost'=>'cohort',], // center_cohort_4
-    ['cost'=>'cohort','reward'=>'valour',], // center_cohort_5
-    ['cost'=>'cohort','reward'=>'discipline',], // center_cohort_6
+    ['cost'=>'cohort','id'=>'center_cohort_1'],
+    ['cost'=>'cohort','id'=>'center_cohort_2'],
+    ['cost'=>'cohort','reward'=>'discipline','id'=>'center_cohort_3'],
+    ['cost'=>'cohort','id'=>'center_cohort_4'],
+    ['cost'=>'cohort','reward'=>'valour','id'=>'center_cohort_5'],
+    ['cost'=>'cohort','reward'=>'discipline','id'=>'center_cohort_6'],
+    ],
     'right_cohort'=>[
-    ['cost'=>'cohort',], // right_cohort_1
-    ['cost'=>'cohort',], // right_cohort_2
-    ['cost'=>'cohort','reward'=>'discipline',], // right_cohort_3
-    ['cost'=>'cohort',], // right_cohort_4
-    ['cost'=>'cohort','reward'=>'valour',], // right_cohort_5
-    ['cost'=>'cohort','reward'=>'discipline',], // right_cohort_6
+    ['cost'=>'cohort','id'=>'right_cohort_1'],
+    ['cost'=>'cohort','id'=>'right_cohort_2'],
+    ['cost'=>'cohort','reward'=>'discipline','id'=>'right_cohort_3'],
+    ['cost'=>'cohort','id'=>'right_cohort_4'],
+    ['cost'=>'cohort','reward'=>'valour','id'=>'right_cohort_5'],
+    ['cost'=>'cohort','reward'=>'discipline','id'=>'right_cohort_6'],
+    ],
     'mining_and_foresting'=>[
-    ['cost'=>'servant',], // mining_and_foresting_1
-    ['cost'=>'servant','reward'=>'production,brick',], // mining_and_foresting_2
-    ['cost'=>'servant',], // mining_and_foresting_3
-    ['cost'=>'servant',], // mining_and_foresting_4
-    ['lockedBy'=>'granary,1','cost'=>'servant','reward'=>'production,brick',], // mining_and_foresting_5
-    ['lockedBy'=>'granary,1','cost'=>'servant',], // mining_and_foresting_6
-    ['lockedBy'=>'granary,1','cost'=>'servant',], // mining_and_foresting_7
-    ['lockedBy'=>'granary,1','cost'=>'servant','reward'=>'production,brick',], // mining_and_foresting_8
-    ['lockedBy'=>'granary,1','cost'=>'servant',], // mining_and_foresting_9
-    ['lockedBy'=>'granary,2','cost'=>'servant',], // mining_and_foresting_10
-    ['lockedBy'=>'granary,2','cost'=>'servant','reward'=>'production,brick',], // mining_and_foresting_11
-    ['lockedBy'=>'granary,2','cost'=>'servant',], // mining_and_foresting_12
-    ['lockedBy'=>'granary,2','cost'=>'servant',], // mining_and_foresting_13
-    ['lockedBy'=>'granary,2','cost'=>'servant','reward'=>'production,brick',], // mining_and_foresting_14
+    ['cost'=>'servant','id'=>'mining_and_foresting_1'],
+    ['cost'=>'servant','reward'=>'production,brick','id'=>'mining_and_foresting_2'],
+    ['cost'=>'servant','id'=>'mining_and_foresting_3'],
+    ['cost'=>'servant','id'=>'mining_and_foresting_4'],
+    ['lockedBy'=>'granary,1','cost'=>'servant','reward'=>'production,brick','id'=>'mining_and_foresting_5'],
+    ['lockedBy'=>'granary,1','cost'=>'servant','id'=>'mining_and_foresting_6'],
+    ['lockedBy'=>'granary,1','cost'=>'servant','id'=>'mining_and_foresting_7'],
+    ['lockedBy'=>'granary,1','cost'=>'servant','reward'=>'production,brick','id'=>'mining_and_foresting_8'],
+    ['lockedBy'=>'granary,1','cost'=>'servant','id'=>'mining_and_foresting_9'],
+    ['lockedBy'=>'granary,2','cost'=>'servant','id'=>'mining_and_foresting_10'],
+    ['lockedBy'=>'granary,2','cost'=>'servant','reward'=>'production,brick','id'=>'mining_and_foresting_11'],
+    ['lockedBy'=>'granary,2','cost'=>'servant','id'=>'mining_and_foresting_12'],
+    ['lockedBy'=>'granary,2','cost'=>'servant','id'=>'mining_and_foresting_13'],
+    ['lockedBy'=>'granary,2','cost'=>'servant','reward'=>'production,brick','id'=>'mining_and_foresting_14'],
+    ],
     'wall_guard'=>[
-    ['cost'=>'soldier','altCost'=>'sword','reward'=>'cohort',], // wall_guard_1
-    ['cost'=>'soldier','altCost'=>'sword','reward'=>'discipline',], // wall_guard_2
-    ['cost'=>'soldier','altCost'=>'sword','reward'=>'cohort',], // wall_guard_3
-    ['cost'=>'soldier','altCost'=>'sword',], // wall_guard_4
-    ['cost'=>'soldier','altCost'=>'sword','reward'=>'discipline',], // wall_guard_5
-    ['cost'=>'soldier','altCost'=>'sword','reward'=>'cohort',], // wall_guard_6
-    ['lockedBy'=>'granary,1','cost'=>'soldier','altCost'=>'sword',], // wall_guard_7
-    ['lockedBy'=>'granary,1','cost'=>'soldier','altCost'=>'sword','reward'=>'discipline',], // wall_guard_8
-    ['lockedBy'=>'granary,1','cost'=>'soldier','altCost'=>'sword','reward'=>'cohort',], // wall_guard_9
-    ['lockedBy'=>'granary,1','cost'=>'soldier','altCost'=>'sword',], // wall_guard_10
-    ['lockedBy'=>'granary,1','cost'=>'soldier','altCost'=>'sword','reward'=>'discipline',], // wall_guard_11
-    ['lockedBy'=>'granary,1','cost'=>'soldier','altCost'=>'sword','reward'=>'cohort',], // wall_guard_12
-    ['lockedBy'=>'granary,2','cost'=>'soldier','altCost'=>'sword',], // wall_guard_13
-    ['lockedBy'=>'granary,2','cost'=>'soldier','altCost'=>'sword','reward'=>'discipline',], // wall_guard_14
-    ['lockedBy'=>'granary,2','cost'=>'soldier','altCost'=>'sword','reward'=>'cohort',], // wall_guard_15
-    ['lockedBy'=>'granary,2','cost'=>'soldier','altCost'=>'sword',], // wall_guard_16
-    ['lockedBy'=>'granary,2','cost'=>'soldier','altCost'=>'sword','reward'=>'discipline',], // wall_guard_17
-    ['lockedBy'=>'granary,2','cost'=>'soldier','altCost'=>'sword','reward'=>'cohort',], // wall_guard_18
+    ['cost'=>'soldier','altCost'=>'sword','reward'=>'cohort','id'=>'wall_guard_1'],
+    ['cost'=>'soldier','altCost'=>'sword','reward'=>'discipline','id'=>'wall_guard_2'],
+    ['cost'=>'soldier','altCost'=>'sword','reward'=>'cohort','id'=>'wall_guard_3'],
+    ['cost'=>'soldier','altCost'=>'sword','id'=>'wall_guard_4'],
+    ['cost'=>'soldier','altCost'=>'sword','reward'=>'discipline','id'=>'wall_guard_5'],
+    ['cost'=>'soldier','altCost'=>'sword','reward'=>'cohort','id'=>'wall_guard_6'],
+    ['lockedBy'=>'granary,1','cost'=>'soldier','altCost'=>'sword','id'=>'wall_guard_7'],
+    ['lockedBy'=>'granary,1','cost'=>'soldier','altCost'=>'sword','reward'=>'discipline','id'=>'wall_guard_8'],
+    ['lockedBy'=>'granary,1','cost'=>'soldier','altCost'=>'sword','reward'=>'cohort','id'=>'wall_guard_9'],
+    ['lockedBy'=>'granary,1','cost'=>'soldier','altCost'=>'sword','id'=>'wall_guard_10'],
+    ['lockedBy'=>'granary,1','cost'=>'soldier','altCost'=>'sword','reward'=>'discipline','id'=>'wall_guard_11'],
+    ['lockedBy'=>'granary,1','cost'=>'soldier','altCost'=>'sword','reward'=>'cohort','id'=>'wall_guard_12'],
+    ['lockedBy'=>'granary,2','cost'=>'soldier','altCost'=>'sword','id'=>'wall_guard_13'],
+    ['lockedBy'=>'granary,2','cost'=>'soldier','altCost'=>'sword','reward'=>'discipline','id'=>'wall_guard_14'],
+    ['lockedBy'=>'granary,2','cost'=>'soldier','altCost'=>'sword','reward'=>'cohort','id'=>'wall_guard_15'],
+    ['lockedBy'=>'granary,2','cost'=>'soldier','altCost'=>'sword','id'=>'wall_guard_16'],
+    ['lockedBy'=>'granary,2','cost'=>'soldier','altCost'=>'sword','reward'=>'discipline','id'=>'wall_guard_17'],
+    ['lockedBy'=>'granary,2','cost'=>'soldier','altCost'=>'sword','reward'=>'cohort','id'=>'wall_guard_18'],
+    ],
     'cippi'=>[
-    ['cost'=>'brick',], // cippi_1
-    ['cost'=>'brick',], // cippi_2
-    ['cost'=>'brick','reward'=>'cohort',], // cippi_3
-    ['lockedBy'=>'granary,1','cost'=>'brick','reward'=>'civilian',], // cippi_4
-    ['lockedBy'=>'granary,1','cost'=>'brick','reward'=>'cohort',], // cippi_5
-    ['lockedBy'=>'granary,2','cost'=>'brick','reward'=>'civilian',], // cippi_6
-    ['lockedBy'=>'granary,2','cost'=>'brick','reward'=>'cohort',], // cippi_7
+    ['cost'=>'brick','id'=>'cippi_1'],
+    ['cost'=>'brick','id'=>'cippi_2'],
+    ['cost'=>'brick','reward'=>'cohort','id'=>'cippi_3'],
+    ['lockedBy'=>'granary,1','cost'=>'brick','reward'=>'civilian','id'=>'cippi_4'],
+    ['lockedBy'=>'granary,1','cost'=>'brick','reward'=>'cohort','id'=>'cippi_5'],
+    ['lockedBy'=>'granary,2','cost'=>'brick','reward'=>'civilian','id'=>'cippi_6'],
+    ['lockedBy'=>'granary,2','cost'=>'brick','reward'=>'cohort','id'=>'cippi_7'],
+    ],
     'wall'=>[
-    ['cost'=>'brick','reward'=>'civilian',], // wall_1
-    ['cost'=>'brick',], // wall_2
-    ['cost'=>'brick','reward'=>'civilian',], // wall_3
-    ['cost'=>'brick','reward'=>'renown,cohort',], // wall_4
-    ['cost'=>'brick','reward'=>'civilian',], // wall_5
-    ['cost'=>'brick',], // wall_6
-    ['cost'=>'brick','reward'=>'cohort',], // wall_7
-    ['lockedBy'=>'granary,1','cost'=>'brick','reward'=>'renown',], // wall_8
-    ['lockedBy'=>'granary,1','cost'=>'brick','reward'=>'civilian',], // wall_9
-    ['lockedBy'=>'granary,1','cost'=>'brick',], // wall_10
-    ['lockedBy'=>'granary,1','cost'=>'brick','reward'=>'renown,cohort',], // wall_11
-    ['lockedBy'=>'granary,1','cost'=>'brick',], // wall_12
-    ['lockedBy'=>'granary,1','cost'=>'brick','reward'=>'civilian',], // wall_13
-    ['lockedBy'=>'granary,1','cost'=>'brick','reward'=>'cohort',], // wall_14
-    ['lockedBy'=>'granary,2','cost'=>'brick','reward'=>'renown',], // wall_15
-    ['lockedBy'=>'granary,2','cost'=>'brick','reward'=>'civilian',], // wall_16
-    ['lockedBy'=>'granary,2','cost'=>'brick',], // wall_17
-    ['lockedBy'=>'granary,2','cost'=>'brick','reward'=>'renown,cohort',], // wall_18
-    ['lockedBy'=>'granary,2','cost'=>'brick','reward'=>'civilian',], // wall_19
-    ['lockedBy'=>'granary,2','cost'=>'brick',], // wall_20
-    ['lockedBy'=>'granary,2','cost'=>'brick','reward'=>'cohort',], // wall_21
+    ['cost'=>'brick','reward'=>'civilian','id'=>'wall_1'],
+    ['cost'=>'brick','id'=>'wall_2'],
+    ['cost'=>'brick','reward'=>'civilian','id'=>'wall_3'],
+    ['cost'=>'brick','reward'=>'renown,cohort','id'=>'wall_4'],
+    ['cost'=>'brick','reward'=>'civilian','id'=>'wall_5'],
+    ['cost'=>'brick','id'=>'wall_6'],
+    ['cost'=>'brick','reward'=>'cohort','id'=>'wall_7'],
+    ['lockedBy'=>'granary,1','cost'=>'brick','reward'=>'renown','id'=>'wall_8'],
+    ['lockedBy'=>'granary,1','cost'=>'brick','reward'=>'civilian','id'=>'wall_9'],
+    ['lockedBy'=>'granary,1','cost'=>'brick','id'=>'wall_10'],
+    ['lockedBy'=>'granary,1','cost'=>'brick','reward'=>'renown,cohort','id'=>'wall_11'],
+    ['lockedBy'=>'granary,1','cost'=>'brick','id'=>'wall_12'],
+    ['lockedBy'=>'granary,1','cost'=>'brick','reward'=>'civilian','id'=>'wall_13'],
+    ['lockedBy'=>'granary,1','cost'=>'brick','reward'=>'cohort','id'=>'wall_14'],
+    ['lockedBy'=>'granary,2','cost'=>'brick','reward'=>'renown','id'=>'wall_15'],
+    ['lockedBy'=>'granary,2','cost'=>'brick','reward'=>'civilian','id'=>'wall_16'],
+    ['lockedBy'=>'granary,2','cost'=>'brick','id'=>'wall_17'],
+    ['lockedBy'=>'granary,2','cost'=>'brick','reward'=>'renown,cohort','id'=>'wall_18'],
+    ['lockedBy'=>'granary,2','cost'=>'brick','reward'=>'civilian','id'=>'wall_19'],
+    ['lockedBy'=>'granary,2','cost'=>'brick','id'=>'wall_20'],
+    ['lockedBy'=>'granary,2','cost'=>'brick','reward'=>'cohort','id'=>'wall_21'],
+    ],
     'fort'=>[
-    ['cost'=>'builder','altCost'=>'soldier',], // fort_1
-    ['cost'=>'builder','altCost'=>'soldier',], // fort_2
-    ['cost'=>'builder','altCost'=>'soldier',], // fort_3
-    ['cost'=>'builder','altCost'=>'soldier','reward'=>'civilian',], // fort_4
-    ['cost'=>'builder','altCost'=>'soldier',], // fort_5
-    ['cost'=>'builder','altCost'=>'soldier','reward'=>'civilian',], // fort_6
-    ['cost'=>'builder','altCost'=>'soldier','reward'=>'discipline',], // fort_7
-    ['lockedBy'=>'granary,1','cost'=>'builder','altCost'=>'soldier','reward'=>'civilian',], // fort_8
-    ['lockedBy'=>'granary,1','cost'=>'builder','altCost'=>'soldier',], // fort_9
-    ['lockedBy'=>'granary,1','cost'=>'builder','altCost'=>'soldier','reward'=>'civilian',], // fort_10
-    ['lockedBy'=>'granary,1','cost'=>'builder','altCost'=>'soldier',], // fort_11
-    ['lockedBy'=>'granary,1','cost'=>'builder','altCost'=>'soldier','reward'=>'civilian',], // fort_12
-    ['lockedBy'=>'granary,1','cost'=>'builder','altCost'=>'soldier',], // fort_13
-    ['lockedBy'=>'granary,1','cost'=>'builder','altCost'=>'soldier','reward'=>'discipline,cohort',], // fort_14
-    ['lockedBy'=>'granary,2','cost'=>'builder','altCost'=>'soldier',], // fort_15
-    ['lockedBy'=>'granary,2','cost'=>'builder','altCost'=>'soldier','reward'=>'civilian',], // fort_16
-    ['lockedBy'=>'granary,2','cost'=>'builder','altCost'=>'soldier',], // fort_17
-    ['lockedBy'=>'granary,2','cost'=>'builder','altCost'=>'soldier','reward'=>'civilian',], // fort_18
-    ['lockedBy'=>'granary,2','cost'=>'builder','altCost'=>'soldier',], // fort_19
-    ['lockedBy'=>'granary,2','cost'=>'builder','altCost'=>'soldier','reward'=>'civilian',], // fort_20
-    ['lockedBy'=>'granary,2','cost'=>'builder','altCost'=>'soldier','reward'=>'discipline,cohort',], // fort_21
+    ['cost'=>'builder','altCost'=>'soldier','id'=>'fort_1'],
+    ['cost'=>'builder','altCost'=>'soldier','id'=>'fort_2'],
+    ['cost'=>'builder','altCost'=>'soldier','id'=>'fort_3'],
+    ['cost'=>'builder','altCost'=>'soldier','reward'=>'civilian','id'=>'fort_4'],
+    ['cost'=>'builder','altCost'=>'soldier','id'=>'fort_5'],
+    ['cost'=>'builder','altCost'=>'soldier','reward'=>'civilian','id'=>'fort_6'],
+    ['cost'=>'builder','altCost'=>'soldier','reward'=>'discipline','id'=>'fort_7'],
+    ['lockedBy'=>'granary,1','cost'=>'builder','altCost'=>'soldier','reward'=>'civilian','id'=>'fort_8'],
+    ['lockedBy'=>'granary,1','cost'=>'builder','altCost'=>'soldier','id'=>'fort_9'],
+    ['lockedBy'=>'granary,1','cost'=>'builder','altCost'=>'soldier','reward'=>'civilian','id'=>'fort_10'],
+    ['lockedBy'=>'granary,1','cost'=>'builder','altCost'=>'soldier','id'=>'fort_11'],
+    ['lockedBy'=>'granary,1','cost'=>'builder','altCost'=>'soldier','reward'=>'civilian','id'=>'fort_12'],
+    ['lockedBy'=>'granary,1','cost'=>'builder','altCost'=>'soldier','id'=>'fort_13'],
+    ['lockedBy'=>'granary,1','cost'=>'builder','altCost'=>'soldier','reward'=>'discipline,cohort','id'=>'fort_14'],
+    ['lockedBy'=>'granary,2','cost'=>'builder','altCost'=>'soldier','id'=>'fort_15'],
+    ['lockedBy'=>'granary,2','cost'=>'builder','altCost'=>'soldier','reward'=>'civilian','id'=>'fort_16'],
+    ['lockedBy'=>'granary,2','cost'=>'builder','altCost'=>'soldier','id'=>'fort_17'],
+    ['lockedBy'=>'granary,2','cost'=>'builder','altCost'=>'soldier','reward'=>'civilian','id'=>'fort_18'],
+    ['lockedBy'=>'granary,2','cost'=>'builder','altCost'=>'soldier','id'=>'fort_19'],
+    ['lockedBy'=>'granary,2','cost'=>'builder','altCost'=>'soldier','reward'=>'civilian','id'=>'fort_20'],
+    ['lockedBy'=>'granary,2','cost'=>'builder','altCost'=>'soldier','reward'=>'discipline,cohort','id'=>'fort_21'],
+    ],
     'granary'=>[
-    ['cost'=>'servant,builder,brick',], // granary_1
-    ['cost'=>'servant,builder,brick,brick','continue'=>TRUE,], // granary_2
-    ['reward'=>'renown',], // granary_3
+    ['lockedBy'=>'fort,1','cost'=>'servant,builder,brick','id'=>'granary_1'],
+    ['lockedBy'=>'fort,5','cost'=>'servant,builder,brick,brick','continue'=>TRUE,'id'=>'granary_2'],
+    ['reward'=>'renown','id'=>'granary_3'],
+    ],
     'renown'=>[
-    ['cost'=>'renown',], // renown_1
-    ['cost'=>'renown',], // renown_2
-    ['cost'=>'renown','reward'=>'civilian',], // renown_3
-    ['cost'=>'renown',], // renown_4
-    ['cost'=>'renown',], // renown_5
-    ['cost'=>'renown','reward'=>'civilian',], // renown_6
-    ['cost'=>'renown',], // renown_7
-    ['cost'=>'renown',], // renown_8
-    ['cost'=>'renown','reward'=>'civilian',], // renown_9
-    ['cost'=>'renown',], // renown_10
-    ['cost'=>'renown',], // renown_11
-    ['cost'=>'renown','reward'=>'civilian',], // renown_12
-    ['cost'=>'renown',], // renown_13
-    ['cost'=>'renown',], // renown_14
-    ['cost'=>'renown','reward'=>'civilian',], // renown_15
-    ['cost'=>'renown',], // renown_16
-    ['cost'=>'renown','reward'=>'peity',], // renown_17
-    ['cost'=>'renown',], // renown_18
-    ['cost'=>'renown','reward'=>'civilian',], // renown_19
-    ['cost'=>'renown',], // renown_20
-    ['cost'=>'renown','reward'=>'discipline',], // renown_21
-    ['cost'=>'renown',], // renown_22
-    ['cost'=>'renown','reward'=>'civilian',], // renown_23
-    ['cost'=>'renown',], // renown_24
-    ['cost'=>'renown','reward'=>'valour',], // renown_25
+    ['cost'=>'renown','id'=>'renown_1'],
+    ['cost'=>'renown','id'=>'renown_2'],
+    ['cost'=>'renown','reward'=>'civilian','id'=>'renown_3'],
+    ['cost'=>'renown','id'=>'renown_4'],
+    ['cost'=>'renown','id'=>'renown_5'],
+    ['cost'=>'renown','reward'=>'civilian','id'=>'renown_6'],
+    ['cost'=>'renown','id'=>'renown_7'],
+    ['cost'=>'renown','id'=>'renown_8'],
+    ['cost'=>'renown','reward'=>'civilian','id'=>'renown_9'],
+    ['cost'=>'renown','id'=>'renown_10'],
+    ['cost'=>'renown','id'=>'renown_11'],
+    ['cost'=>'renown','reward'=>'civilian','id'=>'renown_12'],
+    ['cost'=>'renown','id'=>'renown_13'],
+    ['cost'=>'renown','id'=>'renown_14'],
+    ['cost'=>'renown','reward'=>'civilian','id'=>'renown_15'],
+    ['cost'=>'renown','id'=>'renown_16'],
+    ['cost'=>'renown','reward'=>'peity','id'=>'renown_17'],
+    ['cost'=>'renown','id'=>'renown_18'],
+    ['cost'=>'renown','reward'=>'civilian','id'=>'renown_19'],
+    ['cost'=>'renown','id'=>'renown_20'],
+    ['cost'=>'renown','reward'=>'discipline','id'=>'renown_21'],
+    ['cost'=>'renown','id'=>'renown_22'],
+    ['cost'=>'renown','reward'=>'civilian','id'=>'renown_23'],
+    ['cost'=>'renown','id'=>'renown_24'],
+    ['cost'=>'renown','reward'=>'valour','id'=>'renown_25'],
+    ],
     'piety'=>[
-    ['cost'=>'piety',], // piety_1
-    ['cost'=>'piety',], // piety_2
-    ['cost'=>'piety','reward'=>'servant',], // piety_3
-    ['cost'=>'piety',], // piety_4
-    ['cost'=>'piety',], // piety_5
-    ['cost'=>'piety','reward'=>'servant',], // piety_6
-    ['cost'=>'piety',], // piety_7
-    ['cost'=>'piety',], // piety_8
-    ['cost'=>'piety','reward'=>'servant',], // piety_9
-    ['cost'=>'piety',], // piety_10
-    ['cost'=>'piety',], // piety_11
-    ['cost'=>'piety','reward'=>'servant',], // piety_12
-    ['cost'=>'piety',], // piety_13
-    ['cost'=>'piety',], // piety_14
-    ['cost'=>'piety','reward'=>'servant',], // piety_15
-    ['cost'=>'piety',], // piety_16
-    ['cost'=>'piety','reward'=>'renown',], // piety_17
-    ['cost'=>'piety',], // piety_18
-    ['cost'=>'piety','reward'=>'servant',], // piety_19
-    ['cost'=>'piety',], // piety_20
-    ['cost'=>'piety','reward'=>'valour',], // piety_21
-    ['cost'=>'piety',], // piety_22
-    ['cost'=>'piety','reward'=>'servant',], // piety_23
-    ['cost'=>'piety',], // piety_24
-    ['cost'=>'piety','reward'=>'discipline',], // piety_25
+    ['cost'=>'piety','id'=>'piety_1'],
+    ['cost'=>'piety','id'=>'piety_2'],
+    ['cost'=>'piety','reward'=>'servant','id'=>'piety_3'],
+    ['cost'=>'piety','id'=>'piety_4'],
+    ['cost'=>'piety','id'=>'piety_5'],
+    ['cost'=>'piety','reward'=>'servant','id'=>'piety_6'],
+    ['cost'=>'piety','id'=>'piety_7'],
+    ['cost'=>'piety','id'=>'piety_8'],
+    ['cost'=>'piety','reward'=>'servant','id'=>'piety_9'],
+    ['cost'=>'piety','id'=>'piety_10'],
+    ['cost'=>'piety','id'=>'piety_11'],
+    ['cost'=>'piety','reward'=>'servant','id'=>'piety_12'],
+    ['cost'=>'piety','id'=>'piety_13'],
+    ['cost'=>'piety','id'=>'piety_14'],
+    ['cost'=>'piety','reward'=>'servant','id'=>'piety_15'],
+    ['cost'=>'piety','id'=>'piety_16'],
+    ['cost'=>'piety','reward'=>'renown','id'=>'piety_17'],
+    ['cost'=>'piety','id'=>'piety_18'],
+    ['cost'=>'piety','reward'=>'servant','id'=>'piety_19'],
+    ['cost'=>'piety','id'=>'piety_20'],
+    ['cost'=>'piety','reward'=>'valour','id'=>'piety_21'],
+    ['cost'=>'piety','id'=>'piety_22'],
+    ['cost'=>'piety','reward'=>'servant','id'=>'piety_23'],
+    ['cost'=>'piety','id'=>'piety_24'],
+    ['cost'=>'piety','reward'=>'discipline','id'=>'piety_25'],
+    ],
     'valour'=>[
-    ['cost'=>'valour',], // valour_1
-    ['cost'=>'valour',], // valour_2
-    ['cost'=>'valour','reward'=>'soldier',], // valour_3
-    ['cost'=>'valour',], // valour_4
-    ['cost'=>'valour',], // valour_5
-    ['cost'=>'valour','reward'=>'soldier',], // valour_6
-    ['cost'=>'valour',], // valour_7
-    ['cost'=>'valour',], // valour_8
-    ['cost'=>'valour','reward'=>'soldier',], // valour_9
-    ['cost'=>'valour',], // valour_10
-    ['cost'=>'valour',], // valour_11
-    ['cost'=>'valour','reward'=>'soldier',], // valour_12
-    ['cost'=>'valour',], // valour_13
-    ['cost'=>'valour',], // valour_14
-    ['cost'=>'valour','reward'=>'soldier',], // valour_15
-    ['cost'=>'valour',], // valour_16
-    ['cost'=>'valour','reward'=>'discipline',], // valour_17
-    ['cost'=>'valour',], // valour_18
-    ['cost'=>'valour','reward'=>'soldier',], // valour_19
-    ['cost'=>'valour',], // valour_20
-    ['cost'=>'valour','reward'=>'renown',], // valour_21
-    ['cost'=>'valour',], // valour_22
-    ['cost'=>'valour','reward'=>'soldier',], // valour_23
-    ['cost'=>'valour',], // valour_24
-    ['cost'=>'valour','reward'=>'piety',], // valour_25
+    ['cost'=>'valour','id'=>'valour_1'],
+    ['cost'=>'valour','id'=>'valour_2'],
+    ['cost'=>'valour','reward'=>'soldier','id'=>'valour_3'],
+    ['cost'=>'valour','id'=>'valour_4'],
+    ['cost'=>'valour','id'=>'valour_5'],
+    ['cost'=>'valour','reward'=>'soldier','id'=>'valour_6'],
+    ['cost'=>'valour','id'=>'valour_7'],
+    ['cost'=>'valour','id'=>'valour_8'],
+    ['cost'=>'valour','reward'=>'soldier','id'=>'valour_9'],
+    ['cost'=>'valour','id'=>'valour_10'],
+    ['cost'=>'valour','id'=>'valour_11'],
+    ['cost'=>'valour','reward'=>'soldier','id'=>'valour_12'],
+    ['cost'=>'valour','id'=>'valour_13'],
+    ['cost'=>'valour','id'=>'valour_14'],
+    ['cost'=>'valour','reward'=>'soldier','id'=>'valour_15'],
+    ['cost'=>'valour','id'=>'valour_16'],
+    ['cost'=>'valour','reward'=>'discipline','id'=>'valour_17'],
+    ['cost'=>'valour','id'=>'valour_18'],
+    ['cost'=>'valour','reward'=>'soldier','id'=>'valour_19'],
+    ['cost'=>'valour','id'=>'valour_20'],
+    ['cost'=>'valour','reward'=>'renown','id'=>'valour_21'],
+    ['cost'=>'valour','id'=>'valour_22'],
+    ['cost'=>'valour','reward'=>'soldier','id'=>'valour_23'],
+    ['cost'=>'valour','id'=>'valour_24'],
+    ['cost'=>'valour','reward'=>'piety','id'=>'valour_25'],
+    ],
     'discipline'=>[
-    ['cost'=>'discipline',], // discipline_1
-    ['cost'=>'discipline',], // discipline_2
-    ['cost'=>'discipline','reward'=>'builder',], // discipline_3
-    ['cost'=>'discipline',], // discipline_4
-    ['cost'=>'discipline',], // discipline_5
-    ['cost'=>'discipline','reward'=>'builder',], // discipline_6
-    ['cost'=>'discipline',], // discipline_7
-    ['cost'=>'discipline',], // discipline_8
-    ['cost'=>'discipline','reward'=>'builder',], // discipline_9
-    ['cost'=>'discipline',], // discipline_10
-    ['cost'=>'discipline',], // discipline_11
-    ['cost'=>'discipline','reward'=>'builder',], // discipline_12
-    ['cost'=>'discipline',], // discipline_13
-    ['cost'=>'discipline',], // discipline_14
-    ['cost'=>'discipline','reward'=>'builder',], // discipline_15
-    ['cost'=>'discipline',], // discipline_16
-    ['cost'=>'discipline','reward'=>'valour',], // discipline_17
-    ['cost'=>'discipline',], // discipline_18
-    ['cost'=>'discipline','reward'=>'builder',], // discipline_19
-    ['cost'=>'discipline',], // discipline_20
-    ['cost'=>'discipline','reward'=>'piety',], // discipline_21
-    ['cost'=>'discipline',], // discipline_22
-    ['cost'=>'discipline','reward'=>'builder',], // discipline_23
-    ['cost'=>'discipline',], // discipline_24
-    ['cost'=>'discipline','reward'=>'renown',], // discipline_25
+    ['cost'=>'discipline','id'=>'discipline_1'],
+    ['cost'=>'discipline','id'=>'discipline_2'],
+    ['cost'=>'discipline','reward'=>'builder','id'=>'discipline_3'],
+    ['cost'=>'discipline','id'=>'discipline_4'],
+    ['cost'=>'discipline','id'=>'discipline_5'],
+    ['cost'=>'discipline','reward'=>'builder','id'=>'discipline_6'],
+    ['cost'=>'discipline','id'=>'discipline_7'],
+    ['cost'=>'discipline','id'=>'discipline_8'],
+    ['cost'=>'discipline','reward'=>'builder','id'=>'discipline_9'],
+    ['cost'=>'discipline','id'=>'discipline_10'],
+    ['cost'=>'discipline','id'=>'discipline_11'],
+    ['cost'=>'discipline','reward'=>'builder','id'=>'discipline_12'],
+    ['cost'=>'discipline','id'=>'discipline_13'],
+    ['cost'=>'discipline','id'=>'discipline_14'],
+    ['cost'=>'discipline','reward'=>'builder','id'=>'discipline_15'],
+    ['cost'=>'discipline','id'=>'discipline_16'],
+    ['cost'=>'discipline','reward'=>'valour','id'=>'discipline_17'],
+    ['cost'=>'discipline','id'=>'discipline_18'],
+    ['cost'=>'discipline','reward'=>'builder','id'=>'discipline_19'],
+    ['cost'=>'discipline','id'=>'discipline_20'],
+    ['cost'=>'discipline','reward'=>'piety','id'=>'discipline_21'],
+    ['cost'=>'discipline','id'=>'discipline_22'],
+    ['cost'=>'discipline','reward'=>'builder','id'=>'discipline_23'],
+    ['cost'=>'discipline','id'=>'discipline_24'],
+    ['cost'=>'discipline','reward'=>'renown','id'=>'discipline_25'],
+    ],
     'traders'=>[
-    ['cost'=>'traders','altCost'=>'civilian','reward'=>'servant',], // traders_1
-    ['cost'=>'traders','altCost'=>'civilian',], // traders_2
-    ['cost'=>'traders','altCost'=>'civilian','reward'=>'builder',], // traders_3
-    ['cost'=>'traders','altCost'=>'civilian',], // traders_4
-    ['cost'=>'traders','altCost'=>'civilian','reward'=>'brick',], // traders_5
-    ['cost'=>'traders','altCost'=>'civilian',], // traders_6
-    ['cost'=>'traders','altCost'=>'civilian','reward'=>'builder',], // traders_7
-    ['cost'=>'traders','altCost'=>'civilian','reward'=>'renown',], // traders_8
-    ['cost'=>'traders','altCost'=>'civilian','reward'=>'brick',], // traders_9
+    ['cost'=>'traders','altCost'=>'civilian','reward'=>'servant','id'=>'traders_1'],
+    ['cost'=>'traders','altCost'=>'civilian','id'=>'traders_2'],
+    ['cost'=>'traders','altCost'=>'civilian','reward'=>'builder','id'=>'traders_3'],
+    ['cost'=>'traders','altCost'=>'civilian','id'=>'traders_4'],
+    ['cost'=>'traders','altCost'=>'civilian','reward'=>'brick','id'=>'traders_5'],
+    ['cost'=>'traders','altCost'=>'civilian','id'=>'traders_6'],
+    ['cost'=>'traders','altCost'=>'civilian','reward'=>'builder','id'=>'traders_7'],
+    ['cost'=>'traders','altCost'=>'civilian','reward'=>'renown','id'=>'traders_8'],
+    ['cost'=>'traders','altCost'=>'civilian','reward'=>'brick','id'=>'traders_9'],
+    ],
     'performers'=>[
-    ['cost'=>'performers','altCost'=>'civilian','reward'=>'builder',], // performers_1
-    ['cost'=>'performers','altCost'=>'civilian',], // performers_2
-    ['cost'=>'performers','altCost'=>'civilian','reward'=>'servant',], // performers_3
-    ['cost'=>'performers','altCost'=>'civilian',], // performers_4
-    ['cost'=>'performers','altCost'=>'civilian','reward'=>'soldier',], // performers_5
-    ['cost'=>'performers','altCost'=>'civilian',], // performers_6
-    ['cost'=>'performers','altCost'=>'civilian','reward'=>'servant',], // performers_7
-    ['cost'=>'performers','altCost'=>'civilian','reward'=>'renown',], // performers_8
-    ['cost'=>'performers','altCost'=>'civilian','reward'=>'builder',], // performers_9
+    ['cost'=>'performers','altCost'=>'civilian','reward'=>'builder','id'=>'performers_1'],
+    ['cost'=>'performers','altCost'=>'civilian','id'=>'performers_2'],
+    ['cost'=>'performers','altCost'=>'civilian','reward'=>'servant','id'=>'performers_3'],
+    ['cost'=>'performers','altCost'=>'civilian','id'=>'performers_4'],
+    ['cost'=>'performers','altCost'=>'civilian','reward'=>'soldier','id'=>'performers_5'],
+    ['cost'=>'performers','altCost'=>'civilian','id'=>'performers_6'],
+    ['cost'=>'performers','altCost'=>'civilian','reward'=>'servant','id'=>'performers_7'],
+    ['cost'=>'performers','altCost'=>'civilian','reward'=>'renown','id'=>'performers_8'],
+    ['cost'=>'performers','altCost'=>'civilian','reward'=>'builder','id'=>'performers_9'],
+    ],
     'priests'=>[
-    ['cost'=>'priests','altCost'=>'civilian','reward'=>'servant',], // priests_1
-    ['cost'=>'priests','altCost'=>'civilian',], // priests_2
-    ['cost'=>'priests','altCost'=>'civilian','reward'=>'servant',], // priests_3
-    ['cost'=>'priests','altCost'=>'civilian','reward'=>'piety',], // priests_4
-    ['cost'=>'priests','altCost'=>'civilian','reward'=>'servant',], // priests_5
-    ['cost'=>'priests','altCost'=>'civilian','reward'=>'piety',], // priests_6
-    ['cost'=>'priests','altCost'=>'civilian','reward'=>'servant',], // priests_7
-    ['cost'=>'priests','altCost'=>'civilian','reward'=>'piety',], // priests_8
-    ['cost'=>'priests','altCost'=>'civilian','reward'=>'servant',], // priests_9
+    ['cost'=>'priests','altCost'=>'civilian','reward'=>'servant','id'=>'priests_1'],
+    ['cost'=>'priests','altCost'=>'civilian','id'=>'priests_2'],
+    ['cost'=>'priests','altCost'=>'civilian','reward'=>'servant','id'=>'priests_3'],
+    ['cost'=>'priests','altCost'=>'civilian','reward'=>'piety','id'=>'priests_4'],
+    ['cost'=>'priests','altCost'=>'civilian','reward'=>'servant','id'=>'priests_5'],
+    ['cost'=>'priests','altCost'=>'civilian','reward'=>'piety','id'=>'priests_6'],
+    ['cost'=>'priests','altCost'=>'civilian','reward'=>'servant','id'=>'priests_7'],
+    ['cost'=>'priests','altCost'=>'civilian','reward'=>'piety','id'=>'priests_8'],
+    ['cost'=>'priests','altCost'=>'civilian','reward'=>'servant','id'=>'priests_9'],
+    ],
     'apparitores'=>[
-    ['cost'=>'apparitores','altCost'=>'civilian','reward'=>'builder',], // apparitores_1
-    ['cost'=>'apparitores','altCost'=>'civilian',], // apparitores_2
-    ['cost'=>'apparitores','altCost'=>'civilian','reward'=>'soldier',], // apparitores_3
-    ['cost'=>'apparitores','altCost'=>'civilian','reward'=>'discipline',], // apparitores_4
-    ['cost'=>'apparitores','altCost'=>'civilian','reward'=>'builder',], // apparitores_5
-    ['cost'=>'apparitores','altCost'=>'civilian','reward'=>'discipline',], // apparitores_6
-    ['cost'=>'apparitores','altCost'=>'civilian','reward'=>'soldier',], // apparitores_7
-    ['cost'=>'apparitores','altCost'=>'civilian','reward'=>'discipline',], // apparitores_8
-    ['cost'=>'apparitores','altCost'=>'civilian','reward'=>'builder',], // apparitores_9
+    ['cost'=>'apparitores','altCost'=>'civilian','reward'=>'builder','id'=>'apparitores_1'],
+    ['cost'=>'apparitores','altCost'=>'civilian','id'=>'apparitores_2'],
+    ['cost'=>'apparitores','altCost'=>'civilian','reward'=>'soldier','id'=>'apparitores_3'],
+    ['cost'=>'apparitores','altCost'=>'civilian','reward'=>'discipline','id'=>'apparitores_4'],
+    ['cost'=>'apparitores','altCost'=>'civilian','reward'=>'builder','id'=>'apparitores_5'],
+    ['cost'=>'apparitores','altCost'=>'civilian','reward'=>'discipline','id'=>'apparitores_6'],
+    ['cost'=>'apparitores','altCost'=>'civilian','reward'=>'soldier','id'=>'apparitores_7'],
+    ['cost'=>'apparitores','altCost'=>'civilian','reward'=>'discipline','id'=>'apparitores_8'],
+    ['cost'=>'apparitores','altCost'=>'civilian','reward'=>'builder','id'=>'apparitores_9'],
+    ],
     'patricians'=>[
-    ['cost'=>'patricians','altCost'=>'civilian','reward'=>'brick',], // patricians_1
-    ['cost'=>'patricians','altCost'=>'civilian',], // patricians_2
-    ['cost'=>'patricians','altCost'=>'civilian','reward'=>'soldier',], // patricians_3
-    ['cost'=>'patricians','altCost'=>'civilian','reward'=>'renown',], // patricians_4
-    ['cost'=>'patricians','altCost'=>'civilian','reward'=>'brick',], // patricians_5
-    ['cost'=>'patricians','altCost'=>'civilian','reward'=>'renown',], // patricians_6
-    ['cost'=>'patricians','altCost'=>'civilian','reward'=>'soldier',], // patricians_7
-    ['cost'=>'patricians','altCost'=>'civilian','reward'=>'renown',], // patricians_8
-    ['cost'=>'patricians','altCost'=>'civilian','reward'=>'brick',], // patricians_9
+    ['cost'=>'patricians','altCost'=>'civilian','reward'=>'brick','id'=>'patricians_1'],
+    ['cost'=>'patricians','altCost'=>'civilian','id'=>'patricians_2'],
+    ['cost'=>'patricians','altCost'=>'civilian','reward'=>'soldier','id'=>'patricians_3'],
+    ['cost'=>'patricians','altCost'=>'civilian','reward'=>'renown','id'=>'patricians_4'],
+    ['cost'=>'patricians','altCost'=>'civilian','reward'=>'brick','id'=>'patricians_5'],
+    ['cost'=>'patricians','altCost'=>'civilian','reward'=>'renown','id'=>'patricians_6'],
+    ['cost'=>'patricians','altCost'=>'civilian','reward'=>'soldier','id'=>'patricians_7'],
+    ['cost'=>'patricians','altCost'=>'civilian','reward'=>'renown','id'=>'patricians_8'],
+    ['cost'=>'patricians','altCost'=>'civilian','reward'=>'brick','id'=>'patricians_9'],
+    ],
 ];
 
 

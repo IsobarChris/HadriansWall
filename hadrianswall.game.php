@@ -154,6 +154,17 @@ class HadriansWall extends Table
     ////
     ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    // Board
+
+    function getBoard() {
+        self::debug("--->getBoard");
+        $current_player_id = self::getCurrentPlayerId();
+        $board_sql = "SELECT * FROM board WHERE player_id = $current_player_id";
+        $board = self::getCollectionFromDb( $board_sql );
+        $results = $board[$current_player_id];
+        return $results;
+    }
+
     // Resources
 
     function getResources() {
@@ -525,6 +536,121 @@ class HadriansWall extends Table
         }
 
         return $cards;
+    }
+
+    function getValidMoves() {
+        self::debug( "----> getValidMoves" ); 
+        $valid_moves = [];
+        $costs = [];
+        $section_data = $this->section_data;
+        $board = $this->getBoard();
+        $resources = $this->getResources();
+
+        // make it easier to compare needs with haves
+        $resources['civilian'] = $resources['civilians'];
+        $resources['servant'] = $resources['servants'];
+        $resources['soldier'] = $resources['soldiers'];
+        $resources['builder'] = $resources['builders'];
+        $resources['brick'] = $resources['bricks'];
+
+        foreach($section_data as $id=>$data) {
+            $index = $board[$id];
+            $section = $data[0]['id'];
+            self::debug($id." --> ".$section."   //");
+            self::debug($id." is at ".$index."   //");
+
+            // check to see if it's locked
+            if(array_key_exists('lockedBy',$data[$index])) {
+                $locked = explode(",",$data[$index]['lockedBy']);
+                $locked_section = $locked[0];
+                $required_level = $locked[1];
+                self::debug("$section is locked by $locked_section at $required_level");
+                if($board[$locked_section]<$required_level) {
+                    continue;
+                }
+            }
+
+            if(array_key_exists('cost',$data[$index])) {
+                $cost_lists = explode(",",$data[$index]['cost']);
+                $altCost_lists = [];
+                if(array_key_exists('altCost',$data[$index])) {
+                    $altCost_lists = explode(",",$data[$index]['altCost']);
+                }
+                                
+                $needed =[];
+                $alt_needed =[];
+                foreach($cost_lists as $resource) {
+                    if(array_key_exists($resource,$needed)){
+                        $needed[$resource]++;
+                    } else {
+                        $needed[$resource]=1;
+                    }
+                }
+                foreach($altCost_lists as $resource) {
+                    if(array_key_exists($resource,$alt_needed)){
+                        $alt_needed[$resource]++;
+                    } else {
+                        $alt_needed[$resource]=1;
+                    }
+                }
+
+                $costs[] = ['cost'=>$needed,'altCost'=>$alt_needed]; // DEBUG
+                
+                self::debug($id." has a cost of ".print_r($needed,true));
+                
+                $valid = false;
+                foreach($needed as $resource=>$amount) {
+                    $valid = true;
+                    self::debug("Checking $resource is at least $amount in ".print_r($resources,true));
+                    if(!array_key_exists($resource,$resources) || $resources[$resource]<$amount) {
+                        self::debug("Missing resource");
+                        $valid = false;
+                    }
+                }
+        
+                if(!$valid) {
+                    foreach($alt_needed as $resource=>$amount) {
+                        $valid = true;
+                        self::debug("Checking alt $resource is at least $amount in ".print_r($resources,true));
+                        if(!array_key_exists($resource,$resources) || $resources[$resource]<$amount) {
+                            self::debug("Still missing resource");
+                            $valid = false;
+                        }
+                    }
+                }
+
+                if($valid) {
+                    self::debug("VALID MOVE VALID MOVE");
+                    $valid_moves[]=$data[$index]['id'];
+                }
+            } 
+        }
+
+        $results = [
+            'section_data'=>$section_data,
+            'resources'=>$resources,
+            'board'=>$board,
+            'costs'=>$costs,
+            'valid_moves'=>$valid_moves
+        ];
+
+
+
+        return $results;
+    }
+
+
+    function argUseResources() {
+        self::debug( "----> argUseResources" ); 
+        $results=[];
+
+        $results = $this->section_data;
+
+        $results = $this->getValidMoves();
+
+
+
+        return $results;
     }
 
     function stAcceptPictAttack() {
