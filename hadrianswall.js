@@ -216,8 +216,10 @@ function (dojo, declare) {
                     }
                 break;
 
-                case 'useResources':
-                    debug("useResourceArgs",args.args);
+                case 'useResources': {
+                    let valid_moves = args.args;
+                    this.updateValidMoves(valid_moves);
+                }
                 break;
 
                 case 'acceptPictAttack':
@@ -368,13 +370,22 @@ function (dojo, declare) {
             })
         },
 
+        updateValidMoves: function(valid_moves) {
+            debug("valid_moves",valid_moves);
+            dojo.query('.clickable').removeClass('valid');
+            valid_moves.forEach((box)=>{
+                dojo.query(`#${box}`).addClass('valid');
+            });
+        },
+
+
         ///////////////////////////////////////////////////
         //// Player's action
         onBoxClicked: function( evt )
         {
             dojo.stopEvent(evt);
 
-            let section = evt.target.id.split("__")[0];
+            let section = evt.target.id.split("_").slice(0,-1).join("_");
             debug("Box clicked",section);
 
             if(this.checkAction('checkNextBox')){
@@ -553,8 +564,11 @@ function (dojo, declare) {
         },
 
         notif_sheetsUpdated: function(notif) {
-            debug('notif_newAvailableFields',notif);
+            debug('notif_sheetsUpdated',notif);
             let board = notif.args.board;
+            let valid_moves = notif.args.valid_moves;
+
+            this.updateValidMoves(valid_moves);
             this.drawAllScratches(board);
         },
 

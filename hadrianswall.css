@@ -547,8 +547,11 @@ dojo.hasClass
     border: 0px; 
 }
 .valid { 
-    border: 1px solid yellow; 
+    border: 2px solid yellow; 
     opacity: 1; 
+    margin-left: -1px;
+    margin-top: -1px;
+    background-color: #0000;
     border-color: #ff0;
 }
 

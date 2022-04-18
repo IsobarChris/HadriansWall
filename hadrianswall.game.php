@@ -241,7 +241,8 @@ class HadriansWall extends Table
         $board = self::getCollectionFromDb( $board_sql );
 
         $this->notifyPlayer( $current_player_id, "sheetsUpdated", "", [
-            "board"=>$board[$current_player_id]
+            "board"=>$board[$current_player_id],
+            "valid_moves"=>$this->getValidMoves()
         ]);
     }
 
@@ -556,15 +557,13 @@ class HadriansWall extends Table
         foreach($section_data as $id=>$data) {
             $index = $board[$id];
             $section = $data[0]['id'];
-            self::debug($id." --> ".$section."   //");
-            self::debug($id." is at ".$index."   //");
 
             // check to see if it's locked
             if(array_key_exists('lockedBy',$data[$index])) {
                 $locked = explode(",",$data[$index]['lockedBy']);
                 $locked_section = $locked[0];
                 $required_level = $locked[1];
-                self::debug("$section is locked by $locked_section at $required_level");
+                // self::debug("$section is locked by $locked_section at $required_level");
                 if($board[$locked_section]<$required_level) {
                     continue;
                 }
@@ -596,12 +595,12 @@ class HadriansWall extends Table
 
                 $costs[] = ['cost'=>$needed,'altCost'=>$alt_needed]; // DEBUG
                 
-                self::debug($id." has a cost of ".print_r($needed,true));
+                // self::debug($id." has a cost of ".print_r($needed,true));
                 
                 $valid = false;
                 foreach($needed as $resource=>$amount) {
                     $valid = true;
-                    self::debug("Checking $resource is at least $amount in ".print_r($resources,true));
+                    // self::debug("Checking $resource is at least $amount in ".print_r($resources,true));
                     if(!array_key_exists($resource,$resources) || $resources[$resource]<$amount) {
                         self::debug("Missing resource");
                         $valid = false;
@@ -611,32 +610,29 @@ class HadriansWall extends Table
                 if(!$valid) {
                     foreach($alt_needed as $resource=>$amount) {
                         $valid = true;
-                        self::debug("Checking alt $resource is at least $amount in ".print_r($resources,true));
+                        // self::debug("Checking alt $resource is at least $amount in ".print_r($resources,true));
                         if(!array_key_exists($resource,$resources) || $resources[$resource]<$amount) {
-                            self::debug("Still missing resource");
+                            // self::debug("Still missing resource");
                             $valid = false;
                         }
                     }
                 }
 
                 if($valid) {
-                    self::debug("VALID MOVE VALID MOVE");
                     $valid_moves[]=$data[$index]['id'];
                 }
             } 
         }
 
-        $results = [
-            'section_data'=>$section_data,
-            'resources'=>$resources,
-            'board'=>$board,
-            'costs'=>$costs,
-            'valid_moves'=>$valid_moves
-        ];
-
-
-
-        return $results;
+        // $results = [
+        //     'section_data'=>$section_data,
+        //     'resources'=>$resources,
+        //     'board'=>$board,
+        //     'costs'=>$costs,
+        //     'valid_moves'=>$valid_moves
+        // ];
+        
+        return $valid_moves;
     }
 
 
