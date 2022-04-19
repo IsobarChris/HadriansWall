@@ -167,10 +167,13 @@ class HadriansWall extends Table
 
     // Resources
 
-    function getResources() {
+    function getResources($plural=true) {
         self::debug("--->getResources");
         $current_player_id = self::getCurrentPlayerId();
         $resource_sql = "SELECT player_id, `civilians`, `servants`, `soldiers`, `builders`, `bricks`, `special` FROM player WHERE player_id=$current_player_id";
+        if(!$plural) {
+            $resource_sql = "SELECT player_id, `civilians` civilian, `servants` servant, `soldiers` soldier, `builders` builder, `bricks` brick, `special` FROM player WHERE player_id=$current_player_id";
+        }
         self::debug($resource_sql);
         $result = self::getCollectionFromDb($resource_sql)[$current_player_id];
         return $result;
@@ -539,103 +542,106 @@ class HadriansWall extends Table
         return $cards;
     }
 
+    function spendAndRewardResourcesForSection($section,$index) {
+        // TODO
+    }
+
+    function isBoxValid($section,$index,$resources=null,$board=null) {
+        $valid = true;
+        if($board==null) {
+            $board = getBoard();
+        }
+        if($resources==null) {
+            $resources = getResources(false);
+        }
+        $data = $this->section_data[$section];
+
+        if($index>=count($data)) {
+            return false; // this section is full
+        }
+
+        // TODO
+        // check to see if it's locked
+        if(array_key_exists('lockedBy',$data[$index])) {
+            $locked = explode(",",$data[$index]['lockedBy']);
+            $locked_section = $locked[0];
+            $required_level = $locked[1];
+            // self::debug("$section is locked by $locked_section at $required_level");
+            if($board[$locked_section]<$required_level) {
+                $valid = false;
+            }
+        }
+
+        if($valid && array_key_exists('cost',$data[$index])) {
+            $cost_lists = explode(",",$data[$index]['cost']);
+            $altCost_lists = [];
+            if(array_key_exists('altCost',$data[$index])) {
+                $altCost_lists = explode(",",$data[$index]['altCost']);
+            }
+                            
+            $needed =[];
+            $alt_needed =[];
+            foreach($cost_lists as $resource) {
+                if(array_key_exists($resource,$needed)){
+                    $needed[$resource]++;
+                } else {
+                    $needed[$resource]=1;
+                }
+            }
+            foreach($altCost_lists as $resource) {
+                if(array_key_exists($resource,$alt_needed)){
+                    $alt_needed[$resource]++;
+                } else {
+                    $alt_needed[$resource]=1;
+                }
+            }
+
+            $costs[] = ['cost'=>$needed,'altCost'=>$alt_needed]; // DEBUG
+            
+            // self::debug($id." has a cost of ".print_r($needed,true));
+            
+            $valid = false;
+            foreach($needed as $resource=>$amount) {
+                $valid = true;
+                // self::debug("Checking $resource is at least $amount in ".print_r($resources,true));
+                if(!array_key_exists($resource,$resources) || $resources[$resource]<$amount) {
+                    self::debug("Missing resource");
+                    $valid = false;
+                }
+            }
+    
+            if(!$valid) {
+                foreach($alt_needed as $resource=>$amount) {
+                    $valid = true;
+                    // self::debug("Checking alt $resource is at least $amount in ".print_r($resources,true));
+                    if(!array_key_exists($resource,$resources) || $resources[$resource]<$amount) {
+                        // self::debug("Still missing resource");
+                        $valid = false;
+                    }
+                }
+            } 
+        }       
+
+
+
+
+        return $valid;
+    }
+
     function getValidMoves() {
         self::debug( "----> getValidMoves" ); 
         $valid_moves = [];
         $costs = [];
         $section_data = $this->section_data;
         $board = $this->getBoard();
-        $resources = $this->getResources();
-
-        // make it easier to compare needs with haves
-        $resources['civilian'] = $resources['civilians'];
-        $resources['servant'] = $resources['servants'];
-        $resources['soldier'] = $resources['soldiers'];
-        $resources['builder'] = $resources['builders'];
-        $resources['brick'] = $resources['bricks'];
+        $resources = $this->getResources(false);
 
         foreach($section_data as $id=>$data) {
             $index = $board[$id];
-            $section = $data[0]['id'];
-
-            //TODO: $index bounds check
-            if($index>=count($data)) {
-                continue; // this section is full
+            if($this->isBoxValid($id,$index,$resources,$board)) {
+                $valid_moves[]=$data[$index]['id'];
             }
-
-            // check to see if it's locked
-            if(array_key_exists('lockedBy',$data[$index])) {
-                $locked = explode(",",$data[$index]['lockedBy']);
-                $locked_section = $locked[0];
-                $required_level = $locked[1];
-                // self::debug("$section is locked by $locked_section at $required_level");
-                if($board[$locked_section]<$required_level) {
-                    continue;
-                }
-            }
-
-            if(array_key_exists('cost',$data[$index])) {
-                $cost_lists = explode(",",$data[$index]['cost']);
-                $altCost_lists = [];
-                if(array_key_exists('altCost',$data[$index])) {
-                    $altCost_lists = explode(",",$data[$index]['altCost']);
-                }
-                                
-                $needed =[];
-                $alt_needed =[];
-                foreach($cost_lists as $resource) {
-                    if(array_key_exists($resource,$needed)){
-                        $needed[$resource]++;
-                    } else {
-                        $needed[$resource]=1;
-                    }
-                }
-                foreach($altCost_lists as $resource) {
-                    if(array_key_exists($resource,$alt_needed)){
-                        $alt_needed[$resource]++;
-                    } else {
-                        $alt_needed[$resource]=1;
-                    }
-                }
-
-                $costs[] = ['cost'=>$needed,'altCost'=>$alt_needed]; // DEBUG
-                
-                // self::debug($id." has a cost of ".print_r($needed,true));
-                
-                $valid = false;
-                foreach($needed as $resource=>$amount) {
-                    $valid = true;
-                    // self::debug("Checking $resource is at least $amount in ".print_r($resources,true));
-                    if(!array_key_exists($resource,$resources) || $resources[$resource]<$amount) {
-                        self::debug("Missing resource");
-                        $valid = false;
-                    }
-                }
-        
-                if(!$valid) {
-                    foreach($alt_needed as $resource=>$amount) {
-                        $valid = true;
-                        // self::debug("Checking alt $resource is at least $amount in ".print_r($resources,true));
-                        if(!array_key_exists($resource,$resources) || $resources[$resource]<$amount) {
-                            // self::debug("Still missing resource");
-                            $valid = false;
-                        }
-                    }
-                }
-
-                if($valid) {
-                    $valid_moves[]=$data[$index]['id'];
-                }
-            } 
         }
-
-        // $results = [
-        //     'section_data'=>$section_data,
-        //     'resources'=>$resources,
-        //     'board'=>$board,
-        //     'costs'=>$costs,
-        //     'valid_moves'=>$valid_moves
-        // ];
         
         return $valid_moves;
     }
