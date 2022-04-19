@@ -527,7 +527,7 @@ dojo.hasClass
 /* Scratch area styles */
 
 .rect {
-    background-color: #7777;
+    background-color: #9997;
     margin:0px; 
 }
 .outlined { 
@@ -546,7 +546,7 @@ dojo.hasClass
     text-align: center; 
     border: 0px; 
 }
-.valid { 
+.validStatic { 
     border: 2px solid yellow; 
     opacity: 1; 
     margin-left: -1px;
@@ -554,6 +554,22 @@ dojo.hasClass
     background-color: #0000;
     border-color: #ff0;
 }
+
+@keyframes glow {
+    to {
+        box-shadow: 0 -1px 8px yellow;
+    }
+}
+
+.valid {
+    margin-left: -1px;
+    margin-top: -1px;
+    background-color: #ff00;
+    border: 1px solid transparent;
+    animation: glow 1.0s infinite alternate;  
+    transition: border 1.0s linear, box-shadow 1.0s linear;
+}
+
 
 /* Sheet 2 Trade */
 #trade_options {

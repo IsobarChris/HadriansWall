@@ -986,7 +986,7 @@ $this->section_data = [
     ],
     'granary'=>[
     ['lockedBy'=>'fort,1','cost'=>'servant,builder,brick','id'=>'granary_1'],
-    ['lockedBy'=>'fort,15','cost'=>'servant,builder,brick,brick','continue'=>TRUE,'id'=>'granary_2'],
+    ['lockedBy'=>'fort,11','cost'=>'servant,builder,brick,brick','continue'=>TRUE,'id'=>'granary_2'],
     ['reward'=>'renown','id'=>'granary_3'],
     ],
     'renown'=>[

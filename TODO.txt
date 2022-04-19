@@ -1,3 +1,17 @@
+Next
+- Spend resources when a box is clicked
+- Gain resources when a box is clicked that gives resrouces
+- Auto spend special resources
+- Prompt for resource spending decisions
+  - Fort (only prompt if the player has both options)
+  - Cohorts
+- Apply attacks correctly
+  - Award Valour
+  - Mark disdain
+- Calculate Score (for all but path cards)
+
+
+
 Side Panel
 - "AI" side panel should
   - Show their selected card in a 2 player game

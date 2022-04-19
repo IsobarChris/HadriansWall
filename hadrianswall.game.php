@@ -558,6 +558,11 @@ class HadriansWall extends Table
             $index = $board[$id];
             $section = $data[0]['id'];
 
+            //TODO: $index bounds check
+            if($index>=count($data)) {
+                continue; // this section is full
+            }
+
             // check to see if it's locked
             if(array_key_exists('lockedBy',$data[$index])) {
                 $locked = explode(",",$data[$index]['lockedBy']);
