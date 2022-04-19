@@ -170,12 +170,44 @@ class HadriansWall extends Table
     function getResources($plural=true) {
         self::debug("--->getResources");
         $current_player_id = self::getCurrentPlayerId();
-        $resource_sql = "SELECT player_id, `civilians`, `servants`, `soldiers`, `builders`, `bricks`, `special` FROM player WHERE player_id=$current_player_id";
+        $resource_sql = "SELECT player_id, civilians, servants, soldiers, builders, bricks, special FROM player WHERE player_id=$current_player_id";
         if(!$plural) {
-            $resource_sql = "SELECT player_id, `civilians` civilian, `servants` servant, `soldiers` soldier, `builders` builder, `bricks` brick, `special` FROM player WHERE player_id=$current_player_id";
-        }
-        self::debug($resource_sql);
+            $resource_sql = "SELECT player_id, civilians civilian, servants servant, soldiers soldier, builders builder, bricks brick, special FROM player WHERE player_id=$current_player_id";
+        }        
         $result = self::getCollectionFromDb($resource_sql)[$current_player_id];
+
+        $result['special'] = explode(',',$result['special']);
+
+        //self::debug("Special: ".print_r($result['special'],true));
+
+        if($result['special'][0]!="") {
+            if($plural) {
+                $result['civilians'] = -$result['civilians'];
+                $result['servants'] = -$result['servants'];
+                $result['soldiers'] = -$result['soldiers'];
+                $result['builders'] = -$result['builders'];
+                $result['bricks'] = -$result['bricks'];
+            } else {
+                $result['civilian'] = -$result['civilian'];
+                $result['servant'] = -$result['servant'];
+                $result['soldier'] = -$result['soldier'];
+                $result['builder'] = -$result['builder'];
+                $result['brick'] = -$result['brick'];
+            }
+        }
+
+        // // DEBUG
+        // if(!$plural) {
+        //     $result['civilian'] = -$result['civilian'];
+        //     $result['servant'] = -$result['servant'];
+        //     $result['soldier'] = -$result['soldier'];
+        //     $result['builder'] = -$result['builder'];
+        //     $result['brick'] = -$result['brick'];
+        //     $result['special'] = ['cohort','renown'];
+        // }
+        // // END DEBUG
+
+
         return $result;
     }
 
@@ -598,7 +630,13 @@ class HadriansWall extends Table
                             $valid = false;
                         }
                     } else {
+                        $valid = false;
                         // TODO: Check the special array (like cohort,renown,piety,valour,discipline, etc.)
+                        foreach($resources['special'] as $special) {
+                            if($resource==$special) {
+                                $valid = true;
+                            }
+                        }                       
                     }
                 }
             }
