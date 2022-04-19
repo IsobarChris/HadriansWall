@@ -560,15 +560,12 @@ class HadriansWall extends Table
             return false; // this section is full
         }
 
-        // TODO
-        // check to see if it's locked
         if(array_key_exists('lockedBy',$data[$index])) {
             $locked = explode(",",$data[$index]['lockedBy']);
             $locked_section = $locked[0];
             $required_level = $locked[1];
-            // self::debug("$section is locked by $locked_section at $required_level");
             if($board[$locked_section]<$required_level) {
-                $valid = false;
+                return false; // this section is locked
             }
         }
 
@@ -595,10 +592,6 @@ class HadriansWall extends Table
                     $alt_needed[$resource]=1;
                 }
             }
-
-            $costs[] = ['cost'=>$needed,'altCost'=>$alt_needed]; // DEBUG
-            
-            // self::debug($id." has a cost of ".print_r($needed,true));
             
             $valid = false;
             foreach($needed as $resource=>$amount) {
@@ -620,10 +613,7 @@ class HadriansWall extends Table
                     }
                 }
             } 
-        }       
-
-
-
+        }
 
         return $valid;
     }
