@@ -561,58 +561,47 @@ class HadriansWall extends Table
         }
 
         if(array_key_exists('lockedBy',$data[$index])) {
-            $locked = explode(",",$data[$index]['lockedBy']);
-            $locked_section = $locked[0];
-            $required_level = $locked[1];
-            if($board[$locked_section]<$required_level) {
-                return false; // this section is locked
+            $locked = $data[$index]['lockedBy'];
+            foreach($locked as $locked_section=>$required_level){
+                if($board[$locked_section]<$required_level) {
+                    self::debug("LOCKED BY $locked_section");
+                    return false; // this section is locked
+                }
             }
         }
 
         if($valid && array_key_exists('cost',$data[$index])) {
-            $cost_lists = explode(",",$data[$index]['cost']);
-            $altCost_lists = [];
+            $costs=[$data[$index]['cost']];
             if(array_key_exists('altCost',$data[$index])) {
-                $altCost_lists = explode(",",$data[$index]['altCost']);
-            }
-                            
-            $needed =[];
-            $alt_needed =[];
-            foreach($cost_lists as $resource) {
-                if(array_key_exists($resource,$needed)){
-                    $needed[$resource]++;
-                } else {
-                    $needed[$resource]=1;
-                }
-            }
-            foreach($altCost_lists as $resource) {
-                if(array_key_exists($resource,$alt_needed)){
-                    $alt_needed[$resource]++;
-                } else {
-                    $alt_needed[$resource]=1;
-                }
-            }
-            
+                $costs[]=$data[$index]['altCost'];
+            } 
+
             $valid = false;
-            foreach($needed as $resource=>$amount) {
+            foreach($costs as $cost) {
+                if($valid) { break; } // we were already able to validate in a prior loop
                 $valid = true;
-                // self::debug("Checking $resource is at least $amount in ".print_r($resources,true));
-                if(!array_key_exists($resource,$resources) || $resources[$resource]<$amount) {
-                    self::debug("Missing resource");
-                    $valid = false;
-                }
-            }
-    
-            if(!$valid) {
-                foreach($alt_needed as $resource=>$amount) {
-                    $valid = true;
-                    // self::debug("Checking alt $resource is at least $amount in ".print_r($resources,true));
-                    if(!array_key_exists($resource,$resources) || $resources[$resource]<$amount) {
-                        // self::debug("Still missing resource");
-                        $valid = false;
+                foreach($cost as $resource=>$amount) {
+                    // self::debug("<<<<<<<<< Checking for $amount $resource >>>>>>>>");
+                    // check for basic resources 
+                    if(array_key_exists($resource,$resources)) {
+                        if($resources[$resource]<$amount) {
+                            $valid = false;
+                        }
+                    // check for worker which can be satisfied by any meeple
+                    } else if($resource=='worker') {
+                        $workers = $resources['soldier']+
+                                   $resources['builder']+
+                                   $resources['servant']+
+                                   $resources['civilian'];
+                        // self::debug("<<<<<<<<< Worker count = $workers >>>>>>>>");
+                        if($workers<$amount) {
+                            $valid = false;
+                        }
+                    } else {
+                        // TODO: Check the special array (like cohort,renown,piety,valour,discipline, etc.)
                     }
                 }
-            } 
+            }
         }
 
         return $valid;
