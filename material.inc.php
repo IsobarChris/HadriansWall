@@ -910,9 +910,9 @@ $this->section_data = [
     ],
     'mining_and_foresting'=>[
     ['cost'=>['servant'=>1],'id'=>'mining_and_foresting_1'],
-    ['cost'=>['servant'=>3],'reward'=>'production,brick','id'=>'mining_and_foresting_2'],
-    ['cost'=>['servant'=>6],'id'=>'mining_and_foresting_3'],
-    ['cost'=>['servant'=>10],'id'=>'mining_and_foresting_4'],
+    ['cost'=>['servant'=>1],'reward'=>'production,brick','id'=>'mining_and_foresting_2'],
+    ['cost'=>['servant'=>1],'id'=>'mining_and_foresting_3'],
+    ['cost'=>['servant'=>1],'id'=>'mining_and_foresting_4'],
     ['lockedBy'=>['granary'=>1],'cost'=>['servant'=>1],'reward'=>'production,brick','id'=>'mining_and_foresting_5'],
     ['lockedBy'=>['granary'=>1],'cost'=>['servant'=>1],'id'=>'mining_and_foresting_6'],
     ['lockedBy'=>['granary'=>1],'cost'=>['servant'=>1],'id'=>'mining_and_foresting_7'],

@@ -1,7 +1,12 @@
 Next
 - Spend resources when a box is clicked
+  - basic resources
+  - special resources
 - Gain resources when a box is clicked that gives resrouces
-- Auto spend special resources
+  - basic resources
+  - speical resources
+- Auto spend special resources on client side (when possible)
+- Allow choice of "road" attributes
 - Prompt for resource spending decisions
   - Fort (only prompt if the player has both options)
   - Cohorts

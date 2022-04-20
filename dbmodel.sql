@@ -38,7 +38,7 @@ ALTER TABLE `player` ADD `servants`  INT UNSIGNED NOT NULL DEFAULT 0;
 ALTER TABLE `player` ADD `soldiers`  INT UNSIGNED NOT NULL DEFAULT 0;
 ALTER TABLE `player` ADD `builders`  INT UNSIGNED NOT NULL DEFAULT 0;
 ALTER TABLE `player` ADD `bricks`    INT UNSIGNED NOT NULL DEFAULT 0;
-ALTER TABLE `player` ADD `special`    varchar(32);
+ALTER TABLE `player` ADD `special`    varchar(512);
 
 CREATE TABLE IF NOT EXISTS `fate_cards` (
   `card_id` int(10) unsigned NOT NULL AUTO_INCREMENT,

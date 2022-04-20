@@ -378,6 +378,13 @@ function (dojo, declare) {
             });
         },
 
+        updateResources: function(resources) {
+            [`civilians`,`servants`,`soldiers`,`builders`,`bricks`].forEach(resource=>{
+                if(resources[resource]) {
+                    this[`${resource}_resource`].setValue( resources[resource] );
+                }
+            });
+        },
 
         ///////////////////////////////////////////////////
         //// Player's action
@@ -567,9 +574,11 @@ function (dojo, declare) {
             debug('notif_sheetsUpdated',notif);
             let board = notif.args.board;
             let valid_moves = notif.args.valid_moves;
+            let resources = notif.args.resources;
 
             this.updateValidMoves(valid_moves);
             this.drawAllScratches(board);
+            this.updateResources(resources);
         },
 
         notif_resourcesUpdated: function(notif) {
@@ -577,11 +586,8 @@ function (dojo, declare) {
             let resources = notif.args.resources;
             debug('resources',resources);
 
-            [`civilians`,`servants`,`soldiers`,`builders`,`bricks`].forEach(resource=>{
-                if(resources[resource]) {
-                    this[`${resource}_resource`].setValue( resources[resource] );
-                }
-            });
+            this.updateResources(resources);
+
         },
 
         notif_goalsUpdated: function(notif) {
