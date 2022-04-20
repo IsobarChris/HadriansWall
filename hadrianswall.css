@@ -526,6 +526,11 @@ dojo.hasClass
 
 /* Scratch area styles */
 
+.closed {
+    background-color: #111a;
+    margin:0px; 
+}
+
 .rect {
     background-color: #9997;
     margin:0px; 
@@ -555,7 +560,7 @@ dojo.hasClass
     border-color: #ff0;
 }
 
-@keyframes glow {
+@keyframes valid {
     to {
         box-shadow: 0 -1px 8px yellow;
     }
@@ -565,6 +570,21 @@ dojo.hasClass
     margin-left: -1px;
     margin-top: -1px;
     background-color: #ff00;
+    border: 1px solid transparent;
+    animation: valid 1.0s infinite alternate;  
+    transition: border 1.0s linear, box-shadow 1.0s linear;
+}
+
+@keyframes glow {
+    to {
+        box-shadow: 0 -3px 12px white;
+        background-color: #fff;
+    }
+}
+
+.glow {
+    margin-left: -1px;
+    margin-top: -1px;
     border: 1px solid transparent;
     animation: glow 1.0s infinite alternate;  
     transition: border 1.0s linear, box-shadow 1.0s linear;

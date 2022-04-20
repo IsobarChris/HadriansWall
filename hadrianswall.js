@@ -100,6 +100,9 @@ function (dojo, declare) {
                 counter.setValue(parseInt(resources[resource]));
                 this[`${resource}_resource`] = counter;
             });
+
+            this.updateResources(gamedatas.resources);
+
         },
 
         setupPlayer: function (player_id, player_info, gamedatas) {
@@ -384,6 +387,22 @@ function (dojo, declare) {
                     this[`${resource}_resource`].setValue( resources[resource] );
                 }
             });
+
+            debug("special resources",resources['special']);
+            if(resources['special'].length>0 && resources['special'][0].length>0) {
+                dojo.query("#resource_display").addClass('forcehidden');
+                let speical_display = dojo.query("#speical_display");
+                speical_display.removeClass('forcehidden');
+                speical_display.empty();
+
+                resources['special'].forEach((resource)=>{
+                    dojo.place(`<div class="iconsheet icon_${resource} miniicon glow"></div>`,"speical_display");
+                });
+            
+            } else {
+                dojo.query("#resource_display").removeClass('forcehidden');
+                dojo.query("#speical_display").addClass('forcehidden');
+            }
         },
 
         ///////////////////////////////////////////////////
@@ -391,9 +410,14 @@ function (dojo, declare) {
         onBoxClicked: function( evt )
         {
             dojo.stopEvent(evt);
-
+            
             let section = evt.target.id.split("_").slice(0,-1).join("_");
             debug("Box clicked",section);
+
+            if(section=="closed") {
+
+                return;
+            }
 
             if(this.checkAction('checkNextBox')){
                 console.log("ajax call with ",section);
@@ -612,38 +636,6 @@ function (dojo, declare) {
 });
 
 
-
-
-
-const PLUS = 'PLUS';
-const RESOURCE = 'RESOURCE';
-const RESOURCE_PRODUCTION = 'RESOURCE_PRODUCTION';
-const CIVILIAN = 'CIVILIAN';
-const CIVILIAN_PRODUCTION = 'CIVILIAN_PRODUCTION';
-const SERVANT = 'SERVANT';
-const SOLDIER = 'SOLDIER';
-const BUILDER = 'BUILDER';
-const BUILDER_PRODUCTION = 'BUILDER_PRODUCTION';
-const RENOWN = 'RENOWN';
-const PIETY = 'PIETY';
-const VALOUR = 'VALOUR';
-const DISCIPLINE = 'DISCIPLINE';
-const ATTRIBUTE_PRODUCTION = 'ATTRIBUTE_PRODUCTION';
-const TRADER = 'TRADER';
-const PERFORMER = 'PERFORMER';
-const PRIEST = 'PRIEST';
-const APPARITOR = 'APPARITOR';
-const PATRICIAN = 'PATRICIAN';
-const COHORT = 'COHORT';
-const DISDAIN = 'DISDAIN';
-const REMOVE_DISDAIN = 'REMOVE_DISDAIN';
-const RED_GLADIATOR = 'RED_GLADIATOR';
-const BLUE_GLADIATOR = 'BLUE_GLADIATOR';
-const TRADE_GOOD = 'TRADE_GOOD';
-const SCOUT = 'SCOUT';
-const SWORD = 'SWORD';
-
-
 let scratch_data = {
     left_cohort:[
         {s:1,x:128,y:24,w:16,h:17,c:'rect'},
@@ -765,6 +757,16 @@ let scratch_data = {
         {s:1,x:635,y:319,w:10,h:10,c:'circle'},
         {s:1,x:658,y:317,w:17,h:16,c:'rect'}
       ],
+      production:[
+        {s:1,x:105,y:358,w:10,h:10,c:'circle'},
+        {s:1,x:124,y:358,w:10,h:10,c:'circle'},
+        {s:1,x:143,y:358,w:10,h:10,c:'circle'},
+        {s:1,x:162,y:358,w:10,h:10,c:'circle'},
+        {s:1,x:180,y:358,w:10,h:10,c:'circle'},
+        {s:1,x:199,y:358,w:10,h:10,c:'circle'},
+        {s:1,x:218,y:358,w:10,h:10,c:'circle'},
+        {s:1,x:238,y:358,w:10,h:10,c:'circle'}
+      ],      
       renown:[
         {s:1,x:87,y:530,w:16,h:17,c:'rect'},
         {s:1,x:107,y:530,w:16,h:17,c:'rect'},
@@ -928,7 +930,58 @@ let scratch_data = {
         {s:2,x:147,y:689,w:16,h:16,c:'rect'},
         {s:2,x:167,y:689,w:16,h:16,c:'rect'}
       ],
+      precinct:[
+        {s:2,x:306,y:17,w:44,h:16,c:'rect'},
+        {s:2,x:306,y:41,w:44,h:16,c:'rect'},
+        {s:2,x:306,y:63,w:44,h:16,c:'rect'}
+      ],
+      gardens:[
+        {s:2,x:424,y:317,w:66,h:16,c:'rect'},
+        {s:2,x:624,y:317,w:100,h:16,c:'rect'}
+      ],      
+      closed:[
+          {s:1,x:0,y:380,w:740,h:120,c:'closed'},
+          {s:1,x:372,y:350,w:368,h:30,c:'closed'},
+
+          {s:2,x:360,y: 10,w:380,h:125,c:'closed'},
+          {s:2,x:190,y:145,w:550,h:160,c:'closed'},
+          {s:2,x:190,y:345,w:550,h:105,c:'closed'},
+          {s:2,x:190,y:455,w:550,h:120,c:'closed'},
+          {s:2,x:190,y:580,w:550,h:160,c:'closed'}
+
+      ]
 }
+
+
+
+
+const PLUS = 'PLUS';
+const RESOURCE = 'RESOURCE';
+const PRODUCTION = 'PRODUCTION';
+const CIVILIAN = 'CIVILIAN';
+const CIVILIAN_PRODUCTION = 'CIVILIAN_PRODUCTION';
+const SERVANT = 'SERVANT';
+const SOLDIER = 'SOLDIER';
+const BUILDER = 'BUILDER';
+const BUILDER_PRODUCTION = 'BUILDER_PRODUCTION';
+const RENOWN = 'RENOWN';
+const PIETY = 'PIETY';
+const VALOUR = 'VALOUR';
+const DISCIPLINE = 'DISCIPLINE';
+const ATTRIBUTE_PRODUCTION = 'ATTRIBUTE_PRODUCTION';
+const TRADER = 'TRADER';
+const PERFORMER = 'PERFORMER';
+const PRIEST = 'PRIEST';
+const APPARITOR = 'APPARITOR';
+const PATRICIAN = 'PATRICIAN';
+const COHORT = 'COHORT';
+const DISDAIN = 'DISDAIN';
+const REMOVE_DISDAIN = 'REMOVE_DISDAIN';
+const RED_GLADIATOR = 'RED_GLADIATOR';
+const BLUE_GLADIATOR = 'BLUE_GLADIATOR';
+const TRADE_GOOD = 'TRADE_GOOD';
+const SCOUT = 'SCOUT';
+const SWORD = 'SWORD';
 
 
 let scratch_data_old = {
@@ -966,19 +1019,19 @@ let scratch_data_old = {
         ],
         mining_and_foresting:[
             {x: 90,y:75,w:16,h:17},
-            {x:137,y:75,w:36,h:17,r:[RESOURCE_PRODUCTION,RESOURCE]},
+            {x:137,y:75,w:36,h:17},
             {x:206,y:75,w:16,h:17},
             {x:254,y:75,w:16,h:17},
-            {x:300,y:75,w:36,h:17,r:[RESOURCE_PRODUCTION,RESOURCE]},
+            {x:300,y:75,w:36,h:17},
             {x:356,y:75,w:16,h:17},
             {x:392,y:75,w:16,h:17},
-            {x:428,y:75,w:36,h:17,r:[RESOURCE_PRODUCTION,RESOURCE]},
+            {x:428,y:75,w:36,h:17},
             {x:484,y:75,w:16,h:17},
             {x:520,y:75,w:16,h:17},
-            {x:557,y:75,w:36,h:17,r:[RESOURCE_PRODUCTION,RESOURCE]},
+            {x:557,y:75,w:36,h:17},
             {x:613,y:75,w:16,h:17},
             {x:649,y:75,w:16,h:17},
-            {x:685,y:75,w:36,h:17,r:[RESOURCE_PRODUCTION,RESOURCE]},
+            {x:685,y:75,w:36,h:17},
         ],
         wall_guard:[
             {x: 81,y:122,w:16,h:17,r:[COHORT]},

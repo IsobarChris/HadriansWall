@@ -83,7 +83,7 @@ CREATE TABLE IF NOT EXISTS `board` (
     `wall` int(2) unsigned NOT NULL DEFAULT 0,
     `fort` int(2) unsigned NOT NULL DEFAULT 0,
     `granary` int(1) unsigned NOT NULL DEFAULT 0,
-    `resource_production` int(1) unsigned NOT NULL DEFAULT 0,
+    `production` int(1) unsigned NOT NULL DEFAULT 0,
     `training_grounds` int(1) unsigned NOT NULL DEFAULT 0,
     `training_grounds_1` int(1) unsigned NOT NULL DEFAULT 0,
     `training_grounds_2` int(1) unsigned NOT NULL DEFAULT 0,

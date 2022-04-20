@@ -557,10 +557,10 @@ class HadriansWall extends Table
     function argProducedResources() {
         $current_player_id = self::getCurrentPlayerId();
         $round = 0;//$this->getGameStateValue(self::GAME_ROUND);
-        $board_sql = "SELECT player_id, resource_production, hotel, workshop FROM board WHERE `round`=$round AND player_id=$current_player_id";
+        $board_sql = "SELECT player_id, production, hotel, workshop FROM board WHERE `round`=$round AND player_id=$current_player_id";
         $board = self::getCollectionFromDB($board_sql)[$current_player_id];
 
-        $bricks = 1+$board['resource_production'];
+        $bricks = 1+$board['production'];
         $civilians = $board['hotel'];
         $builders = $board['workshop'];
 

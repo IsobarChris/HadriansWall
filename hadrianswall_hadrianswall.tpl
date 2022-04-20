@@ -28,7 +28,7 @@
 <div>
     <div id="sheet1"></div>
     <div id="sheet2">
-        <div id="trade_options">
+        <div id="trade_options" class="forcehidden">
             <div id="trade_left" class="iconsheet icon_trade_good">#</div>
             <div id="trade_fate" class="iconsheet icon_trade_good">?</div>
             <div id="trade_right" class="iconsheet icon_trade_good">#</div>
@@ -133,27 +133,39 @@
 
     <!-- BEGIN my_player_board -->
     <div id="miniboard_{COLOR}" class="resourceboard">
-        <div id="soldier_resource" class="attribute_backing">
-            <div class="iconsheet icon_soldier miniicon"></div>
-            <div id="soldiers_resource" class="attribute_score"></div>
+
+
+        <div id="speical_display" class="forcehidden">
+            <div class="iconsheet icon_trader miniicon glow"></div>
+            <div class="iconsheet icon_priest miniicon glow"></div>
+            <div class="iconsheet icon_apparitor miniicon glow"></div>
+            <div class="iconsheet icon_renown miniicon glow"></div>
+            <div class="iconsheet icon_discipline miniicon glow"></div>
         </div>
-        <div id="builder_resource" class="attribute_backing">
-            <div class="iconsheet icon_builder miniicon"></div>
-            <div id="builders_resource" class="attribute_score"></div>
+
+        <div id="resource_display" class="">
+            <div id="soldier_resource" class="attribute_backing">
+                <div class="iconsheet icon_soldier miniicon"></div>
+                <div id="soldiers_resource" class="attribute_score"></div>
+            </div>
+            <div id="builder_resource" class="attribute_backing">
+                <div class="iconsheet icon_builder miniicon"></div>
+                <div id="builders_resource" class="attribute_score"></div>
+            </div>
+            <div id="servant_resource" class="attribute_backing">
+                <div class="iconsheet icon_servant miniicon"></div>
+                <div id="servants_resource" class="attribute_score"></div>
+            </div>
+            <div id="civilian_resource" class="attribute_backing">
+                <div class="iconsheet icon_civilian miniicon"></div>
+                <div id="civilians_resource" class="attribute_score"></div>
+            </div>
+            <div id="brick_resource" class="attribute_backing">
+                <div class="iconsheet icon_brick miniicon"></div>
+                <div id="bricks_resource" class="attribute_score"></div>
+            </div>
         </div>
-        <div id="servant_resource" class="attribute_backing">
-            <div class="iconsheet icon_servant miniicon"></div>
-            <div id="servants_resource" class="attribute_score"></div>
-        </div>
-        <div id="civilian_resource" class="attribute_backing">
-            <div class="iconsheet icon_civilian miniicon"></div>
-            <div id="civilians_resource" class="attribute_score"></div>
-        </div>
-        <div id="brick_resource" class="attribute_backing">
-            <div class="iconsheet icon_brick miniicon"></div>
-            <div id="bricks_resource" class="attribute_score"></div>
-        </div>
-        <div></div>
+
         <div id="path_cards_attribute" class="attribute_backing" style="display: flex; flex-direction: row;">
             <div style="width: 114px;">
             <div id="goal1_{COLOR}" class="playercardsheet player_back_{COLOR} card_top_only "></div>
@@ -166,6 +178,7 @@
             <div id="goal6_{COLOR}" class="playercardsheet player_back_{COLOR} card_top_only "></div>
             </div>
         </div>
+
     </div>
     <!-- END my_player_board -->
 
