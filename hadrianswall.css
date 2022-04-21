@@ -541,9 +541,8 @@ dojo.hasClass
     border-color: #7777;
 }
 .circle { 
+    background-color: #9997;
     border-radius: 50%; 
-    -webkit-background-clip: padding-box; 
-    -moz-background-clip: padding; 
     background-clip: padding-box; 
 }
 .roundNumber { 

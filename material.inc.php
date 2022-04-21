@@ -1002,7 +1002,41 @@ $this->section_data = [
     'granary'=>[
     ['lockedBy'=>['fort'=>1],'cost'=>['servant'=>1,'builder'=>1,'brick'=>1],'id'=>'granary_1'],
     ['lockedBy'=>['fort'=>11],'cost'=>['servant'=>1,'builder'=>1,'brick'=>2],'continue'=>TRUE,'id'=>'granary_2'],
-    ['reward'=>'renown','id'=>'granary_3'],
+    ['cost'=>['continue'=>1],'reward'=>'renown','id'=>'granary_3'],
+    ],
+    'production'=>[
+    ['cost'=>['production'=>1],'id'=>'production_1'],
+    ['cost'=>['production'=>1],'id'=>'production_2'],
+    ['cost'=>['production'=>1],'id'=>'production_3'],
+    ['cost'=>['production'=>1],'id'=>'production_4'],
+    ['cost'=>['production'=>1],'id'=>'production_5'],
+    ['cost'=>['production'=>1],'id'=>'production_6'],
+    ['cost'=>['production'=>1],'id'=>'production_7'],
+    ['cost'=>['production'=>1],'id'=>'production_8'],
+    ],
+    'hotel'=>[
+    ['lockedBy'=>['fort'=>3],'cost'=>['servant'=>1,'builder'=>1,'brick'=>1],'continue'=>TRUE,'id'=>'hotel_1'],
+    ['cost'=>['continue'=>1],'reward'=>'civilian','id'=>'hotel_2'],
+    ['lockedBy'=>['fort'=>13],'cost'=>['servant'=>1,'builder'=>1,'brick'=>2],'continue'=>TRUE,'id'=>'hotel_3'],
+    ['cost'=>['continue'=>1],'reward'=>'renown,civilian','id'=>'hotel_4'],
+    ],
+    'workshop'=>[
+    ['lockedBy'=>['fort'=>5],'cost'=>['brick'=>3],'continue'=>TRUE,'id'=>'workshop_1'],
+    ['cost'=>['continue'=>1],'reward'=>'builder','id'=>'workshop_2'],
+    ['lockedBy'=>['fort'=>15],'cost'=>['brick'=>4],'continue'=>TRUE,'id'=>'workshop_3'],
+    ['cost'=>['continue'=>1],'reward'=>'renown,builder','id'=>'workshop_4'],
+    ],
+    'archway'=>[
+    ['lockedBy'=>['renown'=>15],'cost'=>['builder'=>1,'brick'=>2],'reward'=>'valour,valour','id'=>'archway_1'],
+    ],
+    'monolith'=>[
+    ['lockedBy'=>['piety'=>15],'cost'=>['builder'=>1,'brick'=>2],'reward'=>'discipline,discipline','id'=>'monolith_1'],
+    ],
+    'column'=>[
+    ['lockedBy'=>['valour'=>15],'cost'=>['builder'=>1,'brick'=>2],'reward'=>'piety,piety','id'=>'column_1'],
+    ],
+    'statue'=>[
+    ['lockedBy'=>['discipline'=>15],'cost'=>['builder'=>1,'brick'=>2],'reward'=>'renown,renown','id'=>'statue_1'],
     ],
     'renown'=>[
     ['cost'=>['renown'=>1],'id'=>'renown_1'],
@@ -1176,16 +1210,6 @@ $this->section_data = [
     ['lockedBy'=>['priests'=>4],'cost'=>['servant'=>1,'builder'=>1,'brick'=>1],'reward'=>'piety,trader,performer,priest','id'=>'gardens_1'],
     ['lockedBy'=>['priests'=>7],'cost'=>['servant'=>1,'builder'=>1,'brick'=>2],'reward'=>'piety,trader,performer,priest,apparitor,patrician','id'=>'gardens_2'],
     ],
-    'production'=>[
-    ['cost'=>['production'=>1],'id'=>'production_1'],
-    ['cost'=>['production'=>1],'id'=>'production_2'],
-    ['cost'=>['production'=>1],'id'=>'production_3'],
-    ['cost'=>['production'=>1],'id'=>'production_4'],
-    ['cost'=>['production'=>1],'id'=>'production_5'],
-    ['cost'=>['production'=>1],'id'=>'production_6'],
-    ['cost'=>['production'=>1],'id'=>'production_7'],
-    ['cost'=>['production'=>1],'id'=>'production_8'],
-    ],    
 ];
 
 

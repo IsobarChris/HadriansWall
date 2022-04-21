@@ -767,6 +767,30 @@ let scratch_data = {
         {s:1,x:218,y:358,w:10,h:10,c:'circle'},
         {s:1,x:238,y:358,w:10,h:10,c:'circle'}
       ],      
+      hotel:[
+        {s:1,x:126,y:410,w:10,h:10,c:'circle'},
+        {s:1,x:149,y:407,w:15,h:15,c:'rect'},
+        {s:1,x:126,y:431,w:10,h:10,c:'circle'},
+        {s:1,x:149,y:428,w:32,h:15,c:'rect'}
+      ],
+      workshop:[
+        {s:1,x:322,y:410,w:10,h:10,c:'circle'},
+        {s:1,x:345,y:407,w:15,h:15,c:'rect'},
+        {s:1,x:322,y:431,w:10,h:10,c:'circle'},
+        {s:1,x:345,y:428,w:32,h:15,c:'rect'}
+      ],
+      archway:[
+        {s:1,x:209,y:470,w:33,h:16,c:'rect'}
+      ],
+      monolith:[
+        {s:1,x:374,y:470,w:33,h:16,c:'rect'}
+      ],
+      column:[
+        {s:1,x:533,y:470,w:33,h:16,c:'rect'}
+      ],
+      statue:[
+        {s:1,x:689,y:470,w:33,h:16,c:'rect'}
+      ],      
       renown:[
         {s:1,x:87,y:530,w:16,h:17,c:'rect'},
         {s:1,x:107,y:530,w:16,h:17,c:'rect'},
@@ -940,8 +964,8 @@ let scratch_data = {
         {s:2,x:624,y:317,w:100,h:16,c:'rect'}
       ],      
       closed:[
-          {s:1,x:0,y:380,w:740,h:120,c:'closed'},
-          {s:1,x:372,y:350,w:368,h:30,c:'closed'},
+        {s:1,x:372,y:350,w:368,h:30,c:'closed'},
+        {s:1,x:385,y:380,w:355,h:80,c:'closed'},
 
           {s:2,x:360,y: 10,w:380,h:125,c:'closed'},
           {s:2,x:190,y:145,w:550,h:160,c:'closed'},

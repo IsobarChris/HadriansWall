@@ -280,17 +280,21 @@ class HadriansWall extends Table
             $board = self::getCollectionFromDb( $board_sql );
     
     
-            // $this->isBoxValid($section,$index,$resources,$board);
             // $this->payFor($section);
             // $this->rewardsFrom($section);
     
-    
-            $this->notifyPlayer( $current_player_id, "sheetsUpdated", "", [
-                "board"=>$board[$current_player_id],
-                "valid_moves"=>$this->getValidMoves(),
-                "resources"=>$this->getResources(),
-                "boxData"=>$boxData
-            ]);    
+            // check to see if we should also check the next cell
+            $boxData = $this->isBoxValid($section);
+            if(array_key_first($boxData['cost'])=='continue') {
+                $this->doCheckNextBox($section);
+            } else {
+                $this->notifyPlayer( $current_player_id, "sheetsUpdated", "", [
+                    "board"=>$board[$current_player_id],
+                    "valid_moves"=>$this->getValidMoves(),
+                    "resources"=>$this->getResources(),
+                    "boxData"=>$boxData
+                ]);    
+            }        
         }
     }
 
@@ -625,7 +629,14 @@ class HadriansWall extends Table
             }
         }
 
-        if($valid && array_key_exists('cost',$data[$index])) {
+        if($valid && $index>0 && array_key_first($data[$index]['cost'])=="continue") {
+            self::debug("continued ".$data[$index]['id']." ?");
+            $cost = $data[$index]['cost'];
+            if(!$this->isBoxValid($section,$index-1,$resources,$board)['valid']) {
+                $valid = false;
+            }
+        } else 
+        if($valid) {
             $cost = $data[$index]['cost'];
             $costs=[$cost];
             if(array_key_exists('altCost',$data[$index])) {
@@ -691,8 +702,6 @@ class HadriansWall extends Table
             'message'=>$message
         ];
 
-        self::debug(print_r($results,true));
-
         return $results;
     }
 
@@ -706,14 +715,19 @@ class HadriansWall extends Table
 
         foreach($section_data as $id=>$data) {
             $index = $board[$id];
-            if($this->isBoxValid($id,$index,$resources,$board)['valid']) {
-                $valid_moves[]=$data[$index]['id'];
+            $offset = 0;
+            while($this->isBoxValid($id,$index+$offset,$resources,$board)['valid']) {
+                $valid_moves[]=$data[$index+$offset]['id'];
+                if($index+$offset+1<count($data) && array_key_first($data[$index+$offset+1]['cost'])=='continue' ) {
+                    $offset++;
+                } else {
+                    break;
+                }
             }
         }
         
         return $valid_moves;
     }
-
 
     function argUseResources() {
         self::debug( "----> argUseResources" ); 
