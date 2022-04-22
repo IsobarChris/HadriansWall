@@ -702,7 +702,7 @@ class HadriansWall extends Table
                     if(array_key_exists($resource,$resources)) {
                         if($resources[$resource]<$amount) {
                             $message = "Missing $resource";
-                            self::debug($message."         [");
+                            //self::debug($message."         [");
                             $valid = false;
                         }
                     // check for worker which can be satisfied by any meeple
