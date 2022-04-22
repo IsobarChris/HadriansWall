@@ -50,7 +50,7 @@ class HadriansWall extends Table
     protected function setupNewGame( $players, $options = array() )
     {    
         // Standard Game Setup
-        self::debug( "PHP - setupNewGame" ); 
+        //self::debug( "PHP - setupNewGame" ); 
         $gameinfos = self::getGameinfos();
         $default_colors = $gameinfos['player_colors'];
         $player_sql = "INSERT INTO player (player_id, player_color, player_canal, player_name, player_avatar) VALUES ";
@@ -157,7 +157,7 @@ class HadriansWall extends Table
     // Board
 
     function getBoard() {
-        self::debug("--->getBoard");
+        //self::debug("--->getBoard");
         $current_player_id = self::getCurrentPlayerId();
         $board_sql = "SELECT * FROM board WHERE player_id = $current_player_id";
         $board = self::getCollectionFromDb( $board_sql );
@@ -168,7 +168,7 @@ class HadriansWall extends Table
     // Resources
 
     function getResources() {
-        self::debug("--->getResources");
+        //self::debug("--->getResources");
         $current_player_id = self::getCurrentPlayerId();
         $resource_sql = "SELECT player_id, civilians, servants, soldiers, builders, bricks, special FROM player WHERE player_id=$current_player_id";
         $result = self::getCollectionFromDb($resource_sql)[$current_player_id];
@@ -186,7 +186,7 @@ class HadriansWall extends Table
     }
 
     function setResources($resources) {
-        self::debug("--->setResources");
+        //self::debug("--->setResources");
         $current_player_id = self::getCurrentPlayerId();
         $resource_sql = "UPDATE player SET ";
         // TODO: make special work
@@ -202,7 +202,7 @@ class HadriansWall extends Table
         $resource_sql.=implode( $updates, ',' );
         $resource_sql.=" WHERE player_id=$current_player_id";
 
-        self::debug($resource_sql);
+        //self::debug($resource_sql);
 
         self::DbQuery($resource_sql);        
         $result = self::getResources();
@@ -212,7 +212,7 @@ class HadriansWall extends Table
     function adjResources($resources) {
         // TODO: make special work
 
-        self::debug("--->adjResources ".print_r($resources,true));
+        //self::debug("--->adjResources ".print_r($resources,true));
         $current_player_id = self::getCurrentPlayerId();
         $resource_sql = "UPDATE player SET ";
 
@@ -228,11 +228,11 @@ class HadriansWall extends Table
             $resource_sql.=implode( $updates, ',' );
             $resource_sql.=" WHERE player_id=$current_player_id";
     
-            self::debug($resource_sql);
+            //self::debug($resource_sql);
     
             self::DbQuery($resource_sql);        
         } else {
-            self::debug("NO UPDATES");
+            //self::debug("NO UPDATES");
         }
 
         $result = self::getResources();
@@ -240,14 +240,14 @@ class HadriansWall extends Table
     }
 
     function addSpecial($resource) { // always adds to the beginning
-        self::debug("--->addSpecial $resource");
+        //self::debug("--->addSpecial $resource");
         $current_player_id = self::getCurrentPlayerId();
         $resource_sql = "UPDATE player SET special = IFNULL(CONCAT('$resource,',special),'$resource') WHERE player_id=$current_player_id";
         self::DbQuery($resource_sql);
     }
 
     function delSpecial($resource) { // must/assumed be the first resource in the special array
-        self::debug("--->delSpecial $resource");
+        //self::debug("--->delSpecial $resource");
         $current_player_id = self::getCurrentPlayerId();
         $length = strlen($resource)+1;
         $resource_sql = "UPDATE player SET special = RIGHT(special,LENGTH(special)-$length) WHERE player_id=$current_player_id";
@@ -270,17 +270,19 @@ class HadriansWall extends Table
         $this->adjResources($adjResources);
     }
 
-    function doCheckNextBox( $section, $spend, $reward) {
+    function doCheckNextBox( $section, $spend=null, $reward=null, $resources=null) {
         $current_player_id = self::getCurrentPlayerId();
-        $boxData = $this->isBoxValid($section);
-        self::debug(print_r($boxData,true));
+        $boxData = $this->isBoxValid($section,null,$resources,null);
+        //self::debug(print_r($boxData,true));
 
         if($boxData['valid']) {
             $board_sql = "UPDATE board SET $section = $section + 1 WHERE player_id=$current_player_id";
             self::DbQuery( $board_sql );
     
             $board = $this->getBoard();
-            $resources = $this->getResources();
+            if($resources==null) {
+                $resources = $this->getResources();
+            }
     
             // $this->payFor($section);
             if($spend==null) {
@@ -313,15 +315,15 @@ class HadriansWall extends Table
             }
 
             if(array_key_exists('reward',$boxData)) {
-                self::debug("Should reward ".print_r($boxData['reward'],true));
+                //self::debug("Should reward ".print_r($boxData['reward'],true));
                 $this->applyRewards($boxData['reward']);
             }
 
-            // check to see if we should also check the next cell
-            $boxData = $this->isBoxValid($section);
-            if(array_key_first($boxData['cost'])=='continue') {
-                self::debug("continue checking boxes");
-                $this->doCheckNextBox($section);
+            // check to see if we should also check the next cell            
+            if(array_key_exists('reward',$boxData) && count($boxData['reward'])>0 && $boxData['reward'][0]=='continue') {
+                //self::debug("rewards: ".implode(",",$boxData['reward'])."  ");
+                //self::debug("continue checking next box after ".$boxData['id']);
+                $this->doCheckNextBox($section,null,null,['special'=>['continue']]);
             } else {
                 $this->notifyPlayer( $current_player_id, "sheetsUpdated", "", [
                     "board"=>$board,
@@ -410,9 +412,9 @@ class HadriansWall extends Table
         $this->checkAction('chooseAttribute');
         $current_player_id = self::getCurrentPlayerId();
 
-        self::debug("attribute = $attribute");
+        //self::debug("attribute = $attribute");
         if($attribute=="none") {
-            self::debug("No attribute chosen");
+            //self::debug("No attribute chosen");
         } else {
             $this->doCheckNextBox($attribute);
         }
@@ -426,14 +428,14 @@ class HadriansWall extends Table
         $round = $this->getGameStateValue(self::GAME_ROUND);
 
         $hand = $this->player_cards->getCardsInLocation($current_player_id."_hand");
-        self::debug(print_r($hand,true));
+        //self::debug(print_r($hand,true));
 
         $goal_card_id = -1;
         $resource_card = 'unknown';
         $resource_card_id = -1;
         
         foreach($hand as $card_id => $hand_card) {
-            self::debug("hand_card ".$hand_card['type']."  (".$hand_card['id'].")");
+            //self::debug("hand_card ".$hand_card['type']."  (".$hand_card['id'].")");
             if($hand_card['type']!=$goal_card) {
                 $resource_card = $hand_card['type'];
                 $resource_card_id = $hand_card['id'];
@@ -442,8 +444,8 @@ class HadriansWall extends Table
             }
         }
 
-        self::debug("picked card ".$goal_card."  (".$goal_card_id.")");
-        self::debug("resource card ".$resource_card."  (".$resource_card_id.")");
+        //self::debug("picked card ".$goal_card."  (".$goal_card_id.")");
+        //self::debug("resource card ".$resource_card."  (".$resource_card_id.")");
 
         $resource_card_data = $this->player_card_data[$resource_card];
         $this->adjResources($resource_card_data);
@@ -474,7 +476,7 @@ class HadriansWall extends Table
         $this->checkAction('endTurn');
         $current_player_id = self::getCurrentPlayerId();
 
-        self::debug("end turn");
+        //self::debug("end turn");
 
         $this->gamestate->setPlayerNonMultiactive($current_player_id, 'endOfRound');
     }
@@ -483,7 +485,7 @@ class HadriansWall extends Table
         $this->checkAction('acceptAttackResults');
         $current_player_id = self::getCurrentPlayerId();
 
-        self::debug("acceptAttackResults");
+        //self::debug("acceptAttackResults");
 
         $this->gamestate->setPlayerNonMultiactive($current_player_id, 'checkEndGame');
     }    
@@ -498,7 +500,7 @@ class HadriansWall extends Table
         $this->checkAction('undoCheck');
         $current_player_id = self::getCurrentPlayerId();
 
-        self::debug("TODO: undo last check");
+        //self::debug("TODO: undo last check");
 
         //$this->gamestate->nextPrivateState($current_player_id, ' ');
     }
@@ -512,7 +514,7 @@ class HadriansWall extends Table
         $this->checkAction('restartRound');
         $current_player_id = self::getCurrentPlayerId();
 
-        self::debug("TODO: restart round");
+        //self::debug("TODO: restart round");
 
         //$this->gamestate->nextPrivateState($current_player_id, ' ');
     }
@@ -525,7 +527,7 @@ class HadriansWall extends Table
     function useFavor() {
         $this->checkAction('useFavor');
 
-        self::debug("TODO: useFavor");
+        //self::debug("TODO: useFavor");
     }
 
       ///////   ////   /////    //// 
@@ -536,7 +538,7 @@ class HadriansWall extends Table
     function doneUsingFavor() {
         $this->checkAction('doneUsingFavor');
 
-        self::debug("TODO: doneUsingFavor");
+        //self::debug("TODO: doneUsingFavor");
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -545,18 +547,18 @@ class HadriansWall extends Table
     ////
     ////////////////////////////////////////////////////////////////////////////////////////////////////////
     function stGameSetup() {
-        self::debug( "----> stGameSetup" ); 
+        //self::debug( "----> stGameSetup" ); 
     }
 
     function stPrepareRound() {
-        self::debug( "----> stPrepareRound" ); 
+        //self::debug( "----> stPrepareRound" ); 
 
         $this->incGameStateValue(self::GAME_ROUND,1);
         $round = $this->getGameStateValue(self::GAME_ROUND);
 
         $card = $this->fate_cards->pickCardForLocation('fate_deck','fate_discard');
 
-        self::debug("picked ".$card['type']);
+        //self::debug("picked ".$card['type']);
         $round_sql = "INSERT INTO `rounds` (`round`,`fate_resource_card`) VALUES (".$round.",'".$card['type']."')";
         self::DbQuery( $round_sql );
       
@@ -648,20 +650,21 @@ class HadriansWall extends Table
         }
         $data = $this->section_data[$section];
 
+        if($index>=count($data)) {
+            return ['valid'=>false,'message'=>"Track Full"];
+        }
+
         $cost = $data[$index]['cost'];
+        //self::debug("Cost: ".implode(array_keys($data[$index]['cost']))."         [");
+
         if(array_key_exists('altCost',$data[$index])) {
             $altCost = $data[$index]['altCost'];
         }
         if(array_key_exists('reward',$data[$index])) {
-            self::debug("reward ".print_r($data[$index]['reward'],true));
-            $reward = explode(",",$data[$index]['reward']);
+            //self::debug("Rewards: ".print_r(implode(",",$data[$index]['reward']),true)."         [");
+            $reward = $data[$index]['reward'];
         }
     
-        if($index>=count($data)) {
-            $message = "Section is full.";
-            $valid = false; // this section is full
-        }
-
         if($valid && array_key_exists('lockedBy',$data[$index])) {
             $locked = $data[$index]['lockedBy'];
             foreach($locked as $locked_section=>$required_level){
@@ -673,13 +676,13 @@ class HadriansWall extends Table
             }
         }
 
-        if($valid && $index>0 && array_key_first($data[$index]['cost'])=="continue") {
-            self::debug("continued ".$data[$index]['id']." ?");
-            if(!$this->isBoxValid($section,$index-1,$resources,$board)['valid']) {
-                $valid = false;
-                self::debug("do not continue");
-            }
-        } else 
+        // if($valid && $index>0 && array_key_exists('reward',$data[$index]) && array_key_first($data[$index]['reward'])=="continue") {
+        //     self::debug("continued ".$data[$index]['id']." ?         [");
+        //     if(false && !$this->isBoxValid($section,$index-1,$resources,$board)['valid']) {
+        //         $valid = false;
+        //         self::debug("do not continue         [");
+        //     }
+        // } else 
         if($valid) {
             $cost = $data[$index]['cost'];
             $costs=[$cost];
@@ -699,7 +702,7 @@ class HadriansWall extends Table
                     if(array_key_exists($resource,$resources)) {
                         if($resources[$resource]<$amount) {
                             $message = "Missing $resource";
-                            self::debug($message);
+                            self::debug($message."         [");
                             $valid = false;
                         }
                     // check for worker which can be satisfied by any meeple
@@ -711,18 +714,18 @@ class HadriansWall extends Table
                         // self::debug("<<<<<<<<< Worker count = $workers >>>>>>>>");
                         if($workers<$amount) {
                             $message = "Missing workers";
-                            self::debug($message);
+                            //self::debug($message."         [");
                             $valid = false;
                         }
                     } else {
                         $message = "Missing speical $resource";
-                        self::debug($message);
+                        //self::debug($message."         [");
                         $valid = false;
                         // TODO: Check the special array (like cohort,renown,piety,valour,discipline, etc.)
                         foreach($resources['special'] as $special) {
                             if($resource==$special) {
                                 $message = "Special valid";
-                                self::debug($message);
+                                //self::debug($message."         [");
                                 $valid = true;
                             }
                         }                       
@@ -732,6 +735,7 @@ class HadriansWall extends Table
         }
 
         $results = [
+            'id'=>$section."_".$index,
             'section'=>$section,
             'index'=>$index,
             'valid'=>$valid,
@@ -745,7 +749,7 @@ class HadriansWall extends Table
     }
 
     function getValidMoves() {
-        self::debug( "----> getValidMoves" ); 
+        //self::debug( "----> getValidMoves" ); 
         $valid_moves = [];
         $costs = [];
         $section_data = $this->section_data;
@@ -753,15 +757,17 @@ class HadriansWall extends Table
         $resources = $this->getResources();
 
         foreach($section_data as $id=>$data) {
+            // self::debug("CHECKING $id ".$board[$id]."         [");
             $index = $board[$id];
-            $offset = 0;
-            while($this->isBoxValid($id,$index+$offset,$resources,$board)['valid']) {
-                $valid_moves[]=$data[$index+$offset]['id'];
-                if($index+$offset+1<count($data) && array_key_first($data[$index+$offset+1]['cost'])=='continue' ) {
-                    $offset++;
-                    self::debug(">>>continuing ".$offset);
-                } else {
-                    break;
+            if($this->isBoxValid($id,$index,$resources,$board)['valid']) {
+                $valid_moves[]=$data[$index]['id'];
+                // self::debug("++++++++ Added valid move for ".$data[$index]['id']."         [");
+                // if(array_key_exists('reward',$data[$index])) {
+                //     self::debug("-- -- --rewards = ".implode(",",$data[$index]['reward'])."         [");
+                // }
+                if(array_key_exists('reward',$data[$index]) && $data[$index]['reward'][0]=='continue') {
+                    $valid_moves[]=$data[$index+1]['id'];
+                    // self::debug(">>>>continuing          [");
                 }
             }
         }
@@ -770,7 +776,7 @@ class HadriansWall extends Table
     }
 
     function argUseResources() {
-        self::debug( "----> argUseResources" ); 
+        //self::debug( "----> argUseResources" ); 
         $results=[];
 
         $results = $this->section_data;
@@ -783,14 +789,14 @@ class HadriansWall extends Table
     }
 
     function stAcceptPictAttack() {
-        self::debug( "----> stAcceptPictAttack" ); 
+        //self::debug( "----> stAcceptPictAttack" ); 
 
         $this->gamestate->setAllPlayersMultiactive();
         $this->gamestate->initializePrivateStateForAllActivePlayers();
     }
 
     function stPlayerTurn() {
-        self::debug( "----> stPlayerTurn" ); 
+        //self::debug( "----> stPlayerTurn" ); 
 
         $this->gamestate->setAllPlayersMultiactive();
         $this->gamestate->initializePrivateStateForAllActivePlayers();
@@ -803,10 +809,10 @@ class HadriansWall extends Table
         //      ////   ////     //// 
     ////////////////////////////////////  
     function stChooseGeneratedAttributes() {
-        self::debug( "----> stChooseGeneratedAttributes" ); 
+        //self::debug( "----> stChooseGeneratedAttributes" ); 
 
         $current_player_id = self::getCurrentPlayerId();
-        self::debug("current_player_id = ".$current_player_id);        
+        //self::debug("current_player_id = ".$current_player_id);        
     }
 
       ///////   ////   /////    //// 
@@ -827,7 +833,7 @@ class HadriansWall extends Table
         //      ////   ////     //// 
     ////////////////////////////////////  
     function stEndOfRound() {
-        self::debug( "----> stEndOfRound" ); 
+        //self::debug( "----> stEndOfRound" ); 
 
         // TODO: draw pict attack
 
@@ -840,7 +846,7 @@ class HadriansWall extends Table
         //      ////   ////     //// 
     ////////////////////////////////////  
     function stCheckFavor() {
-        self::debug( "----> stCheckFavor" ); 
+        //self::debug( "----> stCheckFavor" ); 
         $current_player_id = self::getCurrentPlayerId();
 
         $this->gamestate->nextPrivateState($current_player_id,'useFavor');
@@ -852,7 +858,7 @@ class HadriansWall extends Table
         //      ////   ////     //// 
     ////////////////////////////////////  
     function stCheckGameEnd() {
-        self::debug( "----> stCheckGameEnd" ); 
+        //self::debug( "----> stCheckGameEnd" ); 
 
         $this->gamestate->nextState('nextRound');
     }
