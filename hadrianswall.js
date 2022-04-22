@@ -390,13 +390,15 @@ function (dojo, declare) {
 
             debug("special resources",resources['special']);
             if(resources['special'].length>0 && resources['special'][0].length>0) {
-                dojo.query("#resource_display").addClass('forcehidden');
+                //dojo.query("#resource_display").addClass('forcehidden');
                 let speical_display = dojo.query("#speical_display");
                 speical_display.removeClass('forcehidden');
                 speical_display.empty();
 
+                let first = true;
                 resources['special'].forEach((resource)=>{
-                    dojo.place(`<div class="iconsheet icon_${resource} miniicon glow"></div>`,"speical_display");
+                    dojo.place(`<div class="iconsheet icon_${resource} miniicon ${first?"glow":""}"></div>`,"speical_display");
+                    first = false;
                 });
             
             } else {

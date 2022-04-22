@@ -1115,7 +1115,7 @@ $this->section_data = [
     'traders'=>[
     ['cost'=>['civilians'=>1],'altCost'=>['trader'=>1],'reward'=>['servants'],'id'=>'traders_1'],
     ['cost'=>['civilians'=>1],'altCost'=>['trader'=>1],'id'=>'traders_2'],
-    ['cost'=>['civilians'=>1],'altCost'=>['trader'=>1],'reward'=>['builder'],'id'=>'traders_3'],
+    ['cost'=>['civilians'=>1],'altCost'=>['trader'=>1],'reward'=>['builders'],'id'=>'traders_3'],
     ['cost'=>['civilians'=>1],'altCost'=>['trader'=>1],'id'=>'traders_4'],
     ['cost'=>['civilians'=>1],'altCost'=>['trader'=>1],'reward'=>['bricks'],'id'=>'traders_5'],
     ['cost'=>['civilians'=>1],'altCost'=>['trader'=>1],'id'=>'traders_6'],

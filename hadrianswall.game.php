@@ -242,7 +242,7 @@ class HadriansWall extends Table
     function addSpecial($resource) { // always adds to the beginning
         //self::debug("--->addSpecial $resource");
         $current_player_id = self::getCurrentPlayerId();
-        $resource_sql = "UPDATE player SET special = IFNULL(CONCAT('$resource,',special),'$resource') WHERE player_id=$current_player_id";
+        $resource_sql = "UPDATE player SET special = IF(LENGTH(special)>0,CONCAT(special,',$resource'),'$resource') WHERE player_id=$current_player_id";
         self::DbQuery($resource_sql);
     }
 
@@ -250,6 +250,8 @@ class HadriansWall extends Table
         //self::debug("--->delSpecial $resource");
         $current_player_id = self::getCurrentPlayerId();
         $length = strlen($resource)+1;
+        // TODO allow this to not have to be the first element in the special array
+        
         $resource_sql = "UPDATE player SET special = RIGHT(special,LENGTH(special)-$length) WHERE player_id=$current_player_id";
         self::DbQuery($resource_sql);
     }
@@ -265,7 +267,9 @@ class HadriansWall extends Table
         foreach($rewards as $reward) {
             if(array_key_exists($reward,$adjResources)){
                 $adjResources[$reward]++;
-            }            
+            } else {
+                $this->addSpecial($reward);
+            }           
         }
         $this->adjResources($adjResources);
     }
@@ -303,7 +307,7 @@ class HadriansWall extends Table
                                 $adjResources[$resource]=-$amount;
                             }
                         } else {
-                            // special resource
+                            $this->delSpecial($resource);
                         }
                     }
     
@@ -722,12 +726,14 @@ class HadriansWall extends Table
                         //self::debug($message."         [");
                         $valid = false;
                         // TODO: Check the special array (like cohort,renown,piety,valour,discipline, etc.)
+                        $first = true;
                         foreach($resources['special'] as $special) {
-                            if($resource==$special) {
+                            if($first && $resource==$special) {
                                 $message = "Special valid";
                                 //self::debug($message."         [");
                                 $valid = true;
                             }
+                            $first = false;
                         }                       
                     }
                 }
@@ -770,6 +776,12 @@ class HadriansWall extends Table
                     // self::debug(">>>>continuing          [");
                 }
             }
+        }
+
+        // check to see if we're blocked by a special that can't be used
+        if(count($valid_moves)==0 && count($resources['special'])>0) {
+            $this->delSpecial($resources['special'][0]);
+            return $this->getValidMoves();
         }
         
         return $valid_moves;
