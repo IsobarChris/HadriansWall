@@ -167,31 +167,20 @@ class HadriansWall extends Table
 
     // Resources
 
-    function getResources($plural=true) {
+    function getResources() {
         self::debug("--->getResources");
         $current_player_id = self::getCurrentPlayerId();
         $resource_sql = "SELECT player_id, civilians, servants, soldiers, builders, bricks, special FROM player WHERE player_id=$current_player_id";
-        if(!$plural) {
-            $resource_sql = "SELECT player_id, civilians civilian, servants servant, soldiers soldier, builders builder, bricks brick, special FROM player WHERE player_id=$current_player_id";
-        }        
         $result = self::getCollectionFromDb($resource_sql)[$current_player_id];
         $result['special'] = explode(',',$result['special']);
 
         //self::debug("Special: ".print_r($result['special'],true));
         if($result['special'][0]!="") {
-            if($plural) {
                 $result['civilians'] = -$result['civilians'];
                 $result['servants'] = -$result['servants'];
                 $result['soldiers'] = -$result['soldiers'];
                 $result['builders'] = -$result['builders'];
                 $result['bricks'] = -$result['bricks'];
-            } else {
-                $result['civilian'] = -$result['civilian'];
-                $result['servant'] = -$result['servant'];
-                $result['soldier'] = -$result['soldier'];
-                $result['builder'] = -$result['builder'];
-                $result['brick'] = -$result['brick'];
-            }
         }
         return $result;
     }
@@ -200,8 +189,9 @@ class HadriansWall extends Table
         self::debug("--->setResources");
         $current_player_id = self::getCurrentPlayerId();
         $resource_sql = "UPDATE player SET ";
+        // TODO: make special work
 
-        $rarray = ['civilians', 'servants', 'soldiers', 'builders', 'bricks', 'special'];
+        $rarray = ['civilians', 'servants', 'soldiers', 'builders', 'bricks'];
         $updates=[];
         foreach($rarray as $resource) {
             if(array_key_exists($resource, $resources)) {
@@ -220,11 +210,13 @@ class HadriansWall extends Table
     }
 
     function adjResources($resources) {
-        self::debug("--->adjResources");
+        // TODO: make special work
+
+        self::debug("--->adjResources ".print_r($resources,true));
         $current_player_id = self::getCurrentPlayerId();
         $resource_sql = "UPDATE player SET ";
 
-        $rarray = ['civilians', 'servants', 'soldiers', 'builders', 'bricks', 'special'];
+        $rarray = ['civilians', 'servants', 'soldiers', 'builders', 'bricks'];
         $updates=[];
         foreach($rarray as $resource) {
             if(array_key_exists($resource, $resources)) {
@@ -232,12 +224,17 @@ class HadriansWall extends Table
             }
         }
 
-        $resource_sql.=implode( $updates, ',' );
-        $resource_sql.=" WHERE player_id=$current_player_id";
+        if(count($updates)>0) {
+            $resource_sql.=implode( $updates, ',' );
+            $resource_sql.=" WHERE player_id=$current_player_id";
+    
+            self::debug($resource_sql);
+    
+            self::DbQuery($resource_sql);        
+        } else {
+            self::debug("NO UPDATES");
+        }
 
-        self::debug($resource_sql);
-
-        self::DbQuery($resource_sql);        
         $result = self::getResources();
         return $result;
     }
@@ -263,12 +260,18 @@ class HadriansWall extends Table
     ////
     ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    function doCheckNextBox( $section ) {
-        // todo - make sure resources and prereqs are met
-        // todo - reduce resources as needed
+    function applyRewards( $rewards ) {
+        $adjResources = ['civilians'=>0, 'servants'=>0, 'soldiers'=>0, 'builders'=>0, 'bricks'=>0];
+        foreach($rewards as $reward) {
+            if(array_key_exists($reward,$adjResources)){
+                $adjResources[$reward]++;
+            }            
+        }
+        $this->adjResources($adjResources);
+    }
 
+    function doCheckNextBox( $section, $spend, $reward) {
         $current_player_id = self::getCurrentPlayerId();
-
         $boxData = $this->isBoxValid($section);
         self::debug(print_r($boxData,true));
 
@@ -276,20 +279,52 @@ class HadriansWall extends Table
             $board_sql = "UPDATE board SET $section = $section + 1 WHERE player_id=$current_player_id";
             self::DbQuery( $board_sql );
     
-            $board_sql = "SELECT * FROM board WHERE player_id = $current_player_id";
-            $board = self::getCollectionFromDb( $board_sql );
-    
+            $board = $this->getBoard();
+            $resources = $this->getResources();
     
             // $this->payFor($section);
-            // $this->rewardsFrom($section);
+            if($spend==null) {
+                $cost = $boxData['cost'];
+                $altCost = $boxData['altCost'];
+
+                // TODO
+                // if cost and alt are both basic or workers and spend is null, then error
+                foreach([$altCost,$cost] as $c) {
+                    $adjResources = [];
+                    foreach($c as $resource=>$amount) {
+                        if(array_key_exists($resource,$resources)) {
+                            // basic resource
+                            if($resources[$resource]<$amount) {
+                                $adjResources = [];
+                                break;
+                            } else {
+                                $adjResources[$resource]=-$amount;
+                            }
+                        } else {
+                            // special resource
+                        }
+                    }
     
+                    if(count($adjResources)>0){
+                        $this->adjResources($adjResources);
+                        break;
+                    }
+                }
+            }
+
+            if(array_key_exists('reward',$boxData)) {
+                self::debug("Should reward ".print_r($boxData['reward'],true));
+                $this->applyRewards($boxData['reward']);
+            }
+
             // check to see if we should also check the next cell
             $boxData = $this->isBoxValid($section);
             if(array_key_first($boxData['cost'])=='continue') {
+                self::debug("continue checking boxes");
                 $this->doCheckNextBox($section);
             } else {
                 $this->notifyPlayer( $current_player_id, "sheetsUpdated", "", [
-                    "board"=>$board[$current_player_id],
+                    "board"=>$board,
                     "valid_moves"=>$this->getValidMoves(),
                     "resources"=>$this->getResources(),
                     "boxData"=>$boxData
@@ -298,11 +333,11 @@ class HadriansWall extends Table
         }
     }
 
-    function checkNextBox( $section ) {
+    function checkNextBox( $section, $spend = null, $reward = null ) {
         $this->checkAction('checkNextBox');
         $current_player_id = self::getCurrentPlayerId();
 
-        $this->doCheckNextBox($section);
+        $this->doCheckNextBox($section,$spend,$reward);
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -609,10 +644,19 @@ class HadriansWall extends Table
             $index = $board[$section];
         }
         if($resources==null) {
-            $resources = $this->getResources(false);
+            $resources = $this->getResources();
         }
         $data = $this->section_data[$section];
 
+        $cost = $data[$index]['cost'];
+        if(array_key_exists('altCost',$data[$index])) {
+            $altCost = $data[$index]['altCost'];
+        }
+        if(array_key_exists('reward',$data[$index])) {
+            self::debug("reward ".print_r($data[$index]['reward'],true));
+            $reward = explode(",",$data[$index]['reward']);
+        }
+    
         if($index>=count($data)) {
             $message = "Section is full.";
             $valid = false; // this section is full
@@ -622,7 +666,7 @@ class HadriansWall extends Table
             $locked = $data[$index]['lockedBy'];
             foreach($locked as $locked_section=>$required_level){
                 if($board[$locked_section]<$required_level) {
-                    self::debug("LOCKED BY $locked_section");
+                    //self::debug("LOCKED BY $locked_section");
                     $message = "Cell is locked.";
                     $valid = false; // this section is locked
                 }
@@ -631,16 +675,15 @@ class HadriansWall extends Table
 
         if($valid && $index>0 && array_key_first($data[$index]['cost'])=="continue") {
             self::debug("continued ".$data[$index]['id']." ?");
-            $cost = $data[$index]['cost'];
             if(!$this->isBoxValid($section,$index-1,$resources,$board)['valid']) {
                 $valid = false;
+                self::debug("do not continue");
             }
         } else 
         if($valid) {
             $cost = $data[$index]['cost'];
             $costs=[$cost];
             if(array_key_exists('altCost',$data[$index])) {
-                $altCost = $data[$index]['altCost'];
                 $costs[]=$altCost;
             } 
 
@@ -651,7 +694,7 @@ class HadriansWall extends Table
                 $message = "valid";
                 $valid = true;
                 foreach($list as $resource=>$amount) {
-                    self::debug("<<<<<<<<< Checking for $amount $resource >>>>>>>>");
+                    //self::debug("<<<<<<<<< Checking for $amount $resource >>>>>>>>");
                     // check for basic resources 
                     if(array_key_exists($resource,$resources)) {
                         if($resources[$resource]<$amount) {
@@ -661,10 +704,10 @@ class HadriansWall extends Table
                         }
                     // check for worker which can be satisfied by any meeple
                     } else if($resource=='worker') {
-                        $workers = $resources['soldier']+
-                                   $resources['builder']+
-                                   $resources['servant']+
-                                   $resources['civilian'];
+                        $workers = $resources['soldiers']+
+                                   $resources['builders']+
+                                   $resources['servants']+
+                                   $resources['civilians'];
                         // self::debug("<<<<<<<<< Worker count = $workers >>>>>>>>");
                         if($workers<$amount) {
                             $message = "Missing workers";
@@ -688,10 +731,6 @@ class HadriansWall extends Table
             }
         }
 
-        if($valid && array_key_exists('reward',$data[$index])) {
-            $reward = explode(",",$data[$index]['reward']);
-        }       
-
         $results = [
             'section'=>$section,
             'index'=>$index,
@@ -711,7 +750,7 @@ class HadriansWall extends Table
         $costs = [];
         $section_data = $this->section_data;
         $board = $this->getBoard();
-        $resources = $this->getResources(false);
+        $resources = $this->getResources();
 
         foreach($section_data as $id=>$data) {
             $index = $board[$id];
@@ -720,6 +759,7 @@ class HadriansWall extends Table
                 $valid_moves[]=$data[$index+$offset]['id'];
                 if($index+$offset+1<count($data) && array_key_first($data[$index+$offset+1]['cost'])=='continue' ) {
                     $offset++;
+                    self::debug(">>>continuing ".$offset);
                 } else {
                     break;
                 }

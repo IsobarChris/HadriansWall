@@ -73,8 +73,10 @@ class action_hadrianswall extends APP_GameAction
         self::setAjaxMode();
 
         $section = self::getArg("section",AT_alphanum,true);
+        $spend = self::getArg("spend",AT_alphanum);
+        $reward = self::getArg("reward",AT_alphanum);
 
-        $this->game->checkNextBox($section);
+        $this->game->checkNextBox($section,$spend,$reward);
 
         self::ajaxResponse();
     }
