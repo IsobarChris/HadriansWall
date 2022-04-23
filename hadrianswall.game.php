@@ -606,8 +606,8 @@ class HadriansWall extends Table
         $board = self::getCollectionFromDB($board_sql)[$current_player_id];
 
         $bricks = 1+$board['production'];
-        $civilians = $board['hotel'];
-        $builders = $board['workshop'];
+        $civilians = $board['hotel']/2;
+        $builders = $board['workshop']/2;
 
         return ['bricks'=>$bricks,'civilians'=>$civilians,'builders'=>$builders];
     }

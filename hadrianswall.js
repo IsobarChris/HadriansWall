@@ -247,6 +247,7 @@ function (dojo, declare) {
                 case 'acceptProducedResources':
                     debug("adding forcehidden");
                     dojo.addClass('production','forcehidden');
+                    dojo.empty('production');
                 break;
 
                 case 'chooseGoalCard':
@@ -300,9 +301,6 @@ function (dojo, declare) {
                         debug("args",args);
 
                         let label = [`${args[0]['name']}   `,`${args[1]['name']}   `];
-
-                        dojo.removeClass('production','forcehidden');
-                        dojo.empty('production');
     
                         for(let j=0;j<2;j++){
                             ['soldiers','builders','servants','civilians','bricks'].forEach((r)=>{
