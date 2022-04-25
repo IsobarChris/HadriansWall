@@ -779,7 +779,7 @@ class HadriansWall extends Table
         }
 
         // check to see if we're blocked by a special that can't be used
-        if(count($valid_moves)==0 && count($resources['special'])>0) {
+        if(count($valid_moves)==0 && count($resources['special'])>0 && strlen($resources['special'][0])>0) {
             $this->delSpecial($resources['special'][0]);
             return $this->getValidMoves();
         }
