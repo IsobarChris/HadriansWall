@@ -151,39 +151,49 @@
         "type" => "game",
         "action" => "stEndOfRound",
         "transitions" => [
-            "acceptPictAttack" => 31
+            "pictAttack" => 31
         ]
     ],
 
     31 => [
-        "name" => "acceptPictAttack",
+        "name" => "pictAttack",
         "description" => clienttranslate('Other players need to resolve attack.'),
         "descriptionmyturn" => clienttranslate('${you} must resolve attack.'),
         "type" => "multipleactiveplayer",
-        "initialprivate" => 34,
+        "initialprivate" => 33,
         "possibleactions" => [],
         "transitions" => [ "checkEndGame" => 40 ],
-        "action" => "stAcceptPictAttack",
-    ],
-
-    32 => [
-        "name" => "checkFavor",
-        "descriptionmyturn" => clienttranslate('Checking for available favor.'),
-        "type" => "private",
-        "possibleactions" => [],
-        "transitions" => [ "useFavor" => 33, "gainValourAndDisdain" => 34 ],
-        "action" => "stCheckFavor"
+        "action" => "stPictAttack",
     ],
 
     33 => [
+        "name" => "displayAttack",
+        "descriptionmyturn" => clienttranslate('The Picts Attack!'),
+        "type" => "private",
+        "possibleactions" => ["applyCohorts"],
+        "transitions" => [ "useFavor" => 34, "gainValourAndDisdain" => 35 ],
+        //"action" => "stCheckFavor",
+        "args" => 'argDisplayAttack'
+    ],
+
+    // 33 => [
+    //     "name" => "checkFavor",
+    //     "descriptionmyturn" => clienttranslate('Checking for available favor.'),
+    //     "type" => "private",
+    //     "possibleactions" => [],
+    //     "transitions" => [ "useFavor" => 33, "gainValourAndDisdain" => 34 ],
+    //     "action" => "stCheckFavor"
+    // ],
+
+    34 => [
         "name" => "useFavor",
         "descriptionmyturn" => clienttranslate('Use favor to prevent disdain.'),
         "type" => "private",
-        "possibleactions" => ["useFavor","doneUsingFavor"],
+        "possibleactions" => ["applyFavor","doneApplyingFavor"],
         "transitions" => [ "gainValourAndDisdain" => 34 ],
     ],
 
-    34 => [
+    35 => [
         "name" => "gainValourAndDisdain",
         "descriptionmyturn" => clienttranslate('Accept attack results.'),
         "type" => "private",

@@ -26,6 +26,41 @@
 
 $game_options = array(
 
+    100 => [
+        'name' => totranslate('Difficulty'),
+        'values' => array(
+                        1 => ['name' => totranslate('Easy'),
+                            'description' => totranslate('Attack cards each round: 1, 2, 3, 4, 6, 8'),
+                            'firstgameonly' => true
+                            ],
+
+                        2 => ['name' => totranslate('Normal'),
+                            'description' => totranslate('Attack cards each round: 1, 2, 4, 6, 8, 10'),                            
+                        ],
+
+                        3 => ['name' => totranslate('Hard'),
+                            'description' => totranslate('Attack cards each round: 1, 3, 5, 7, 9, 12'),
+                            'nobeginner' => true
+                        ],
+                    ),
+        'default' => 1
+    ],
+
+    101 => [
+        'name' => totranslate('Resource Passing'),
+        'values' => array(
+                        1 => ['name' => totranslate('On (Recommended for real-time play.)'),
+                            'description' => totranslate('Recommended for real-time play.  Play by standard rules for trade and scouting. '),
+                            ],
+
+                        2 => ['name' => totranslate('Off (Recommended for turn-based play.)'),
+                            'description' => totranslate('Recommended for turn-based play. Uses solo rules for trade and scouting. Trade and scout choices are still based on neiboring players, but use of these cards adds an extra attack card for you, instead of passing the resource.'),
+                        ],
+                    ),
+        'default' => 1
+    ],
+
+
     /*
     
     // note: game variant ID should start at 100 (ie: 100, 101, 102, ...). The maximum is 199.

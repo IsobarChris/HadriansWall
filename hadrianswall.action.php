@@ -99,6 +99,14 @@ class action_hadrianswall extends APP_GameAction
         self::ajaxResponse();
     }
 
+    public function applyCohorts() {
+        self::setAjaxMode();
+
+        $this->game->applyCohorts();
+
+        self::ajaxResponse();
+    }
+
     public function acceptAttackResults() {
         self::setAjaxMode();
 

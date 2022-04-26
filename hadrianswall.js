@@ -225,8 +225,17 @@ function (dojo, declare) {
                 }
                 break;
 
-                case 'acceptPictAttack':
+                case 'displayAttack':
                     dojo.removeClass('attack','forcehidden');
+
+                    debug("attacks",args.args);
+                break;
+
+                case 'gainValourAndDisdain':
+                    debug("args",args);
+                    dojo.addClass('attack','forcehidden');
+                    dojo.empty('attack');
+
                 break;
            
             case 'dummmy':
@@ -254,10 +263,6 @@ function (dojo, declare) {
                     dojo.addClass('hand','forcehidden');
                 break;           
            
-                case 'acceptPictAttack':
-                    dojo.addClass('attack','forcehidden');
-                break;
-
             case 'dummmy':
                 break;
             }               
@@ -319,6 +324,10 @@ function (dojo, declare) {
                         this.addActionButton( 'undo', _('Undo'), 'actTurnUndo' );
                         this.addActionButton( 'reset', _('Reset Turn'), 'actTurnReset' );
                         this.addActionButton( 'done', _('End Turn'), 'actTurnDone' );
+                    break;
+
+                    case 'displayAttack':
+                        this.addActionButton( 'applyCohorts', _('Apply Cohorts'), 'actApplyCohorts' );
                     break;
 
                     case 'gainValourAndDisdain':
@@ -510,6 +519,16 @@ function (dojo, declare) {
             }
         },
 
+        actApplyCohorts: function( evt ) {
+            dojo.stopEvent( evt );
+            debug("Accept attack results",evt)
+
+            if(this.checkAction('applyCohorts')){
+                this.ajaxcall("/hadrianswall/hadrianswall/applyCohorts.html",
+                    {},this,function(result){});
+            }
+        },
+
         actAttackResults: function( evt ) {
             dojo.stopEvent( evt );
             debug("Accept attack results",evt)
@@ -586,7 +605,7 @@ function (dojo, declare) {
             dojo.subscribe( 'sheetsUpdated', this, "notif_sheetsUpdated");
             dojo.subscribe( 'resourcesUpdated', this, "notif_resourcesUpdated");
             dojo.subscribe( 'goalsUpdated', this, "notif_goalsUpdated");
-            
+            dojo.subscribe( 'attack', this, "notif_attacked");
         },  
 
         notif_newRound: function(notif) {
@@ -611,6 +630,13 @@ function (dojo, declare) {
             debug('resources',resources);
 
             this.updateResources(resources);
+        },
+
+        notif_attacked: function(notif) {
+            debug('notif_attacked',notif);
+            let attacks = notif.args;
+            debug('attacked',attacks);
+
 
         },
 

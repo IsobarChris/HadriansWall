@@ -1,19 +1,14 @@
+TODO Next
+
+- Draw attack cards
+- Apply disdain and valour
+- Calculate realtime score
+
+
 Next
-- Spend resources when a box is clicked
-  - basic resources
-  - special resources
-- Gain resources when a box is clicked that gives resrouces
-  - basic resources
-  - speical resources
-- Auto spend special resources on client side (when possible)
+- Prompt for spending favor
+- Prompt for resourcers decisions when needed (workers, fort, etc.)
 - Allow choice of "road" attributes
-- Prompt for resource spending decisions
-  - Fort (only prompt if the player has both options)
-  - Cohorts
-- Apply attacks correctly
-  - Award Valour
-  - Mark disdain
-- Calculate Score (for all but path cards)
 
 
 
@@ -32,12 +27,6 @@ End of round
 - Auto award valour and disdain
 
 Check Box
-- Check prereq met
-- Check resources available
-- Check box and award reward
-  - resources go to player pannel
-  - attribute is auto checked (with this same process)
-  - Cohort is presented with a choice
 - Speical case rewards
   - Trade Goods
     - Show trade good options on board
@@ -65,4 +54,9 @@ Check Box
     - Allow click on cell and then highlight remaining options
     - Allow unclicking of cells that are still valid
 
+Enhancements
+- Auto spend special resources (client side)
+- Animate spedning from player panel to box
+- Animate rewards from box to player panel
+- 
 

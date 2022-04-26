@@ -33,12 +33,17 @@
 -- Example 2: add a custom field to the standard "player" table
 -- ALTER TABLE `player` ADD `player_my_custom_field` INT UNSIGNED NOT NULL DEFAULT '0';
 
-ALTER TABLE `player` ADD `civilians` INT UNSIGNED NOT NULL DEFAULT 0;
-ALTER TABLE `player` ADD `servants`  INT UNSIGNED NOT NULL DEFAULT 0;
-ALTER TABLE `player` ADD `soldiers`  INT UNSIGNED NOT NULL DEFAULT 0;
-ALTER TABLE `player` ADD `builders`  INT UNSIGNED NOT NULL DEFAULT 0;
-ALTER TABLE `player` ADD `bricks`    INT UNSIGNED NOT NULL DEFAULT 0;
-ALTER TABLE `player` ADD `special`   varchar(512) NOT NULL DEFAULT "";
+CREATE TABLE IF NOT EXISTS `resources` (
+    `player_id` int(10) NOT NULL,
+    `civilians` INT UNSIGNED NOT NULL DEFAULT 0,
+    `servants`  INT UNSIGNED NOT NULL DEFAULT 0,
+    `soldiers`  INT UNSIGNED NOT NULL DEFAULT 0,
+    `builders`  INT UNSIGNED NOT NULL DEFAULT 0,
+    `bricks`    INT UNSIGNED NOT NULL DEFAULT 0,
+    `special`   varchar(512) NOT NULL DEFAULT "",
+    PRIMARY KEY (`player_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
+
 
 CREATE TABLE IF NOT EXISTS `fate_cards` (
   `card_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -61,14 +66,22 @@ CREATE TABLE IF NOT EXISTS `player_cards` (
 CREATE TABLE IF NOT EXISTS `rounds` (
     `round` int(2) NOT NULL,
     `fate_resource_card` varchar(32) NOT NULL,
+    `ai_card1` varchar(32),
+    `ai_card2` varchar(32),
     PRIMARY KEY (`round`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 
 CREATE TABLE IF NOT EXISTS `attacks` (
     `player_id` int(10) NOT NULL,
     `round` int(2) NOT NULL,
-    `fate_attack_card` varchar(32) NOT NULL,
-    PRIMARY KEY (`player_id`,`round`,`fate_attack_card`)
+    `extra` int(2) NOT NULL DEFAULT 0,
+    `fate_attacks_left` int(2) NOT NULL DEFAULT 0,
+    `fate_attacks_center` int(2) NOT NULL DEFAULT 0,
+    `fate_attacks_right` int(2) NOT NULL DEFAULT 0,
+    `fate_attack_cards_left` varchar(512) NOT NULL DEFAULT "",
+    `fate_attack_cards_center` varchar(512) NOT NULL DEFAULT "",
+    `fate_attack_cards_right` varchar(512) NOT NULL DEFAULT "",
+    PRIMARY KEY (`player_id`,`round`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 
 CREATE TABLE IF NOT EXISTS `board` (

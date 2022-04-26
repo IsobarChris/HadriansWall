@@ -60,26 +60,10 @@
         <div id="attack_left" class="attack_column">
             <div id="fate_card" class="fatecardsheet fate_card_9 attack_first_card"></div>
             <div id="fate_card" class="fatecardsheet fate_card_9 attack_card"></div>
-            <div id="fate_card" class="fatecardsheet fate_card_9 attack_card"></div>
         </div>
         <div id="attack_center" class="attack_column">
-            <div id="fate_card" class="fatecardsheet fate_card_10 attack_first_card"></div>
-            <div id="fate_card" class="fatecardsheet fate_card_10 attack_card"></div>
-            <div id="fate_card" class="fatecardsheet fate_card_10 attack_card"></div>
-            <div id="fate_card" class="fatecardsheet fate_card_10 attack_card"></div>
-            <div id="fate_card" class="fatecardsheet fate_card_10 attack_card"></div>
-            <div id="fate_card" class="fatecardsheet fate_card_10 attack_card"></div>
-            <div id="fate_card" class="fatecardsheet fate_card_10 attack_card"></div>
-            <div id="fate_card" class="fatecardsheet fate_card_10 attack_card"></div>
-            <div id="fate_card" class="fatecardsheet fate_card_10 attack_card"></div>
-            <div id="fate_card" class="fatecardsheet fate_card_10 attack_card"></div>
-            <div id="fate_card" class="fatecardsheet fate_card_10 attack_card"></div>
-            <div id="fate_card" class="fatecardsheet fate_card_10 attack_card"></div>
         </div>
         <div id="attack_right" class="attack_column">
-            <div id="fate_card" class="fatecardsheet fate_card_14 attack_first_card"></div>
-            <div id="fate_card" class="fatecardsheet fate_card_14 attack_card"></div>
-            <div id="fate_card" class="fatecardsheet fate_card_14 attack_card"></div>
         </div>
     </div>
 
