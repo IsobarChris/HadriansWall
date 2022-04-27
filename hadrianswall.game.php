@@ -823,12 +823,25 @@ class HadriansWall extends Table
     function argDisplayAttack() {        
         self::debug("----> argDisplayAttack");
 
-        
+        $current_player_id = self::getCurrentPlayerId();
+        $round = $this->getGameStateValue(self::GAME_ROUND);
+        $sql = "SELECT * FROM attacks WHERE player_id = $current_player_id AND `round` = $round";
+
+        $attacks = self::getCollectionFromDB($sql);
+        $attacks = $attacks[$current_player_id];
+        foreach(['left','center','right'] as $pos) {
+            $loc = "fate_attack_cards_$pos";
+            $attacks[$loc] = explode(",",$attacks[$loc]);
+            if(strlen($attacks[$loc][0])==0) {
+                $attacks[$loc] = [];
+            }
+        }
 
         $results=[
-            $left=['nothing1'],
-            $center=['nothing2'],
-            $right=['nothing3']
+            'left'=>$attacks['fate_attack_cards_left'],
+            'center'=>$attacks['fate_attack_cards_center'],
+            'right'=>$attacks['fate_attack_cards_right'],
+            'details'=>$attacks
         ];
 
         return $results;
@@ -874,22 +887,31 @@ class HadriansWall extends Table
     function stEndOfRound() {
         //self::debug( "----> stEndOfRound" ); 
 
-
-        $this->incGameStateValue(self::GAME_ROUND,1);
         $round = $this->getGameStateValue(self::GAME_ROUND);
-        
 
         $cards = $this->fate_cards->pickCardsForLocation(3,'fate_deck','fate_discard');
-        $attack['left'] = [];
-        $attack['center'] = [];
-        $attack['right'] = [];
-        foreach($cards as $card) {
+        $attacks['Left'] = [];
+        $attacks['Center'] = [];
+        $attacks['Right'] = [];
 
+        foreach($cards as $card) {
+            $fate_card = $this->fate_card_data[$card['type']];
+            $attacks[$fate_card['attackDirection']][] = $card['type'];
+        }        
+
+        $players = self::loadPlayersBasicInfos();
+        foreach($players as $player_id => $player) {
+            $sql = "INSERT INTO attacks (player_id, `round`, extra,";
+            $sql .= "fate_attacks_left, fate_attacks_center, fate_attacks_right, fate_attack_cards_left, fate_attack_cards_center, fate_attack_cards_right)";
+            $sql .= "VALUES ($player_id, $round, 0, ".count($attacks['Left']).",".count($attacks['Center']).",".count($attacks['Right']);
+            $sql .= ",'".implode(",",$attacks['Left'])."','".implode(",",$attacks['Center'])."','".implode(",",$attacks['Right'])."')";
+
+            self::DbQuery($sql);
         }
 
         $this->notifyAllPlayers( "attack", clienttranslate("Round ".$round." the Picts attack "), [
             "round" => $round,
-            "fate_cards" => $cards
+            "attacks" => $attacks
         ]);
 
         $this->gamestate->nextState('pictAttack');

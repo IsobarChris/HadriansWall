@@ -550,8 +550,16 @@ dojo.hasClass
     border-radius: 50%; 
     background-clip: padding-box; 
 }
+
+@font-face {
+    font-family: 'Qwigley';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Qwigley'), local('Qwigley-Regular'), url(http://ff.static.1001fonts.net/q/w/qwigley.regular.ttf) format('ttf');
+  }
+
 .roundNumber { 
-    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; 
+    font:  16px/16px "Qwigley", cursive; 
     text-align: center; 
     border: 0px; 
 }

@@ -227,6 +227,17 @@ function (dojo, declare) {
 
                 case 'displayAttack':
                     dojo.removeClass('attack','forcehidden');
+                    let attacks = args.args;
+
+                    ['left','center','right'].forEach((pos)=>{
+                        let rank = 'attack_first_card';
+                        attacks[pos].forEach((card)=>{
+                            dojo.place(`<div id="fate_card" class="fatecardsheet ${card} ${rank}"></div>`,`attack_${pos}`);
+                            rank = 'attack_card';
+                        })
+                    });
+
+
 
                     debug("attacks",args.args);
                 break;
@@ -234,8 +245,9 @@ function (dojo, declare) {
                 case 'gainValourAndDisdain':
                     debug("args",args);
                     dojo.addClass('attack','forcehidden');
-                    dojo.empty('attack');
-
+                    dojo.empty('attack_left');
+                    dojo.empty('attack_center');
+                    dojo.empty('attack_right');
                 break;
            
             case 'dummmy':
@@ -664,6 +676,8 @@ function (dojo, declare) {
 
 let scratch_data = {
     left_cohort:[
+        {s:1,x:463,y:355,w:13,h:16,c:'roundNumber',value:2},
+        
         {s:1,x:128,y:24,w:16,h:17,c:'rect'},
         {s:1,x:148,y:24,w:16,h:17,c:'rect'},
         {s:1,x:168,y:24,w:16,h:17,c:'rect'},
