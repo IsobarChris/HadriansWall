@@ -497,8 +497,8 @@ dojo.hasClass
 .icon_patrician  { background-position: -245px -70px; }
 
 .icon_favor      { background-position: -0px   -105px; }
-.icon_thumb_down { background-position: -35px  -105px; }
-.icon_thumb_up   { background-position: -70px  -105px; }
+.icon_disdain    { background-position: -35px  -105px; }
+.icon_approve    { background-position: -70px  -105px; }
 .icon_cohort     { background-position: -105px -105px; }
 .icon_sword      { background-position: -140px -105px; }
 .icon_production { background-position: -175px -105px; }
@@ -541,12 +541,28 @@ dojo.hasClass
     margin:0px; 
 }
 .outlined { 
-    border: 1px solid black; 
+    /* border: 1px solid black; 
+    margin-top: -1px;
+    margin-left: -1px;
+    border-color: #7777; */
     opacity: 1; 
-    border-color: #7777;
 }
 .circle { 
     background-color: #9997;
+    border-radius: 50%; 
+    background-clip: padding-box; 
+}
+
+.circledashed {
+    border: 1px dashed #0000; 
+    opacity: 1; 
+    border-radius: 50%; 
+    background-clip: padding-box; 
+}
+
+.circleoutlined {
+    border: 2px solid black; 
+    opacity: 1; 
     border-radius: 50%; 
     background-clip: padding-box; 
 }

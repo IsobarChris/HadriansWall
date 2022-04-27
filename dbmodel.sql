@@ -120,7 +120,7 @@ CREATE TABLE IF NOT EXISTS `board` (
     `valour` int(2) unsigned NOT NULL DEFAULT 0,
     `discipline` int(2) unsigned NOT NULL DEFAULT 0,
     `disdain` int(2) unsigned NOT NULL DEFAULT 0,
-    `removed_disdain` int(2) unsigned NOT NULL DEFAULT 0,
+    `approve` int(2) unsigned NOT NULL DEFAULT 0,
     `traders` int(1) unsigned NOT NULL DEFAULT 0,
     `precinct` int(1) unsigned NOT NULL DEFAULT 0,
     `market` int(1) unsigned NOT NULL DEFAULT 0,

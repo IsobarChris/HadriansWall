@@ -23,6 +23,8 @@ require_once( APP_GAMEMODULE_PATH.'module/table/table.game.php' );
 class HadriansWall extends Table
 {
     const GAME_ROUND = 'game_round';
+    const GAME_DIFFICULTY = 'game_difficulty';
+    const PASS_RESOURCE = 'pass_resource';
 
 	function __construct( )
 	{
@@ -30,6 +32,8 @@ class HadriansWall extends Table
         
         self::initGameStateLabels( array( 
             self::GAME_ROUND => 10,
+            self::GAME_DIFFICULTY => 100, // from options
+            self::PASS_RESOURCE => 101,   // from options
         ) );        
 
         $this->player_cards=self::getNew('module.common.deck');
@@ -124,9 +128,9 @@ class HadriansWall extends Table
 
         $current_round = $this->getGameStateValue(self::GAME_ROUND);
         $result['round'] = $current_round;
-        $result['attack_potential'] = [1,2,2,3,3,4];
-        $result['difficulty'] = 'easy';
-        $result['attacks'] = [1,2,3,4,6,8];
+        $difficulty = $this->getGameStateValue(self::GAME_DIFFICULTY);
+        $difficulty_label = [1=>"Easy",2=>"Normal",3=>"Hard"][$difficulty];
+        $result['difficulty'] = $difficulty_label;
 
         $result['resources'] = $this->getResources();
 
@@ -239,6 +243,17 @@ class HadriansWall extends Table
 
         $result = self::getResources();
         return $result;
+    }
+
+    function clearResources() {
+        $this->setResources([
+            'civilians'=>0, 
+            'servants'=>0, 
+            'soldiers'=>0, 
+            'builders'=>0, 
+            'bricks'=>0,
+            'special'=>""
+        ]);
     }
 
     function addSpecial($resource) { // always adds to the beginning
@@ -479,10 +494,11 @@ class HadriansWall extends Table
     }
 
     function endTurn() {
+        //self::debug("end turn");
         $this->checkAction('endTurn');
         $current_player_id = self::getCurrentPlayerId();
 
-        //self::debug("end turn");
+        $this->clearResources();
 
         $this->gamestate->setPlayerNonMultiactive($current_player_id, 'endOfRound');
     }
@@ -491,6 +507,51 @@ class HadriansWall extends Table
         self::debug("applyCohorts");
         $this->checkAction('applyCohorts');
         $current_player_id = self::getCurrentPlayerId();
+        $round = $this->getGameStateValue(self::GAME_ROUND);
+        $max_valour = $this->player_board_data[$round]['attackPotential'];
+
+        $cohorts_sql = "SELECT player_id, left_cohort `left`, center_cohort center, right_cohort `right` FROM board WHERE player_id=$current_player_id";
+        $cohorts = self::getCollectionFromDB($cohorts_sql)[$current_player_id];
+
+        $attacks_sql = "SELECT player_id, fate_attacks_left `left`, fate_attacks_center center, fate_attacks_right `right` FROM attacks WHERE player_id=$current_player_id AND `round`=$round";
+        $org_attacks = self::getCollectionFromDB($attacks_sql)[$current_player_id];
+        $attacks=$org_attacks;
+
+        // how many blocked
+        $blocked = 0;
+        $disdain = 0;
+        foreach(['left','center','right'] as $pos) {
+            if($cohorts[$pos]>0 && $attacks[$pos]>0) {
+                $blocked += min($cohorts[$pos],$attacks[$pos]);
+                $attacks[$pos] -= $cohorts[$pos];
+                if($attacks[$pos]<0) {
+                    $attacks[$pos]=0;
+                }
+            }
+            $disdain += $attacks[$pos];
+        }
+        $valour = min($max_valour,$blocked);
+
+        $rewards = [];
+        for($v=0;$v<$valour;$v++) {
+            $rewards[]="valour";
+        }
+        for($d=0;$d<$disdain;$d++) {
+            $rewards[]="disdain";
+        }
+        $rewards = implode(",",$rewards);
+
+        $this->addSpecial($rewards);
+
+        $this->notifyPlayer( $current_player_id, "resourcesUpdated", "", [
+            'resources'=>$this->getResources(),
+            'max_valour'=>$max_valour,
+            'cohorts'=>$cohorts,
+            'attacks'=>$org_attacks,
+            'disdain'=>$disdain,
+            'blocked'=>$blocked,
+            'valour'=>$valour
+        ]);
 
         //TODO: compare cohorts for this player and return only the cards that are left to deal with
         //TODO: if favor applies, offer it here
@@ -503,6 +564,10 @@ class HadriansWall extends Table
         $current_player_id = self::getCurrentPlayerId();
 
         //self::debug("acceptAttackResults");
+
+        
+        // TODO: don't allow a player to move past this stage until all valour and disdain has been used
+
 
         $this->gamestate->setPlayerNonMultiactive($current_player_id, 'checkEndGame');
     }    
@@ -888,8 +953,12 @@ class HadriansWall extends Table
         //self::debug( "----> stEndOfRound" ); 
 
         $round = $this->getGameStateValue(self::GAME_ROUND);
+        $difficulty = $this->getGameStateValue(self::GAME_DIFFICULTY);
 
-        $cards = $this->fate_cards->pickCardsForLocation(3,'fate_deck','fate_discard');
+        $qty = $this->player_board_data[$round]['attackCards'][$difficulty];
+        $max_valour = $this->player_board_data[$round]['attackPotential'];
+
+        $cards = $this->fate_cards->pickCardsForLocation($qty,'fate_deck','fate_discard');
         $attacks['Left'] = [];
         $attacks['Center'] = [];
         $attacks['Right'] = [];
@@ -911,6 +980,7 @@ class HadriansWall extends Table
 
         $this->notifyAllPlayers( "attack", clienttranslate("Round ".$round." the Picts attack "), [
             "round" => $round,
+            "maxValour" => $max_valour,
             "attacks" => $attacks
         ]);
 

@@ -66,42 +66,30 @@ $this->token_types = [
 
 
 
-$this->round_data = [
-  'round1' => [
+$this->player_board_data = [
+  '1' => [
     'attackPotential' => 1,
-    'easy' => 1,  
-    'normal' => 1,
-    'hard' => 1
+    'attackCards' => [1=>1,2=>1,3=>1]
   ],
-  'round2' => [
+  '2' => [
     'attackPotential' => 2,
-    'easy' => 2,  
-    'normal' => 2,
-    'hard' => 3
+    'attackCards' => [1=>2,2=>2,3=>3]
   ],
-  'round3' => [
+  '3' => [
     'attackPotential' => 2,
-    'easy' => 3,  
-    'normal' => 4,
-    'hard' => 5
+    'attackCards' => [1=>3,2=>4,3=>5]
   ],
-  'round4' => [
+  '4' => [
     'attackPotential' => 3,
-    'easy' => 4,  
-    'normal' => 6,
-    'hard' => 7
+    'attackCards' => [1=>4,2=>6,3=>7]
   ],
-  'round5' => [
+  '5' => [
     'attackPotential' => 3,
-    'easy' => 6,  
-    'normal' => 8,
-    'hard' => 9
+    'attackCards' => [1=>6,2=>8,3=>9]
   ],
-  'round6' => [
+  '6' => [
     'attackPotential' => 4,
-    'easy' => 8,  
-    'normal' => 10,
-    'hard' => 12
+    'attackCards' => [1=>8,2=>10,3=>12]
   ]
 ];
 
@@ -1210,6 +1198,40 @@ $this->section_data = [
     'statue'=>[
     ['lockedBy'=>['discipline'=>15],'cost'=>['builders'=>1,'bricks'=>2],'reward'=>['renown','renown'],'id'=>'statue_1'],
     ],
+    'disdain'=>[
+    ['cost'=>['disdain'=>1],'id'=>'disdain_1'],
+    ['cost'=>['disdain'=>1],'id'=>'disdain_2'],
+    ['cost'=>['disdain'=>1],'id'=>'disdain_3'],
+    ['cost'=>['disdain'=>1],'id'=>'disdain_4'],
+    ['cost'=>['disdain'=>1],'id'=>'disdain_5'],
+    ['cost'=>['disdain'=>1],'id'=>'disdain_6'],
+    ['cost'=>['disdain'=>1],'id'=>'disdain_7'],
+    ['cost'=>['disdain'=>1],'id'=>'disdain_8'],
+    ['cost'=>['disdain'=>1],'id'=>'disdain_9'],
+    ['cost'=>['disdain'=>1],'id'=>'disdain_10'],
+    ['cost'=>['disdain'=>1],'id'=>'disdain_11'],
+    ['cost'=>['disdain'=>1],'id'=>'disdain_12'],
+    ['cost'=>['disdain'=>1],'id'=>'disdain_13'],
+    ['cost'=>['disdain'=>1],'id'=>'disdain_14'],
+    ['cost'=>['disdain'=>1],'id'=>'disdain_15'],
+    ],
+    'approve'=>[
+    ['cost'=>['approve'=>1],'id'=>'approve_1'],
+    ['cost'=>['approve'=>1],'id'=>'approve_2'],
+    ['cost'=>['approve'=>1],'id'=>'approve_3'],
+    ['cost'=>['approve'=>1],'id'=>'approve_4'],
+    ['cost'=>['approve'=>1],'id'=>'approve_5'],
+    ['cost'=>['approve'=>1],'id'=>'approve_6'],
+    ['cost'=>['approve'=>1],'id'=>'approve_7'],
+    ['cost'=>['approve'=>1],'id'=>'approve_8'],
+    ['cost'=>['approve'=>1],'id'=>'approve_9'],
+    ['cost'=>['approve'=>1],'id'=>'approve_10'],
+    ['cost'=>['approve'=>1],'id'=>'approve_11'],
+    ['cost'=>['approve'=>1],'id'=>'approve_12'],
+    ['cost'=>['approve'=>1],'id'=>'approve_13'],
+    ['cost'=>['approve'=>1],'id'=>'approve_14'],
+    ['cost'=>['approve'=>1],'id'=>'approve_15'],
+    ],    
 ];
 
 

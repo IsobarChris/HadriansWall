@@ -244,6 +244,8 @@ function (dojo, declare) {
 
                 case 'gainValourAndDisdain':
                     debug("args",args);
+                    let valid_moves = args.args;
+                    this.updateValidMoves(valid_moves);
                     dojo.addClass('attack','forcehidden');
                     dojo.empty('attack_left');
                     dojo.empty('attack_center');
@@ -370,8 +372,14 @@ function (dojo, declare) {
                 console.log(`Didn't find node for ${id}`);
                 return;
             }
-            dojo.removeClass(id,'outlined');
-            dojo.addClass(id,'scratch');
+
+            if(dojo.hasClass(id,'circled')){
+                dojo.removeClass(id,'circledashed');
+                dojo.addClass(id,'circleoutlined');
+            } else {
+                dojo.removeClass(id,'outlined');
+                dojo.addClass(id,'scratch');
+            }
         },
 
         drawScratches: function (zone, value) {
@@ -429,14 +437,13 @@ function (dojo, declare) {
         ///////////////////////////////////////////////////
         //// Player's action
         onBoxClicked: function( evt )
-        {
+        {   
             dojo.stopEvent(evt);
-            
+
             let section = evt.target.id.split("_").slice(0,-1).join("_");
             debug("Box clicked",section);
 
             if(section=="closed") {
-
                 return;
             }
 
@@ -444,6 +451,16 @@ function (dojo, declare) {
                 console.log("ajax call with ",section);
                 this.ajaxcall("/hadrianswall/hadrianswall/checkNextBox.html",{section},this,function(result){});
             }
+
+            if(section=="approve") { // allow passthrough to mark disdain
+                section = "disdain";
+                if(this.checkAction('checkNextBox')){
+                    console.log("ajax call with ",section);
+                    this.ajaxcall("/hadrianswall/hadrianswall/checkNextBox.html",{section},this,function(result){});
+                }
+            }
+
+
         },
 
         // action responses
@@ -676,8 +693,6 @@ function (dojo, declare) {
 
 let scratch_data = {
     left_cohort:[
-        {s:1,x:463,y:355,w:13,h:16,c:'roundNumber',value:2},
-        
         {s:1,x:128,y:24,w:16,h:17,c:'rect'},
         {s:1,x:148,y:24,w:16,h:17,c:'rect'},
         {s:1,x:168,y:24,w:16,h:17,c:'rect'},
@@ -1002,7 +1017,51 @@ let scratch_data = {
       gardens:[
         {s:2,x:424,y:317,w:66,h:16,c:'rect'},
         {s:2,x:624,y:317,w:100,h:16,c:'rect'}
+      ],
+      disdain:[
+        {s:1,x:202,y:677,w:10,h:10,c:'circled circledashed'},
+        {s:1,x:217,y:677,w:10,h:10,c:'circled circledashed'},
+        {s:1,x:233,y:677,w:10,h:10,c:'circled circledashed'},
+        {s:1,x:249,y:677,w:10,h:10,c:'circled circledashed'},
+        {s:1,x:265,y:677,w:10,h:10,c:'circled circledashed'},
+        {s:1,x:202,y:691,w:10,h:10,c:'circled circledashed'},
+        {s:1,x:217,y:691,w:10,h:10,c:'circled circledashed'},
+        {s:1,x:233,y:691,w:10,h:10,c:'circled circledashed'},
+        {s:1,x:249,y:691,w:10,h:10,c:'circled circledashed'},
+        {s:1,x:265,y:691,w:10,h:10,c:'circled circledashed'},
+        {s:1,x:202,y:706,w:10,h:10,c:'circled circledashed'},
+        {s:1,x:217,y:706,w:10,h:10,c:'circled circledashed'},
+        {s:1,x:233,y:706,w:10,h:10,c:'circled circledashed'},
+        {s:1,x:249,y:706,w:10,h:10,c:'circled circledashed'},
+        {s:1,x:265,y:706,w:10,h:10,c:'circled circledashed'}
+      ],
+      approve:[
+        {s:1,x:202,y:677,w:12,h:12,c:'circle'},
+        {s:1,x:217,y:677,w:12,h:12,c:'circle'},
+        {s:1,x:233,y:677,w:12,h:12,c:'circle'},
+        {s:1,x:249,y:677,w:12,h:12,c:'circle'},
+        {s:1,x:265,y:677,w:12,h:12,c:'circle'},
+        {s:1,x:202,y:691,w:10,h:10,c:'circle'},
+        {s:1,x:217,y:691,w:10,h:10,c:'circle'},
+        {s:1,x:233,y:691,w:10,h:10,c:'circle'},
+        {s:1,x:249,y:691,w:10,h:10,c:'circle'},
+        {s:1,x:265,y:691,w:10,h:10,c:'circle'},
+        {s:1,x:202,y:706,w:10,h:10,c:'circle'},
+        {s:1,x:217,y:706,w:10,h:10,c:'circle'},
+        {s:1,x:233,y:706,w:10,h:10,c:'circle'},
+        {s:1,x:249,y:706,w:10,h:10,c:'circle'},
+        {s:1,x:265,y:706,w:10,h:10,c:'circle'}
       ],      
+      
+
+
+
+
+
+
+
+
+
       closed:[
         {s:1,x:372,y:350,w:368,h:30,c:'closed'},
         {s:1,x:385,y:380,w:355,h:80,c:'closed'},
@@ -1013,7 +1072,8 @@ let scratch_data = {
           {s:2,x:190,y:455,w:550,h:120,c:'closed'},
           {s:2,x:190,y:580,w:550,h:160,c:'closed'}
 
-      ]
+      ],
+
 }
 
 
@@ -1022,6 +1082,7 @@ let scratch_data = {
 const PLUS = 'PLUS';
 const RESOURCE = 'RESOURCE';
 const PRODUCTION = 'PRODUCTION';
+const RESOURCE_PRODUCTION = 'PRODUCTION';
 const CIVILIAN = 'CIVILIAN';
 const CIVILIAN_PRODUCTION = 'CIVILIAN_PRODUCTION';
 const SERVANT = 'SERVANT';

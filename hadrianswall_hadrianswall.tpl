@@ -89,7 +89,7 @@
                 <div id="discipline_score_{COLOR}"  class="attribute_score"></div>
             </div>
             <div id="disdain_attribute" class="attribute_backing">
-                <div class="iconsheet icon_thumb_down miniicon"></div>
+                <div class="iconsheet icon_disdain miniicon"></div>
                 <div id="disdain_score_{COLOR}"  class="attribute_score"></div>
             </div>
 
