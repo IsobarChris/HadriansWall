@@ -126,6 +126,13 @@ class HadriansWall extends Table
         // $opsql = "SELECT player_id, renown, piety, valour, discipline, disdain FROM board WHERE `round`=$display_round";
         // $result['score_boards'] = self::getCollectionFromDb( $opsql );
 
+        $goals = $this->player_cards->getCardsInLocation($current_player_id."_goals",null,'location_arg');
+        $goal_cards = [];
+        foreach($goals as $id => $card ) {
+            $goal_cards[] = $card['type'];
+        }
+        $result['goals'] = $goal_cards;
+
         $current_round = $this->getGameStateValue(self::GAME_ROUND);
         $result['round'] = $current_round;
         $difficulty = $this->getGameStateValue(self::GAME_DIFFICULTY);
@@ -384,7 +391,7 @@ class HadriansWall extends Table
         $civilians = $this->fate_card_data[$card]['civilians'];
         $bricks    = $this->fate_card_data[$card]['bricks'];
 
-        $this->setResources([
+        $this->adjResources([
             'soldiers'=>$soldiers,
             'builders'=>$builders,
             'servants'=>$servants,
@@ -565,7 +572,7 @@ class HadriansWall extends Table
 
         //self::debug("acceptAttackResults");
 
-        
+
         // TODO: don't allow a player to move past this stage until all valour and disdain has been used
 
 
@@ -993,9 +1000,14 @@ class HadriansWall extends Table
         //      ////   ////     //// 
     ////////////////////////////////////  
     function stCheckGameEnd() {
-        //self::debug( "----> stCheckGameEnd" ); 
+        self::debug( "----> stCheckGameEnd" ); 
 
-        $this->gamestate->nextState('nextRound');
+        $round = $this->getGameStateValue(self::GAME_ROUND);
+        if($round>=6) {
+            $this->gamestate->nextState('gameEnd');
+        } else {
+            $this->gamestate->nextState('nextRound');
+        }
     }
 
 

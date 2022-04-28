@@ -1,7 +1,7 @@
 TODO Next
-
-- Draw attack cards
-- Apply disdain and valour
+X Resources should be cleared at end of turn (before attack) so workers gained from valour carry over
+- Should not be able to end the gain valour and disdain step until they are fully spent
+- Should be able to select builder/soldier for FORT 
 - Calculate realtime score
 
 

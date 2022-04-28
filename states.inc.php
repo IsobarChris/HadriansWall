@@ -207,7 +207,7 @@
         "type" => "game",
         "action" => "stCheckGameEnd",
         "transitions" => [
-            "end" => 99,
+            "gameEnd" => 99,
             "nextRound" => 10
         ]
     ],

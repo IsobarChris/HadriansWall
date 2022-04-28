@@ -102,6 +102,7 @@ function (dojo, declare) {
             });
 
             this.updateResources(gamedatas.resources);
+            this.updateGoals(gamedatas.goals);
 
         },
 
@@ -669,9 +670,7 @@ function (dojo, declare) {
 
         },
 
-        notif_goalsUpdated: function(notif) {
-            debug('notif_goalsUpdated',notif);
-            let goals = notif.args.goals;
+        updateGoals: function(goals) {
             debug('goals',goals);
 
             let player_id = this.player_id;
@@ -686,6 +685,12 @@ function (dojo, declare) {
                 node.removeClass(`player_back_${player_color} card_top_only`);
                 node.addClass(`${goal_card} card_top_only`); 
             }
+        },
+
+        notif_goalsUpdated: function(notif) {
+            debug('notif_goalsUpdated',notif);
+            let goals = notif.args.goals;
+            this.updateGoals(goals);
         }
    });             
 });
