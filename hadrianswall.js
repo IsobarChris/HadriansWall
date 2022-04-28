@@ -336,8 +336,8 @@ function (dojo, declare) {
                     break;
 
                     case 'useResources':
-                        this.addActionButton( 'undo', _('Undo'), 'actTurnUndo' );
-                        this.addActionButton( 'reset', _('Reset Turn'), 'actTurnReset' );
+                        //this.addActionButton( 'undo', _('Undo'), 'actTurnUndo' );
+                        //this.addActionButton( 'reset', _('Reset Turn'), 'actTurnReset' );
                         this.addActionButton( 'done', _('End Turn'), 'actTurnDone' );
                     break;
 
@@ -412,7 +412,7 @@ function (dojo, declare) {
         updateResources: function(resources) {
             [`civilians`,`servants`,`soldiers`,`builders`,`bricks`].forEach(resource=>{
                 if(resources[resource]) {
-                    this[`${resource}_resource`].setValue( resources[resource] );
+                    this[`${resource}_resource`].setValue( Math.abs(resources[resource]) );
                 }
             });
 

@@ -418,13 +418,12 @@ class HadriansWall extends Table
         $this->checkAction('acceptProducedResources');
         $current_player_id = self::getCurrentPlayerId();
 
-        $resources = $this->adjResources(['bricks'=>1]);
+        $produced = $this->argProducedResources();        
+        $this->adjResources($produced);
         
         $this->notifyPlayer( $current_player_id, "resourcesUpdated", "", [
             'resources'=>$this->getResources(),
-            'change'=>[
-                    'bricks'=>1
-                ]         
+            'change'=>$produced
         ]);
 
         $hasGeneratedResources = false;
@@ -548,6 +547,7 @@ class HadriansWall extends Table
         }
         $rewards = implode(",",$rewards);
 
+        //$this->clearResources();
         $this->addSpecial($rewards);
 
         $this->notifyPlayer( $current_player_id, "resourcesUpdated", "", [
@@ -600,8 +600,12 @@ class HadriansWall extends Table
         //      ////   ////     //// 
     ////////////////////////////////////  
     function restartRound() {
+        self::debug("restart round");
+
         $this->checkAction('restartRound');
         $current_player_id = self::getCurrentPlayerId();
+
+
 
         //self::debug("TODO: restart round");
 

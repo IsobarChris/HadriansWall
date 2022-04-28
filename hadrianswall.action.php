@@ -89,6 +89,8 @@ class action_hadrianswall extends APP_GameAction
     public function restartRound() {
         self::setAjaxMode();
 
+        $this->game->restartRound();
+
         self::ajaxResponse();
     }
     public function endTurn() {
