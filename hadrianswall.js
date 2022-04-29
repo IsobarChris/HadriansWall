@@ -101,8 +101,16 @@ function (dojo, declare) {
                 this[`${resource}_resource`] = counter;
             });
 
+            let score_column = ['renown','piety','valour','discipline','path','disdain','total'];
+            score_column.forEach((row)=>{
+                let dom_id = `score_${row}`;
+                this[dom_id] = new ebg.counter();
+                this[dom_id].create(dom_id);
+            })
+
             this.updateResources(gamedatas.resources);
             this.updateGoals(gamedatas.goals);
+            this.updateScoreColumn(gamedatas.score_column);
 
         },
 
@@ -435,6 +443,22 @@ function (dojo, declare) {
             }
         },
 
+        updateScoreColumn: function(score_column) {
+            debug("score_column",score_column);
+            let score_column_keys = ['renown','piety','valour','discipline','path','disdain','total'];
+            score_column_keys.forEach((row)=>{
+                let dom_id = `score_${row}`;
+                this[dom_id].setValue(Math.abs(parseInt(score_column[row])));
+            })
+
+            try { // because sometimes scoreCtrl isn't ready when updateScoreColumn is called
+                let current_player_id = this.player_id;
+                let score_display = this.scoreCtrl[current_player_id];
+                let score = parseInt(score_column['total']);
+                score_display.toValue(score);
+            } catch(e) {}
+        },
+
         ///////////////////////////////////////////////////
         //// Player's action
         onBoxClicked: function( evt )
@@ -648,10 +672,12 @@ function (dojo, declare) {
             let board = notif.args.board;
             let valid_moves = notif.args.valid_moves;
             let resources = notif.args.resources;
+            let score_column = notif.args.score_column;
 
             this.updateValidMoves(valid_moves);
             this.drawAllScratches(board);
             this.updateResources(resources);
+            this.updateScoreColumn(score_column);
         },
 
         notif_resourcesUpdated: function(notif) {
@@ -1058,25 +1084,24 @@ let scratch_data = {
         {s:1,x:265,y:706,w:10,h:10,c:'circle'}
       ],      
       
-
-
-
-
-
+      temple:[
+        {s:2,x:416,y:352,w:16,h:16,c:'rect'},
+        {s:2,x:558,y:352,w:16,h:16,c:'rect'},
+        {s:2,x:708,y:352,w:16,h:16,c:'rect'}
+      ],
 
 
 
 
       closed:[
-        {s:1,x:372,y:350,w:368,h:30,c:'closed'},
-        {s:1,x:385,y:380,w:355,h:80,c:'closed'},
+        {s:1,x:372,y:350,w:368,h:30,c:'closed'},  // Training
+        {s:1,x:385,y:380,w:355,h:80,c:'closed'},  // Roads & Forum
 
-          {s:2,x:360,y: 10,w:380,h:125,c:'closed'},
-          {s:2,x:190,y:145,w:550,h:160,c:'closed'},
-          {s:2,x:190,y:345,w:550,h:105,c:'closed'},
-          {s:2,x:190,y:455,w:550,h:120,c:'closed'},
-          {s:2,x:190,y:580,w:550,h:160,c:'closed'}
-
+        {s:2,x:360,y: 10,w:380,h:125,c:'closed'}, // market
+        {s:2,x:190,y:145,w:550,h:160,c:'closed'}, // theatre & gladiators
+        {s:2,x:190,y:372,w:550,h: 75,c:'closed'}, // temples
+        {s:2,x:190,y:455,w:550,h:120,c:'closed'}, // baths & courthouse
+        {s:2,x:190,y:580,w:550,h:160,c:'closed'}  // diplomats & scouts
       ],
 
 }

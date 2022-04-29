@@ -119,8 +119,14 @@ class HadriansWall extends Table
         $board_sql = "SELECT * FROM board WHERE player_id = $current_player_id";
         $result['board'] = self::getCollectionFromDb( $board_sql );
 
-        $score_sql = "SELECT renown, piety, valour, discipline, disdain, player_id id FROM board";
+
+        $this->scorePathCards(null,$result['board'][$current_player_id]); // DEBUG
+
+
+        $score_sql = "SELECT renown, piety, valour, discipline, disdain, approve, player_id id FROM board";
         $result['scores'] = self::getCollectionFromDb( $score_sql );
+
+        $result['score_column'] = $this->getScoreColumn();
 
         // $display_round = max([0,$current_round-1]);
         // $opsql = "SELECT player_id, renown, piety, valour, discipline, disdain FROM board WHERE `round`=$display_round";
@@ -166,6 +172,35 @@ class HadriansWall extends Table
     //    Database Wrappers
     ////
     ////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    function updateScore() {
+        $current_player_id = self::getCurrentPlayerId();
+        $score_column = $this->getScoreColumn();
+        $score = $score_column['total'];
+        
+        self::DbQuery("UPDATE player SET player_score=$score WHERE player_id=$current_player_id");
+
+        return $score_column;
+    }
+
+    function getScoreColumn() {
+        $current_player_id = self::getCurrentPlayerId();
+        $score_sql = "SELECT renown, piety, valour, discipline, disdain, approve, player_id id FROM board WHERE player_id=$current_player_id";
+        $attr = self::getObjectFromDb( $score_sql );
+        $attr_score = $attr['renown']+$attr['piety']+$attr['valour']+$attr['discipline'];
+        $path_score = $this->scorePathCards();
+        $disdain_score = -([0,1,3,4,7,9,12,15,18,22][$attr['disdain']-$attr['approve']]);
+
+        return [
+            'renown'=>$attr['renown'],
+            'piety'=>$attr['piety'],
+            'valour'=>$attr['valour'],
+            'discipline'=>$attr['discipline'],
+            'path'=>$path_score,
+            'disdain'=>$disdain_score,
+            'total'=>($attr_score+$path_score+$disdain_score)
+        ];
+    }
 
     // Board
 
@@ -282,6 +317,166 @@ class HadriansWall extends Table
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////
     ////
+    //    Path Cards
+    ////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    function scoreArchitect($board=null) {
+        // Constructed Landmarks: 1,2,3
+        $score = 0;
+        if($board['archway']>0) $score++;
+        if($board['monolith']>0) $score++;
+        if($board['column']>0) $score++;
+        if($board['statue']>0) $score++;   
+        $score = min($score,3);
+        return $score;
+    }
+
+    function scoreAristocrat($board=null) {
+        // Final Disdain: 4,2,0
+        $score = 0;
+        $disdain = $board['disdain']-$board['approve'];
+        if($disdain==0) $score++;
+        if($disdain<=2) $score++;
+        if($disdain<=4) $score++;
+        return $score;
+    }
+
+    function scoreDefender($board=null) {
+        // Completed Wall Sections: 1,2,3
+        $score = 0;
+        if($board['wall']>=7) $score++;
+        if($board['wall']>=14) $score++;
+        if($board['wall']>=21) $score++;
+        return $score;
+    }
+
+    function scoreEngineer($board=null) {
+        // Large Buildings: 2,4,6
+        $count = 0;
+        if($board['granary']>=2) $count++;
+        if($board['hotel']>=3) $count++;
+        if($board['workshop']>=3) $count++;
+        if($board['road']>=3) $count++;
+        if($board['precinct']>=3) $count++;
+        if($board['gardens']>=2) $count++;
+        if($board['temple']>=3) $count++;
+
+        $score=0;
+        if($count>=6) $score++;
+        if($count>=4) $score++;
+        if($count>=2) $score++;
+        return $score;
+    }
+
+    function scoreFighter($board=null) {
+        // Completed Cohorts: 1,2,3
+        $score = 0;
+        if($board['left_cohort']>=6) $score++;
+        if($board['center_cohort']>=6) $score++;
+        if($board['right_cohort']>=6) $score++;
+        return $score;
+    }
+
+    function scoreForager($board=null) {
+        // Resource Production: 3,6,9
+        $score = 0;
+        if($board['production']>=2) $score++;
+        if($board['production']>=5) $score++;
+        if($board['production']>=8) $score++;
+        return $score;
+    }
+
+    function scoreMerchant($board=null) {
+        // Collected Goods: 4,6,8
+        $score = 0;
+        // TODO
+        return $score;
+    }
+
+    function scorePlanner($board=null) {
+        // Completed Citizen Tracks: 2,4,5
+        $count = 0;
+        if($board['traders']>=9) $count++;
+        if($board['performers']>=9) $count++;
+        if($board['priests']>=9) $count++;
+        if($board['apparitores']>=9) $count++;
+        if($board['patricians']>=9) $count++;
+
+        $score=0;
+        if($count>=5) $score++;
+        if($count>=4) $score++;
+        if($count>=2) $score++;
+        return $score;
+    }
+
+    function scorePontiff($board=null) {
+        // Filled Temples: 1,2,3
+        $score = 0;
+        // TODO
+        return $score;
+    }
+
+    function scoreRanger($board=null) {
+        // Completed Scout Columns: 1,3,5
+        $score = 0;
+        // TODO
+        return $score;
+    }
+
+    function scoreTrainer($board=null) {
+        // Total Gladiator Strength: 4,8,12
+        $score = 0;
+        // TODO
+        return $score;
+    }
+
+    function scoreVanguard($board=null) {
+        // Completed Wall Guard Sections
+        $score = 0;
+        if($board['wall_guard']>=6) $score++;
+        if($board['wall_guard']>=12) $score++;
+        if($board['wall_guard']>=18) $score++;
+        return $score;
+    }
+
+    function scorePathCards($goals=null,$board=null) {
+        $score = 0;
+
+        if($goals==null) {
+            // TODO - pull from goals table for current user
+            $goals=[
+                'Architect','Aristocrat','Defender','Engineer','Fighter','Forager',
+                'Merchant','Planner','Pontiff','Ranger','Trainer','Vanguard'];
+        }
+        if($board==null) {
+            $board=$this->getBoard();
+        }
+
+        foreach($goals as $goal) {
+            switch($goal) {
+                case 'Architect': $score+=$this->scoreArchitect($board); break;
+                case 'Aristocrat': $score+=$this->scoreAristocrat($board); break;
+                case 'Defender': $score+=$this->scoreDefender($board); break;
+                case 'Engineer': $score+=$this->scoreEngineer($board); break;
+                case 'Fighter': $score+=$this->scoreFighter($board); break;
+                case 'Forager': $score+=$this->scoreForager($board); break;
+                case 'Merchant': $score+=$this->scoreMerchant($board); break;
+                case 'Planner': $score+=$this->scorePlanner($board); break;
+                case 'Pontiff': $score+=$this->scorePontiff($board); break;
+                case 'Ranger': $score+=$this->scoreRanger($board); break;
+                case 'Trainer': $score+=$this->scoreTrainer($board); break;
+                case 'Vanguard': $score+=$this->scoreVanguard($board); break;
+            }
+        }
+
+        self::debug("Path Cards Score: [".$score."]");
+        return $score;
+    }
+
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////
     //    Gameplay Functions
     ////
     ////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -306,6 +501,8 @@ class HadriansWall extends Table
         if($boxData['valid']) {
             $board_sql = "UPDATE board SET $section = $section + 1 WHERE player_id=$current_player_id";
             self::DbQuery( $board_sql );
+
+            $score_column = $this->updateScore();
     
             $board = $this->getBoard();
             if($resources==null) {
@@ -357,6 +554,7 @@ class HadriansWall extends Table
                     "board"=>$board,
                     "valid_moves"=>$this->getValidMoves(),
                     "resources"=>$this->getResources(),
+                    "score_column"=>$score_column,
                     "boxData"=>$boxData
                 ]);    
             }        

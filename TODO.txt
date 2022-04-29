@@ -1,8 +1,7 @@
 TODO Next
 X Resources should be cleared at end of turn (before attack) so workers gained from valour carry over
-- Should not be able to end the gain valour and disdain step until they are fully spent
-- Should be able to select builder/soldier for FORT 
 - Calculate realtime score
+- Should be able to select builder/soldier for FORT 
 
 
 Next
@@ -19,6 +18,8 @@ Side Panel
 
 Turn Order
 - If a player is given a resource and their turn was marked complete, unmark it
+- Should not be able to end the gain valour and disdain step until they are fully spent
+
 
 End of round
 - Draw attack cards

@@ -618,6 +618,32 @@ dojo.hasClass
     transition: border 1.0s linear, box-shadow 1.0s linear;
 }
 
+/* Sheet 1 Score */
+#score_column     {position: absolute;}
+#score_renown     {position: absolute; left: 600px; top: 530px;}
+#score_piety      {position: absolute; left: 600px; top: 560px;}
+#score_valour     {position: absolute; left: 600px; top: 587px;}
+#score_discipline {position: absolute; left: 600px; top: 615px;}
+
+#score_path       {position: absolute; left: 600px; top: 645px;}
+#score_disdain    {position: absolute; left: 600px; top: 674px;}
+#score_total      {position: absolute; left: 600px; top: 704px;}
+
+.score_value {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 33px;
+    height: 18px;
+    font-weight: bold;
+    font-size: 12px;
+    background-color: #4444;
+    color: black;
+}
+
+.score_bad {
+    color: red;
+}
 
 /* Sheet 2 Trade */
 #trade_options {

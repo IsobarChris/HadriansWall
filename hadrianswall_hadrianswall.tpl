@@ -26,7 +26,17 @@
 -->
 
 <div>
-    <div id="sheet1"></div>
+    <div id="sheet1">
+        <div id="score_column">
+            <div id="score_renown"     class="score_value">13</div>
+            <div id="score_piety"      class="score_value">23</div>
+            <div id="score_valour"     class="score_value">33</div>
+            <div id="score_discipline" class="score_value">43</div>
+            <div id="score_path"       class="score_value">53</div>
+            <div id="score_disdain"    class="score_value score_bad">63</div>
+            <div id="score_total"      class="score_value">73</div>
+        </div>
+    </div>
     <div id="sheet2">
         <div id="trade_options" class="forcehidden">
             <div id="trade_left" class="iconsheet icon_trade_good">#</div>

@@ -1232,6 +1232,11 @@ $this->section_data = [
     ['cost'=>['approve'=>1],'id'=>'approve_14'],
     ['cost'=>['approve'=>1],'id'=>'approve_15'],
     ],    
+    'temple'=>[
+    ['cost'=>['servants'=>1,'builders'=>1,'bricks'=>1],'reward'=>['piety'],'id'=>'temple_1'],
+    ['cost'=>['servants'=>1,'builders'=>1,'bricks'=>2],'reward'=>['piety'],'id'=>'temple_2'],
+    ['cost'=>['servants'=>2,'builders'=>1,'bricks'=>2],'reward'=>['piety'],'id'=>'temple_3'],
+    ],    
 ];
 
 
