@@ -49,7 +49,7 @@ function (dojo, declare) {
 
             // add div for each location on the player sheets
             this.addScratchLocations();
-            dojo.query('.clickable').connect('onclick',this,'onBoxClicked');
+            //dojo.query('.clickable').connect('onclick',this,'onBoxClicked');
 
             log('info',`Round ${gamedatas.round}`)
             log('info',`Difficulty ${gamedatas.difficulty}`)
@@ -413,7 +413,18 @@ function (dojo, declare) {
             debug("valid_moves",valid_moves);
             dojo.query('.clickable').removeClass('valid');
             valid_moves.forEach((box)=>{
-                dojo.query(`#${box}`).addClass('valid');
+                let id = box.id;
+                let cost_choice = box.cost_choice;
+                let reward_choice = box.reward_choice;
+                dojo.query(`#${id}`).addClass('valid');
+
+                // TODO: only provide the choice when the player has both options
+
+                if(box.spend_choice) {
+                    dojo.query(`#${id}`).connect('onclick',this,'onChoiceBoxClicked');
+                } else {
+                    dojo.query(`#${id}`).connect('onclick',this,'onBoxClicked');
+                }
             });
         },
 
@@ -468,8 +479,52 @@ function (dojo, declare) {
 
         ///////////////////////////////////////////////////
         //// Player's action
-        onBoxClicked: function( evt )
-        {   
+        onChoiceMade: function ( evt ) {
+            dojo.stopEvent(evt);
+            debug("Choice Made Event",evt);
+
+            let id = evt.target.id;
+            let parts = id.split("__");
+            debug("parts",parts);
+            section = parts[0];
+            spend = parts[1];
+
+            dojo.query("#sheet1_selector").addClass("forcehidden");
+            dojo.query("#sheet2_selector").addClass("forcehidden");
+
+            if(this.checkAction('checkNextBox')){
+                console.log("ajax call with ",section);
+                this.ajaxcall("/hadrianswall/hadrianswall/checkNextBox.html",{section,spend},this,function(result){});
+            }
+        },
+
+        // TODO: For reward, have that come back with options for the user to select
+
+        onChoiceBoxClicked: function ( evt ) {
+            dojo.stopEvent(evt);
+
+            let section = evt.target.id.split("_").slice(0,-1).join("_");
+            debug("Choice Box clicked",section);
+            debug("evt",evt);
+            debug("loc",[evt.target.offsetLeft,evt.target.offsetTop]);
+
+
+            //TODO: Make this dyanmic
+
+            dojo.query("#sheet1_selector").empty();
+            dojo.query("#sheet1_selector").removeClass("forcehidden");
+            dojo.query("#sheet1_selector").style({left:`${evt.target.offsetLeft}px`,top:`${evt.target.offsetTop}px`});
+            let n = dojo.place(`<div id=${section}__builders class="iconsheet icon_builders"></div>`,"sheet1_selector");
+            dojo.query(n).connect('onclick',this,'onChoiceMade');
+
+            dojo.place(`<span style="color: white; font-size: 20px">or</span>`,"sheet1_selector");
+            n = dojo.place(`<div id=${section}__soldiers class="iconsheet icon_soldiers"></div>`,"sheet1_selector");
+            dojo.query(n).connect('onclick',this,'onChoiceMade');
+
+            //this.onBoxClicked(evt);
+        },
+
+        onBoxClicked: function( evt ){   
             dojo.stopEvent(evt);
 
             let section = evt.target.id.split("_").slice(0,-1).join("_");

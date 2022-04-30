@@ -39,6 +39,7 @@
 
             <div id="disdain_circle"   class="disdain_circle_0"></div>
         </div>
+        <div id="sheet1_selector" class="forcehidden"></div>
     </div>
     <div id="sheet2">
         <div id="trade_options" class="forcehidden">
@@ -51,6 +52,7 @@
             <div id="scout_fate" class="iconsheet icon_scout"></div>
             <div id="scout_right" class="iconsheet icon_scout"></div>
         </div>
+        <div id="sheet1_selector" class="forcehidden"></div>
     </div>
 
     <div id="hand" class="forcehidden">

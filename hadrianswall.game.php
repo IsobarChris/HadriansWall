@@ -537,6 +537,10 @@ class HadriansWall extends Table
                         break;
                     }
                 }
+            } else {
+                // TODO: validate the spend cost is valid
+
+                $this->adjResources([$spend=>-1]);
             }
 
             if(array_key_exists('reward',$boxData)) {
@@ -1030,6 +1034,16 @@ class HadriansWall extends Table
         return $results;
     }
 
+    function isBasicResource($resource) {
+        $r = explode(",",$resource)[0];
+        if($r=='soldiers') return true;
+        if($r=='builders') return true;
+        if($r=='servants') return true;
+        if($r=='civilians') return true;
+        if($r=='bricks') return true;
+        return false;
+    }
+
     function getValidMoves() {
         //self::debug( "----> getValidMoves" ); 
         $valid_moves = [];
@@ -1042,13 +1056,29 @@ class HadriansWall extends Table
             // self::debug("CHECKING $id ".$board[$id]."         [");
             $index = $board[$id];
             if($this->isBoxValid($id,$index,$resources,$board)['valid']) {
-                $valid_moves[]=$data[$index]['id'];
+                $d=$data[$index];
+
+                $valid_move=[];
+                $valid_move['id']=$d['id'];
+
+                // if alt_cost is a basic resource
+                if(array_key_exists('altCost',$d) && $this->isBasicResource(array_key_first($d['altCost']))) {
+                    if($this->isBasicResource(array_key_first($d['cost']))) {
+                        $valid_move['spend_choice']=[array_key_first($d['cost']),array_key_first($d['altCost'])];
+                    }
+                }
+                // if the cost is 'worker'
+
+                $valid_moves[]=$valid_move;
+
                 // self::debug("++++++++ Added valid move for ".$data[$index]['id']."         [");
                 // if(array_key_exists('reward',$data[$index])) {
                 //     self::debug("-- -- --rewards = ".implode(",",$data[$index]['reward'])."         [");
                 // }
                 if(array_key_exists('reward',$data[$index]) && $data[$index]['reward'][0]=='continue') {
-                    $valid_moves[]=$data[$index+1]['id'];
+                    $valid_move=[];
+                    $valid_move['id']=$data[$index+1]['id'];
+                    $valid_moves[]=$valid_move;
                     // self::debug(">>>>continuing          [");
                 }
             }

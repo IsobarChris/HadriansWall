@@ -468,14 +468,19 @@ dojo.hasClass
 
 /* Icon sprites */
 
-.icon_round    { background-position: -0px   -0px; }
-.icon_flag     { background-position: -35px  -0px; }
-.icon_soldier  { background-position: -70px  -0px; }
-.icon_servant  { background-position: -105px -0px; }
-.icon_builder  { background-position: -140px -0px; }
-.icon_civilian { background-position: -175px -0px; }
-.icon_brick    { background-position: -210px -0px; }
-.icon_renown   { background-position: -245px -0px; }
+.icon_round     { background-position: -0px   -0px; }
+.icon_flag      { background-position: -35px  -0px; }
+.icon_soldier   { background-position: -70px  -0px; }
+.icon_soldiers  { background-position: -70px  -0px; }
+.icon_servant   { background-position: -105px -0px; }
+.icon_servants  { background-position: -105px -0px; }
+.icon_builder   { background-position: -140px -0px; }
+.icon_builders  { background-position: -140px -0px; }
+.icon_civilian  { background-position: -175px -0px; }
+.icon_civilians { background-position: -175px -0px; }
+.icon_brick     { background-position: -210px -0px; }
+.icon_bricks    { background-position: -210px -0px; }
+.icon_renown    { background-position: -245px -0px; }
 
 .icon_banner_gray   { background-position: -0px   -35px; }
 .icon_banner_green  { background-position: -35px  -35px; }
@@ -615,6 +620,18 @@ dojo.hasClass
     border: 1px solid transparent;
     animation: glow 1.0s infinite alternate;  
     transition: border 1.0s linear, box-shadow 1.0s linear;
+}
+
+/* choices */
+#sheet1_selector {
+    position: absolute;
+    background-color: #999e;
+    border: 1px solid white;
+    border-radius: 3px;
+    padding: 4px;
+    margin-left: -8%;
+    margin-top: -8%;
+    z-index: 5;
 }
 
 /* Sheet 1 Score */
