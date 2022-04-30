@@ -49,7 +49,8 @@ function (dojo, declare) {
 
             // add div for each location on the player sheets
             this.addScratchLocations();
-            //dojo.query('.clickable').connect('onclick',this,'onBoxClicked');
+
+            dojo.query('.clickable').connect('onclick',this,'onBoxClicked');
 
             log('info',`Round ${gamedatas.round}`)
             log('info',`Difficulty ${gamedatas.difficulty}`)
@@ -414,17 +415,7 @@ function (dojo, declare) {
             dojo.query('.clickable').removeClass('valid');
             valid_moves.forEach((box)=>{
                 let id = box.id;
-                let cost_choice = box.cost_choice;
-                let reward_choice = box.reward_choice;
                 dojo.query(`#${id}`).addClass('valid');
-
-                // TODO: only provide the choice when the player has both options
-
-                if(box.spend_choice) {
-                    dojo.query(`#${id}`).connect('onclick',this,'onChoiceBoxClicked');
-                } else {
-                    dojo.query(`#${id}`).connect('onclick',this,'onBoxClicked');
-                }
             });
         },
 
@@ -493,7 +484,7 @@ function (dojo, declare) {
             dojo.query("#sheet2_selector").addClass("forcehidden");
 
             if(this.checkAction('checkNextBox')){
-                console.log("ajax call with ",section);
+                console.log(`ajax for ${section} spending ${spend}`);
                 this.ajaxcall("/hadrianswall/hadrianswall/checkNextBox.html",{section,spend},this,function(result){});
             }
         },
@@ -502,23 +493,26 @@ function (dojo, declare) {
 
         onChoiceBoxClicked: function ( evt ) {
             dojo.stopEvent(evt);
-
+            
             let section = evt.target.id.split("_").slice(0,-1).join("_");
+            let boxData = this.boxData(evt.target.id);
             debug("Choice Box clicked",section);
             debug("evt",evt);
             debug("loc",[evt.target.offsetLeft,evt.target.offsetTop]);
 
 
             //TODO: Make this dyanmic
+            let choice1 = 'builders';
+            let choice2 = 'soldiers';
 
-            dojo.query("#sheet1_selector").empty();
-            dojo.query("#sheet1_selector").removeClass("forcehidden");
-            dojo.query("#sheet1_selector").style({left:`${evt.target.offsetLeft}px`,top:`${evt.target.offsetTop}px`});
-            let n = dojo.place(`<div id=${section}__builders class="iconsheet icon_builders"></div>`,"sheet1_selector");
+            dojo.query(`#sheet${boxData.s}_selector`).empty();
+            dojo.query(`#sheet${boxData.s}_selector`).removeClass("forcehidden");
+            dojo.query(`#sheet${boxData.s}_selector`).style({left:`${evt.target.offsetLeft}px`,top:`${evt.target.offsetTop}px`});
+            let n = dojo.place(`<div id=${section}__${choice1} class="iconsheet icon_${choice1}"></div>`,`sheet${boxData.s}_selector`);
             dojo.query(n).connect('onclick',this,'onChoiceMade');
 
-            dojo.place(`<span style="color: white; font-size: 20px">or</span>`,"sheet1_selector");
-            n = dojo.place(`<div id=${section}__soldiers class="iconsheet icon_soldiers"></div>`,"sheet1_selector");
+            dojo.place(`<span style="color: white; font-size: 20px">or</span>`,`sheet${boxData.s}_selector`);
+            n = dojo.place(`<div id=${section}__${choice2} class="iconsheet icon_${choice2}"></div>`,`sheet${boxData.s}_selector`);
             dojo.query(n).connect('onclick',this,'onChoiceMade');
 
             //this.onBoxClicked(evt);
@@ -528,25 +522,50 @@ function (dojo, declare) {
             dojo.stopEvent(evt);
 
             let section = evt.target.id.split("_").slice(0,-1).join("_");
+            let boxData = this.boxData(evt.target.id);
             debug("Box clicked",section);
+            debug("Box Data",boxData);
+
+            let choice1 = 'builders';
+            let choice2 = 'soldiers';
 
             if(section=="closed") {
                 return;
             }
 
-            if(this.checkAction('checkNextBox')){
-                console.log("ajax call with ",section);
-                this.ajaxcall("/hadrianswall/hadrianswall/checkNextBox.html",{section},this,function(result){});
+            // TODO - store the optiosn in spendChoice
+            
+            let presentChoice = false;
+            if(boxData.spendChoice) {
+                presentChoice = true;
+                
+                // Make sure we can select the box at all
+                if(!dojo.hasClass(`${evt.target.id}`,'valid')) {
+                    presentChoice = false;
+                }
+
+                // Make sure we have a resource of each type
+                if(this[`${choice1}_resource`].getValue()==0 || this[`${choice2}_resource`].getValue()==0) {
+                    presentChoice = false;
+                }
             }
 
-            if(section=="approve") { // allow passthrough to mark disdain
-                section = "disdain";
+            if(presentChoice) {
+                this.onChoiceBoxClicked(evt);
+            } else {
                 if(this.checkAction('checkNextBox')){
                     console.log("ajax call with ",section);
                     this.ajaxcall("/hadrianswall/hadrianswall/checkNextBox.html",{section},this,function(result){});
                 }
+    
+                if(section=="approve") { // allow passthrough to mark disdain
+                    section = "disdain";
+                    if(this.checkAction('checkNextBox')){
+                        console.log("ajax call with ",section);
+                        this.ajaxcall("/hadrianswall/hadrianswall/checkNextBox.html",{section},this,function(result){});
+                    }
+                }
             }
-
 
         },
 
@@ -779,9 +798,18 @@ function (dojo, declare) {
             debug('notif_goalsUpdated',notif);
             let goals = notif.args.goals;
             this.updateGoals(goals);
+        },
+
+        boxData: function(id) {
+            const lastIndex = id.lastIndexOf('_');
+            const section = id.slice(0, lastIndex);
+            const index = parseInt(id.slice(lastIndex + 1))-1;
+            debug(`box data lookup for ${section} ${index}`);
+            return scratch_data[section][index];
         }
    });             
 });
+
 
 
 let scratch_data = {
@@ -878,27 +906,27 @@ let scratch_data = {
         {s:1,x:700,y:219,w:16,h:17,c:'rect'}
       ],
       fort:[
-        {s:1,x:75,y:266,w:36,h:18,c:'rect'},
-        {s:1,x:114,y:266,w:16,h:18,c:'rect'},
-        {s:1,x:133,y:266,w:16,h:18,c:'rect'},
-        {s:1,x:152,y:266,w:56,h:18,c:'rect'},
-        {s:1,x:210,y:266,w:16,h:18,c:'rect'},
-        {s:1,x:230,y:266,w:16,h:18,c:'rect'},
-        {s:1,x:250,y:266,w:36,h:18,c:'rect'},
-        {s:1,x:295,y:266,w:16,h:18,c:'rect'},
-        {s:1,x:314,y:266,w:16,h:18,c:'rect'},
-        {s:1,x:334,y:266,w:36,h:18,c:'rect'},
-        {s:1,x:372,y:266,w:36,h:18,c:'rect'},
-        {s:1,x:411,y:266,w:16,h:18,c:'rect'},
-        {s:1,x:430,y:266,w:36,h:18,c:'rect'},
-        {s:1,x:469,y:266,w:36,h:18,c:'rect'},
-        {s:1,x:515,y:266,w:16,h:18,c:'rect'},
-        {s:1,x:535,y:266,w:36,h:18,c:'rect'},
-        {s:1,x:573,y:266,w:16,h:18,c:'rect'},
-        {s:1,x:593,y:266,w:36,h:18,c:'rect'},
-        {s:1,x:631,y:266,w:16,h:18,c:'rect'},
-        {s:1,x:651,y:266,w:36,h:18,c:'rect'},
-        {s:1,x:689,y:266,w:36,h:18,c:'rect'}
+        {s:1,x: 75,y:266,w:36,h:18,c:'rect',spendChoice:true},
+        {s:1,x:114,y:266,w:16,h:18,c:'rect',spendChoice:true},
+        {s:1,x:133,y:266,w:16,h:18,c:'rect',spendChoice:true},
+        {s:1,x:152,y:266,w:56,h:18,c:'rect',spendChoice:true},
+        {s:1,x:210,y:266,w:16,h:18,c:'rect',spendChoice:true},
+        {s:1,x:230,y:266,w:16,h:18,c:'rect',spendChoice:true},
+        {s:1,x:250,y:266,w:36,h:18,c:'rect',spendChoice:true},
+        {s:1,x:295,y:266,w:16,h:18,c:'rect',spendChoice:true},
+        {s:1,x:314,y:266,w:16,h:18,c:'rect',spendChoice:true},
+        {s:1,x:334,y:266,w:36,h:18,c:'rect',spendChoice:true},
+        {s:1,x:372,y:266,w:36,h:18,c:'rect',spendChoice:true},
+        {s:1,x:411,y:266,w:16,h:18,c:'rect',spendChoice:true},
+        {s:1,x:430,y:266,w:36,h:18,c:'rect',spendChoice:true},
+        {s:1,x:469,y:266,w:36,h:18,c:'rect',spendChoice:true},
+        {s:1,x:515,y:266,w:16,h:18,c:'rect',spendChoice:true},
+        {s:1,x:535,y:266,w:36,h:18,c:'rect',spendChoice:true},
+        {s:1,x:573,y:266,w:16,h:18,c:'rect',spendChoice:true},
+        {s:1,x:593,y:266,w:36,h:18,c:'rect',spendChoice:true},
+        {s:1,x:631,y:266,w:16,h:18,c:'rect',spendChoice:true},
+        {s:1,x:651,y:266,w:36,h:18,c:'rect',spendChoice:true},
+        {s:1,x:689,y:266,w:36,h:18,c:'rect',spendChoice:true}
       ],
       granary:[
         {s:1,x:409,y:319,w:10,h:10,c:'circle'},
