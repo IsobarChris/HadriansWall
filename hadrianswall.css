@@ -243,13 +243,12 @@ dojo.hasClass
     overflow: hidden;
 }
 
-#attack_column {
+.attack_column {
     display: flex;
     flex-direction: column;
-    margin: 5px;
-    padding: 5px;
-    background-color: #00ff0077;
-    border: 2px red solid;    
+    align-items: space-around;
+    flex: 1;
+    width: 197px;
 }
 
 .attack_first_card {
@@ -644,6 +643,25 @@ dojo.hasClass
 .score_bad {
     color: red;
 }
+
+#disdain_circle {
+    position: absolute;
+    top: 675px;
+    width: 13px;
+    height: 15px;
+    border: 1px solid red;
+    border-radius: 3px;
+}
+.disdain_circle_0 { display: none !important; }
+.disdain_circle_1 { left: 399px; }
+.disdain_circle_3 { left: 418.5px; }
+.disdain_circle_5 { left: 438px; }
+.disdain_circle_7 { left: 457px; }
+.disdain_circle_9 { left: 476px; }
+.disdain_circle_12 { left: 495px; }
+.disdain_circle_15 { left: 515px; }
+.disdain_circle_18 { left: 534px; }
+.disdain_circle_22 { left: 554px; }
 
 /* Sheet 2 Trade */
 #trade_options {

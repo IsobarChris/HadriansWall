@@ -23,6 +23,7 @@
     See your "view" PHP file to check how to set variables and control blocks
     
     Please REMOVE this comment before publishing your game on BGA
+
 -->
 
 <div>
@@ -35,6 +36,8 @@
             <div id="score_path"       class="score_value">53</div>
             <div id="score_disdain"    class="score_value score_bad">63</div>
             <div id="score_total"      class="score_value">73</div>
+
+            <div id="disdain_circle"   class="disdain_circle_0"></div>
         </div>
     </div>
     <div id="sheet2">

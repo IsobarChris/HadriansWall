@@ -189,7 +189,7 @@ class HadriansWall extends Table
         $attr = self::getObjectFromDb( $score_sql );
         $attr_score = $attr['renown']+$attr['piety']+$attr['valour']+$attr['discipline'];
         $path_score = $this->scorePathCards();
-        $disdain_score = -([0,1,3,4,7,9,12,15,18,22][$attr['disdain']-$attr['approve']]);
+        $disdain_score = -([0,1,3,5,7,9,12,15,18,22,22,22,22,22,22,22][$attr['disdain']-$attr['approve']]);
 
         return [
             'renown'=>$attr['renown'],
@@ -1206,6 +1206,13 @@ class HadriansWall extends Table
 
         $round = $this->getGameStateValue(self::GAME_ROUND);
         if($round>=6) {
+            $this->clearResources();
+            $current_player_id = $this->getCurrentPlayerId();
+            $this->notifyPlayer( $current_player_id, "resourcesUpdated", "", [
+                'resources'=>$this->getResources(),
+                'change'=>[]
+            ]);
+    
             $this->gamestate->nextState('gameEnd');
         } else {
             $this->gamestate->nextState('nextRound');

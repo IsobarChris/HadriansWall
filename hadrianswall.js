@@ -439,7 +439,7 @@ function (dojo, declare) {
             
             } else {
                 dojo.query("#resource_display").removeClass('forcehidden');
-                dojo.query("#speical_display").addClass('forcehidden');
+                dojo.query("#speical_display").addClass('forcehidden');                
             }
         },
 
@@ -450,6 +450,13 @@ function (dojo, declare) {
                 let dom_id = `score_${row}`;
                 this[dom_id].setValue(Math.abs(parseInt(score_column[row])));
             })
+
+            let disdain_class = `disdain_circle_${Math.abs(score_column['disdain'])}`;
+            debug("disdain_class",disdain_class);
+            let disdain_circle = 
+            dojo.query("#disdain_circle").removeClass();
+            dojo.query("#disdain_circle").addClass(disdain_class);
+            debug("disdain_circle",dojo.query("#disdain_circle"));
 
             try { // because sometimes scoreCtrl isn't ready when updateScoreColumn is called
                 let current_player_id = this.player_id;

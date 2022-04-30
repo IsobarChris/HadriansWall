@@ -1,8 +1,8 @@
 TODO Next
 X Resources should be cleared at end of turn (before attack) so workers gained from valour carry over
-- Calculate realtime score
 - Should be able to select builder/soldier for FORT 
-
+- Use chosen goals for goal calulation (instead of all goals)
+? End of game needs to clear resrouces so you final locations don't glow if a worker is rewarded on the attack
 
 Next
 - Prompt for spending favor
