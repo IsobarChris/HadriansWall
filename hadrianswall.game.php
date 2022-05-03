@@ -499,7 +499,7 @@ class HadriansWall extends Table
         //self::debug(print_r($boxData,true));
 
         if($boxData['valid']) {
-            $board_sql = "UPDATE board SET $section = $section + 1 WHERE player_id=$current_player_id";
+            $board_sql = "UPDATE board SET `$section` = `$section` + 1 WHERE player_id=$current_player_id";
             self::DbQuery( $board_sql );
 
             $score_column = $this->updateScore();

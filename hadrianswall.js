@@ -185,8 +185,8 @@ function (dojo, declare) {
                     let resources = args.args;
                     debug('produced',resources);
 
-                    dojo.removeClass('production','forcehidden');
-                    dojo.empty('production');
+                    //dojo.removeClass('production','forcehidden');
+                    //dojo.empty('production');
 
                     for(let i=0;i<resources.bricks;i++) {
                         dojo.place(brick_node,'production');
@@ -292,6 +292,17 @@ function (dojo, declare) {
             }               
         }, 
 
+        resourceIconString: function(resources) {
+            let res = ``;
+            ['soldiers','builders','servants','civilians','bricks'].forEach((r)=>{
+                for(let i=0;i<resources[r];i++) {
+                    res+=`<div class="iconsheet icon_${r.slice(0,-1)} microicon"></div>`;
+                }
+            })
+
+            return res;
+        },
+
         // onUpdateActionButtons: in this method you can manage "action buttons" that are displayed in the
         //                        action status bar (ie: the HTML links in the status bar).
         //        
@@ -302,12 +313,19 @@ function (dojo, declare) {
             {            
                 switch( stateName )
                 {
-                    case 'acceptFateResources':
-                        this.addActionButton( 'acceptFate', _('Accept Workers and Resources'), 'actFateResources' );
+                    case 'acceptFateResources': {
+                        debug("fate resources: ",args);
+                        let icons = this.resourceIconString(args);
+
+                        this.addActionButton( 'acceptFate', icons, 'actFateResources' );
+
+                    }
                     break;
 
-                    case 'acceptProducedResources':
-                        this.addActionButton( 'acceptProducedResources', _('Accept produced Workers and Resources'), 'actProducedResources' );
+                    case 'acceptProducedResources': {
+                        let icons = this.resourceIconString(args);
+                        this.addActionButton( 'acceptProducedResources', icons, 'actProducedResources' );
+                    }
                     break;
 
                     case 'chooseGeneratedAttributes': {
@@ -329,15 +347,19 @@ function (dojo, declare) {
                     case 'chooseGoalCard': {
                         debug("args",args);
 
-                        let label = [`${args[0]['name']}   `,`${args[1]['name']}   `];
-    
+
+                        let name = [`${args[0]['name']}   `,`${args[1]['name']}   `];
+                        let res = [``,``];    
                         for(let j=0;j<2;j++){
                             ['soldiers','builders','servants','civilians','bricks'].forEach((r)=>{
                                 for(let i=0;i<args[1-j][r];i++) {
-                                    label[j]+=`<div class="iconsheet icon_${r.slice(0,-1)} microicon"></div>`;
+                                    res[j]+=`<div class="iconsheet icon_${r.slice(0,-1)} microicon"></div>`;
                                 }
                             })
                         }
+
+                        let label = [name[0]+`&nbsp; + &nbsp;`+res[0]+`&nbsp;`,`&nbsp;`+res[1]+`&nbsp; + &nbsp;`+name[1]];
+
 
                         this.addActionButton( 'hand_card_1', label[0], 'actHandCardChosen' );
                         this.addActionButton( 'hand_card_2', label[1], 'actHandCardChosen' );
@@ -355,7 +377,7 @@ function (dojo, declare) {
                     break;
 
                     case 'gainValourAndDisdain':
-                        this.addActionButton( 'accept', _('Accept'), 'actAttackResults');
+                        this.addActionButton( 'accept', _('Done'), 'actAttackResults');
                     break;
 
 
@@ -413,7 +435,9 @@ function (dojo, declare) {
         updateValidMoves: function(valid_moves) {
             debug("valid_moves",valid_moves);
             dojo.query('.clickable').removeClass('valid');
+            this.hasValidMoves = false;
             valid_moves.forEach((box)=>{
+                this.hasValidMoves = true;
                 let id = box.id;
                 dojo.query(`#${id}`).addClass('valid');
             });
@@ -534,7 +558,7 @@ function (dojo, declare) {
             }
 
             // TODO - store the optiosn in spendChoice
-            
+
             let presentChoice = false;
             if(boxData.spendChoice) {
                 presentChoice = true;
@@ -648,10 +672,21 @@ function (dojo, declare) {
             dojo.stopEvent( evt );
             debug("Done",evt)
 
-            if(this.checkAction('endTurn')){
-                this.ajaxcall("/hadrianswall/hadrianswall/endTurn.html",
-                    {},this,function(result){});
+            if(this.hasValidMoves) {
+                this.confirmationDialog(_('You have valid moves left, are you sure you want to end your turn?'), () => {
+                    if(this.checkAction('endTurn')){
+                        this.ajaxcall("/hadrianswall/hadrianswall/endTurn.html",
+                            {},this,function(result){});
+                    }
+                }); 
+                return;
+            } else {
+                if(this.checkAction('endTurn')){
+                    this.ajaxcall("/hadrianswall/hadrianswall/endTurn.html",
+                        {},this,function(result){});
+                }
             }
+
         },
 
         actApplyCohorts: function( evt ) {
@@ -668,9 +703,13 @@ function (dojo, declare) {
             dojo.stopEvent( evt );
             debug("Accept attack results",evt)
 
-            if(this.checkAction('acceptAttackResults')){
-                this.ajaxcall("/hadrianswall/hadrianswall/acceptAttackResults.html",
-                    {},this,function(result){});
+            if(this.hasValidMoves) {
+                this.showMessage("You must apply valour and/or disdain.","info");
+            } else {
+                if(this.checkAction('acceptAttackResults')){
+                    this.ajaxcall("/hadrianswall/hadrianswall/acceptAttackResults.html",
+                        {},this,function(result){});
+                }
             }
         },
 

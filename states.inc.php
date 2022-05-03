@@ -195,7 +195,7 @@
 
     35 => [
         "name" => "gainValourAndDisdain",
-        "descriptionmyturn" => clienttranslate('Accept attack results.'),
+        "descriptionmyturn" => clienttranslate('Apply attack results.'),
         "type" => "private",
         "possibleactions" => ["checkNextBox","acceptAttackResults"],
         "transitions" => [ "checkEndGame" => 40 ],
