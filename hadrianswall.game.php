@@ -389,7 +389,7 @@ class HadriansWall extends Table
 
     function scoreMerchant($board=null) {
         // Collected Goods: 4,6,8
-        $score = 0;
+        $score = 100;
         // TODO
         return $score;
     }
@@ -412,21 +412,21 @@ class HadriansWall extends Table
 
     function scorePontiff($board=null) {
         // Filled Temples: 1,2,3
-        $score = 0;
+        $score = 100;
         // TODO
         return $score;
     }
 
     function scoreRanger($board=null) {
         // Completed Scout Columns: 1,3,5
-        $score = 0;
+        $score = 100;
         // TODO
         return $score;
     }
 
     function scoreTrainer($board=null) {
         // Total Gladiator Strength: 4,8,12
-        $score = 0;
+        $score = 100;
         // TODO
         return $score;
     }
@@ -444,10 +444,21 @@ class HadriansWall extends Table
         $score = 0;
 
         if($goals==null) {
-            // TODO - pull from goals table for current user
-            $goals=[
-                'Architect','Aristocrat','Defender','Engineer','Fighter','Forager',
-                'Merchant','Planner','Pontiff','Ranger','Trainer','Vanguard'];
+            $current_player_id = self::getCurrentPlayerId();
+            $goal_cards = $this->player_cards->getCardsInLocation($current_player_id."_goals",null,'location_arg');
+            $goals = [];
+            foreach($goal_cards as $id => $card ) {
+                $type = $card['type'];
+                $name = $this->player_card_data[$card['type']]['name'];
+                self::debug("Goal: ".$type." is ".$name);
+                $goals[] = $name;
+            }            
+
+            self::debug("Goals: ".print_r($goals,true));
+
+            // $goals=[
+            //     'Architect','Aristocrat','Defender','Engineer','Fighter','Forager',
+            //     'Merchant','Planner','Pontiff','Ranger','Trainer','Vanguard'];
         }
         if($board==null) {
             $board=$this->getBoard();
