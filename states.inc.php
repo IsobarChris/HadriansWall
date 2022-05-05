@@ -114,7 +114,7 @@
         "descriptionmyturn" => clienttranslate('${you} must accept workers and resources you produced.'),
         "type" => "private",
         "possibleactions" => ["acceptProducedResources"], // TODO
-        "transitions" => [ "chooseGeneratedAttributes" => 23, "chooseGoalCard" => 24 ],
+        "transitions" => [ "chooseGeneratedAttributes" => 23, "choosePathCard" => 24 ],
         "args" => "argProducedResources"
     ],
 
@@ -123,18 +123,18 @@
         "descriptionmyturn" => clienttranslate('${you} must choose your generated attribute.'),
         "type" => "private",
         "possibleactions" => ["chooseAttribute"], // TODO
-        "transitions" => [ "chooseGoalCard" => 24 ],
+        "transitions" => [ "choosePathCard" => 24 ],
         //"action" => "stChooseGeneratedAttributes"
         "args" => "argChooseGeneratedAttributes"
     ],
 
     24 => [
-        "name" => "chooseGoalCard",
-        "descriptionmyturn" => clienttranslate('${you} must choose a goal card and gain resources for the other.'),
+        "name" => "choosePathCard",
+        "descriptionmyturn" => clienttranslate('${you} must choose a path card and gain resources for the other.'),
         "type" => "private",
-        "possibleactions" => ["chooseGoalCard"], // TODO
+        "possibleactions" => ["choosePathCard"], // TODO
         "transitions" => [ "useResources" => 25 ],
-        "args" => "argChooseGoalCard"
+        "args" => "argChoosePathCard"
     ],
 
     25 => [

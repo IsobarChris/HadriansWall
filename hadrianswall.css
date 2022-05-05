@@ -384,13 +384,13 @@ dojo.hasClass
 
 /* Player board - if I use them */
 
-.goal { top: -135px; z-index: -1; position: absolute; }
-.goal_round_1 { left: 20px; }
-.goal_round_2 { left: 263px; }
-.goal_round_3 { left: 507px; }
-.goal_round_4 { left: 11px; }
-.goal_round_5 { left: 255px; }
-.goal_round_6 { left: 499px; }
+.path { top: -135px; z-index: -1; position: absolute; }
+.path_round_1 { left: 20px; }
+.path_round_2 { left: 263px; }
+.path_round_3 { left: 507px; }
+.path_round_4 { left: 11px; }
+.path_round_5 { left: 255px; }
+.path_round_6 { left: 499px; }
 
 .pick { top: 40px; scale: 0.6; position: absolute; }
 .pick_round_1 { left:  10px; }

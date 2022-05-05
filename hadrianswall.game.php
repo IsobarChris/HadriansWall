@@ -132,12 +132,12 @@ class HadriansWall extends Table
         // $opsql = "SELECT player_id, renown, piety, valour, discipline, disdain FROM board WHERE `round`=$display_round";
         // $result['score_boards'] = self::getCollectionFromDb( $opsql );
 
-        $goals = $this->player_cards->getCardsInLocation($current_player_id."_goals",null,'location_arg');
-        $goal_cards = [];
-        foreach($goals as $id => $card ) {
-            $goal_cards[] = $card['type'];
+        $paths = $this->player_cards->getCardsInLocation($current_player_id."_paths",null,'location_arg');
+        $path_cards = [];
+        foreach($paths as $id => $card ) {
+            $path_cards[] = $card['type'];
         }
-        $result['goals'] = $goal_cards;
+        $result['paths'] = $path_cards;
 
         $current_round = $this->getGameStateValue(self::GAME_ROUND);
         $result['round'] = $current_round;
@@ -440,23 +440,23 @@ class HadriansWall extends Table
         return $score;
     }
 
-    function scorePathCards($goals=null,$board=null) {
+    function scorePathCards($paths=null,$board=null) {
         $score = 0;
 
-        if($goals==null) {
+        if($paths==null) {
             $current_player_id = self::getCurrentPlayerId();
-            $goal_cards = $this->player_cards->getCardsInLocation($current_player_id."_goals",null,'location_arg');
-            $goals = [];
-            foreach($goal_cards as $id => $card ) {
+            $path_cards = $this->player_cards->getCardsInLocation($current_player_id."_paths",null,'location_arg');
+            $paths = [];
+            foreach($path_cards as $id => $card ) {
                 $type = $card['type'];
                 $name = $this->player_card_data[$card['type']]['name'];
-                self::debug("Goal: ".$type." is ".$name);
-                $goals[] = $name;
+                self::debug("Path: ".$type." is ".$name);
+                $paths[] = $name;
             }            
 
-            self::debug("Goals: ".print_r($goals,true));
+            self::debug("Paths: ".print_r($paths,true));
 
-            // $goals=[
+            // $paths=[
             //     'Architect','Aristocrat','Defender','Engineer','Fighter','Forager',
             //     'Merchant','Planner','Pontiff','Ranger','Trainer','Vanguard'];
         }
@@ -464,8 +464,8 @@ class HadriansWall extends Table
             $board=$this->getBoard();
         }
 
-        foreach($goals as $goal) {
-            switch($goal) {
+        foreach($paths as $path) {
+            switch($path) {
                 case 'Architect': $score+=$this->scoreArchitect($board); break;
                 case 'Aristocrat': $score+=$this->scoreAristocrat($board); break;
                 case 'Defender': $score+=$this->scoreDefender($board); break;
@@ -643,7 +643,7 @@ class HadriansWall extends Table
         if($hasGeneratedResources) {
             $this->gamestate->nextPrivateState($current_player_id, 'chooseGeneratedAttributes');
         } else {
-            $this->gamestate->nextPrivateState($current_player_id, 'chooseGoalCard');
+            $this->gamestate->nextPrivateState($current_player_id, 'choosePathCard');
         }
         
     }
@@ -659,32 +659,32 @@ class HadriansWall extends Table
             $this->doCheckNextBox($attribute);
         }
 
-        $this->gamestate->nextPrivateState($current_player_id, 'chooseGoalCard');
+        $this->gamestate->nextPrivateState($current_player_id, 'choosePathCard');
     }
 
-    function chooseGoalCard($goal_card) {
-        $this->checkAction('chooseGoalCard');
+    function choosePathCard($path_card) {
+        $this->checkAction('choosePathCard');
         $current_player_id = self::getCurrentPlayerId();
         $round = $this->getGameStateValue(self::GAME_ROUND);
 
         $hand = $this->player_cards->getCardsInLocation($current_player_id."_hand");
         //self::debug(print_r($hand,true));
 
-        $goal_card_id = -1;
+        $path_card_id = -1;
         $resource_card = 'unknown';
         $resource_card_id = -1;
         
         foreach($hand as $card_id => $hand_card) {
             //self::debug("hand_card ".$hand_card['type']."  (".$hand_card['id'].")");
-            if($hand_card['type']!=$goal_card) {
+            if($hand_card['type']!=$path_card) {
                 $resource_card = $hand_card['type'];
                 $resource_card_id = $hand_card['id'];
             } else {
-                $goal_card_id = $hand_card['id'];
+                $path_card_id = $hand_card['id'];
             }
         }
 
-        //self::debug("picked card ".$goal_card."  (".$goal_card_id.")");
+        //self::debug("picked card ".$path_card."  (".$path_card_id.")");
         //self::debug("resource card ".$resource_card."  (".$resource_card_id.")");
 
         $resource_card_data = $this->player_card_data[$resource_card];
@@ -695,18 +695,18 @@ class HadriansWall extends Table
             'change'=>$resource_card_data
         ]);
 
-        $this->player_cards->moveCard($goal_card_id,$current_player_id."_goals",$round);
+        $this->player_cards->moveCard($path_card_id,$current_player_id."_paths",$round);
         $this->player_cards->moveCard($resource_card_id,$current_player_id."_discard");
 
-        $goals = $this->player_cards->getCardsInLocation($current_player_id."_goals",null,'location_arg');
-        $goal_cards = [];
-        foreach($goals as $id => $card ) {
-            $goal_cards[] = $card['type'];
+        $paths = $this->player_cards->getCardsInLocation($current_player_id."_paths",null,'location_arg');
+        $path_cards = [];
+        foreach($paths as $id => $card ) {
+            $path_cards[] = $card['type'];
         }
 
-        // notify goal board changed
-        $this->notifyPlayer( $current_player_id, "goalsUpdated", "", [
-            'goals'=>$goal_cards
+        // notify path board changed
+        $this->notifyPlayer( $current_player_id, "pathsUpdated", "", [
+            'paths'=>$path_cards
         ]);
 
         $this->gamestate->nextPrivateState($current_player_id, 'useResources');
@@ -914,7 +914,7 @@ class HadriansWall extends Table
         return ['bricks'=>$bricks,'civilians'=>$civilians,'builders'=>$builders];
     }
 
-    function argChooseGoalCard() {
+    function argChoosePathCard() {
         $current_player_id = self::getCurrentPlayerId();
         $hand = $this->player_cards->getCardsInLocation($current_player_id."_hand");
         $cards=[];

@@ -67,13 +67,13 @@ function (dojo, declare) {
             }
             gamedatas.scores = scores;
 
-            // let goals={};
-            // let goals_map = gamedatas.goals;
-            // let goal_objs = Object.values(goals_map[0]);
-            // goal_objs.forEach((g)=>{
-            //     goals[g.id] = g;
+            // let paths={};
+            // let paths_map = gamedatas.paths;
+            // let path_objs = Object.values(paths_map[0]);
+            // path_objs.forEach((g)=>{
+            //     paths[g.id] = g;
             // })
-            // gamedatas.goals = goals;
+            // gamedatas.paths = paths;
 
             // Setting up player panels
             for( var player_id in gamedatas.players )
@@ -110,7 +110,7 @@ function (dojo, declare) {
             })
 
             this.updateResources(gamedatas.resources);
-            this.updateGoals(gamedatas.goals);
+            this.updatePaths(gamedatas.paths);
             this.updateScoreColumn(gamedatas.score_column);
 
         },
@@ -148,11 +148,11 @@ function (dojo, declare) {
                 }
             });                
 
-            // TODO: get this from player_goals 
+            // TODO: get this from player_paths 
             // [1,2,3,4,5,6].forEach((i)=>{
-            //     if(gamedatas.goals[player_id][`round_${i}`]>0) {
-            //         let card_num = gamedatas.goals[player_id][`round_${i}`];
-            //         let node = dojo.query(`#goal${i}_${player.color}`);
+            //     if(gamedatas.paths[player_id][`round_${i}`]>0) {
+            //         let card_num = gamedatas.paths[player_id][`round_${i}`];
+            //         let node = dojo.query(`#path${i}_${player.color}`);
             //         node.addClass(`player_card_${card_num}`);  
             //     }
             // })
@@ -209,7 +209,7 @@ function (dojo, declare) {
                     }
                 break;
 
-                case 'chooseGoalCard':
+                case 'choosePathCard':
                     {
                         let cards = args.args;
                         debug("cards",cards);
@@ -283,7 +283,7 @@ function (dojo, declare) {
                     dojo.empty('production');
                 break;
 
-                case 'chooseGoalCard':
+                case 'choosePathCard':
                     dojo.addClass('hand','forcehidden');
                 break;           
            
@@ -344,7 +344,7 @@ function (dojo, declare) {
                     }
                     break;
                     
-                    case 'chooseGoalCard': {
+                    case 'choosePathCard': {
                         debug("args",args);
 
 
@@ -640,8 +640,8 @@ function (dojo, declare) {
             }
             debug("picked",card);
 
-            if(this.checkAction('chooseGoalCard')){
-                this.ajaxcall("/hadrianswall/hadrianswall/chooseGoalCard.html",
+            if(this.checkAction('choosePathCard')){
+                this.ajaxcall("/hadrianswall/hadrianswall/choosePathCard.html",
                     {
                         card
                     },this,function(result){});
@@ -778,7 +778,7 @@ function (dojo, declare) {
             dojo.subscribe( 'newRound', this, "notif_newRound");
             dojo.subscribe( 'sheetsUpdated', this, "notif_sheetsUpdated");
             dojo.subscribe( 'resourcesUpdated', this, "notif_resourcesUpdated");
-            dojo.subscribe( 'goalsUpdated', this, "notif_goalsUpdated");
+            dojo.subscribe( 'pathsUpdated', this, "notif_pathsUpdated");
             dojo.subscribe( 'attack', this, "notif_attacked");
         },  
 
@@ -816,27 +816,28 @@ function (dojo, declare) {
 
         },
 
-        updateGoals: function(goals) {
-            debug('goals',goals);
+        updatePaths: function(paths) {
+            debug('paths',paths);
 
             let player_id = this.player_id;
             let player_color = this.gamedatas.players[player_id].color;
 
-            for(let i=1;i<=6 && i<=goals.length;i++) {
-                let goal_card = goals[i-1];
-                debug('goal_card',goal_card);
-                debug('node',`#goal${i}_${player_color}`);
+            for(let i=1;i<=6 && i<=paths.length;i++) {
+                let path_card = paths[i-1];
+                debug('path_card',path_card);
+                debug('node',`#path${i}_${player_color}`);
     
-                let node = dojo.query(`#goal${i}_${player_color}`);
+                let node = dojo.query(`#path${i}_${player_color}`);
                 node.removeClass(`player_back_${player_color} card_top_only`);
-                node.addClass(`${goal_card} card_top_only`); 
+                node.addClass(`${path_card} card_top_only`); 
+                //this.addTooltip( `path${i}_${player_color}`, _( "This is a path" ), _( "Click to highlight relivant areas." ) );
             }
         },
 
-        notif_goalsUpdated: function(notif) {
-            debug('notif_goalsUpdated',notif);
-            let goals = notif.args.goals;
-            this.updateGoals(goals);
+        notif_pathsUpdated: function(notif) {
+            debug('notif_pathsUpdated',notif);
+            let paths = notif.args.paths;
+            this.updatePaths(paths);
         },
 
         boxData: function(id) {

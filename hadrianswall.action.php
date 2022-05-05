@@ -60,11 +60,11 @@ class action_hadrianswall extends APP_GameAction
         
         self::ajaxResponse();        
     }
-    public function chooseGoalCard() {
+    public function choosePathCard() {
         self::setAjaxMode();
 
         $card = self::getArg("card",AT_alphanum,true);
-        $this->game->chooseGoalCard($card);
+        $this->game->choosePathCard($card);
 
         self::ajaxResponse();        
     }

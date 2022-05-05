@@ -1,5 +1,4 @@
 TODO Next
-- Use chosen goals for goal calulation (instead of all goals)
 - Add NPC pannel to show round, valour and difficulty banners.
 
 - Making training work

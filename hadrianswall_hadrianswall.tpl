@@ -111,16 +111,16 @@
             <div></div>
             <div id="path_cards_attribute" class="attribute_backing" style="display: flex; flex-direction: row;">
                 <div style="width: 76px;">
-                <div id="goal1_{COLOR}" class="playercardsheet player_back_{COLOR} card_banner_only "></div>
-                <div id="goal4_{COLOR}" class="playercardsheet player_back_{COLOR} card_banner_only "></div>
+                <div id="path1_{COLOR}" class="playercardsheet player_back_{COLOR} card_banner_only "></div>
+                <div id="path4_{COLOR}" class="playercardsheet player_back_{COLOR} card_banner_only "></div>
                 </div>
                 <div style="width: 76px;">
-                <div id="goal2_{COLOR}" class="playercardsheet player_back_{COLOR} card_banner_only "></div>
-                <div id="goal5_{COLOR}" class="playercardsheet player_back_{COLOR} card_banner_only "></div>
+                <div id="path2_{COLOR}" class="playercardsheet player_back_{COLOR} card_banner_only "></div>
+                <div id="path5_{COLOR}" class="playercardsheet player_back_{COLOR} card_banner_only "></div>
                 </div>
                 <div style="width: 76px;">
-                <div id="goal3_{COLOR}" class="playercardsheet player_back_{COLOR} card_banner_only "></div>
-                <div id="goal6_{COLOR}" class="playercardsheet player_back_{COLOR} card_banner_only "></div>
+                <div id="path3_{COLOR}" class="playercardsheet player_back_{COLOR} card_banner_only "></div>
+                <div id="path6_{COLOR}" class="playercardsheet player_back_{COLOR} card_banner_only "></div>
                 </div>
             </div>
 
@@ -165,14 +165,14 @@
 
         <div id="path_cards_attribute" class="attribute_backing" style="display: flex; flex-direction: row;">
             <div style="width: 114px;">
-            <div id="goal1_{COLOR}" class="playercardsheet player_back_{COLOR} card_top_only "></div>
-            <div id="goal3_{COLOR}" class="playercardsheet player_back_{COLOR} card_top_only "></div>
-            <div id="goal5_{COLOR}" class="playercardsheet player_back_{COLOR} card_top_only "></div>
+            <div id="path1_{COLOR}" class="playercardsheet player_back_{COLOR} card_top_only "></div>
+            <div id="path3_{COLOR}" class="playercardsheet player_back_{COLOR} card_top_only "></div>
+            <div id="path5_{COLOR}" class="playercardsheet player_back_{COLOR} card_top_only "></div>
             </div>
             <div style="width: 114px;">
-            <div id="goal2_{COLOR}" class="playercardsheet player_back_{COLOR} card_top_only "></div>
-            <div id="goal4_{COLOR}" class="playercardsheet player_back_{COLOR} card_top_only "></div>
-            <div id="goal6_{COLOR}" class="playercardsheet player_back_{COLOR} card_top_only "></div>
+            <div id="path2_{COLOR}" class="playercardsheet player_back_{COLOR} card_top_only "></div>
+            <div id="path4_{COLOR}" class="playercardsheet player_back_{COLOR} card_top_only "></div>
+            <div id="path6_{COLOR}" class="playercardsheet player_back_{COLOR} card_top_only "></div>
             </div>
         </div>
 
@@ -183,15 +183,15 @@
 
 
 <div id="playerboard1"  class="forcehidden">
-    <div id="round_1_goal" class="playercardsheet player_card_1 goal goal_round_1 hidden"></div>
-    <div id="round_2_goal" class="playercardsheet player_card_7 goal goal_round_2 hidden"></div>
-    <div id="round_3_goal" class="playercardsheet player_card_3 goal goal_round_3 hidden"></div>
+    <div id="round_1_path" class="playercardsheet player_card_1 path path_round_1 hidden"></div>
+    <div id="round_2_path" class="playercardsheet player_card_7 path path_round_2 hidden"></div>
+    <div id="round_3_path" class="playercardsheet player_card_3 path path_round_3 hidden"></div>
 </div>
 
 <div id="playerboard2" class="forcehidden">
-    <div id="round_4_goal" class="playercardsheet player_card_4 goal goal_round_4 hidden"></div>
-    <div id="round_5_goal" class="playercardsheet player_card_5 goal goal_round_5 hidden"></div>
-    <div id="round_6_goal" class="playercardsheet player_card_6 goal goal_round_6 hidden"></div>
+    <div id="round_4_path" class="playercardsheet player_card_4 path path_round_4 hidden"></div>
+    <div id="round_5_path" class="playercardsheet player_card_5 path path_round_5 hidden"></div>
+    <div id="round_6_path" class="playercardsheet player_card_6 path path_round_6 hidden"></div>
 </div>
 
 

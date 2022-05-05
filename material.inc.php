@@ -98,7 +98,7 @@ $this->player_card_data = [
   'player_card_1' => [
     'type' => 'player_card',
     'name' => clienttranslate('Engineer'),
-    'bonusGoal' => 'Large Buildings',
+    'bonusPath' => 'Large Buildings',
 
     'scout' => 'L', // L O I T Z
     'tradeGood' => 2,
@@ -112,7 +112,7 @@ $this->player_card_data = [
   'player_card_2' => [
     'type' => 'player_card',
     'name' => clienttranslate('Defender'),
-    'bonusGoal' => 'Completed Wall Sections',
+    'bonusPath' => 'Completed Wall Sections',
 
     'scout' => 'L', // L O I T Z
     'tradeGood' => 1,
@@ -126,7 +126,7 @@ $this->player_card_data = [
   'player_card_3' => [
     'type' => 'player_card',
     'name' => clienttranslate('Merchant'),
-    'bonusGoal' => 'Collected Goods',
+    'bonusPath' => 'Collected Goods',
 
     'scout' => 'O', // L O I T Z
     'tradeGood' => 4,
@@ -140,7 +140,7 @@ $this->player_card_data = [
   'player_card_4' => [
     'type' => 'player_card',
     'name' => clienttranslate('Fighter'),
-    'bonusGoal' => 'Completed Coharts',
+    'bonusPath' => 'Completed Coharts',
 
     'scout' => 'O', // L O I T Z
     'tradeGood' => 5,
@@ -154,7 +154,7 @@ $this->player_card_data = [
   'player_card_5' => [
     'type' => 'player_card',
     'name' => clienttranslate('Ranger'),
-    'bonusGoal' => 'Completed Scout Columns',
+    'bonusPath' => 'Completed Scout Columns',
 
     'scout' => 'I', // L O I T Z
     'tradeGood' => 6,
@@ -168,7 +168,7 @@ $this->player_card_data = [
   'player_card_6' => [
     'type' => 'player_card',
     'name' => clienttranslate('Architect'),
-    'bonusGoal' => 'Constructed Landmarks',
+    'bonusPath' => 'Constructed Landmarks',
 
     'scout' => 'I', // L O I T Z
     'tradeGood' => 2,
@@ -182,7 +182,7 @@ $this->player_card_data = [
   'player_card_7' => [
     'type' => 'player_card',
     'name' => clienttranslate('Forger'),
-    'bonusGoal' => 'Resource Production',
+    'bonusPath' => 'Resource Production',
 
     'scout' => 'T', // L O I T Z
     'tradeGood' => 3,
@@ -196,7 +196,7 @@ $this->player_card_data = [
   'player_card_8' => [
     'type' => 'player_card',
     'name' => clienttranslate('Aristocrat'),
-    'bonusGoal' => 'Final Disdain',
+    'bonusPath' => 'Final Disdain',
 
     'scout' => 'T', // L O I T Z
     'tradeGood' => 1,
@@ -210,7 +210,7 @@ $this->player_card_data = [
   'player_card_9' => [
     'type' => 'player_card',
     'name' => clienttranslate('Pontiff'),
-    'bonusGoal' => 'Filled Temples',
+    'bonusPath' => 'Filled Temples',
 
     'scout' => 'T', // L O I T Z
     'tradeGood' => 2,
@@ -224,7 +224,7 @@ $this->player_card_data = [
   'player_card_10' => [
     'type' => 'player_card',
     'name' => clienttranslate('Planner'),
-    'bonusGoal' => 'Completed Citizen Tracks',
+    'bonusPath' => 'Completed Citizen Tracks',
 
     'scout' => 'Z', // L O I T Z
     'tradeGood' => 1,
@@ -238,7 +238,7 @@ $this->player_card_data = [
   'player_card_11' => [
     'type' => 'player_card',
     'name' => clienttranslate('Trainer'),
-    'bonusGoal' => 'Total Gladiator Strength',
+    'bonusPath' => 'Total Gladiator Strength',
 
     'scout' => 'L', // L O I T Z
     'tradeGood' => 4,
@@ -252,7 +252,7 @@ $this->player_card_data = [
   'player_card_12' => [
     'type' => 'player_card',
     'name' => clienttranslate('Vanguard'),
-    'bonusGoal' => 'Completed Wall Guard Sections',
+    'bonusPath' => 'Completed Wall Guard Sections',
 
     'scout' => 'Z', // L O I T Z
     'tradeGood' => 2,
