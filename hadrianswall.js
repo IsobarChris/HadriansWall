@@ -129,8 +129,9 @@ function (dojo, declare) {
             }
             dojo.place('miniboard_' + color, content);
             
-            if(gamedatas.board[player_id]){
-                let board = gamedatas.board[player_id];
+            debug("Setup Player",gamedatas.board);
+            if(gamedatas.board){
+                let board = gamedatas.board;
                 this.drawAllScratches(board);
             }
 
@@ -414,6 +415,19 @@ function (dojo, declare) {
             }
         },
 
+        drawNumber: function (zone, value) {
+            let id = `${zone}`;
+            if(dojo.query(`#${id}`).length==0){
+                console.log(`Didn't find node for ${id}`);
+                return;
+            }
+
+            if(value>0) {
+                dojo.removeClass(id,'rect');
+                dojo.byId(`${id}`).innerHTML = value;
+            }
+        },
+
         drawScratches: function (zone, value) {
             if(value>0) {
                 console.log(`Scratching ${zone} to ${value}`);
@@ -423,12 +437,25 @@ function (dojo, declare) {
             }
         },
 
+        drawRoundNumbers: function (zone, values) {
+            values.forEach((value,i)=>{
+                //debug("ROUND NUMBERS",`Writing value ${value} in ${zone}`);
+                this.drawNumber(`${zone}_${i+1}`,value);
+            })
+        },
+
         drawAllScratches: function (board) {
+            //debug('DRAWING ALL SCRATCHS',board);
             Object.keys(board).forEach(key=>{
                 if(key==="player_id" || key==="round") {
                     return;
                 }
-                this.drawScratches(key,board[key]);
+                if(key.slice(-7)=="_rounds") {
+                    //debug("ROUND NUMBERS","Round Numbers Detected");
+                    this.drawRoundNumbers(key,board[key]);
+                } else {
+                    this.drawScratches(key,board[key]);
+                }
             })
         },
 
@@ -1220,12 +1247,42 @@ let scratch_data = {
         {s:2,x:708,y:352,w:16,h:16,c:'rect'}
       ],
 
-
-
+      training_grounds:[
+        {s:1,x:442,y:355,w:16,h:16,c:'rect'},
+        {s:1,x:478,y:355,w:16,h:16,c:'rect'},
+        {s:1,x:512,y:355,w:16,h:16,c:'rect'},
+        {s:1,x:548,y:355,w:16,h:16,c:'rect'},
+        {s:1,x:582,y:355,w:16,h:16,c:'rect'}
+      ],
+      training_grounds_rounds:[
+        {s:1,x:459,y:355,w:16,h:16,c:'rect roundNumber'},
+        {s:1,x:495,y:355,w:16,h:16,c:'rect roundNumber'},
+        {s:1,x:529,y:355,w:16,h:16,c:'rect roundNumber'},
+        {s:1,x:565,y:355,w:16,h:16,c:'rect roundNumber'},
+        {s:1,x:599,y:355,w:16,h:16,c:'rect roundNumber'}
+        ],
+      road:[
+        {s:1,x:514,y:410,w:10,h:10,c:'circle'},
+        {s:1,x:537,y:407,w:34,h:15,c:'rect'},
+        {s:1,x:514,y:431,w:10,h:10,c:'circle'},
+        {s:1,x:537,y:428,w:34,h:15,c:'rect'}
+      ],
+      forum:[
+        {s:1,x:615,y:408,w:16,h:16,c:'rect'},
+        {s:1,x:615,y:429,w:16,h:16,c:'rect'},
+        {s:1,x:688,y:408,w:16,h:16,c:'rect'},
+        {s:1,x:688,y:429,w:16,h:16,c:'rect'}
+      ],
+      forum_rounds:[
+        {s:1,x:632,y:408,w:16,h:16,c:'rect roundNumber'},
+        {s:1,x:632,y:429,w:16,h:16,c:'rect roundNumber'},
+        {s:1,x:705,y:408,w:16,h:16,c:'rect roundNumber'},
+        {s:1,x:705,y:429,w:16,h:16,c:'rect roundNumber'}
+      ],
 
       closed:[
-        {s:1,x:372,y:350,w:368,h:30,c:'closed'},  // Training
-        {s:1,x:385,y:380,w:355,h:80,c:'closed'},  // Roads & Forum
+        //{s:1,x:372,y:350,w:368,h:30,c:'closed'},  // Training
+        //{s:1,x:385,y:380,w:355,h:80,c:'closed'},  // Roads & Forum
 
         {s:2,x:360,y: 10,w:380,h:125,c:'closed'}, // market
         {s:2,x:190,y:145,w:550,h:160,c:'closed'}, // theatre & gladiators
@@ -1237,7 +1294,7 @@ let scratch_data = {
 }
 
 
-
+/*
 
 const PLUS = 'PLUS';
 const RESOURCE = 'RESOURCE';
@@ -1986,3 +2043,5 @@ let scratch_data_old = {
         ]
     }
 }
+
+*/

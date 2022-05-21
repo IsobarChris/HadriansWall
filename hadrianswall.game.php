@@ -116,11 +116,13 @@ class HadriansWall extends Table
         $player_sql = "SELECT player_id id, player_color color, player_score score FROM player ";
         $result['players'] = self::getCollectionFromDb( $player_sql );
   
-        $board_sql = "SELECT * FROM board WHERE player_id = $current_player_id";
-        $result['board'] = self::getCollectionFromDb( $board_sql );
+        //$board_sql = "SELECT * FROM board WHERE player_id = $current_player_id";
+        //$result['board'] = self::getCollectionFromDb( $board_sql );
+
+        $result['board'] = $this->getBoard();
 
 
-        $this->scorePathCards(null,$result['board'][$current_player_id]); // DEBUG
+        //$this->scorePathCards(null,$result['board'][$current_player_id]); // DEBUG
 
 
         $score_sql = "SELECT renown, piety, valour, discipline, disdain, approve, player_id id FROM board";
@@ -209,7 +211,16 @@ class HadriansWall extends Table
         $current_player_id = self::getCurrentPlayerId();
         $board_sql = "SELECT * FROM board WHERE player_id = $current_player_id";
         $board = self::getCollectionFromDb( $board_sql );
-        $results = $board[$current_player_id];
+        $current_player_board = $board[$current_player_id];
+
+        foreach($current_player_board as $field=>$value) {
+            if(substr($field,-7)=="_rounds") {
+                self::debug("$field => $value");
+                $current_player_board[$field]=explode(",",$value);
+            }
+        }
+
+        $results = $current_player_board;
         return $results;
     }
 
@@ -237,7 +248,6 @@ class HadriansWall extends Table
         //self::debug("--->setResources");
         $current_player_id = self::getCurrentPlayerId();
         $resource_sql = "UPDATE resources SET ";
-        // TODO: make special work
 
         $rarray = ['civilians', 'servants', 'soldiers', 'builders', 'bricks'];
         $updates=[];
@@ -258,8 +268,6 @@ class HadriansWall extends Table
     }
 
     function adjResources($resources) {
-        // TODO: make special work
-
         //self::debug("--->adjResources ".print_r($resources,true));
         $current_player_id = self::getCurrentPlayerId();
         $resource_sql = "UPDATE resources SET ";
@@ -506,6 +514,7 @@ class HadriansWall extends Table
 
     function doCheckNextBox( $section, $spend=null, $reward=null, $resources=null) {
         $current_player_id = self::getCurrentPlayerId();
+        $round = $this->getGameStateValue(self::GAME_ROUND);
         $boxData = $this->isBoxValid($section,null,$resources,null);
         //self::debug(print_r($boxData,true));
 
@@ -515,7 +524,6 @@ class HadriansWall extends Table
 
             $score_column = $this->updateScore();
     
-            $board = $this->getBoard();
             if($resources==null) {
                 $resources = $this->getResources();
             }
@@ -559,6 +567,25 @@ class HadriansWall extends Table
                 $this->applyRewards($boxData['reward']);
             }
 
+            // check if we need to record the round number            
+            if(array_key_exists('roundNumberEntry',$boxData)) {
+                $rounds_section = $boxData['roundNumberEntry']['section'];
+                //$oldRounds = $boxData['roundNumberEntry']['current_rounds'];
+                //$oldRounds = implode(",",$oldRounds);
+
+                $newRounds = $boxData['roundNumberEntry']['current_rounds'];
+                $newRounds = implode(",",$newRounds);
+                if(strlen($newRounds)>0) {
+                    $newRounds = $newRounds.",";
+                } 
+                $newRounds = $newRounds."$round";
+                
+                //self::debug("UPDATING ROUNDS for $rounds_section with index $index and current rounds of $oldRounds setting to $newRounds  [");
+               
+                $board_sql = "UPDATE board SET `$rounds_section` = '".$newRounds."' WHERE player_id=$current_player_id";
+                self::DbQuery( $board_sql );
+            }
+
             // check to see if we should also check the next cell            
             if(array_key_exists('reward',$boxData) && count($boxData['reward'])>0 && $boxData['reward'][0]=='continue') {
                 //self::debug("rewards: ".implode(",",$boxData['reward'])."  ");
@@ -566,7 +593,7 @@ class HadriansWall extends Table
                 $this->doCheckNextBox($section,null,null,['special'=>['continue']]);
             } else {
                 $this->notifyPlayer( $current_player_id, "sheetsUpdated", "", [
-                    "board"=>$board,
+                    "board"=>$this->getBoard(),
                     "valid_moves"=>$this->getValidMoves(),
                     "resources"=>$this->getResources(),
                     "score_column"=>$score_column,
@@ -940,6 +967,7 @@ class HadriansWall extends Table
         $altCost = [];
         $reward = [];
         $message = "valid";
+        $roundNumberEntry = null;
 
         if($board==null) {
             $board = $this->getBoard();
@@ -956,7 +984,9 @@ class HadriansWall extends Table
             return ['valid'=>false,'message'=>"Track Full"];
         }
 
-        $cost = $data[$index]['cost'];
+        if(array_key_exists('cost',$data[$index])) {
+            $cost = $data[$index]['cost'];
+        }
         //self::debug("Cost: ".implode(array_keys($data[$index]['cost']))."         [");
 
         if(array_key_exists('altCost',$data[$index])) {
@@ -970,7 +1000,22 @@ class HadriansWall extends Table
         if($valid && array_key_exists('lockedBy',$data[$index])) {
             $locked = $data[$index]['lockedBy'];
             foreach($locked as $locked_section=>$required_level){
-                if($board[$locked_section]<$required_level) {
+                if($locked_section=='peryear') {
+                    $round = $this->getGameStateValue(self::GAME_ROUND);
+                    $current_rounds = $board[$section."_rounds"];
+                    $message = "Per year cell";
+                    $roundNumberEntry = ['section'=>$section."_rounds",'current_rounds'=>$current_rounds];
+
+                    // if the current round is already in the array the required_level number of times, then it's not valid
+                    foreach($current_rounds as $r) {
+                        if($r==$round) {
+                            $required_level--;
+                        }
+                    }
+                    if($required_level==0) {
+                        $valid = false;
+                    }
+                } else if($board[$locked_section]<$required_level) {
                     //self::debug("LOCKED BY $locked_section");
                     $message = "Cell is locked.";
                     $valid = false; // this section is locked
@@ -979,7 +1024,6 @@ class HadriansWall extends Table
         }
 
         if($valid) {
-            $cost = $data[$index]['cost'];
             $costs=[$cost];
             if(array_key_exists('altCost',$data[$index])) {
                 $costs[]=$altCost;
@@ -1039,8 +1083,12 @@ class HadriansWall extends Table
             'cost'=>$cost,
             'altCost'=>$altCost,
             'reward'=>$reward,
-            'message'=>$message
+            'message'=>$message,
         ];
+        if($roundNumberEntry == null) {
+        } else {
+            $results['roundNumberEntry'] = $roundNumberEntry;
+        }
 
         return $results;
     }
@@ -1062,15 +1110,17 @@ class HadriansWall extends Table
         $section_data = $this->section_data;
         $board = $this->getBoard();
         $resources = $this->getResources();
+        $invalid_moves = [];
 
         foreach($section_data as $id=>$data) {
-            // self::debug("CHECKING $id ".$board[$id]."         [");
+            self::debug("CHECKING $id ".print_r($board[$id],true)."         [");
             $index = $board[$id];
-            if($this->isBoxValid($id,$index,$resources,$board)['valid']) {
+            $boxData = $this->isBoxValid($id,$index,$resources,$board);
+            if($boxData['valid']) {
                 $d=$data[$index];
 
                 $valid_move=[];
-                $valid_move['id']=$d['id'];
+                $valid_move['id']=$d['id'];                
 
                 // if alt_cost is a basic resource
                 if(array_key_exists('altCost',$d) && $this->isBasicResource(array_key_first($d['altCost']))) {
@@ -1092,6 +1142,8 @@ class HadriansWall extends Table
                     $valid_moves[]=$valid_move;
                     // self::debug(">>>>continuing          [");
                 }
+            } else {
+                $invalid_moves[''] = $boxData;
             }
         }
 
@@ -1101,6 +1153,8 @@ class HadriansWall extends Table
             return $this->getValidMoves();
         }
         
+        //$valid_moves['invalid'] = ['id'=>'0','moves'=>$invalid_moves];
+
         return $valid_moves;
     }
 

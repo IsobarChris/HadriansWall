@@ -1,4 +1,13 @@
 TODO Next
+
+- Make BATHS and COURTHOUSE work (just update data?)
+- Make ROAD work
+   - Valid moves needs to return choice options 
+- Make FORUM work
+   - Need to handle 'workers' 
+
+
+
 - Add NPC pannel to show round, valour and difficulty banners.
 
 - Making training work

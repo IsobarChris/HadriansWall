@@ -1300,6 +1300,39 @@ $this->section_data = [
     ['cost'=>['servants'=>1,'builders'=>1,'bricks'=>2],'reward'=>['piety'],'id'=>'temple_2'],
     ['cost'=>['servants'=>2,'builders'=>1,'bricks'=>2],'reward'=>['piety'],'id'=>'temple_3'],
     ],    
+    'training_grounds'=>[
+    ['lockedBy'=>['peryear'=>1],'cost'=>['builders'=>1],'reward'=>['sword'],'id'=>'training_grounds_1'],
+    ['lockedBy'=>['peryear'=>1],'cost'=>['builders'=>1],'reward'=>['sword'],'id'=>'training_grounds_2'],
+    ['lockedBy'=>['peryear'=>1],'cost'=>['builders'=>1],'reward'=>['sword'],'id'=>'training_grounds_3'],
+    ['lockedBy'=>['peryear'=>1],'cost'=>['builders'=>1],'reward'=>['sword'],'id'=>'training_grounds_4'],
+    ['lockedBy'=>['peryear'=>1],'cost'=>['builders'=>1],'reward'=>['sword'],'id'=>'training_grounds_5'],
+    ],
+    'training_grounds_rounds'=>[
+    ['lockedBy'=>['peryear'=>1],'id'=>'training_grounds_rounds_1'],
+    ['lockedBy'=>['peryear'=>1],'id'=>'training_grounds_rounds_2'],
+    ['lockedBy'=>['peryear'=>1],'id'=>'training_grounds_rounds_3'],
+    ['lockedBy'=>['peryear'=>1],'id'=>'training_grounds_rounds_4'],
+    ['lockedBy'=>['peryear'=>1],'id'=>'training_grounds_rounds_5'],
+    ],    
+    'road'=>[
+    ['lockedBy'=>['fort'=>9],'cost'=>['servants'=>2,'builders'=>1,'bricks'=>1],'reward'=>['continue'],'id'=>'road_1'],
+    ['cost'=>['continue'=>1],'reward'=>['piety|valour'],'id'=>'road_2'],
+    ['lockedBy'=>['fort'=>17],'cost'=>['servants'=>2,'builders'=>1,'bricks'=>2],'reward'=>['continue'],'id'=>'road_3'],
+    ['cost'=>['continue'=>1],'reward'=>['renown|valour'],'id'=>'road_4'],
+    ],
+    'forum'=>[
+    ['lockedBy'=>['peryear'=>1],'cost'=>['workers'=>2],'reward'=>['builders|servants|civilians'],'id'=>'forum_1'],
+    ['lockedBy'=>['peryear'=>1],'cost'=>['workers'=>2],'reward'=>['builders|servants|civilians'],'id'=>'forum_2'],
+    ['lockedBy'=>['peryear'=>1],'cost'=>['workers'=>2],'reward'=>['builders|servants|civilians'],'id'=>'forum_3'],
+    ['lockedBy'=>['peryear'=>1],'cost'=>['workers'=>2],'reward'=>['builders|servants|civilians'],'id'=>'forum_4'],
+    ],
+    'forum_rounds'=>[
+    ['lockedBy'=>['peryear'=>1],'id'=>'forum_rounds_1'],
+    ['lockedBy'=>['peryear'=>1],'id'=>'forum_rounds_2'],
+    ['lockedBy'=>['peryear'=>1],'id'=>'forum_rounds_3'],
+    ['lockedBy'=>['peryear'=>1],'id'=>'forum_rounds_4'],
+    ],    
+
 ];
 
 
