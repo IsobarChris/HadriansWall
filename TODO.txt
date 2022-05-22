@@ -1,10 +1,29 @@
 TODO Next
 
-- Make BATHS and COURTHOUSE work (just update data?)
+
 - Make ROAD work
-   - Valid moves needs to return choice options 
+   - Valid moves needs to return reward choice options 
+   - Start of turn sequence needs to offer attribute selection
+
 - Make FORUM work
-   - Need to handle 'workers' 
+   - Need to handle 'workers' in choice options
+   - Need to offer reward choice options (builder,servant,civilian)
+
+
+
+
+
+X - Make FORT work with a choice "|" resource.
+X - Make choices resources auto present on the js side.
+X - Make BATHS and COURTHOUSE work (requires double locked by)
+X - Make "peryear" work by checking if there is a "_rounds" location on the board.
+
+Make choice rewards auto present on the js side.
+
+
+- Make TEMPLEs work (without favor)
+- Make FAVOR work 
+
 
 
 

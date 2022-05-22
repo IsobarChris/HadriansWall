@@ -909,14 +909,6 @@ $this->fate_card_data =
 
 
 //google sheets formula to generate the data below
-// =CONCATENATE(if(A2<>A1,CONCATENATE("'",A2,"'=>[",char(13)),""),"[",
-// if(isblank(c2),"",CONCATENATE("'lockedBy'=>'",C2,"',")),
-// if(isblank(d2),"",CONCATENATE("'cost'=>'",D2,"',")),
-// if(isblank(e2),"",CONCATENATE("'altCost'=>'",E2,"',")),
-// if(isblank(g2),"",CONCATENATE("'continue'=>",G2,",")),
-// if(isblank(f2),"",CONCATENATE("'reward'=>'",F2,"',")),
-// "'id'=>'",H2,"'],",
-// if(a2<>a3,CONCATENATE(char(13),"],"),""))
 
 // =CONCATENATE(
 //   if(isblank(D101),"",
@@ -932,6 +924,18 @@ $this->fate_card_data =
 //     if(iserror(index(split(f101,","),1,2)),1,
 //     index(split(f101,","),1,2))))
 //   )
+
+// =CONCATENATE(if(A330<>A329,CONCATENATE("'",A330,"'=>[",char(13)),""),"[",
+// if(isblank(C330),"",CONCATENATE("'lockedBy'=>['",
+//   index(split(C330,","),0,1),"'=>",index(split(C330,","),0,2),
+//   if(isblank(D330),"",CONCATENATE(",'",index(split(D330,","),0,1),"'=>",index(split(D330,","),0,2))),
+//   if(isblank(E330),"",CONCATENATE(",'",index(split(E330,","),0,1),"'=>",index(split(E330,","),0,2))),
+//   "],")),
+// if(isblank(F330),"",CONCATENATE("'cost'=>[",T330,"],")),
+// if(isblank(I330),"",CONCATENATE("'altCost'=>['",I330,"'=>1],")),
+// if(isblank(J330),"",CONCATENATE("'reward'=>['",SUBSTITUTE(J330,",","','"),"'],")),
+// "'id'=>'",R330,"'],",
+// if(A330<>A331,CONCATENATE(char(13),"],"),""))
 
 
 $this->section_data = [
@@ -1249,6 +1253,12 @@ $this->section_data = [
     ['lockedBy'=>['fort'=>15],'cost'=>['bricks'=>4],'reward'=>['continue'],'id'=>'workshop_3'],
     ['cost'=>['continue'=>1],'reward'=>['renown','builders'],'id'=>'workshop_4'],
     ],
+    'road'=>[
+    ['lockedBy'=>['fort'=>9],'cost'=>['servants'=>2,'builders'=>1,'bricks'=>1],'reward'=>['continue'],'id'=>'road_1'],
+    ['cost'=>['continue'=>1],'reward'=>['piety|valour'],'id'=>'road_2'],
+    ['lockedBy'=>['fort'=>17],'cost'=>['servants'=>2,'builders'=>1,'bricks'=>2],'reward'=>['continue'],'id'=>'road_3'],
+    ['cost'=>['continue'=>1],'reward'=>['renown|valour'],'id'=>'road_4'],
+    ],
     'archway'=>[
     ['lockedBy'=>['renown'=>15],'cost'=>['builders'=>1,'bricks'=>2],'reward'=>['valour','valour'],'id'=>'archway_1'],
     ],
@@ -1294,12 +1304,12 @@ $this->section_data = [
     ['cost'=>['approve'=>1],'id'=>'approve_13'],
     ['cost'=>['approve'=>1],'id'=>'approve_14'],
     ['cost'=>['approve'=>1],'id'=>'approve_15'],
-    ],    
+    ],
     'temple'=>[
     ['cost'=>['servants'=>1,'builders'=>1,'bricks'=>1],'reward'=>['piety'],'id'=>'temple_1'],
     ['cost'=>['servants'=>1,'builders'=>1,'bricks'=>2],'reward'=>['piety'],'id'=>'temple_2'],
     ['cost'=>['servants'=>2,'builders'=>1,'bricks'=>2],'reward'=>['piety'],'id'=>'temple_3'],
-    ],    
+    ],
     'training_grounds'=>[
     ['lockedBy'=>['peryear'=>1],'cost'=>['builders'=>1],'reward'=>['sword'],'id'=>'training_grounds_1'],
     ['lockedBy'=>['peryear'=>1],'cost'=>['builders'=>1],'reward'=>['sword'],'id'=>'training_grounds_2'],
@@ -1308,17 +1318,11 @@ $this->section_data = [
     ['lockedBy'=>['peryear'=>1],'cost'=>['builders'=>1],'reward'=>['sword'],'id'=>'training_grounds_5'],
     ],
     'training_grounds_rounds'=>[
-    ['lockedBy'=>['peryear'=>1],'id'=>'training_grounds_rounds_1'],
-    ['lockedBy'=>['peryear'=>1],'id'=>'training_grounds_rounds_2'],
-    ['lockedBy'=>['peryear'=>1],'id'=>'training_grounds_rounds_3'],
-    ['lockedBy'=>['peryear'=>1],'id'=>'training_grounds_rounds_4'],
-    ['lockedBy'=>['peryear'=>1],'id'=>'training_grounds_rounds_5'],
-    ],    
-    'road'=>[
-    ['lockedBy'=>['fort'=>9],'cost'=>['servants'=>2,'builders'=>1,'bricks'=>1],'reward'=>['continue'],'id'=>'road_1'],
-    ['cost'=>['continue'=>1],'reward'=>['piety|valour'],'id'=>'road_2'],
-    ['lockedBy'=>['fort'=>17],'cost'=>['servants'=>2,'builders'=>1,'bricks'=>2],'reward'=>['continue'],'id'=>'road_3'],
-    ['cost'=>['continue'=>1],'reward'=>['renown|valour'],'id'=>'road_4'],
+    ['id'=>'training_grounds_rounds_1'],
+    ['id'=>'training_grounds_rounds_2'],
+    ['id'=>'training_grounds_rounds_3'],
+    ['id'=>'training_grounds_rounds_4'],
+    ['id'=>'training_grounds_rounds_5'],
     ],
     'forum'=>[
     ['lockedBy'=>['peryear'=>1],'cost'=>['workers'=>2],'reward'=>['builders|servants|civilians'],'id'=>'forum_1'],
@@ -1327,11 +1331,63 @@ $this->section_data = [
     ['lockedBy'=>['peryear'=>1],'cost'=>['workers'=>2],'reward'=>['builders|servants|civilians'],'id'=>'forum_4'],
     ],
     'forum_rounds'=>[
-    ['lockedBy'=>['peryear'=>1],'id'=>'forum_rounds_1'],
-    ['lockedBy'=>['peryear'=>1],'id'=>'forum_rounds_2'],
-    ['lockedBy'=>['peryear'=>1],'id'=>'forum_rounds_3'],
-    ['lockedBy'=>['peryear'=>1],'id'=>'forum_rounds_4'],
-    ],    
+    ['id'=>'forum_rounds_1'],
+    ['id'=>'forum_rounds_2'],
+    ['id'=>'forum_rounds_3'],
+    ['id'=>'forum_rounds_4'],
+    ],
+    'courthouse'=>[
+    ['lockedBy'=>['apparitores'=>4],'cost'=>['servants'=>2,'builders'=>1,'bricks'=>2],'reward'=>['renown'],'id'=>'courthouse_1'],
+    ],
+    'courthouse_c1'=>[
+    ['lockedBy'=>['courthouse'=>1,'apparitores'=>4,'peryear'=>1],'cost'=>['free'=>1],'reward'=>['servants'],'id'=>'courthouse_c1_1'],
+    ['lockedBy'=>['courthouse'=>1,'apparitores'=>5,'peryear'=>1],'cost'=>['free'=>1],'reward'=>['servants'],'id'=>'courthouse_c1_2'],
+    ['lockedBy'=>['courthouse'=>1,'apparitores'=>6,'peryear'=>1],'cost'=>['free'=>1],'reward'=>['servants'],'id'=>'courthouse_c1_3'],
+    ],
+    'courthouse_c2'=>[
+    ['lockedBy'=>['courthouse'=>1,'apparitores'=>5,'peryear'=>1],'cost'=>['builders'=>1],'reward'=>['servants','servants'],'id'=>'courthouse_c2_1'],
+    ['lockedBy'=>['courthouse'=>1,'apparitores'=>6,'peryear'=>1],'cost'=>['builders'=>1],'reward'=>['servants','servants'],'id'=>'courthouse_c2_2'],
+    ['lockedBy'=>['courthouse'=>1,'apparitores'=>7,'peryear'=>1],'cost'=>['builders'=>1],'reward'=>['servants','servants'],'id'=>'courthouse_c2_3'],
+    ],
+    'courthouse_c3'=>[
+    ['lockedBy'=>['courthouse'=>1,'apparitores'=>6,'peryear'=>1],'cost'=>['servants'=>1],'reward'=>['builders'],'id'=>'courthouse_c3_1'],
+    ['lockedBy'=>['courthouse'=>1,'apparitores'=>7,'peryear'=>1],'cost'=>['servants'=>1],'reward'=>['builders'],'id'=>'courthouse_c3_2'],
+    ['lockedBy'=>['courthouse'=>1,'apparitores'=>8,'peryear'=>1],'cost'=>['servants'=>1],'reward'=>['builders'],'id'=>'courthouse_c3_3'],
+    ],
+    'courthouse_c1_rounds'=>[
+    ['id'=>'courthouse_c1_rounds_1'],
+    ['id'=>'courthouse_c1_rounds_2'],
+    ['id'=>'courthouse_c1_rounds_3'],
+    ],
+    'courthouse_c2_rounds'=>[
+    ['id'=>'courthouse_c2_rounds_1'],
+    ['id'=>'courthouse_c2_rounds_2'],
+    ['id'=>'courthouse_c2_rounds_3'],
+    ],
+    'courthouse_c3_rounds'=>[
+    ['id'=>'courthouse_c3_rounds_1'],
+    ['id'=>'courthouse_c3_rounds_2'],
+    ['id'=>'courthouse_c3_rounds_3'],
+    ],
+    'baths'=>[
+    ['lockedBy'=>['apparitores'=>3],'cost'=>['servants'=>2,'builders'=>1,'bricks'=>2],'reward'=>['renown'],'id'=>'baths_1'],
+    ],
+    'baths_approve'=>[
+    ['lockedBy'=>['baths'=>1,'apparitores'=>3,'peryear'=>2,'disdain'=>1],'cost'=>['bricks'=>1],'reward'=>['approve'],'id'=>'baths_approve_1'],
+    ['lockedBy'=>['baths'=>1,'apparitores'=>4,'peryear'=>2,'disdain'=>2],'cost'=>['bricks'=>1],'reward'=>['approve'],'id'=>'baths_approve_2'],
+    ['lockedBy'=>['baths'=>1,'apparitores'=>5,'peryear'=>2,'disdain'=>3],'cost'=>['bricks'=>2],'reward'=>['approve'],'id'=>'baths_approve_3'],
+    ['lockedBy'=>['baths'=>1,'apparitores'=>6,'peryear'=>2,'disdain'=>4],'cost'=>['bricks'=>2],'reward'=>['approve'],'id'=>'baths_approve_4'],
+    ['lockedBy'=>['baths'=>1,'apparitores'=>7,'peryear'=>2,'disdain'=>5],'cost'=>['bricks'=>3],'reward'=>['approve'],'id'=>'baths_approve_5'],
+    ['lockedBy'=>['baths'=>1,'apparitores'=>8,'peryear'=>2,'disdain'=>6],'cost'=>['bricks'=>3],'reward'=>['approve'],'id'=>'baths_approve_6'],
+    ],
+    'baths_approve_rounds'=>[
+    ['id'=>'baths_approve_rounds_1'],
+    ['id'=>'baths_approve_rounds_2'],
+    ['id'=>'baths_approve_rounds_3'],
+    ['id'=>'baths_approve_rounds_4'],
+    ['id'=>'baths_approve_rounds_5'],
+    ['id'=>'baths_approve_rounds_6'],
+    ],
 
 ];
 

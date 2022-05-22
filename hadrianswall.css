@@ -540,6 +540,11 @@ dojo.hasClass
     margin:0px; 
 }
 
+.donext {
+    border: 2px solid red;
+    margin:0px; 
+}
+
 .rect {
     background-color: #9997;
     margin:0px; 

@@ -49,6 +49,7 @@ function (dojo, declare) {
 
             // add div for each location on the player sheets
             this.addScratchLocations();
+            dojo.query('.donext').removeClass('clickable');
 
             dojo.query('.clickable').connect('onclick',this,'onBoxClicked');
 
@@ -467,6 +468,24 @@ function (dojo, declare) {
                 this.hasValidMoves = true;
                 let id = box.id;
                 dojo.query(`#${id}`).addClass('valid');
+
+                if(box.spend_choice) {
+                    let section = id.split("_").slice(0,-1).join("_");
+                    let index = parseInt(id.split("_").pop()) - 1;
+                    let choices = box.spend_choice;
+                    // update box data with spend choices
+                    debug("spend_choice",`section ${section} index ${index} choices ${choices}`);
+                    scratch_data[section][index]['spendChoices']=choices;
+                }
+
+                if(box.reward_choice) {
+                    let section = id.split("_").slice(0,-1).join("_");
+                    let index = parseInt(id.split("_").pop()) - 1;
+                    let choices = box.reward_choice;
+                    // update box data with reward choices
+                    debug("reward_choice",`section ${section} index ${index} choices ${choices}`);
+                    scratch_data[section][index]['rewardChoices']=choices;
+                }
             });
         },
 
@@ -577,26 +596,29 @@ function (dojo, declare) {
             debug("Box clicked",section);
             debug("Box Data",boxData);
 
-            let choice1 = 'builders';
-            let choice2 = 'soldiers';
-
             if(section=="closed") {
                 return;
             }
 
-            // TODO - store the optiosn in spendChoice
+            // TODO - use the stored options that come back in valid moves
 
             let presentChoice = false;
-            if(boxData.spendChoice) {
+            if(boxData.spendChoices) {
                 presentChoice = true;
-                
+
                 // Make sure we can select the box at all
                 if(!dojo.hasClass(`${evt.target.id}`,'valid')) {
                     presentChoice = false;
                 }
 
-                // Make sure we have a resource of each type
-                if(this[`${choice1}_resource`].getValue()==0 || this[`${choice2}_resource`].getValue()==0) {
+                let choiceCount = boxData.spendChoices.length;
+                boxData.spendChoices.forEach((choice)=>{
+                    // Make sure there's a reason to present a choice (i.e. we have more than one option)
+                    if(this[`${choice}_resource`].getValue()==0) {
+                        choiceCount--;
+                    }
+                })
+                if(choiceCount<2) {
                     presentChoice = false;
                 }
             }
@@ -973,67 +995,33 @@ let scratch_data = {
         {s:1,x:700,y:219,w:16,h:17,c:'rect'}
       ],
       fort:[
-        {s:1,x: 75,y:266,w:36,h:18,c:'rect',spendChoice:true},
-        {s:1,x:114,y:266,w:16,h:18,c:'rect',spendChoice:true},
-        {s:1,x:133,y:266,w:16,h:18,c:'rect',spendChoice:true},
-        {s:1,x:152,y:266,w:56,h:18,c:'rect',spendChoice:true},
-        {s:1,x:210,y:266,w:16,h:18,c:'rect',spendChoice:true},
-        {s:1,x:230,y:266,w:16,h:18,c:'rect',spendChoice:true},
-        {s:1,x:250,y:266,w:36,h:18,c:'rect',spendChoice:true},
-        {s:1,x:295,y:266,w:16,h:18,c:'rect',spendChoice:true},
-        {s:1,x:314,y:266,w:16,h:18,c:'rect',spendChoice:true},
-        {s:1,x:334,y:266,w:36,h:18,c:'rect',spendChoice:true},
-        {s:1,x:372,y:266,w:36,h:18,c:'rect',spendChoice:true},
-        {s:1,x:411,y:266,w:16,h:18,c:'rect',spendChoice:true},
-        {s:1,x:430,y:266,w:36,h:18,c:'rect',spendChoice:true},
-        {s:1,x:469,y:266,w:36,h:18,c:'rect',spendChoice:true},
-        {s:1,x:515,y:266,w:16,h:18,c:'rect',spendChoice:true},
-        {s:1,x:535,y:266,w:36,h:18,c:'rect',spendChoice:true},
-        {s:1,x:573,y:266,w:16,h:18,c:'rect',spendChoice:true},
-        {s:1,x:593,y:266,w:36,h:18,c:'rect',spendChoice:true},
-        {s:1,x:631,y:266,w:16,h:18,c:'rect',spendChoice:true},
-        {s:1,x:651,y:266,w:36,h:18,c:'rect',spendChoice:true},
-        {s:1,x:689,y:266,w:36,h:18,c:'rect',spendChoice:true}
+        {s:1,x:75,y:266,w:36,h:18,c:'rect'},
+        {s:1,x:114,y:266,w:16,h:18,c:'rect'},
+        {s:1,x:133,y:266,w:16,h:18,c:'rect'},
+        {s:1,x:152,y:266,w:56,h:18,c:'rect'},
+        {s:1,x:210,y:266,w:16,h:18,c:'rect'},
+        {s:1,x:230,y:266,w:16,h:18,c:'rect'},
+        {s:1,x:250,y:266,w:36,h:18,c:'rect'},
+        {s:1,x:295,y:266,w:16,h:18,c:'rect'},
+        {s:1,x:314,y:266,w:16,h:18,c:'rect'},
+        {s:1,x:334,y:266,w:36,h:18,c:'rect'},
+        {s:1,x:372,y:266,w:36,h:18,c:'rect'},
+        {s:1,x:411,y:266,w:16,h:18,c:'rect'},
+        {s:1,x:430,y:266,w:36,h:18,c:'rect'},
+        {s:1,x:469,y:266,w:36,h:18,c:'rect'},
+        {s:1,x:515,y:266,w:16,h:18,c:'rect'},
+        {s:1,x:535,y:266,w:36,h:18,c:'rect'},
+        {s:1,x:573,y:266,w:16,h:18,c:'rect'},
+        {s:1,x:593,y:266,w:36,h:18,c:'rect'},
+        {s:1,x:631,y:266,w:16,h:18,c:'rect'},
+        {s:1,x:651,y:266,w:36,h:18,c:'rect'},
+        {s:1,x:689,y:266,w:36,h:18,c:'rect'}
       ],
       granary:[
         {s:1,x:409,y:319,w:10,h:10,c:'circle'},
         {s:1,x:635,y:319,w:10,h:10,c:'circle'},
         {s:1,x:658,y:317,w:17,h:16,c:'rect'}
       ],
-      production:[
-        {s:1,x:105,y:358,w:10,h:10,c:'circle'},
-        {s:1,x:124,y:358,w:10,h:10,c:'circle'},
-        {s:1,x:143,y:358,w:10,h:10,c:'circle'},
-        {s:1,x:162,y:358,w:10,h:10,c:'circle'},
-        {s:1,x:180,y:358,w:10,h:10,c:'circle'},
-        {s:1,x:199,y:358,w:10,h:10,c:'circle'},
-        {s:1,x:218,y:358,w:10,h:10,c:'circle'},
-        {s:1,x:238,y:358,w:10,h:10,c:'circle'}
-      ],      
-      hotel:[
-        {s:1,x:126,y:410,w:10,h:10,c:'circle'},
-        {s:1,x:149,y:407,w:15,h:15,c:'rect'},
-        {s:1,x:126,y:431,w:10,h:10,c:'circle'},
-        {s:1,x:149,y:428,w:32,h:15,c:'rect'}
-      ],
-      workshop:[
-        {s:1,x:322,y:410,w:10,h:10,c:'circle'},
-        {s:1,x:345,y:407,w:15,h:15,c:'rect'},
-        {s:1,x:322,y:431,w:10,h:10,c:'circle'},
-        {s:1,x:345,y:428,w:32,h:15,c:'rect'}
-      ],
-      archway:[
-        {s:1,x:209,y:470,w:33,h:16,c:'rect'}
-      ],
-      monolith:[
-        {s:1,x:374,y:470,w:33,h:16,c:'rect'}
-      ],
-      column:[
-        {s:1,x:533,y:470,w:33,h:16,c:'rect'}
-      ],
-      statue:[
-        {s:1,x:689,y:470,w:33,h:16,c:'rect'}
-      ],      
       renown:[
         {s:1,x:87,y:530,w:16,h:17,c:'rect'},
         {s:1,x:107,y:530,w:16,h:17,c:'rect'},
@@ -1206,6 +1194,46 @@ let scratch_data = {
         {s:2,x:424,y:317,w:66,h:16,c:'rect'},
         {s:2,x:624,y:317,w:100,h:16,c:'rect'}
       ],
+      production:[
+        {s:1,x:105,y:358,w:10,h:10,c:'circle'},
+        {s:1,x:124,y:358,w:10,h:10,c:'circle'},
+        {s:1,x:143,y:358,w:10,h:10,c:'circle'},
+        {s:1,x:162,y:358,w:10,h:10,c:'circle'},
+        {s:1,x:180,y:358,w:10,h:10,c:'circle'},
+        {s:1,x:199,y:358,w:10,h:10,c:'circle'},
+        {s:1,x:218,y:358,w:10,h:10,c:'circle'},
+        {s:1,x:238,y:358,w:10,h:10,c:'circle'}
+      ],
+      hotel:[
+        {s:1,x:126,y:410,w:10,h:10,c:'circle'},
+        {s:1,x:149,y:407,w:15,h:15,c:'rect'},
+        {s:1,x:126,y:431,w:10,h:10,c:'circle'},
+        {s:1,x:149,y:428,w:32,h:15,c:'rect'}
+      ],
+      workshop:[
+        {s:1,x:322,y:410,w:10,h:10,c:'circle'},
+        {s:1,x:345,y:407,w:15,h:15,c:'rect'},
+        {s:1,x:322,y:431,w:10,h:10,c:'circle'},
+        {s:1,x:345,y:428,w:32,h:15,c:'rect'}
+      ],
+      road:[
+        {s:1,x:514,y:410,w:10,h:10,c:'circle'},
+        {s:1,x:537,y:407,w:34,h:15,c:'rect'},
+        {s:1,x:514,y:431,w:10,h:10,c:'circle'},
+        {s:1,x:537,y:428,w:34,h:15,c:'rect'}
+      ],
+      archway:[
+        {s:1,x:209,y:470,w:33,h:16,c:'rect'}
+      ],
+      monolith:[
+        {s:1,x:374,y:470,w:33,h:16,c:'rect'}
+      ],
+      column:[
+        {s:1,x:533,y:470,w:33,h:16,c:'rect'}
+      ],
+      statue:[
+        {s:1,x:689,y:470,w:33,h:16,c:'rect'}
+      ],
       disdain:[
         {s:1,x:202,y:677,w:10,h:10,c:'circled circledashed'},
         {s:1,x:217,y:677,w:10,h:10,c:'circled circledashed'},
@@ -1229,24 +1257,22 @@ let scratch_data = {
         {s:1,x:233,y:677,w:12,h:12,c:'circle'},
         {s:1,x:249,y:677,w:12,h:12,c:'circle'},
         {s:1,x:265,y:677,w:12,h:12,c:'circle'},
-        {s:1,x:202,y:691,w:10,h:10,c:'circle'},
-        {s:1,x:217,y:691,w:10,h:10,c:'circle'},
-        {s:1,x:233,y:691,w:10,h:10,c:'circle'},
-        {s:1,x:249,y:691,w:10,h:10,c:'circle'},
-        {s:1,x:265,y:691,w:10,h:10,c:'circle'},
-        {s:1,x:202,y:706,w:10,h:10,c:'circle'},
-        {s:1,x:217,y:706,w:10,h:10,c:'circle'},
-        {s:1,x:233,y:706,w:10,h:10,c:'circle'},
-        {s:1,x:249,y:706,w:10,h:10,c:'circle'},
-        {s:1,x:265,y:706,w:10,h:10,c:'circle'}
-      ],      
-      
+        {s:1,x:202,y:691,w:12,h:12,c:'circle'},
+        {s:1,x:217,y:691,w:12,h:12,c:'circle'},
+        {s:1,x:233,y:691,w:12,h:12,c:'circle'},
+        {s:1,x:249,y:691,w:12,h:12,c:'circle'},
+        {s:1,x:265,y:691,w:12,h:12,c:'circle'},
+        {s:1,x:202,y:706,w:12,h:12,c:'circle'},
+        {s:1,x:217,y:706,w:12,h:12,c:'circle'},
+        {s:1,x:233,y:706,w:12,h:12,c:'circle'},
+        {s:1,x:249,y:706,w:12,h:12,c:'circle'},
+        {s:1,x:265,y:706,w:12,h:12,c:'circle'}
+      ],
       temple:[
         {s:2,x:416,y:352,w:16,h:16,c:'rect'},
         {s:2,x:558,y:352,w:16,h:16,c:'rect'},
         {s:2,x:708,y:352,w:16,h:16,c:'rect'}
       ],
-
       training_grounds:[
         {s:1,x:442,y:355,w:16,h:16,c:'rect'},
         {s:1,x:478,y:355,w:16,h:16,c:'rect'},
@@ -1260,12 +1286,6 @@ let scratch_data = {
         {s:1,x:529,y:355,w:16,h:16,c:'rect roundNumber'},
         {s:1,x:565,y:355,w:16,h:16,c:'rect roundNumber'},
         {s:1,x:599,y:355,w:16,h:16,c:'rect roundNumber'}
-        ],
-      road:[
-        {s:1,x:514,y:410,w:10,h:10,c:'circle'},
-        {s:1,x:537,y:407,w:34,h:15,c:'rect'},
-        {s:1,x:514,y:431,w:10,h:10,c:'circle'},
-        {s:1,x:537,y:428,w:34,h:15,c:'rect'}
       ],
       forum:[
         {s:1,x:615,y:408,w:16,h:16,c:'rect'},
@@ -1279,15 +1299,66 @@ let scratch_data = {
         {s:1,x:705,y:408,w:16,h:16,c:'rect roundNumber'},
         {s:1,x:705,y:429,w:16,h:16,c:'rect roundNumber'}
       ],
+      courthouse:[
+        {s:2,x:588,y:459,w:16,h:17,c:'rect'}
+      ],
+      courthouse_c1:[
+        {s:2,x:486,y:484,w:16,h:17,c:'rect'},
+        {s:2,x:486,y:507,w:16,h:17,c:'rect'},
+        {s:2,x:486,y:530,w:16,h:17,c:'rect'}
+      ],
+      courthouse_c2:[
+        {s:2,x:587,y:484,w:21,h:17,c:'rect'},
+        {s:2,x:587,y:507,w:21,h:17,c:'rect'},
+        {s:2,x:587,y:530,w:21,h:17,c:'rect'}
+      ],
+      courthouse_c3:[
+        {s:2,x:690,y:484,w:16,h:17,c:'rect'},
+        {s:2,x:690,y:507,w:16,h:17,c:'rect'},
+        {s:2,x:690,y:530,w:16,h:17,c:'rect'}
+      ],
+      courthouse_c1_rounds:[
+        {s:2,x:503,y:484,w:16,h:17,c:'rect roundNumber'},
+        {s:2,x:503,y:507,w:16,h:17,c:'rect roundNumber'},
+        {s:2,x:503,y:530,w:16,h:17,c:'rect roundNumber'}
+      ],
+      courthouse_c2_rounds:[
+        {s:2,x:609,y:484,w:16,h:17,c:'rect roundNumber'},
+        {s:2,x:609,y:507,w:16,h:17,c:'rect roundNumber'},
+        {s:2,x:609,y:530,w:16,h:17,c:'rect roundNumber'}
+      ],
+      courthouse_c3_rounds:[
+        {s:2,x:707,y:484,w:16,h:17,c:'rect roundNumber'},
+        {s:2,x:707,y:507,w:16,h:17,c:'rect roundNumber'},
+        {s:2,x:707,y:530,w:16,h:17,c:'rect roundNumber'}
+      ],
+      baths:[
+        {s:2,x:315,y:459,w:16,h:17,c:'rect'}
+      ],
+      baths_approve:[
+        {s:2,x:272,y:484,w:16,h:17,c:'rect'},
+        {s:2,x:272,y:507,w:16,h:17,c:'rect'},
+        {s:2,x:272,y:530,w:16,h:17,c:'rect'},
+        {s:2,x:392,y:484,w:16,h:17,c:'rect'},
+        {s:2,x:392,y:507,w:16,h:17,c:'rect'},
+        {s:2,x:392,y:530,w:16,h:17,c:'rect'}
+      ],
+      baths_approve_rounds:[
+        {s:2,x:289,y:484,w:16,h:17,c:'rect roundNumber'},
+        {s:2,x:289,y:507,w:16,h:17,c:'rect roundNumber'},
+        {s:2,x:289,y:530,w:16,h:17,c:'rect roundNumber'},
+        {s:2,x:409,y:484,w:16,h:17,c:'rect roundNumber'},
+        {s:2,x:409,y:507,w:16,h:17,c:'rect roundNumber'},
+        {s:2,x:409,y:530,w:16,h:17,c:'rect roundNumber'}
+      ],
 
       closed:[
-        //{s:1,x:372,y:350,w:368,h:30,c:'closed'},  // Training
-        //{s:1,x:385,y:380,w:355,h:80,c:'closed'},  // Roads & Forum
+        {s:1,x:385,y:380,w:190,h:80,c:'donext'},  // Roads
+        {s:1,x:385+195,y:380,w:155,h:80,c:'donext'},  // Forum
 
         {s:2,x:360,y: 10,w:380,h:125,c:'closed'}, // market
         {s:2,x:190,y:145,w:550,h:160,c:'closed'}, // theatre & gladiators
         {s:2,x:190,y:372,w:550,h: 75,c:'closed'}, // temples
-        {s:2,x:190,y:455,w:550,h:120,c:'closed'}, // baths & courthouse
         {s:2,x:190,y:580,w:550,h:160,c:'closed'}  // diplomats & scouts
       ],
 
