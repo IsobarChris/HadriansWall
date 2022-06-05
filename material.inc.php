@@ -1254,9 +1254,9 @@ $this->section_data = [
     ['cost'=>['continue'=>1],'reward'=>['renown','builders'],'id'=>'workshop_4'],
     ],
     'road'=>[
-    ['lockedBy'=>['fort'=>9],'cost'=>['servants'=>2,'builders'=>1,'bricks'=>1],'reward'=>['continue'],'id'=>'road_1'],
+    ['lockedBy'=>['fort'=>1],'cost'=>['free'=>0],'reward'=>['continue'],'id'=>'road_1'],
     ['cost'=>['continue'=>1],'reward'=>['piety|valour'],'id'=>'road_2'],
-    ['lockedBy'=>['fort'=>17],'cost'=>['servants'=>2,'builders'=>1,'bricks'=>2],'reward'=>['continue'],'id'=>'road_3'],
+    ['lockedBy'=>['fort'=>1],'cost'=>['free'=>0],'reward'=>['continue'],'id'=>'road_3'],
     ['cost'=>['continue'=>1],'reward'=>['renown|valour'],'id'=>'road_4'],
     ],
     'archway'=>[

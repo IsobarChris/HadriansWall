@@ -298,7 +298,7 @@ class HadriansWall extends Table
 
     function clearResources() {
         $this->setResources([
-            'free'=>3, 
+            'free'=>0, 
             'civilians'=>0, 
             'servants'=>0, 
             'soldiers'=>0, 
@@ -324,6 +324,34 @@ class HadriansWall extends Table
         $resource_sql = "UPDATE resources SET special = RIGHT(special,LENGTH(special)-$length) WHERE player_id=$current_player_id";
         self::DbQuery($resource_sql);
     }
+
+    function addChoices($resource) {
+        //self::debug("--->addChoice $resource");
+        $current_player_id = self::getCurrentPlayerId();
+        $resource_sql = "UPDATE resources SET choice = '$resource' WHERE player_id=$current_player_id";
+        self::DbQuery($resource_sql);
+    }
+
+    function clearChoices() {
+        //self::debug("--->delChoice $resource");
+        $current_player_id = self::getCurrentPlayerId();
+        $resource_sql = "UPDATE resources SET choice = '' WHERE player_id=$current_player_id";
+        self::DbQuery($resource_sql);
+    }
+
+    function getChoices() {
+        //self::debug("--->getResources");
+        $current_player_id = self::getCurrentPlayerId();
+        $resource_sql = "SELECT player_id, choice FROM resources WHERE player_id=$current_player_id";
+        $result = self::getCollectionFromDb($resource_sql)[$current_player_id];
+        
+        $result['choices'] = explode('|',$result['choice']);
+
+        //self::debug("choices ".print_r($result,true));
+
+        return $result['choices'];
+    }
+
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////
     ////
@@ -564,11 +592,6 @@ class HadriansWall extends Table
                 $this->adjResources([$spend=>-1]);
             }
 
-            if(array_key_exists('reward',$boxData)) {
-                //self::debug("Should reward ".print_r($boxData['reward'],true));
-                $this->applyRewards($boxData['reward']);
-            }
-
             // check if we need to record the round number            
             if(array_key_exists('roundNumberEntry',$boxData)) {
                 $rounds_section = $boxData['roundNumberEntry']['section'];
@@ -587,6 +610,25 @@ class HadriansWall extends Table
                 $board_sql = "UPDATE board SET `$rounds_section` = '".$newRounds."' WHERE player_id=$current_player_id";
                 self::DbQuery( $board_sql );
             }
+                        
+            if(array_key_exists('reward',$boxData)) {
+                self::debug("Should reward ".print_r($boxData['reward'],true));
+                $reward = $boxData['reward'];
+
+                $choices = explode("|",$reward[0]);
+                if(count($choices) > 1) {
+                    $this->addChoices($reward[0]);
+                    self::debug("Choices Detected ".print_r($choices,true));
+                    $this->gamestate->nextPrivateState($current_player_id, 'rewardChoice');
+                    $new_valid_moves = [];
+                } else {
+                    $this->applyRewards($reward);  
+                    $new_valid_moves = $this->getValidMoves();
+                }
+            } else {
+                $new_valid_moves = $this->getValidMoves();
+            }
+
 
             // check to see if we should also check the next cell            
             if(array_key_exists('reward',$boxData) && count($boxData['reward'])>0 && $boxData['reward'][0]=='continue') {
@@ -596,7 +638,7 @@ class HadriansWall extends Table
             } else {
                 $this->notifyPlayer( $current_player_id, "sheetsUpdated", "", [
                     "board"=>$this->getBoard(),
-                    "valid_moves"=>$this->getValidMoves(),
+                    "valid_moves"=>$new_valid_moves,
                     "resources"=>$this->getResources(),
                     "score_column"=>$score_column,
                     "boxData"=>$boxData
@@ -610,6 +652,16 @@ class HadriansWall extends Table
         $current_player_id = self::getCurrentPlayerId();
 
         $this->doCheckNextBox($section,$spend,$reward);
+    }
+
+    function argRewardChoice() {
+        $current_player_id = self::getCurrentPlayerId();
+        $resource_sql = "SELECT player_id, choice FROM resources WHERE `player_id`=$current_player_id";
+        $resources = self::getCollectionFromDB($resource_sql)[$current_player_id];
+
+        $choice_array = explode("|",$resources['choice']);
+
+        return ['choices'=>$choice_array];
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -634,7 +686,7 @@ class HadriansWall extends Table
         $bricks    = $this->fate_card_data[$card]['bricks'];
 
         $this->adjResources([
-            'free'=>3,
+            'free'=>99,
             'soldiers'=>$soldiers,
             'builders'=>$builders,
             'servants'=>$servants,
@@ -822,6 +874,46 @@ class HadriansWall extends Table
         $this->gamestate->setPlayerNonMultiactive($current_player_id, 'checkEndGame');
     }    
 
+      ///////   ////   /////    //// 
+        //     //  //  //  //  //  //
+        //     //  //  //  //  //  //
+        //      ////   ////     //// 
+    ////////////////////////////////////  
+    function rewardChoice($choice) {
+        //self::debug("restart round");
+
+        $this->checkAction('rewardChoice');
+        $current_player_id = self::getCurrentPlayerId();
+
+        // make sure the choice was an option
+        $valid = false;
+        $choices = $this->getChoices();
+        for($i=0;$i<count($choices);$i++) {
+            if($choices[$i]==$choice) {
+                $valid = true;
+                break;
+            }
+        }
+
+        if($valid) {
+            // apply the choice
+            if(in_array($choice,['civilians', 'servants', 'soldiers', 'builders', 'bricks'],true)) {
+                $this->adjResources([$choice=>1]);
+            } else {
+                $this->addSpecial($choice);
+            }
+
+            // remove choices
+            $this->clearChoices();
+
+            $this->notifyPlayer( $current_player_id, "resourcesUpdated", "", [
+                'resources'=>$this->getResources(),
+                'change'=>[$choice=>1]
+            ]);    
+
+            $this->gamestate->nextPrivateState($current_player_id, 'useResources');
+        }
+    }
 
       ///////   ////   /////    //// 
         //     //  //  //  //  //  //
@@ -968,7 +1060,7 @@ class HadriansWall extends Table
         $valid = true;
         $cost = [];
         $altCost = [];
-        $reward = [];
+        $reward = false;
         $message = "valid";
         $roundNumberEntry = null;
 
@@ -1086,9 +1178,11 @@ class HadriansWall extends Table
             'valid'=>$valid,
             'cost'=>$cost,
             'altCost'=>$altCost,
-            'reward'=>$reward,
             'message'=>$message,
         ];
+        if($reward) {
+            $results['reward']=$reward;
+        }
         if($roundNumberEntry == null) {
         } else {
             $results['roundNumberEntry'] = $roundNumberEntry;
@@ -1131,8 +1225,13 @@ class HadriansWall extends Table
                     if($this->isBasicResource(array_key_first($d['cost']))) {
                         $valid_move['spend_choice']=[array_key_first($d['cost']),array_key_first($d['altCost'])];
                     }
-                }
-                // if the cost is 'worker'
+                } else if(array_key_exists('cost',$d) && array_key_first($d['cost'])=='workers') {
+                    // if the cost is 'workers'
+                    $valid_move['spend_choice']=['soldiers','builders','servants','civilians'];
+                    if($d['cost']['workers']==2) {
+                        $valid_move['2nd_spend_choice']=['soldiers','builders','servants','civilians'];
+                    }
+                }                                
 
                 $valid_moves[]=$valid_move;
 

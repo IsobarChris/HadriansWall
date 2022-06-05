@@ -237,6 +237,10 @@ function (dojo, declare) {
                 }
                 break;
 
+                case 'rewardChoice': {
+                }
+                break;
+
                 case 'displayAttack':
                     dojo.removeClass('attack','forcehidden');
                     let attacks = args.args;
@@ -296,9 +300,9 @@ function (dojo, declare) {
 
         resourceIconString: function(resources) {
             let res = ``;
-            ['soldiers','builders','servants','civilians','bricks'].forEach((r)=>{
+            ['soldiers','builders','servants','civilians','bricks','renown','valour','piety','discipline'].forEach((r,a)=>{
                 for(let i=0;i<resources[r];i++) {
-                    res+=`<div class="iconsheet icon_${r.slice(0,-1)} microicon"></div>`;
+                    res+=`<div class="iconsheet icon_${a<5?r.slice(0,-1):r} microicon"></div>`;
                 }
             })
 
@@ -335,7 +339,7 @@ function (dojo, declare) {
                         let options = args
                         options.forEach((option)=>{
                             console.log(`Option ${option}`)
-                            this.addActionButton( `$[option}`,`<div id='${option}' class='iconsheet icon_${option} miniicon'></div>`,'actChooseAttribute');
+                            this.addActionButton( `${option}`,`<div id='${option}' class='iconsheet icon_${option} miniicon'></div>`,'actChooseAttribute');
                         })
 
                         // this.addActionButton( 'renown',"<div id='renown' class='iconsheet icon_renown miniicon'></div>",'actChooseAttribute');
@@ -372,6 +376,19 @@ function (dojo, declare) {
                         //this.addActionButton( 'undo', _('Undo'), 'actTurnUndo' );
                         //this.addActionButton( 'reset', _('Reset Turn'), 'actTurnReset' );
                         this.addActionButton( 'done', _('End Turn'), 'actTurnDone' );
+                    break;
+                    
+                    case 'rewardChoice':
+                        debug("choice args",args['choices']);
+
+                        args['choices'].forEach((reward)=>{
+                            debug("choice ",reward);
+                            let resources = [];
+                            resources[reward]=1;
+                            let icons = this.resourceIconString(resources);
+                            debug("choice ",icons);
+                            this.addActionButton( `${reward}`, icons, 'actRewardChoice' );
+                        });
                     break;
 
                     case 'displayAttack':
@@ -570,20 +587,23 @@ function (dojo, declare) {
             debug("evt",evt);
             debug("loc",[evt.target.offsetLeft,evt.target.offsetTop]);
 
-
-            //TODO: Make this dyanmic
-            let choice1 = 'builders';
-            let choice2 = 'soldiers';
+            let choices = boxData.spendChoices;
+            let secondChoice = boxData.secondChoice
+            debug("Box Data Choice Options ",choices);
 
             dojo.query(`#sheet${boxData.s}_selector`).empty();
             dojo.query(`#sheet${boxData.s}_selector`).removeClass("forcehidden");
             dojo.query(`#sheet${boxData.s}_selector`).style({left:`${evt.target.offsetLeft}px`,top:`${evt.target.offsetTop}px`});
-            let n = dojo.place(`<div id=${section}__${choice1} class="iconsheet icon_${choice1}"></div>`,`sheet${boxData.s}_selector`);
+
+            let n = dojo.place(`<div id=${section}__${choices[0]} class="iconsheet icon_${choices[0]}"></div>`,`sheet${boxData.s}_selector`);
             dojo.query(n).connect('onclick',this,'onChoiceMade');
 
-            dojo.place(`<span style="color: white; font-size: 20px">or</span>`,`sheet${boxData.s}_selector`);
-            n = dojo.place(`<div id=${section}__${choice2} class="iconsheet icon_${choice2}"></div>`,`sheet${boxData.s}_selector`);
-            dojo.query(n).connect('onclick',this,'onChoiceMade');
+            choices.forEach((choice,i)=>{
+                if(i==0) return;
+                dojo.place(`<span style="color: white; font-size: 20px">or</span>`,`sheet${boxData.s}_selector`);
+                n = dojo.place(`<div id=${section}__${choice} class="iconsheet icon_${choice}"></div>`,`sheet${boxData.s}_selector`);
+                dojo.query(n).connect('onclick',this,'onChoiceMade');
+            })
 
             //this.onBoxClicked(evt);
         },
@@ -618,6 +638,11 @@ function (dojo, declare) {
                         choiceCount--;
                     }
                 })
+
+                // TODO
+                // handle 2nd choice here
+
+
                 if(choiceCount<2) {
                     presentChoice = false;
                 }
@@ -736,6 +761,18 @@ function (dojo, declare) {
                 }
             }
 
+        },
+
+        actRewardChoice: function( evt ) {
+            dojo.stopEvent( evt );
+            debug("Reward Choice evt",evt)
+            let choice = evt.target.parentNode.id;
+            debug("Reward Choice", choice);
+
+            if(this.checkAction('rewardChoice')){
+                this.ajaxcall("/hadrianswall/hadrianswall/rewardChoice.html",
+                    {choice},this,function(result){});
+            }
         },
 
         actApplyCohorts: function( evt ) {
@@ -1353,8 +1390,8 @@ let scratch_data = {
       ],
 
       closed:[
-        {s:1,x:385,y:380,w:190,h:80,c:'donext'},  // Roads
-        {s:1,x:385+195,y:380,w:155,h:80,c:'donext'},  // Forum
+        //{s:1,x:385,y:380,w:190,h:80,c:'donext'},  // Roads
+        //{s:1,x:385+195,y:380,w:155,h:80,c:'donext'},  // Forum
 
         {s:2,x:360,y: 10,w:380,h:125,c:'closed'}, // market
         {s:2,x:190,y:145,w:550,h:160,c:'closed'}, // theatre & gladiators

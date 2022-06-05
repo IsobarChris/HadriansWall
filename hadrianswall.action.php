@@ -93,6 +93,16 @@ class action_hadrianswall extends APP_GameAction
 
         self::ajaxResponse();
     }
+
+    public function rewardChoice() {
+        self::setAjaxMode();
+
+        $choice = self::getArg("choice",AT_alphanum,true);
+        $this->game->rewardChoice($choice);
+
+        self::ajaxResponse();
+    }
+
     public function endTurn() {
         self::setAjaxMode();
 

@@ -42,6 +42,7 @@ CREATE TABLE IF NOT EXISTS `resources` (
     `builders`  INT UNSIGNED NOT NULL DEFAULT 0,
     `bricks`    INT UNSIGNED NOT NULL DEFAULT 0,
     `special`   varchar(512) NOT NULL DEFAULT "",
+    `choice`   varchar(512) NOT NULL DEFAULT "",
     PRIMARY KEY (`player_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 

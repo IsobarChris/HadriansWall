@@ -142,8 +142,17 @@
         "descriptionmyturn" => clienttranslate('${you} may use resources and workers.'),
         "type" => "private",
         "possibleactions" => ["checkNextBox", "undoCheck", "restartRound", "endTurn" ],
-        "transitions" => [ ], // possible states for choosing what to spend
+        "transitions" => [ "rewardChoice" => 26 ],
         'args' => 'argUseResources',
+    ],
+
+    26 => [
+        "name" => "rewardChoice",
+        "descriptionmyturn" => clienttranslate('${you} must choose your reward.'),
+        "type" => "private",
+        "possibleactions" => [ "rewardChoice" ],
+        "transitions" => [ "useResources" => 25 ],
+        'args' => 'argRewardChoice',
     ],
 
     30 => [
