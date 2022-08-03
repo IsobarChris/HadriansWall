@@ -605,6 +605,9 @@ function (dojo, declare) {
                 dojo.query(n).connect('onclick',this,'onChoiceMade');
             })
 
+
+            //this.addActionButton( 'test1', _('Test Hello'), 'actTurnDone' );
+
             //this.onBoxClicked(evt);
         },
 
@@ -1388,6 +1391,38 @@ let scratch_data = {
         {s:2,x:409,y:507,w:16,h:17,c:'rect roundNumber'},
         {s:2,x:409,y:530,w:16,h:17,c:'rect roundNumber'}
       ],
+      small_temple:[
+        {s:2,x:362,y:375,w:16,h:16,c:'rect'},
+        {s:2,x:382,y:375,w:16,h:16,c:'rect'},
+        {s:2,x:410,y:376,w:16,h:16,c:'circled circledashed'}
+      ],
+      small_temple_favor:[
+        {s:2,x:410,y:376,w:16,h:16,c:'circle'}
+      ],
+      medium_temple:[
+        {s:2,x:501,y:376,w:16,h:16,c:'rect'},
+        {s:2,x:521,y:376,w:16,h:16,c:'rect'},
+        {s:2,x:501,y:399,w:16,h:16,c:'rect'},
+        {s:2,x:521,y:399,w:16,h:16,c:'rect'},
+        {s:2,x:501,y:422,w:16,h:16,c:'rect'},
+        {s:2,x:521,y:422,w:16,h:16,c:'rect'},
+        {s:2,x:549,y:422,w:16,h:16,c:'circled circledashed'}
+      ],
+      medium_temple_favor:[
+        {s:2,x:549,y:422,w:16,h:16,c:'circle'}
+      ],
+      large_temple:[
+        {s:2,x:643,y:376,w:16,h:16,c:'rect'},
+        {s:2,x:663,y:376,w:16,h:16,c:'rect'},
+        {s:2,x:643,y:399,w:16,h:16,c:'rect'},
+        {s:2,x:663,y:399,w:16,h:16,c:'rect'},
+        {s:2,x:643,y:422,w:16,h:16,c:'rect'},
+        {s:2,x:663,y:422,w:16,h:16,c:'rect'},
+        {s:2,x:691,y:422,w:16,h:16,c:'circled circledashed'}
+      ],
+      large_temple_favor:[
+        {s:2,x:691,y:422,w:16,h:16,c:'circle'}
+      ],
 
       closed:[
         //{s:1,x:385,y:380,w:190,h:80,c:'donext'},  // Roads
@@ -1395,7 +1430,7 @@ let scratch_data = {
 
         {s:2,x:360,y: 10,w:380,h:125,c:'closed'}, // market
         {s:2,x:190,y:145,w:550,h:160,c:'closed'}, // theatre & gladiators
-        {s:2,x:190,y:372,w:550,h: 75,c:'closed'}, // temples
+        //{s:2,x:190,y:372,w:550,h: 75,c:'closed'}, // temples
         {s:2,x:190,y:580,w:550,h:160,c:'closed'}  // diplomats & scouts
       ],
 

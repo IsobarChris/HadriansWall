@@ -52,7 +52,7 @@
             <div id="scout_fate" class="iconsheet icon_scout"></div>
             <div id="scout_right" class="iconsheet icon_scout"></div>
         </div>
-        <div id="sheet1_selector" class="forcehidden"></div>
+        <div id="sheet2_selector" class="forcehidden"></div>
     </div>
 
     <div id="hand" class="forcehidden">

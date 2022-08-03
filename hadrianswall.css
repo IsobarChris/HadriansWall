@@ -253,11 +253,13 @@ dojo.hasClass
 
 .attack_first_card {
     scale: 0.7;
+    transform: scale(0.7);
     margin-top: -30px;
 }
 
 .attack_card {
     scale: 0.7;
+    transform: scale(0.7);
     margin-top: -320px;
 }
 
@@ -314,6 +316,7 @@ dojo.hasClass
     margin: -20px; 
     margin-left:-73px; 
     scale: 0.33; 
+    transform: scale(0.33);
     z-index: 1; 
     position: relative; 
 }
@@ -324,6 +327,7 @@ dojo.hasClass
     margin: -31px; 
     margin-left:-53px; 
     scale: 0.5; 
+    transform: scale(0.5);
     z-index: 1; 
     position: relative; 
     
@@ -392,7 +396,7 @@ dojo.hasClass
 .path_round_5 { left: 255px; }
 .path_round_6 { left: 499px; }
 
-.pick { top: 40px; scale: 0.6; position: absolute; }
+.pick { top: 40px; scale: 0.6; transform: scale(0.6); position: absolute; }
 .pick_round_1 { left:  10px; }
 .pick_round_2 { left: 253px; }
 .pick_round_3 { left: 497px; }
@@ -400,7 +404,7 @@ dojo.hasClass
 .pick_round_5 { left: 255px; }
 .pick_round_6 { left: 499px; }
 
-.op_pick { top: 100px; scale: 0.4; z-index: 1; position: absolute; }
+.op_pick { top: 100px; scale: 0.4; transform: scale(0.4); z-index: 1; position: absolute; }
 .op_l_pick_round_1 { left: -40px; }
 .op_l_pick_round_2 { left: 203px; }
 .op_l_pick_round_3 { left: 447px; }
@@ -520,11 +524,13 @@ dojo.hasClass
 
 .miniicon {
     scale: 0.7;
+    transform: scale(0.7);
     margin: -5px;
 }
 
 .microicon {
     scale: 0.5;
+    transform: scale(0.5);
     margin: -10px;
 }
 
@@ -629,6 +635,17 @@ dojo.hasClass
 
 /* choices */
 #sheet1_selector {
+    position: absolute;
+    background-color: #999e;
+    border: 1px solid white;
+    border-radius: 3px;
+    padding: 4px;
+    margin-left: -8%;
+    margin-top: -8%;
+    z-index: 5;
+}
+
+#sheet2_selector {
     position: absolute;
     background-color: #999e;
     border: 1px solid white;
