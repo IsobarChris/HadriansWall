@@ -411,7 +411,9 @@ function (dojo, declare) {
             Object.keys(scratch_data).forEach((zone)=>{
                 scratch_data[zone].forEach((cord,i)=>{
                     let id = `${zone}_${i+1}`;
-                    let scratch = this.format_block('jstpl_scratch',{id: id, value: "", ...cord});
+                    let tt = cord.tt?cord.tt:""
+                    let ttc = cord.tt?"tooltiptext":""
+                    let scratch = this.format_block('jstpl_scratch',{id: id, value: "", tt, ttc, ...cord});
                     dojo.place(scratch, `sheet${cord.s}`);
                 })
             })
@@ -945,294 +947,294 @@ let scratch_data = {
     left_cohort:[
         {s:1,x:128,y:24,w:16,h:17,c:'rect'},
         {s:1,x:148,y:24,w:16,h:17,c:'rect'},
-        {s:1,x:168,y:24,w:16,h:17,c:'rect'},
+        {s:1,x:168,y:24,w:16,h:17,c:'rect',tt:'Discipline'},
         {s:1,x:187,y:24,w:16,h:17,c:'rect'},
-        {s:1,x:206,y:24,w:16,h:17,c:'rect'},
-        {s:1,x:225,y:24,w:16,h:17,c:'rect'}
+        {s:1,x:206,y:24,w:16,h:17,c:'rect',tt:'Valour'},
+        {s:1,x:225,y:24,w:16,h:17,c:'rect',tt:'Discipline'}
       ],
       center_cohort:[
         {s:1,x:355,y:23,w:16,h:17,c:'rect'},
         {s:1,x:375,y:23,w:16,h:17,c:'rect'},
-        {s:1,x:395,y:23,w:16,h:17,c:'rect'},
+        {s:1,x:395,y:23,w:16,h:17,c:'rect',tt:'Discipline'},
         {s:1,x:414,y:23,w:16,h:17,c:'rect'},
-        {s:1,x:433,y:23,w:16,h:17,c:'rect'},
-        {s:1,x:452,y:23,w:16,h:17,c:'rect'}
+        {s:1,x:433,y:23,w:16,h:17,c:'rect',tt:'Valour'},
+        {s:1,x:452,y:23,w:16,h:17,c:'rect',tt:'Discipline'}
       ],
       right_cohort:[
         {s:1,x:582,y:21,w:16,h:17,c:'rect'},
         {s:1,x:602,y:21,w:16,h:17,c:'rect'},
-        {s:1,x:621,y:21,w:16,h:17,c:'rect'},
+        {s:1,x:621,y:21,w:16,h:17,c:'rect',tt:'Discipline'},
         {s:1,x:641,y:21,w:16,h:17,c:'rect'},
-        {s:1,x:660,y:21,w:16,h:17,c:'rect'},
-        {s:1,x:679,y:21,w:16,h:17,c:'rect'}
+        {s:1,x:660,y:21,w:16,h:17,c:'rect',tt:'Valour'},
+        {s:1,x:679,y:21,w:16,h:17,c:'rect',tt:'Discipline'}
       ],
       mining_and_foresting:[
         {s:1,x:90,y:75,w:16,h:17,c:'rect'},
-        {s:1,x:137,y:75,w:36,h:17,c:'rect'},
+        {s:1,x:137,y:75,w:36,h:17,c:'rect',tt:'Production,Bricks'},
         {s:1,x:206,y:75,w:16,h:17,c:'rect'},
         {s:1,x:254,y:75,w:16,h:17,c:'rect'},
-        {s:1,x:300,y:75,w:36,h:17,c:'rect'},
+        {s:1,x:300,y:75,w:36,h:17,c:'rect',tt:'Production,Bricks'},
         {s:1,x:356,y:75,w:16,h:17,c:'rect'},
         {s:1,x:392,y:75,w:16,h:17,c:'rect'},
-        {s:1,x:428,y:75,w:36,h:17,c:'rect'},
+        {s:1,x:428,y:75,w:36,h:17,c:'rect',tt:'Production,Bricks'},
         {s:1,x:484,y:75,w:16,h:17,c:'rect'},
         {s:1,x:520,y:75,w:16,h:17,c:'rect'},
-        {s:1,x:557,y:75,w:36,h:17,c:'rect'},
+        {s:1,x:557,y:75,w:36,h:17,c:'rect',tt:'Production,Bricks'},
         {s:1,x:613,y:75,w:16,h:17,c:'rect'},
         {s:1,x:649,y:75,w:16,h:17,c:'rect'},
-        {s:1,x:685,y:75,w:36,h:17,c:'rect'}
+        {s:1,x:685,y:75,w:36,h:17,c:'rect',tt:'Production,Bricks'}
       ],
       wall_guard:[
-        {s:1,x:81,y:122,w:16,h:17,c:'rect'},
-        {s:1,x:117,y:122,w:16,h:17,c:'rect'},
-        {s:1,x:153,y:122,w:16,h:17,c:'rect'},
+        {s:1,x:81,y:122,w:16,h:17,c:'rect',tt:'Cohort'},
+        {s:1,x:117,y:122,w:16,h:17,c:'rect',tt:'Discipline'},
+        {s:1,x:153,y:122,w:16,h:17,c:'rect',tt:'Cohort'},
         {s:1,x:190,y:122,w:16,h:17,c:'rect'},
-        {s:1,x:225,y:122,w:16,h:17,c:'rect'},
-        {s:1,x:262,y:122,w:16,h:17,c:'rect'},
+        {s:1,x:225,y:122,w:16,h:17,c:'rect',tt:'Discipline'},
+        {s:1,x:262,y:122,w:16,h:17,c:'rect',tt:'Cohort'},
         {s:1,x:302,y:122,w:16,h:17,c:'rect'},
-        {s:1,x:338,y:122,w:16,h:17,c:'rect'},
-        {s:1,x:373,y:122,w:16,h:17,c:'rect'},
+        {s:1,x:338,y:122,w:16,h:17,c:'rect',tt:'Discipline'},
+        {s:1,x:373,y:122,w:16,h:17,c:'rect',tt:'Cohort'},
         {s:1,x:410,y:122,w:16,h:17,c:'rect'},
-        {s:1,x:446,y:122,w:16,h:17,c:'rect'},
-        {s:1,x:482,y:122,w:16,h:17,c:'rect'},
+        {s:1,x:446,y:122,w:16,h:17,c:'rect',tt:'Discipline'},
+        {s:1,x:482,y:122,w:16,h:17,c:'rect',tt:'Cohort'},
         {s:1,x:521,y:122,w:16,h:17,c:'rect'},
-        {s:1,x:558,y:122,w:16,h:17,c:'rect'},
-        {s:1,x:594,y:122,w:16,h:17,c:'rect'},
+        {s:1,x:558,y:122,w:16,h:17,c:'rect',tt:'Discipline'},
+        {s:1,x:594,y:122,w:16,h:17,c:'rect',tt:'Cohort'},
         {s:1,x:631,y:122,w:16,h:17,c:'rect'},
-        {s:1,x:666,y:122,w:16,h:17,c:'rect'},
-        {s:1,x:702,y:122,w:16,h:17,c:'rect'}
+        {s:1,x:666,y:122,w:16,h:17,c:'rect',tt:'Discipline'},
+        {s:1,x:702,y:122,w:16,h:17,c:'rect',tt:'Cohort'}
       ],
       cippi:[
         {s:1,x:94,y:171,w:16,h:17,c:'rect'},
         {s:1,x:191,y:171,w:16,h:17,c:'rect'},
-        {s:1,x:268,y:171,w:16,h:17,c:'rect'},
-        {s:1,x:353,y:171,w:16,h:17,c:'rect'},
-        {s:1,x:450,y:171,w:16,h:17,c:'rect'},
-        {s:1,x:554,y:171,w:16,h:17,c:'rect'},
-        {s:1,x:671,y:171,w:16,h:17,c:'rect'}
+        {s:1,x:268,y:171,w:16,h:17,c:'rect',tt:'Cohort'},
+        {s:1,x:353,y:171,w:16,h:17,c:'rect',tt:'Civilians'},
+        {s:1,x:450,y:171,w:16,h:17,c:'rect',tt:'Cohort'},
+        {s:1,x:554,y:171,w:16,h:17,c:'rect',tt:'Renown'},
+        {s:1,x:671,y:171,w:16,h:17,c:'rect',tt:'Cohort'}
       ],
       wall:[
-        {s:1,x:74,y:219,w:16,h:17,c:'rect'},
+        {s:1,x:74,y:219,w:16,h:17,c:'rect',tt:'Civilians'},
         {s:1,x:113,y:219,w:16,h:17,c:'rect'},
-        {s:1,x:133,y:219,w:16,h:17,c:'rect'},
-        {s:1,x:153,y:219,w:36,h:17,c:'rect'},
-        {s:1,x:210,y:219,w:16,h:17,c:'rect'},
+        {s:1,x:133,y:219,w:16,h:17,c:'rect',tt:'Civilians'},
+        {s:1,x:153,y:219,w:36,h:17,c:'rect',tt:'Renown,Cohort'},
+        {s:1,x:210,y:219,w:16,h:17,c:'rect',tt:'Civilians'},
         {s:1,x:230,y:219,w:16,h:17,c:'rect'},
-        {s:1,x:250,y:219,w:16,h:17,c:'rect'},
-        {s:1,x:295,y:219,w:16,h:17,c:'rect'},
-        {s:1,x:315,y:219,w:16,h:17,c:'rect'},
+        {s:1,x:250,y:219,w:16,h:17,c:'rect',tt:'Cohort'},
+        {s:1,x:295,y:219,w:16,h:17,c:'rect',tt:'Renown'},
+        {s:1,x:315,y:219,w:16,h:17,c:'rect',tt:'Civilians'},
         {s:1,x:335,y:219,w:16,h:17,c:'rect'},
-        {s:1,x:372,y:219,w:36,h:17,c:'rect'},
+        {s:1,x:372,y:219,w:36,h:17,c:'rect',tt:'Renown,Cohort'},
         {s:1,x:411,y:219,w:16,h:17,c:'rect'},
-        {s:1,x:431,y:219,w:16,h:17,c:'rect'},
-        {s:1,x:479,y:219,w:16,h:17,c:'rect'},
-        {s:1,x:515,y:219,w:16,h:17,c:'rect'},
-        {s:1,x:535,y:219,w:16,h:17,c:'rect'},
+        {s:1,x:431,y:219,w:16,h:17,c:'rect',tt:'Civilians'},
+        {s:1,x:479,y:219,w:16,h:17,c:'rect',tt:'Cohort'},
+        {s:1,x:515,y:219,w:16,h:17,c:'rect',tt:'Renown'},
+        {s:1,x:535,y:219,w:16,h:17,c:'rect',tt:'Civilians'},
         {s:1,x:573,y:219,w:16,h:17,c:'rect'},
-        {s:1,x:593,y:219,w:36,h:17,c:'rect'},
-        {s:1,x:632,y:219,w:16,h:17,c:'rect'},
+        {s:1,x:593,y:219,w:36,h:17,c:'rect',tt:'Renown,Cohort'},
+        {s:1,x:632,y:219,w:16,h:17,c:'rect',tt:'Civilians'},
         {s:1,x:652,y:219,w:16,h:17,c:'rect'},
-        {s:1,x:700,y:219,w:16,h:17,c:'rect'}
+        {s:1,x:700,y:219,w:16,h:17,c:'rect',tt:'Cohort'}
       ],
       fort:[
         {s:1,x:75,y:266,w:36,h:18,c:'rect'},
         {s:1,x:114,y:266,w:16,h:18,c:'rect'},
         {s:1,x:133,y:266,w:16,h:18,c:'rect'},
-        {s:1,x:152,y:266,w:56,h:18,c:'rect'},
+        {s:1,x:152,y:266,w:56,h:18,c:'rect',tt:'Civilians'},
         {s:1,x:210,y:266,w:16,h:18,c:'rect'},
-        {s:1,x:230,y:266,w:16,h:18,c:'rect'},
-        {s:1,x:250,y:266,w:36,h:18,c:'rect'},
-        {s:1,x:295,y:266,w:16,h:18,c:'rect'},
+        {s:1,x:230,y:266,w:16,h:18,c:'rect',tt:'Civilians'},
+        {s:1,x:250,y:266,w:36,h:18,c:'rect',tt:'Discipline'},
+        {s:1,x:295,y:266,w:16,h:18,c:'rect',tt:'Civilians'},
         {s:1,x:314,y:266,w:16,h:18,c:'rect'},
-        {s:1,x:334,y:266,w:36,h:18,c:'rect'},
+        {s:1,x:334,y:266,w:36,h:18,c:'rect',tt:'Civilians'},
         {s:1,x:372,y:266,w:36,h:18,c:'rect'},
-        {s:1,x:411,y:266,w:16,h:18,c:'rect'},
+        {s:1,x:411,y:266,w:16,h:18,c:'rect',tt:'Civilians'},
         {s:1,x:430,y:266,w:36,h:18,c:'rect'},
-        {s:1,x:469,y:266,w:36,h:18,c:'rect'},
+        {s:1,x:469,y:266,w:36,h:18,c:'rect',tt:'Discipline,Cohort'},
         {s:1,x:515,y:266,w:16,h:18,c:'rect'},
-        {s:1,x:535,y:266,w:36,h:18,c:'rect'},
+        {s:1,x:535,y:266,w:36,h:18,c:'rect',tt:'Civilians'},
         {s:1,x:573,y:266,w:16,h:18,c:'rect'},
-        {s:1,x:593,y:266,w:36,h:18,c:'rect'},
+        {s:1,x:593,y:266,w:36,h:18,c:'rect',tt:'Civilians'},
         {s:1,x:631,y:266,w:16,h:18,c:'rect'},
-        {s:1,x:651,y:266,w:36,h:18,c:'rect'},
-        {s:1,x:689,y:266,w:36,h:18,c:'rect'}
+        {s:1,x:651,y:266,w:36,h:18,c:'rect',tt:'Civilians'},
+        {s:1,x:689,y:266,w:36,h:18,c:'rect',tt:'Discipline,Cohort'}
       ],
       granary:[
         {s:1,x:409,y:319,w:10,h:10,c:'circle'},
-        {s:1,x:635,y:319,w:10,h:10,c:'circle'},
-        {s:1,x:658,y:317,w:17,h:16,c:'rect'}
+        {s:1,x:635,y:319,w:10,h:10,c:'circle',tt:'Continue'},
+        {s:1,x:658,y:317,w:17,h:16,c:'rect',tt:'Renown'}
       ],
       renown:[
-        {s:1,x:88.5,y:530.5,w:16,h:17,c:'rect',tt:"+ Citizen"},
-        {s:1,x:107.5,y:530,w:16,h:17,c:'rect'},
-        {s:1,x:126,y:530,w:16,h:17,c:'rect'},
+        {s:1,x:87,y:530,w:16,h:17,c:'rect'},
+        {s:1,x:107,y:530,w:16,h:17,c:'rect'},
+        {s:1,x:126,y:530,w:16,h:17,c:'rect',tt:'Civilians'},
         {s:1,x:145,y:530,w:16,h:17,c:'rect'},
         {s:1,x:164,y:530,w:16,h:17,c:'rect'},
-        {s:1,x:184,y:530,w:16,h:17,c:'rect'},
+        {s:1,x:184,y:530,w:16,h:17,c:'rect',tt:'Civilians'},
         {s:1,x:203,y:530,w:16,h:17,c:'rect'},
         {s:1,x:222,y:530,w:16,h:17,c:'rect'},
-        {s:1,x:242,y:530,w:16,h:17,c:'rect'},
+        {s:1,x:242,y:530,w:16,h:17,c:'rect',tt:'Civilians'},
         {s:1,x:261,y:530,w:16,h:17,c:'rect'},
         {s:1,x:281,y:530,w:16,h:17,c:'rect'},
-        {s:1,x:300,y:530,w:16,h:17,c:'rect'},
+        {s:1,x:300,y:530,w:16,h:17,c:'rect',tt:'Civilians'},
         {s:1,x:320,y:530,w:16,h:17,c:'rect'},
         {s:1,x:339,y:530,w:16,h:17,c:'rect'},
-        {s:1,x:358,y:530,w:16,h:17,c:'rect'},
+        {s:1,x:358,y:530,w:16,h:17,c:'rect',tt:'Civilians'},
         {s:1,x:378,y:530,w:16,h:17,c:'rect'},
-        {s:1,x:397,y:530,w:16,h:17,c:'rect'},
+        {s:1,x:397,y:530,w:16,h:17,c:'rect',tt:'Peity'},
         {s:1,x:416,y:530,w:16,h:17,c:'rect'},
-        {s:1,x:436,y:530,w:16,h:17,c:'rect'},
+        {s:1,x:436,y:530,w:16,h:17,c:'rect',tt:'Civilians'},
         {s:1,x:455,y:530,w:16,h:17,c:'rect'},
-        {s:1,x:474,y:530,w:16,h:17,c:'rect'},
+        {s:1,x:474,y:530,w:16,h:17,c:'rect',tt:'Discipline'},
         {s:1,x:494,y:530,w:16,h:17,c:'rect'},
-        {s:1,x:513,y:530,w:16,h:17,c:'rect'},
+        {s:1,x:513,y:530,w:16,h:17,c:'rect',tt:'Civilians'},
         {s:1,x:532,y:530,w:16,h:17,c:'rect'},
-        {s:1,x:552,y:530,w:16,h:17,c:'rect'}
+        {s:1,x:552,y:530,w:16,h:17,c:'rect',tt:'Valour'}
       ],
       piety:[
         {s:1,x:87,y:559,w:16,h:17,c:'rect'},
         {s:1,x:107,y:559,w:16,h:17,c:'rect'},
-        {s:1,x:126,y:559,w:16,h:17,c:'rect'},
+        {s:1,x:126,y:559,w:16,h:17,c:'rect',tt:'Servants'},
         {s:1,x:145,y:559,w:16,h:17,c:'rect'},
         {s:1,x:164,y:559,w:16,h:17,c:'rect'},
-        {s:1,x:184,y:559,w:16,h:17,c:'rect'},
+        {s:1,x:184,y:559,w:16,h:17,c:'rect',tt:'Servants'},
         {s:1,x:203,y:559,w:16,h:17,c:'rect'},
         {s:1,x:222,y:559,w:16,h:17,c:'rect'},
-        {s:1,x:242,y:559,w:16,h:17,c:'rect'},
+        {s:1,x:242,y:559,w:16,h:17,c:'rect',tt:'Servants'},
         {s:1,x:261,y:559,w:16,h:17,c:'rect'},
         {s:1,x:281,y:559,w:16,h:17,c:'rect'},
-        {s:1,x:300,y:559,w:16,h:17,c:'rect'},
+        {s:1,x:300,y:559,w:16,h:17,c:'rect',tt:'Servants'},
         {s:1,x:320,y:559,w:16,h:17,c:'rect'},
         {s:1,x:339,y:559,w:16,h:17,c:'rect'},
-        {s:1,x:358,y:559,w:16,h:17,c:'rect'},
+        {s:1,x:358,y:559,w:16,h:17,c:'rect',tt:'Servants'},
         {s:1,x:378,y:559,w:16,h:17,c:'rect'},
-        {s:1,x:397,y:559,w:16,h:17,c:'rect'},
+        {s:1,x:397,y:559,w:16,h:17,c:'rect',tt:'Renown'},
         {s:1,x:416,y:559,w:16,h:17,c:'rect'},
-        {s:1,x:436,y:559,w:16,h:17,c:'rect'},
+        {s:1,x:436,y:559,w:16,h:17,c:'rect',tt:'Servants'},
         {s:1,x:455,y:559,w:16,h:17,c:'rect'},
-        {s:1,x:474,y:559,w:16,h:17,c:'rect'},
+        {s:1,x:474,y:559,w:16,h:17,c:'rect',tt:'Valour'},
         {s:1,x:494,y:559,w:16,h:17,c:'rect'},
-        {s:1,x:513,y:559,w:16,h:17,c:'rect'},
+        {s:1,x:513,y:559,w:16,h:17,c:'rect',tt:'Servants'},
         {s:1,x:532,y:559,w:16,h:17,c:'rect'},
-        {s:1,x:552,y:559,w:16,h:17,c:'rect'}
+        {s:1,x:552,y:559,w:16,h:17,c:'rect',tt:'Discipline'}
       ],
       valour:[
         {s:1,x:87,y:586,w:16,h:17,c:'rect'},
         {s:1,x:107,y:586,w:16,h:17,c:'rect'},
-        {s:1,x:126,y:586,w:16,h:17,c:'rect'},
+        {s:1,x:126,y:586,w:16,h:17,c:'rect',tt:'Soldiers'},
         {s:1,x:145,y:586,w:16,h:17,c:'rect'},
         {s:1,x:164,y:586,w:16,h:17,c:'rect'},
-        {s:1,x:184,y:586,w:16,h:17,c:'rect'},
+        {s:1,x:184,y:586,w:16,h:17,c:'rect',tt:'Soldiers'},
         {s:1,x:203,y:586,w:16,h:17,c:'rect'},
         {s:1,x:222,y:586,w:16,h:17,c:'rect'},
-        {s:1,x:242,y:586,w:16,h:17,c:'rect'},
+        {s:1,x:242,y:586,w:16,h:17,c:'rect',tt:'Soldiers'},
         {s:1,x:261,y:586,w:16,h:17,c:'rect'},
         {s:1,x:281,y:586,w:16,h:17,c:'rect'},
-        {s:1,x:300,y:586,w:16,h:17,c:'rect'},
+        {s:1,x:300,y:586,w:16,h:17,c:'rect',tt:'Soldiers'},
         {s:1,x:320,y:586,w:16,h:17,c:'rect'},
         {s:1,x:339,y:586,w:16,h:17,c:'rect'},
-        {s:1,x:358,y:586,w:16,h:17,c:'rect'},
+        {s:1,x:358,y:586,w:16,h:17,c:'rect',tt:'Soldiers'},
         {s:1,x:378,y:586,w:16,h:17,c:'rect'},
-        {s:1,x:397,y:586,w:16,h:17,c:'rect'},
+        {s:1,x:397,y:586,w:16,h:17,c:'rect',tt:'Discipline'},
         {s:1,x:416,y:586,w:16,h:17,c:'rect'},
-        {s:1,x:436,y:586,w:16,h:17,c:'rect'},
+        {s:1,x:436,y:586,w:16,h:17,c:'rect',tt:'Soldiers'},
         {s:1,x:455,y:586,w:16,h:17,c:'rect'},
-        {s:1,x:474,y:586,w:16,h:17,c:'rect'},
+        {s:1,x:474,y:586,w:16,h:17,c:'rect',tt:'Renown'},
         {s:1,x:494,y:586,w:16,h:17,c:'rect'},
-        {s:1,x:513,y:586,w:16,h:17,c:'rect'},
+        {s:1,x:513,y:586,w:16,h:17,c:'rect',tt:'Soldiers'},
         {s:1,x:532,y:586,w:16,h:17,c:'rect'},
-        {s:1,x:552,y:586,w:16,h:17,c:'rect'}
+        {s:1,x:552,y:586,w:16,h:17,c:'rect',tt:'Piety'}
       ],
       discipline:[
         {s:1,x:87,y:615,w:16,h:17,c:'rect'},
         {s:1,x:107,y:615,w:16,h:17,c:'rect'},
-        {s:1,x:126,y:615,w:16,h:17,c:'rect'},
+        {s:1,x:126,y:615,w:16,h:17,c:'rect',tt:'Builders'},
         {s:1,x:145,y:615,w:16,h:17,c:'rect'},
         {s:1,x:164,y:615,w:16,h:17,c:'rect'},
-        {s:1,x:184,y:615,w:16,h:17,c:'rect'},
+        {s:1,x:184,y:615,w:16,h:17,c:'rect',tt:'Builders'},
         {s:1,x:203,y:615,w:16,h:17,c:'rect'},
         {s:1,x:222,y:615,w:16,h:17,c:'rect'},
-        {s:1,x:242,y:615,w:16,h:17,c:'rect'},
+        {s:1,x:242,y:615,w:16,h:17,c:'rect',tt:'Builders'},
         {s:1,x:261,y:615,w:16,h:17,c:'rect'},
         {s:1,x:281,y:615,w:16,h:17,c:'rect'},
-        {s:1,x:300,y:615,w:16,h:17,c:'rect'},
+        {s:1,x:300,y:615,w:16,h:17,c:'rect',tt:'Builders'},
         {s:1,x:320,y:615,w:16,h:17,c:'rect'},
         {s:1,x:339,y:615,w:16,h:17,c:'rect'},
-        {s:1,x:358,y:615,w:16,h:17,c:'rect'},
+        {s:1,x:358,y:615,w:16,h:17,c:'rect',tt:'Builders'},
         {s:1,x:378,y:615,w:16,h:17,c:'rect'},
-        {s:1,x:397,y:615,w:16,h:17,c:'rect'},
+        {s:1,x:397,y:615,w:16,h:17,c:'rect',tt:'Valour'},
         {s:1,x:416,y:615,w:16,h:17,c:'rect'},
-        {s:1,x:436,y:615,w:16,h:17,c:'rect'},
+        {s:1,x:436,y:615,w:16,h:17,c:'rect',tt:'Builders'},
         {s:1,x:455,y:615,w:16,h:17,c:'rect'},
-        {s:1,x:474,y:615,w:16,h:17,c:'rect'},
+        {s:1,x:474,y:615,w:16,h:17,c:'rect',tt:'Piety'},
         {s:1,x:494,y:615,w:16,h:17,c:'rect'},
-        {s:1,x:513,y:615,w:16,h:17,c:'rect'},
+        {s:1,x:513,y:615,w:16,h:17,c:'rect',tt:'Builders'},
         {s:1,x:532,y:615,w:16,h:17,c:'rect'},
-        {s:1,x:552,y:615,w:16,h:17,c:'rect'}
+        {s:1,x:552,y:615,w:16,h:17,c:'rect',tt:'Renown'}
       ],
       traders:[
-        {s:2,x:12,y:95,w:16,h:16,c:'rect'},
+        {s:2,x:12,y:95,w:16,h:16,c:'rect',tt:'Servants'},
         {s:2,x:31,y:95,w:16,h:16,c:'rect'},
-        {s:2,x:51,y:95,w:16,h:16,c:'rect'},
+        {s:2,x:51,y:95,w:16,h:16,c:'rect',tt:'Builders'},
         {s:2,x:70,y:95,w:16,h:16,c:'rect'},
-        {s:2,x:89,y:95,w:16,h:16,c:'rect'},
+        {s:2,x:89,y:95,w:16,h:16,c:'rect',tt:'Bricks'},
         {s:2,x:109,y:95,w:16,h:16,c:'rect'},
-        {s:2,x:128,y:95,w:16,h:16,c:'rect'},
-        {s:2,x:147,y:95,w:16,h:16,c:'rect'},
-        {s:2,x:167,y:95,w:16,h:16,c:'rect'}
+        {s:2,x:128,y:95,w:16,h:16,c:'rect',tt:'Builders'},
+        {s:2,x:147,y:95,w:16,h:16,c:'rect',tt:'Renown'},
+        {s:2,x:167,y:95,w:16,h:16,c:'rect',tt:'Bricks'}
       ],
       performers:[
-        {s:2,x:12,y:261,w:16,h:16,c:'rect'},
+        {s:2,x:12,y:261,w:16,h:16,c:'rect',tt:'Builders'},
         {s:2,x:31,y:261,w:16,h:16,c:'rect'},
-        {s:2,x:51,y:261,w:16,h:16,c:'rect'},
+        {s:2,x:51,y:261,w:16,h:16,c:'rect',tt:'Servants'},
         {s:2,x:70,y:261,w:16,h:16,c:'rect'},
-        {s:2,x:89,y:261,w:16,h:16,c:'rect'},
+        {s:2,x:89,y:261,w:16,h:16,c:'rect',tt:'Soldiers'},
         {s:2,x:109,y:261,w:16,h:16,c:'rect'},
-        {s:2,x:128,y:261,w:16,h:16,c:'rect'},
-        {s:2,x:147,y:261,w:16,h:16,c:'rect'},
-        {s:2,x:167,y:261,w:16,h:16,c:'rect'}
+        {s:2,x:128,y:261,w:16,h:16,c:'rect',tt:'Servants'},
+        {s:2,x:147,y:261,w:16,h:16,c:'rect',tt:'Renown'},
+        {s:2,x:167,y:261,w:16,h:16,c:'rect',tt:'Builders'}
       ],
       priests:[
-        {s:2,x:12,y:406,w:16,h:16,c:'rect'},
+        {s:2,x:12,y:406,w:16,h:16,c:'rect',tt:'Servants'},
         {s:2,x:31,y:406,w:16,h:16,c:'rect'},
-        {s:2,x:51,y:406,w:16,h:16,c:'rect'},
-        {s:2,x:70,y:406,w:16,h:16,c:'rect'},
-        {s:2,x:89,y:406,w:16,h:16,c:'rect'},
-        {s:2,x:109,y:406,w:16,h:16,c:'rect'},
-        {s:2,x:128,y:406,w:16,h:16,c:'rect'},
-        {s:2,x:147,y:406,w:16,h:16,c:'rect'},
-        {s:2,x:167,y:406,w:16,h:16,c:'rect'}
+        {s:2,x:51,y:406,w:16,h:16,c:'rect',tt:'Servants'},
+        {s:2,x:70,y:406,w:16,h:16,c:'rect',tt:'Piety'},
+        {s:2,x:89,y:406,w:16,h:16,c:'rect',tt:'Servants'},
+        {s:2,x:109,y:406,w:16,h:16,c:'rect',tt:'Piety'},
+        {s:2,x:128,y:406,w:16,h:16,c:'rect',tt:'Servants'},
+        {s:2,x:147,y:406,w:16,h:16,c:'rect',tt:'Piety'},
+        {s:2,x:167,y:406,w:16,h:16,c:'rect',tt:'Servants'}
       ],
       apparitores:[
-        {s:2,x:12,y:536,w:16,h:16,c:'rect'},
+        {s:2,x:12,y:536,w:16,h:16,c:'rect',tt:'Builders'},
         {s:2,x:31,y:536,w:16,h:16,c:'rect'},
-        {s:2,x:51,y:536,w:16,h:16,c:'rect'},
-        {s:2,x:70,y:536,w:16,h:16,c:'rect'},
-        {s:2,x:89,y:536,w:16,h:16,c:'rect'},
-        {s:2,x:109,y:536,w:16,h:16,c:'rect'},
-        {s:2,x:128,y:536,w:16,h:16,c:'rect'},
-        {s:2,x:147,y:536,w:16,h:16,c:'rect'},
-        {s:2,x:167,y:536,w:16,h:16,c:'rect'}
+        {s:2,x:51,y:536,w:16,h:16,c:'rect',tt:'Soldiers'},
+        {s:2,x:70,y:536,w:16,h:16,c:'rect',tt:'Discipline'},
+        {s:2,x:89,y:536,w:16,h:16,c:'rect',tt:'Builders'},
+        {s:2,x:109,y:536,w:16,h:16,c:'rect',tt:'Discipline'},
+        {s:2,x:128,y:536,w:16,h:16,c:'rect',tt:'Soldiers'},
+        {s:2,x:147,y:536,w:16,h:16,c:'rect',tt:'Discipline'},
+        {s:2,x:167,y:536,w:16,h:16,c:'rect',tt:'Builders'}
       ],
       patricians:[
-        {s:2,x:12,y:689,w:16,h:16,c:'rect'},
+        {s:2,x:12,y:689,w:16,h:16,c:'rect',tt:'Bricks'},
         {s:2,x:31,y:689,w:16,h:16,c:'rect'},
-        {s:2,x:51,y:689,w:16,h:16,c:'rect'},
-        {s:2,x:70,y:689,w:16,h:16,c:'rect'},
-        {s:2,x:89,y:689,w:16,h:16,c:'rect'},
-        {s:2,x:109,y:689,w:16,h:16,c:'rect'},
-        {s:2,x:128,y:689,w:16,h:16,c:'rect'},
-        {s:2,x:147,y:689,w:16,h:16,c:'rect'},
-        {s:2,x:167,y:689,w:16,h:16,c:'rect'}
+        {s:2,x:51,y:689,w:16,h:16,c:'rect',tt:'Soldiers'},
+        {s:2,x:70,y:689,w:16,h:16,c:'rect',tt:'Renown'},
+        {s:2,x:89,y:689,w:16,h:16,c:'rect',tt:'Bricks'},
+        {s:2,x:109,y:689,w:16,h:16,c:'rect',tt:'Renown'},
+        {s:2,x:128,y:689,w:16,h:16,c:'rect',tt:'Soldiers'},
+        {s:2,x:147,y:689,w:16,h:16,c:'rect',tt:'Renown'},
+        {s:2,x:167,y:689,w:16,h:16,c:'rect',tt:'Bricks'}
       ],
       precinct:[
-        {s:2,x:306,y:17,w:44,h:16,c:'rect'},
-        {s:2,x:306,y:41,w:44,h:16,c:'rect'},
-        {s:2,x:306,y:63,w:44,h:16,c:'rect'}
+        {s:2,x:306,y:17,w:44,h:16,c:'rect',tt:'Piety,Production,Bricks'},
+        {s:2,x:306,y:41,w:44,h:16,c:'rect',tt:'Discipline,Production,Bricks'},
+        {s:2,x:306,y:63,w:44,h:16,c:'rect',tt:'Renown,Production,Bricks'}
       ],
       gardens:[
-        {s:2,x:424,y:317,w:66,h:16,c:'rect'},
-        {s:2,x:624,y:317,w:100,h:16,c:'rect'}
+        {s:2,x:424,y:317,w:66,h:16,c:'rect',tt:'Piety,Trader,Performer,Priest'},
+        {s:2,x:624,y:317,w:100,h:16,c:'rect',tt:'Piety,Trader,Performer,Priest,Apparitor,Patrician'}
       ],
       production:[
         {s:1,x:105,y:358,w:10,h:10,c:'circle'},
@@ -1245,34 +1247,34 @@ let scratch_data = {
         {s:1,x:238,y:358,w:10,h:10,c:'circle'}
       ],
       hotel:[
-        {s:1,x:126,y:410,w:10,h:10,c:'circle'},
-        {s:1,x:149,y:407,w:15,h:15,c:'rect'},
-        {s:1,x:126,y:431,w:10,h:10,c:'circle'},
-        {s:1,x:149,y:428,w:32,h:15,c:'rect'}
+        {s:1,x:126,y:410,w:10,h:10,c:'circle',tt:'Continue'},
+        {s:1,x:149,y:407,w:15,h:15,c:'rect',tt:'Civilians'},
+        {s:1,x:126,y:431,w:10,h:10,c:'circle',tt:'Continue'},
+        {s:1,x:149,y:428,w:32,h:15,c:'rect',tt:'Renown,Civilians'}
       ],
       workshop:[
-        {s:1,x:322,y:410,w:10,h:10,c:'circle'},
-        {s:1,x:345,y:407,w:15,h:15,c:'rect'},
-        {s:1,x:322,y:431,w:10,h:10,c:'circle'},
-        {s:1,x:345,y:428,w:32,h:15,c:'rect'}
+        {s:1,x:322,y:410,w:10,h:10,c:'circle',tt:'Continue'},
+        {s:1,x:345,y:407,w:15,h:15,c:'rect',tt:'Builders'},
+        {s:1,x:322,y:431,w:10,h:10,c:'circle',tt:'Continue'},
+        {s:1,x:345,y:428,w:32,h:15,c:'rect',tt:'Renown,Builders'}
       ],
       road:[
-        {s:1,x:514,y:410,w:10,h:10,c:'circle'},
-        {s:1,x:537,y:407,w:34,h:15,c:'rect'},
-        {s:1,x:514,y:431,w:10,h:10,c:'circle'},
-        {s:1,x:537,y:428,w:34,h:15,c:'rect'}
+        {s:1,x:514,y:410,w:10,h:10,c:'circle',tt:'Continue'},
+        {s:1,x:537,y:407,w:34,h:15,c:'rect',tt:'Piety|Discipline'},
+        {s:1,x:514,y:431,w:10,h:10,c:'circle',tt:'Continue'},
+        {s:1,x:537,y:428,w:34,h:15,c:'rect',tt:'Renown|Valour'}
       ],
       archway:[
-        {s:1,x:209,y:470,w:33,h:16,c:'rect'}
+        {s:1,x:209,y:470,w:33,h:16,c:'rect',tt:'Valour,Valour'}
       ],
       monolith:[
-        {s:1,x:374,y:470,w:33,h:16,c:'rect'}
+        {s:1,x:374,y:470,w:33,h:16,c:'rect',tt:'Discipline,Discipline'}
       ],
       column:[
-        {s:1,x:533,y:470,w:33,h:16,c:'rect'}
+        {s:1,x:533,y:470,w:33,h:16,c:'rect',tt:'Piety,Piety'}
       ],
       statue:[
-        {s:1,x:689,y:470,w:33,h:16,c:'rect'}
+        {s:1,x:689,y:470,w:33,h:16,c:'rect',tt:'Renown,Renown'}
       ],
       disdain:[
         {s:1,x:202,y:677,w:10,h:10,c:'circled circledashed'},
@@ -1309,16 +1311,16 @@ let scratch_data = {
         {s:1,x:265,y:706,w:12,h:12,c:'circle'}
       ],
       temple:[
-        {s:2,x:416,y:352,w:16,h:16,c:'rect'},
-        {s:2,x:558,y:352,w:16,h:16,c:'rect'},
-        {s:2,x:708,y:352,w:16,h:16,c:'rect'}
+        {s:2,x:416,y:352,w:16,h:16,c:'rect',tt:'Piety'},
+        {s:2,x:558,y:352,w:16,h:16,c:'rect',tt:'Piety'},
+        {s:2,x:708,y:352,w:16,h:16,c:'rect',tt:'Piety'}
       ],
       training_grounds:[
-        {s:1,x:442,y:355,w:16,h:16,c:'rect'},
-        {s:1,x:478,y:355,w:16,h:16,c:'rect'},
-        {s:1,x:512,y:355,w:16,h:16,c:'rect'},
-        {s:1,x:548,y:355,w:16,h:16,c:'rect'},
-        {s:1,x:582,y:355,w:16,h:16,c:'rect'}
+        {s:1,x:442,y:355,w:16,h:16,c:'rect',tt:'Sword'},
+        {s:1,x:478,y:355,w:16,h:16,c:'rect',tt:'Sword'},
+        {s:1,x:512,y:355,w:16,h:16,c:'rect',tt:'Sword'},
+        {s:1,x:548,y:355,w:16,h:16,c:'rect',tt:'Sword'},
+        {s:1,x:582,y:355,w:16,h:16,c:'rect',tt:'Sword'}
       ],
       training_grounds_rounds:[
         {s:1,x:459,y:355,w:16,h:16,c:'rect roundNumber'},
@@ -1328,10 +1330,10 @@ let scratch_data = {
         {s:1,x:599,y:355,w:16,h:16,c:'rect roundNumber'}
       ],
       forum:[
-        {s:1,x:615,y:408,w:16,h:16,c:'rect'},
-        {s:1,x:615,y:429,w:16,h:16,c:'rect'},
-        {s:1,x:688,y:408,w:16,h:16,c:'rect'},
-        {s:1,x:688,y:429,w:16,h:16,c:'rect'}
+        {s:1,x:615,y:408,w:16,h:16,c:'rect',tt:'Builders|Servants|Civilians'},
+        {s:1,x:615,y:429,w:16,h:16,c:'rect',tt:'Builders|Servants|Civilians'},
+        {s:1,x:688,y:408,w:16,h:16,c:'rect',tt:'Builders|Servants|Civilians'},
+        {s:1,x:688,y:429,w:16,h:16,c:'rect',tt:'Builders|Servants|Civilians'}
       ],
       forum_rounds:[
         {s:1,x:632,y:408,w:16,h:16,c:'rect roundNumber'},
@@ -1340,22 +1342,22 @@ let scratch_data = {
         {s:1,x:705,y:429,w:16,h:16,c:'rect roundNumber'}
       ],
       courthouse:[
-        {s:2,x:588,y:459,w:16,h:17,c:'rect'}
+        {s:2,x:588,y:459,w:16,h:17,c:'rect',tt:'Renown'}
       ],
       courthouse_c1:[
-        {s:2,x:486,y:484,w:16,h:17,c:'rect'},
-        {s:2,x:486,y:507,w:16,h:17,c:'rect'},
-        {s:2,x:486,y:530,w:16,h:17,c:'rect'}
+        {s:2,x:486,y:484,w:16,h:17,c:'rect',tt:'Servants'},
+        {s:2,x:486,y:507,w:16,h:17,c:'rect',tt:'Servants'},
+        {s:2,x:486,y:530,w:16,h:17,c:'rect',tt:'Servants'}
       ],
       courthouse_c2:[
-        {s:2,x:587,y:484,w:21,h:17,c:'rect'},
-        {s:2,x:587,y:507,w:21,h:17,c:'rect'},
-        {s:2,x:587,y:530,w:21,h:17,c:'rect'}
+        {s:2,x:587,y:484,w:21,h:17,c:'rect',tt:'Servants,Servants'},
+        {s:2,x:587,y:507,w:21,h:17,c:'rect',tt:'Servants,Servants'},
+        {s:2,x:587,y:530,w:21,h:17,c:'rect',tt:'Servants,Servants'}
       ],
       courthouse_c3:[
-        {s:2,x:690,y:484,w:16,h:17,c:'rect'},
-        {s:2,x:690,y:507,w:16,h:17,c:'rect'},
-        {s:2,x:690,y:530,w:16,h:17,c:'rect'}
+        {s:2,x:690,y:484,w:16,h:17,c:'rect',tt:'Builders'},
+        {s:2,x:690,y:507,w:16,h:17,c:'rect',tt:'Builders'},
+        {s:2,x:690,y:530,w:16,h:17,c:'rect',tt:'Builders'}
       ],
       courthouse_c1_rounds:[
         {s:2,x:503,y:484,w:16,h:17,c:'rect roundNumber'},
@@ -1373,15 +1375,15 @@ let scratch_data = {
         {s:2,x:707,y:530,w:16,h:17,c:'rect roundNumber'}
       ],
       baths:[
-        {s:2,x:315,y:459,w:16,h:17,c:'rect'}
+        {s:2,x:315,y:459,w:16,h:17,c:'rect',tt:'Renown'}
       ],
       baths_approve:[
-        {s:2,x:272,y:484,w:16,h:17,c:'rect'},
-        {s:2,x:272,y:507,w:16,h:17,c:'rect'},
-        {s:2,x:272,y:530,w:16,h:17,c:'rect'},
-        {s:2,x:392,y:484,w:16,h:17,c:'rect'},
-        {s:2,x:392,y:507,w:16,h:17,c:'rect'},
-        {s:2,x:392,y:530,w:16,h:17,c:'rect'}
+        {s:2,x:272,y:484,w:16,h:17,c:'rect',tt:'Approve'},
+        {s:2,x:272,y:507,w:16,h:17,c:'rect',tt:'Approve'},
+        {s:2,x:272,y:530,w:16,h:17,c:'rect',tt:'Approve'},
+        {s:2,x:392,y:484,w:16,h:17,c:'rect',tt:'Approve'},
+        {s:2,x:392,y:507,w:16,h:17,c:'rect',tt:'Approve'},
+        {s:2,x:392,y:530,w:16,h:17,c:'rect',tt:'Approve'}
       ],
       baths_approve_rounds:[
         {s:2,x:289,y:484,w:16,h:17,c:'rect roundNumber'},
@@ -1393,32 +1395,32 @@ let scratch_data = {
       ],
       small_temple:[
         {s:2,x:362,y:375,w:16,h:16,c:'rect'},
-        {s:2,x:382,y:375,w:16,h:16,c:'rect'},
-        {s:2,x:410,y:376,w:16,h:16,c:'circled circledashed'}
+        {s:2,x:382,y:375,w:16,h:16,c:'rect',tt:'Piety'},
+        {s:2,x:410,y:376,w:16,h:16,c:'circled circledashed',tt:'Favor'}
       ],
       small_temple_favor:[
         {s:2,x:410,y:376,w:16,h:16,c:'circle'}
       ],
       medium_temple:[
         {s:2,x:501,y:376,w:16,h:16,c:'rect'},
-        {s:2,x:521,y:376,w:16,h:16,c:'rect'},
+        {s:2,x:521,y:376,w:16,h:16,c:'rect',tt:'Piety'},
         {s:2,x:501,y:399,w:16,h:16,c:'rect'},
-        {s:2,x:521,y:399,w:16,h:16,c:'rect'},
+        {s:2,x:521,y:399,w:16,h:16,c:'rect',tt:'Piety'},
         {s:2,x:501,y:422,w:16,h:16,c:'rect'},
-        {s:2,x:521,y:422,w:16,h:16,c:'rect'},
-        {s:2,x:549,y:422,w:16,h:16,c:'circled circledashed'}
+        {s:2,x:521,y:422,w:16,h:16,c:'rect',tt:'Piety'},
+        {s:2,x:549,y:422,w:16,h:16,c:'circled circledashed',tt:'Favor'}
       ],
       medium_temple_favor:[
         {s:2,x:549,y:422,w:16,h:16,c:'circle'}
       ],
       large_temple:[
         {s:2,x:643,y:376,w:16,h:16,c:'rect'},
-        {s:2,x:663,y:376,w:16,h:16,c:'rect'},
+        {s:2,x:663,y:376,w:16,h:16,c:'rect',tt:'Piety'},
         {s:2,x:643,y:399,w:16,h:16,c:'rect'},
-        {s:2,x:663,y:399,w:16,h:16,c:'rect'},
+        {s:2,x:663,y:399,w:16,h:16,c:'rect',tt:'Piety'},
         {s:2,x:643,y:422,w:16,h:16,c:'rect'},
-        {s:2,x:663,y:422,w:16,h:16,c:'rect'},
-        {s:2,x:691,y:422,w:16,h:16,c:'circled circledashed'}
+        {s:2,x:663,y:422,w:16,h:16,c:'rect',tt:'Piety'},
+        {s:2,x:691,y:422,w:16,h:16,c:'circled circledashed',tt:'Favor'}
       ],
       large_temple_favor:[
         {s:2,x:691,y:422,w:16,h:16,c:'circle'}
