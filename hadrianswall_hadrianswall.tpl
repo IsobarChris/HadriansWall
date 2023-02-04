@@ -198,7 +198,7 @@
 <script type="text/javascript">
 
 // Javascript HTML templates
-var jstpl_scratch='<div id="${id}" class="clickable outlined ${c}" style="position:absolute;left:${x}px;top:${y}px;width:${w}px;height:${h}px;">${value}</div>';
+var jstpl_scratch='<div id="${id}" class="tooltip clickable outlined ${c}" style="position:absolute;left:${x}px;top:${y}px;width:${w}px;height:${h}px;">${value}<span class="${ttc}">${tt}</span></div>';
 
 
 </script>  
