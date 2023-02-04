@@ -1063,8 +1063,8 @@ let scratch_data = {
         {s:1,x:658,y:317,w:17,h:16,c:'rect'}
       ],
       renown:[
-        {s:1,x:87,y:530,w:16,h:17,c:'rect'},
-        {s:1,x:107,y:530,w:16,h:17,c:'rect'},
+        {s:1,x:88.5,y:530.5,w:16,h:17,c:'rect',tt:"+ Citizen"},
+        {s:1,x:107.5,y:530,w:16,h:17,c:'rect'},
         {s:1,x:126,y:530,w:16,h:17,c:'rect'},
         {s:1,x:145,y:530,w:16,h:17,c:'rect'},
         {s:1,x:164,y:530,w:16,h:17,c:'rect'},
@@ -1428,10 +1428,10 @@ let scratch_data = {
         //{s:1,x:385,y:380,w:190,h:80,c:'donext'},  // Roads
         //{s:1,x:385+195,y:380,w:155,h:80,c:'donext'},  // Forum
 
-        {s:2,x:360,y: 10,w:380,h:125,c:'closed'}, // market
-        {s:2,x:190,y:145,w:550,h:160,c:'closed'}, // theatre & gladiators
+        //{s:2,x:360,y: 10,w:380,h:125,c:'closed'}, // market
+        //{s:2,x:190,y:145,w:550,h:160,c:'closed'}, // theatre & gladiators
         //{s:2,x:190,y:372,w:550,h: 75,c:'closed'}, // temples
-        {s:2,x:190,y:580,w:550,h:160,c:'closed'}  // diplomats & scouts
+        //{s:2,x:190,y:580,w:550,h:160,c:'closed'}  // diplomats & scouts
       ],
 
 }

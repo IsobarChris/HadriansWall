@@ -327,7 +327,7 @@ dojo.hasClass
     margin: -31px; 
     margin-left:-53px; 
     scale: 0.5; 
-    transform: scale(0.5);
+    transform: scale(1.0);
     z-index: 1; 
     position: relative; 
     
@@ -419,7 +419,7 @@ dojo.hasClass
 .op_r_pick_round_5 { left: 305px; }
 .op_r_pick_round_6 { left: 549px; }
 
-/* Pict Card sprites */
+/* Fate Card sprites */
 
 .fate_card_1 { background-position:      0px     0px;}
 .fate_card_2 { background-position:   -221px     0px;}
@@ -553,6 +553,7 @@ dojo.hasClass
 
 .rect {
     background-color: #9997;
+    border: 1px solid black;
     margin:0px; 
 }
 .outlined { 
@@ -613,7 +614,7 @@ dojo.hasClass
     margin-left: -1px;
     margin-top: -1px;
     background-color: #ff00;
-    border: 1px solid transparent;
+    border: 1px solid #ff0;
     animation: valid 1.0s infinite alternate;  
     transition: border 1.0s linear, box-shadow 1.0s linear;
 }

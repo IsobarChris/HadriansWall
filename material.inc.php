@@ -1001,7 +1001,7 @@ $this->section_data = [
     ],
     'cippi'=>[
     ['lockedBy'=>['fort'=>1],'cost'=>['bricks'=>1],'id'=>'cippi_1'],
-    ['lockedBy'=>['fort'=>2],'cost'=>['bricks'=>1],'id'=>'cippi_2'],
+    ['lockedBy'=>['fort'=>4],'cost'=>['bricks'=>1],'id'=>'cippi_2'],
     ['lockedBy'=>['fort'=>7],'cost'=>['bricks'=>1],'reward'=>['cohort'],'id'=>'cippi_3'],
     ['lockedBy'=>['fort'=>10],'cost'=>['bricks'=>1],'reward'=>['civilians'],'id'=>'cippi_4'],
     ['lockedBy'=>['fort'=>13],'cost'=>['bricks'=>1],'reward'=>['cohort'],'id'=>'cippi_5'],
