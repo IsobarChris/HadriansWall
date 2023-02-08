@@ -38,7 +38,7 @@ $gameinfos = array(
 
 
 // Players configuration that can be played (ex: 2 to 4 players)
-'players' => array( 1,2, 3 ),    
+'players' => array( 1, 2, 3 ),    
 
 // Suggest players to play with this number of players. Must be null if there is no such advice, or if there is only one possible player configuration.
 'suggest_player_number' => null,
@@ -131,9 +131,11 @@ $gameinfos = array(
 // Each paragraph must be wrapped with totranslate() for translation and should not contain html (plain text without formatting).
 // A good length for this text is between 100 and 150 words (about 6 to 9 lines on a standard display)
 'presentation' => array(
-//    totranslate("This wonderful game is about geometric shapes!"),
-//    totranslate("It was awarded best triangle game of the year in 2005 and nominated for the Spiel des Jahres."),
-//    ...
+    totranslate("When visiting the North of Britiannia in 122 AD, the Roman Emeror Hadrian Augustus witnessed the aftermath of war between his armies and the savage Picts."),
+    totranslate("In a show of Roman might, he ordered a wal to be built that would separate the Pict tribes from the rest of England. Grand in its design, the wall streteched 80 Roman miles from coast to coast."),
+    totranslate("In Hadrian's Wall, players take on the role of a Roman General placed in charge of constracting a milecastle and bordering wall.  Over 6 years (rounds), players will construct their fort and wall, " . 
+      "man the defenses, and attract civilians by building services and providing entertainment - all while defending the honor of the Roman eMpire from the waring Picts."),
+    totranslate("The player that can accumulate the most Renown, Piety, Vlour and Discipline whilst avoiding Disdain, will prove to the Emperor they are the model Roman citizen and be crowned Legatus Legionis!")
 ),
 
 // Games categories
