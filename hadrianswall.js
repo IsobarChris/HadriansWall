@@ -1232,6 +1232,9 @@ let scratch_data = {
         {s:2,x:306,y:41,w:44,h:16,c:'rect',tt:'Discipline,Production,Bricks'},
         {s:2,x:306,y:63,w:44,h:16,c:'rect',tt:'Renown,Production,Bricks'}
       ],
+      market:[
+        {s:2,x:479,y:17,w:16,h:16,c:'rect',tt:'Renown'}
+      ],
       gardens:[
         {s:2,x:424,y:317,w:66,h:16,c:'rect',tt:'Piety,Trader,Performer,Priest'},
         {s:2,x:624,y:317,w:100,h:16,c:'rect',tt:'Piety,Trader,Performer,Priest,Apparitor,Patrician'}

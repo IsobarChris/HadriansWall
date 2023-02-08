@@ -1227,6 +1227,9 @@ $this->section_data = [
     ['lockedBy'=>['traders'=>4],'cost'=>['servants'=>1,'civilians'=>2],'reward'=>['discipline','production','bricks'],'id'=>'precinct_2'],
     ['lockedBy'=>['traders'=>6],'cost'=>['servants'=>1,'civilians'=>3],'reward'=>['renown','production','bricks'],'id'=>'precinct_3'],
     ],
+    'market'=>[
+    ['lockedBy'=>['traders'=>4],'cost'=>['servants'=>1,'builders'=>1,'bricks'=>2],'reward'=>['renown'],'id'=>'market_1'],
+    ],
     'gardens'=>[
     ['lockedBy'=>['priests'=>4],'cost'=>['servants'=>1,'builders'=>1,'bricks'=>1],'reward'=>['piety','trader','performer','priest'],'id'=>'gardens_1'],
     ['lockedBy'=>['priests'=>7],'cost'=>['servants'=>1,'builders'=>1,'bricks'=>2],'reward'=>['piety','trader','performer','priest','apparitor','patrician'],'id'=>'gardens_2'],
